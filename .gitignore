@@ -4,6 +4,7 @@
 *.dll
 *.so
 *.dylib
+demo
 
 # Build output
 /bin/
