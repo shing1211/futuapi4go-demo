@@ -93,7 +93,7 @@ func trdSideName(s int32) string {
 
 func must(err error) {
 	if err != nil {
-		red(fmt.Sprintf("  ERROR: %v\n", err))
+		yellow(fmt.Sprintf("  WARNING: %v (continuing anyway)\n", err))
 	}
 }
 
