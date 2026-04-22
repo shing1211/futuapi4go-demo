@@ -123,27 +123,7 @@ Priority: load from env vars first, then config file, then hardcoded defaults.
 
 ---
 
-### 6. Simulator Detection — Skip Trading Automatically
-**Priority:** P1 | **Status:** `todo`
-
-In `demoTrading`, detect whether connected to the simulator vs. a real
-OpenD with trading accounts. Skip the entire section gracefully if no
-real accounts are available:
-
-```go
-// After GetAccList, check if any account has TrdEnv == 1 (real)
-if realAccID == 0 {
-    yellow("  No real trading account — skipping trading section.\n")
-    return
-}
-```
-
-This is partially implemented but should be more prominent and skip
-the entire section instead of just specific calls.
-
----
-
-### 7. Auto-Detect OpenD Port
+### 6. Auto-Detect OpenD Port
 **Priority:** P3 | **Status:** `todo`
 
 Try common OpenD ports in sequence instead of requiring the user to
@@ -160,6 +140,26 @@ for _, port := range ports {
 ```
 
 Show a clear error listing all ports tried.
+
+---
+
+### 7. Simulator Detection — Skip Trading Automatically
+**Priority:** P1 | **Status:** `todo`
+
+Detect whether connected to the simulator vs. a real OpenD with trading
+accounts. Skip the entire trading section gracefully if no real accounts
+are available:
+
+```go
+// After GetAccList, check if any account has TrdEnv == 1 (real)
+if realAccID == 0 {
+    yellow("  No real trading account — skipping trading section.\n")
+    return
+}
+```
+
+This is partially implemented but should be more prominent and skip
+the entire section instead of just specific calls.
 
 ---
 
@@ -285,28 +285,6 @@ if chgRate > 0 {
 
 ---
 
-### 15. Colored Price Change Output
-**Priority:** P3 | **Status:** `todo`
-
-In `demoMarketData`, color-code price changes instead of showing raw
-numbers:
-
-```go
-chgRate := (q.CurPrice - q.LastClosePrice) / q.LastClosePrice * 100
-if chgRate > 0 {
-    green(fmt.Sprintf("+%.2f%%", chgRate))
-} else if chgRate < 0 {
-    red(fmt.Sprintf("%.2f%%", chgRate))
-} else {
-    fmt.Print(" 0.00%")
-}
-```
-
-> Note: Item 15 was a duplicate of item 13 in the original suggestion list.
-> This entry tracks adding colored terminal output for price changes.
-
----
-
 ## Progress Summary
 
 | # | Item | Priority | Status |
@@ -316,8 +294,8 @@ if chgRate > 0 {
 | 3 | Graceful shutdown | P2 | `todo` |
 | 4 | Env-var config for demo securities | P2 | `todo` |
 | 5 | Config file support | P2 | `todo` |
-| 6 | Simulator detection — skip trading | P1 | `todo` |
-| 7 | Auto-detect OpenD port | P3 | `todo` |
+| 6 | Auto-detect OpenD port | P3 | `todo` |
+| 7 | Simulator detection — skip trading | P1 | `todo` |
 | 8 | Table-formatted output | P2 | `todo` |
 | 9 | JSON export option | P3 | `todo` |
 | 10 | Parallel API calls | P3 | `todo` |
@@ -330,4 +308,4 @@ if chgRate > 0 {
 **P1 items:** 3 open
 **P2 items:** 8 open
 **P3 items:** 3 open
-**Done:** 0
+**Total:** 14 items | **Done:** 0
