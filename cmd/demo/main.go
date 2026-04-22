@@ -348,7 +348,7 @@ func demoMarketAnalysis(cli *client.Client) {
 	must(err)
 	for _, p := range opResp.OwnerPlateList {
 		for _, plate := range p.GetPlateInfoList() {
-			fmt.Printf("  %s [%s]\n", plate.GetName(), plate.GetPlateType())
+			fmt.Printf("  %s [%d]\n", plate.GetName(), plate.GetPlateType())
 		}
 	}
 
@@ -386,7 +386,7 @@ func demoMarketAnalysis(cli *client.Client) {
 	must(err)
 	for _, fi := range fiResp.FutureInfoList {
 		fmt.Printf("  Name:         %s\n", fi.Name)
-		fmt.Printf("  Contract:     %s %s\n", fi.ContractSize, fi.ContractSizeUnit)
+		fmt.Printf("  Contract:     %.0f %s\n", fi.ContractSize, fi.ContractSizeUnit)
 		fmt.Printf("  Quote Unit:   %s\n", fi.QuoteUnit)
 		fmt.Printf("  Min Var:      %s\n", fi.MinVarUnit)
 	}
@@ -867,13 +867,13 @@ func demoUserGroupsAlerts(cli *client.Client) {
 		fmt.Printf("\n  [GetUserSecurity] Securities in '%s':\n", grpName)
 		secResp, err := qot.GetUserSecurity(cli.Inner(), grpName)
 		must(err)
-	for i, s := range secResp.StaticInfoList {
-		if i >= 5 {
-			break
+		for i, s := range secResp.StaticInfoList {
+			if i >= 5 {
+				break
+			}
+			basic := s.GetBasic()
+			fmt.Printf("  %s  name=%s\n", basic.GetSecurity().GetCode(), basic.GetName())
 		}
-		basic := s.GetBasic()
-		fmt.Printf("  %s  name=%s\n", basic.GetSecurity().GetCode(), basic.GetName())
-	}
 	}
 
 	fmt.Println("\n  [ModifyUserSecurity] Skipped in demo (requires existing group).")
@@ -924,7 +924,7 @@ func demoPushSubscriptions(cli *client.Client) {
 
 	fmt.Println("\n  Subscribing to HK.00700 and US.AAPL...")
 	fmt.Println("  Watching for BasicQot, KL (1min), OrderBook, Ticker updates...")
-	fmt.Println("  Press Ctrl+C to stop.\n")
+	fmt.Println("  Press Ctrl+C to stop.")
 
 	cli.RegisterHandler(client.ProtoID_Qot_UpdateBasicQot, func(protoID uint32, body []byte) {
 		q, err := client.ParsePushQuote(body)
@@ -1102,5 +1102,5 @@ func runAll(cli *client.Client) {
 	bold("███████████████████████████████████████████████████████████████████\n")
 	bold("█               ALL DEMOS COMPLETE                                  █\n")
 	bold("███████████████████████████████████████████████████████████████████\n")
-	fmt.Println("\nFor live push demo, run option 10 separately.\n")
+	fmt.Println("\nFor live push demo, run option 10 separately.")
 }
