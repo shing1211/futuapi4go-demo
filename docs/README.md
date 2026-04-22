@@ -121,21 +121,50 @@ FUTU_ADDR=192.168.1.100:11111 go run main.go
 
 ```
 futuapi4go-demo/
-├── main.go              # All demos, menu-driven
-├── go.mod               # Module definition
-├── go.sum               # Dependency checksums
-├── .gitignore           # Git ignore rules
-├── LICENSE              # Apache 2.0
-├── README.md            # This file
-├── CONTRIBUTING.md      # Contribution guidelines
-├── CODE_OF_CONDUCT.md   # Community standards
-├── SECURITY.md          # Security policy
-├── CHANGELOG.md         # Release history
-└── .github/
-    ├── ISSUE_TEMPLATE/
-    │   ├── bug_report.md
-    │   └── feature_request.md
-    └── PULL_REQUEST_TEMPLATE.md
+├── cmd/
+│   └── demo/
+│       └── main.go          # All demos, menu-driven
+├── docs/                     # Documentation
+│   ├── README.md             # This file
+│   ├── LICENSE               # Apache 2.0
+│   ├── CONTRIBUTING.md      # Contribution guidelines
+│   ├── CODE_OF_CONDUCT.md    # Community standards
+│   ├── SECURITY.md          # Security policy
+│   ├── CHANGELOG.md         # Release history
+│   └── FUTU_PROTO_REF.md    # Proto API reference
+├── scripts/                  # Build scripts
+│   ├── build.bat            # Windows build
+│   ├── build.sh            # Linux/macOS build
+│   ├── clean.bat           # Windows clean
+│   ├── clean.sh           # Linux/macOS clean
+│   ├── upgrade.bat         # Windows upgrade dependencies
+│   └── upgrade.sh         # Linux/macOS upgrade
+├── .github/                 # GitHub config
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── PULL_REQUEST_TEMPLATE.md
+├── AGENTS.md               # AI agent instructions
+├── go.mod                  # Module definition
+└── go.sum                  # Dependency checksums
+```
+
+## Quick Start
+
+```bash
+# Build
+scripts\build.bat           # Windows
+./scripts/build.sh         # Linux/macOS
+
+# Run
+go run cmd/demo/main.go
+
+# Or run the built binary
+cmd\demo\futuapi4go-demo.exe   # Windows
+./cmd/demo/futuapi4go-demo        # Linux/macOS
+
+# With custom OpenD address
+FUTU_ADDR=192.168.1.100:11111 go run cmd/demo/main.go
 ```
 
 ## Requirements
