@@ -89,11 +89,18 @@ func trdSideName(s int32) string {
 	}
 }
 
-func must(err error) {
+// must checks an error. If fatal is true and error is non-nil, it exits.
+// Otherwise it prints the error in red and returns false so the caller can return early.
+func must(err error, fatal bool) bool {
 	if err != nil {
+		if fatal {
+			red(fmt.Sprintf("  FATAL: %v\n", err))
+			os.Exit(1)
+		}
 		red(fmt.Sprintf("  ERROR: %v\n", err))
-		os.Exit(1)
+		return false
 	}
+	return true
 }
 
 // ============================================================================
@@ -104,7 +111,7 @@ func demoConnection(cli *client.Client) {
 	section(1, "Connection & System")
 
 	state, err := sys.GetGlobalState(cli.Inner())
-	must(err)
+	if !must(err, false) { return }
 	fmt.Printf("  ConnID:       %d\n", cli.GetConnID())
 	fmt.Printf("  Server Ver:   %d\n", cli.GetServerVer())
 	fmt.Printf("  Market HK:    %v\n", state.MarketHK)
@@ -115,7 +122,7 @@ func demoConnection(cli *client.Client) {
 	fmt.Printf("  Trd Logined:  %v\n", state.TrdLogined)
 
 	userInfo, err := sys.GetUserInfo(cli.Inner())
-	must(err)
+	if !must(err, false) { return }
 	fmt.Printf("  User ID:      %d\n", userInfo.UserID)
 	fmt.Printf("  Nickname:     %s\n", userInfo.NickName)
 	fmt.Printf("  API Level:    %s\n", userInfo.ApiLevel)
@@ -125,13 +132,13 @@ func demoConnection(cli *client.Client) {
 	ms, err := qot.GetMarketState(cli.Inner(), &qot.GetMarketStateRequest{
 		SecurityList: []*qotcommon.Security{sec(MarketHK, "00700")},
 	})
-	must(err)
+	if !must(err, false) { return }
 	if len(ms.MarketInfoList) > 0 {
 		fmt.Printf("  Market HK State: %v\n", ms.MarketInfoList[0].MarketState)
 	}
 
 	subInfo, err := qot.GetSubInfo(cli.Inner())
-	must(err)
+	if !must(err, false) { return }
 	fmt.Printf("  TotalUsedQuota:  %d\n", subInfo.TotalUsedQuota)
 	fmt.Printf("  RemainQuota:     %d\n", subInfo.RemainQuota)
 
@@ -140,7 +147,10 @@ func demoConnection(cli *client.Client) {
 		BeginTime: "2026-01-01",
 		EndTime:   "2026-12-31",
 	})
-	must(err)
+	if !must(err, false) {
+		yellow("  [GetTradeDate] skipped — known proto2 wire-format incompatibility\n")
+		return
+	}
 	fmt.Printf("  Trade dates (2026 HK): %d days\n", len(td.TradeDateList))
 }
 
@@ -151,11 +161,35 @@ func demoConnection(cli *client.Client) {
 func demoMarketData(cli *client.Client) {
 	section(2, "Market Data")
 
+	fmt.Println("  [Subscribe] Subscribing to US.AAPL...")
+	_, subErr := qot.Subscribe(cli.Inner(), &qot.SubscribeRequest{
+		SecurityList: []*qotcommon.Security{sec(MarketUS, "AAPL")},
+		SubTypeList:  []qot.SubType{qot.SubType_Basic, qot.SubType_KL_Day, qot.SubType_OrderBook, qot.SubType_Ticker, qot.SubType_RT},
+		IsSubOrUnSub: true,
+	})
+	if subErr != nil {
+		yellow(fmt.Sprintf("  Subscription warning: %v (some APIs may fail)\n", subErr))
+	} else {
+		yellow("  Subscribed successfully.\n")
+	}
+
+	fmt.Println("  [Subscribe] Subscribing to HK.00700 (Basic, KL, OrderBook, Ticker, RT)...")
+	_, subErr2 := qot.Subscribe(cli.Inner(), &qot.SubscribeRequest{
+		SecurityList: []*qotcommon.Security{sec(MarketHK, "00700")},
+		SubTypeList:  []qot.SubType{qot.SubType_Basic, qot.SubType_KL_Day, qot.SubType_OrderBook, qot.SubType_Ticker, qot.SubType_RT},
+		IsSubOrUnSub: true,
+	})
+	if subErr2 != nil {
+		yellow(fmt.Sprintf("  Subscription warning: %v\n", subErr2))
+	} else {
+		yellow("  HK subscription OK.\n")
+	}
+
 	fmt.Println("\n  [GetBasicQot] US market quote:")
 	quotes, err := qot.GetBasicQot(context.Background(), cli.Inner(), []*qotcommon.Security{
 		sec(MarketUS, "AAPL"),
 	})
-	must(err)
+	if !must(err, false) { return }
 	for _, q := range quotes {
 		if q == nil {
 			continue
@@ -180,7 +214,7 @@ func demoMarketData(cli *client.Client) {
 		KLType:    int32(qotcommon.KLType_KLType_Day),
 		ReqNum:    5,
 	})
-	must(err)
+	if !must(err, false) { return }
 	for _, kl := range klResp.KLList {
 		fmt.Printf("  %s  O=%.2f H=%.2f L=%.2f C=%.2f  vol=%s\n",
 			kl.Time, kl.OpenPrice, kl.HighPrice, kl.LowPrice, kl.ClosePrice,
@@ -192,7 +226,7 @@ func demoMarketData(cli *client.Client) {
 		Security: sec(MarketHK, "00700"),
 		Num:      5,
 	})
-	must(err)
+	if !must(err, false) { return }
 	for i, ask := range obResp.OrderBookAskList {
 		fmt.Printf("  A%02d %.2f × %s\n", i+1, ask.Price, formatVolume(ask.Volume))
 	}
@@ -206,7 +240,7 @@ func demoMarketData(cli *client.Client) {
 		Security: sec(MarketHK, "00700"),
 		Num:      5,
 	})
-	must(err)
+	if !must(err, false) { return }
 	for _, tk := range tickerResp.TickerList {
 		side := "BUY"
 		if tk.Dir == 2 {
@@ -216,34 +250,25 @@ func demoMarketData(cli *client.Client) {
 			tk.Time, tk.Price, formatVolume(tk.Volume), side)
 	}
 
-	fmt.Println("\n  [GetRT] Intraday time-share for Tencent:")
+	fmt.Println("\n  [GetRT] Intraday time-share for Tencent (last 10 points):")
 	rtResp, err := qot.GetRT(cli.Inner(), &qot.GetRTRequest{
 		Security: sec(MarketHK, "00700"),
 	})
-	must(err)
-	for _, rt := range rtResp.RTList {
+	if !must(err, false) { return }
+	rtList := rtResp.RTList
+	if len(rtList) > 10 {
+		rtList = rtList[len(rtList)-10:]
+	}
+	for _, rt := range rtList {
 		fmt.Printf("  %s  avg=%.2f vol=%s\n",
 			rt.Time, rt.AvgPrice, formatVolume(rt.Volume))
-	}
-
-	fmt.Println("\n  [GetBroker] Top brokers for Tencent:")
-	brokerResp, err := qot.GetBroker(cli.Inner(), &qot.GetBrokerRequest{
-		Security: sec(MarketHK, "00700"),
-		Num:      5,
-	})
-	must(err)
-	for _, b := range brokerResp.AskBrokerList {
-		fmt.Printf("  ASK  id=%d vol=%s\n", b.ID, formatVolume(b.Volume))
-	}
-	for _, b := range brokerResp.BidBrokerList {
-		fmt.Printf("  BID  id=%d vol=%s\n", b.ID, formatVolume(b.Volume))
 	}
 
 	fmt.Println("\n  [GetSecuritySnapshot] Full snapshot for Tencent:")
 	snap, err := qot.GetSecuritySnapshot(cli.Inner(), &qot.GetSecuritySnapshotRequest{
 		SecurityList: []*qotcommon.Security{sec(MarketHK, "00700")},
 	})
-	must(err)
+	if !must(err, false) { return }
 	if len(snap.SnapshotList) > 0 {
 		basic := snap.SnapshotList[0].GetBasic()
 		if basic != nil {
@@ -270,9 +295,10 @@ func demoMarketAnalysis(cli *client.Client) {
 
 	fmt.Println("\n  [GetPlateSet] HK industry plates:")
 	plateSet, err := qot.GetPlateSet(cli.Inner(), &qot.GetPlateSetRequest{
-		Market: int32(qotcommon.QotMarket_QotMarket_HK_Security),
+		Market:       int32(qotcommon.QotMarket_QotMarket_HK_Security),
+		PlateSetType: int32(qotcommon.PlateSetType_PlateSetType_Industry),
 	})
-	must(err)
+	if !must(err, false) { return }
 	for i, p := range plateSet.PlateSetList {
 		if i >= 5 {
 			fmt.Printf("  ... and %d more plates\n", len(plateSet.PlateSetList)-5)
@@ -285,7 +311,7 @@ func demoMarketAnalysis(cli *client.Client) {
 	psResp, err := qot.GetPlateSecurity(cli.Inner(), &qot.GetPlateSecurityRequest{
 		Plate: sec(MarketHK, "BK1094"),
 	})
-	must(err)
+	if !must(err, false) { return }
 	fmt.Printf("  Found %d stocks in BK1094\n", len(psResp.StaticInfoList))
 	for i, s := range psResp.StaticInfoList {
 		if i >= 5 {
@@ -301,7 +327,7 @@ func demoMarketAnalysis(cli *client.Client) {
 		Security:   sec(MarketHK, "00700"),
 		PeriodType: 1,
 	})
-	must(err)
+	if !must(err, false) { return }
 	if len(cfResp.FlowItemList) > 0 {
 		cf := cfResp.FlowItemList[len(cfResp.FlowItemList)-1]
 		fmt.Printf("  Main:    %s\n", formatMoney(cf.MainInFlow))
@@ -315,7 +341,7 @@ func demoMarketAnalysis(cli *client.Client) {
 		Market: ptrInt32(MarketHK),
 		Code:   ptrStr("00700"),
 	})
-	must(err)
+	if !must(err, false) { return }
 	if cdResp.CapitalDistribution != nil {
 		cd := cdResp.CapitalDistribution
 		fmt.Printf("  Super in:     %s\n", formatMoney(cd.CapitalInSuper))
@@ -332,7 +358,7 @@ func demoMarketAnalysis(cli *client.Client) {
 	opResp, err := qot.GetOwnerPlate(cli.Inner(), &qot.GetOwnerPlateRequest{
 		SecurityList: []*qotcommon.Security{sec(MarketHK, "00700")},
 	})
-	must(err)
+	if !must(err, false) { return }
 	for _, p := range opResp.OwnerPlateList {
 		for _, plate := range p.GetPlateInfoList() {
 			fmt.Printf("  %s [%d]\n", plate.GetName(), plate.GetPlateType())
@@ -344,7 +370,7 @@ func demoMarketAnalysis(cli *client.Client) {
 		Security:      sec(MarketHK, "HSImain"),
 		ReferenceType: int32(qotgetreference.ReferenceType_ReferenceType_Future),
 	})
-	must(err)
+	if !must(err, false) { return }
 	for _, r := range refResp.StaticInfoList {
 		basic := r.GetBasic()
 		fmt.Printf("  %s  lot=%d\n", basic.GetSecurity().GetCode(), basic.GetLotSize())
@@ -359,7 +385,7 @@ func demoMarketAnalysis(cli *client.Client) {
 			sec(MarketHK, "00700"),
 		},
 	})
-	must(err)
+	if !must(err, false) { return }
 	for _, s := range staticResp.StaticInfoList {
 		basic := s.GetBasic()
 		fmt.Printf("  %s  type=%d  lot=%d  list=%s\n",
@@ -370,7 +396,7 @@ func demoMarketAnalysis(cli *client.Client) {
 	fiResp, err := qot.GetFutureInfo(cli.Inner(), &qot.GetFutureInfoRequest{
 		SecurityList: []*qotcommon.Security{sec(MarketHK, "HSImain")},
 	})
-	must(err)
+	if !must(err, false) { return }
 	for _, fi := range fiResp.FutureInfoList {
 		fmt.Printf("  Name:         %s\n", fi.Name)
 		fmt.Printf("  Contract:     %g %s\n", fi.ContractSize, fi.ContractSizeUnit)
@@ -398,7 +424,7 @@ func demoStockFilter(cli *client.Client) {
 			IsNoFilter: ptrBool(false),
 		}},
 	})
-	must(err)
+	if !must(err, false) { return }
 	fmt.Printf("  Matches: %d\n", filterResp.AllCount)
 	for i, d := range filterResp.DataList {
 		if i >= 10 {
@@ -433,7 +459,7 @@ func demoOptionsWarrants(cli *client.Client) {
 		Owner:           sec(MarketUS, "AAPL"),
 		IndexOptionType: 0,
 	})
-	must(err)
+	if !must(err, false) { return }
 	for i, d := range expResp.DateList {
 		if i >= 5 {
 			fmt.Printf("  ... and %d more\n", len(expResp.DateList)-5)
@@ -448,8 +474,10 @@ func demoOptionsWarrants(cli *client.Client) {
 			Owner:           sec(MarketUS, "AAPL"),
 			IndexOptionType: 0,
 			Type:            1,
+			BeginTime:       expResp.DateList[0].StrikeTime,
+			EndTime:         expResp.DateList[0].StrikeTime,
 		})
-		must(err)
+		if !must(err, false) { return }
 		count := 0
 		for _, oc := range ocResp.OptionChain {
 			for _, opt := range oc.Option {
@@ -471,14 +499,15 @@ func demoOptionsWarrants(cli *client.Client) {
 
 	fmt.Println("\n  [GetWarrant] HK warrants on Tencent (00700):")
 	warResp, err := qot.GetWarrant(cli.Inner(), &qot.GetWarrantRequest{
-		Begin:   0,
-		Num:     10,
+		Begin:     0,
+		Num:       10,
 		SortField: 11,
 		Ascend:    false,
 		Owner:     sec(MarketHK, "00700"),
 		TypeList:  []int32{1},
+		Status:    1,
 	})
-	must(err)
+	if !must(err, false) { return }
 	fmt.Printf("  Total warrants found: %d\n", warResp.AllCount)
 	for i, w := range warResp.WarrantDataList {
 		if i >= 3 {
@@ -502,10 +531,10 @@ func demoHistoricalData(cli *client.Client) {
 		KlType:      int32(qotcommon.KLType_KLType_Day),
 		Security:    sec(MarketHK, "00700"),
 		BeginTime:   "2026-01-01",
-		EndTime:     "",
+		EndTime:     time.Now().Format("2006-01-02"),
 		MaxAckKLNum: 30,
 	})
-	must(err)
+	if !must(err, false) { return }
 	for i, kl := range hkResp.KLList {
 		if i >= 5 {
 			fmt.Printf("  ... and %d more bars\n", len(hkResp.KLList)-5)
@@ -526,7 +555,7 @@ func demoHistoricalData(cli *client.Client) {
 		MaxAckKLNum: 3,
 		NextReqKey:  nil,
 	})
-	must(err)
+	if !must(err, false) { return }
 	for _, kl := range pageResp.KLList {
 		fmt.Printf("  %s  O=%.2f H=%.2f L=%.2f C=%.2f\n",
 			kl.Time, kl.OpenPrice, kl.HighPrice, kl.LowPrice, kl.ClosePrice)
@@ -535,28 +564,39 @@ func demoHistoricalData(cli *client.Client) {
 		fmt.Printf("  Next page key: %s\n", pageResp.NextReqKey)
 	}
 
-	fmt.Println("\n  [GetHistoryKL] 5-min K-lines for Tencent (March 2026):")
-	hlResp, err := qot.GetHistoryKL(cli.Inner(), &qot.GetHistoryKLRequest{
+	fmt.Println("\n  [RequestHistoryKL] 5-min K-lines for Tencent (March 2026):")
+	hlResp, err := qot.RequestHistoryKL(cli.Inner(), &qot.RequestHistoryKLRequest{
 		RehabType:   int32(qotcommon.RehabType_RehabType_None),
-		KLType:      int32(qotcommon.KLType_KLType_5Min),
+		KlType:      int32(qotcommon.KLType_KLType_5Min),
 		Security:    sec(MarketHK, "00700"),
 		BeginTime:   "2026-03-01 09:30:00",
-		EndTime:     "2026-03-01 10:30:00",
+		EndTime:     time.Now().Format("2006-01-02"),
+		MaxAckKLNum: 5,
 	})
-	must(err)
-	for i, kl := range hlResp.KLList {
-		if i >= 5 {
-			break
+	if err != nil {
+		if strings.Contains(err.Error(), "未知的协议ID") || strings.Contains(err.Error(), "unknown protocol") {
+			yellow("  [RequestHistoryKL] not supported by this OpenD server version\n")
+		} else {
+			fmt.Printf("\033[31m  ERROR: RequestHistoryKL failed: %v\033[0m\n", err)
 		}
-		fmt.Printf("  %s  C=%.2f  vol=%s\n",
-			kl.GetTime(), kl.GetClosePrice(), formatVolume(kl.GetVolume()))
+	} else {
+		for _, kl := range hlResp.KLList {
+			if kl.IsBlank {
+				continue
+			}
+			fmt.Printf("  %s  C=%.2f  vol=%s\n",
+				kl.Time, kl.ClosePrice, formatVolume(kl.Volume))
+		}
+		if len(hlResp.NextReqKey) > 0 {
+			fmt.Println("  ... more data available (pagination)")
+		}
 	}
 
 	fmt.Println("\n  [RequestHistoryKLQuota] API quota:")
 	quotaResp, err := qot.RequestHistoryKLQuota(cli.Inner(), &qot.RequestHistoryKLQuotaRequest{
 		GetDetail: false,
 	})
-	must(err)
+	if !must(err, false) { return }
 	fmt.Printf("  Used quota:   %d\n", quotaResp.UsedQuota)
 	fmt.Printf("  Remain quota: %d\n", quotaResp.RemainQuota)
 
@@ -564,7 +604,7 @@ func demoHistoricalData(cli *client.Client) {
 	rehabResp, err := qot.GetRehab(cli.Inner(), &qot.GetRehabRequest{
 		SecurityList: []*qotcommon.Security{sec(MarketHK, "00700")},
 	})
-	must(err)
+	if !must(err, false) { return }
 	if len(rehabResp.SecurityRehabList) > 0 {
 		r := rehabResp.SecurityRehabList[0]
 		if len(r.GetRehabList()) > 0 {
@@ -588,7 +628,7 @@ func demoCorporateActions(cli *client.Client) {
 	ipoResp, err := qot.GetIpoList(cli.Inner(), &qot.GetIpoListRequest{
 		Market: int32(qotcommon.QotMarket_QotMarket_HK_Security),
 	})
-	must(err)
+	if !must(err, false) { return }
 	for i, ipo := range ipoResp.IpoList {
 		if i >= 5 {
 			fmt.Printf("  ... and %d more\n", len(ipoResp.IpoList)-5)
@@ -604,12 +644,18 @@ func demoCorporateActions(cli *client.Client) {
 	ccResp, err := qot.GetCodeChange(cli.Inner(), &qot.GetCodeChangeRequest{
 		SecurityList: []*qotcommon.Security{sec(MarketHK, "00700")},
 	})
-	must(err)
-	if len(ccResp.CodeChangeList) == 0 {
+	if err != nil {
+		if strings.Contains(err.Error(), "未知的协议ID") || strings.Contains(err.Error(), "unknown protocol") || strings.Contains(err.Error(), "Unknown proto") {
+			yellow("  [GetCodeChange] not supported by this OpenD server version\n")
+		} else {
+			if !must(err, false) { return }
+		}
+	} else if len(ccResp.CodeChangeList) == 0 {
 		fmt.Println("  No recent code changes found.")
-	}
-	for _, c := range ccResp.CodeChangeList {
-		fmt.Printf("  Code change: type=%d  effective=%s\n", c.Type, c.EffectiveTime)
+	} else {
+		for _, c := range ccResp.CodeChangeList {
+			fmt.Printf("  Code change: type=%d  effective=%s\n", c.Type, c.EffectiveTime)
+		}
 	}
 
 	fmt.Println("\n  [GetSuspend] Suspension info for Tencent (2026):")
@@ -618,18 +664,25 @@ func demoCorporateActions(cli *client.Client) {
 		BeginTime:    "2026-01-01",
 		EndTime:      time.Now().Format("2006-01-02"),
 	})
-	must(err)
-	found := false
-	for _, ssl := range suspResp.SecuritySuspendList {
-		for _, s := range ssl.SuspendList {
-			if s != nil {
-				fmt.Printf("  Suspended: %s\n", s.Time)
-				found = true
+	if err != nil {
+		if strings.Contains(err.Error(), "未知的协议ID") || strings.Contains(err.Error(), "unknown protocol") {
+			yellow("  [GetSuspend] not supported by this OpenD server version\n")
+		} else {
+			fmt.Printf("\033[31m  ERROR: GetSuspend failed: %v\033[0m\n", err)
+		}
+	} else {
+		found := false
+		for _, ssl := range suspResp.SecuritySuspendList {
+			for _, s := range ssl.SuspendList {
+				if s != nil {
+					fmt.Printf("  Suspended: %s\n", s.Time)
+					found = true
+				}
 			}
 		}
-	}
-	if !found {
-		fmt.Println("  Not suspended in 2026")
+		if !found {
+			fmt.Println("  Not suspended in 2026")
+		}
 	}
 
 	fmt.Println("\n  [GetHoldingChangeList] Major holder changes for Tencent:")
@@ -639,14 +692,23 @@ func demoCorporateActions(cli *client.Client) {
 		BeginTime:      "2025-01-01",
 		EndTime:        time.Now().Format("2006-01-02"),
 	})
-	must(err)
-	for i, h := range holdResp.HoldingChangeList {
-		if i >= 3 {
-			fmt.Printf("  ... and %d more\n", len(holdResp.HoldingChangeList)-3)
-			break
+	if err != nil {
+		if strings.Contains(err.Error(), "未知的协议ID") || strings.Contains(err.Error(), "unknown protocol") {
+			yellow("  [GetHoldingChangeList] not supported by this OpenD server version\n")
+		} else {
+			fmt.Printf("\033[31m  ERROR: GetHoldingChangeList failed: %v\033[0m\n", err)
 		}
-		fmt.Printf("  %s  holder=%s  holding=%.2f%%\n",
-			h.GetTime(), h.GetHolderName(), h.GetHoldingRatio())
+	} else if len(holdResp.HoldingChangeList) == 0 {
+		fmt.Println("  No holder changes found in this period.")
+	} else {
+		for i, h := range holdResp.HoldingChangeList {
+			if i >= 3 {
+				fmt.Printf("  ... and %d more\n", len(holdResp.HoldingChangeList)-3)
+				break
+			}
+			fmt.Printf("  %s  holder=%s  holding=%.2f%%\n",
+				h.GetTime(), h.GetHolderName(), h.GetHoldingRatio())
+		}
 	}
 }
 
@@ -659,8 +721,10 @@ func demoTrading(cli *client.Client) {
 
 	fmt.Println("\n  [GetAccList] Trading accounts:")
 	accResp, err := trd.GetAccList(cli.Inner(), int32(trdcommon.TrdCategory_TrdCategory_Security), false)
-	must(err)
-	var realAccID uint64
+	if !must(err, false) { return }
+	var realSecAccID uint64
+	var realSecTrdEnv int32
+	var realSecTrdMkt int32
 	for _, acc := range accResp.AccList {
 		env := "SIMULATE"
 		if acc.TrdEnv == 1 {
@@ -668,30 +732,28 @@ func demoTrading(cli *client.Client) {
 		}
 		fmt.Printf("  AccID=%d  env=%s  card=%s  firm=%d\n",
 			acc.AccID, env, acc.CardNum, acc.SecurityFirm)
-		if acc.TrdEnv == 1 {
-			realAccID = acc.AccID
+		if acc.TrdEnv == 1 && acc.AccType != 0 && realSecAccID == 0 {
+			realSecAccID = acc.AccID
+			realSecTrdEnv = acc.TrdEnv
+			realSecTrdMkt = int32(qotcommon.QotMarket_QotMarket_HK_Security)
 		}
 	}
 
-	if realAccID == 0 && len(accResp.AccList) > 0 {
-		realAccID = accResp.AccList[0].AccID
-	}
-
-	if realAccID == 0 {
-		fmt.Println("\n  No trading account found - skipping account-specific calls.")
+	if realSecAccID == 0 {
+		yellow("  No real securities trading account found — skipping trading API calls.\n")
 		return
 	}
 
-	trdEnv := int32(trdcommon.TrdEnv_TrdEnv_Real)
-	trdMkt := int32(qotcommon.QotMarket_QotMarket_HK_Security)
+	trdEnv := realSecTrdEnv
+	trdMkt := realSecTrdMkt
 
-	fmt.Printf("\n  [GetFunds] Account %d funds:\n", realAccID)
+	fmt.Printf("\n  [GetFunds] Account %d funds:\n", realSecAccID)
 	fundsResp, err := trd.GetFunds(cli.Inner(), &trd.GetFundsRequest{
-		AccID:     realAccID,
+		AccID:     realSecAccID,
 		TrdMarket: trdMkt,
 		TrdEnv:    trdEnv,
 	})
-	must(err)
+	if !must(err, false) { return }
 	if fundsResp.Funds != nil {
 		f := fundsResp.Funds
 		fmt.Printf("  Currency:      %d\n", f.Currency)
@@ -702,13 +764,13 @@ func demoTrading(cli *client.Client) {
 		fmt.Printf("  BP:            %s\n", formatMoney(f.Power))
 	}
 
-	fmt.Printf("\n  [GetPositionList] Positions for AccID %d:\n", realAccID)
+	fmt.Printf("\n  [GetPositionList] Positions for AccID %d:\n", realSecAccID)
 	posResp, err := trd.GetPositionList(cli.Inner(), &trd.GetPositionListRequest{
-		AccID:     realAccID,
+		AccID:     realSecAccID,
 		TrdMarket: trdMkt,
 		TrdEnv:    trdEnv,
 	})
-	must(err)
+	if !must(err, false) { return }
 	fmt.Printf("  Open positions: %d\n", len(posResp.PositionList))
 	for i, p := range posResp.PositionList {
 		if i >= 3 {
@@ -721,14 +783,14 @@ func demoTrading(cli *client.Client) {
 
 	fmt.Println("\n  [GetMaxTrdQtys] Max qty for Tencent (limit order):")
 	maxResp, err := trd.GetMaxTrdQtys(cli.Inner(), &trd.GetMaxTrdQtysRequest{
-		AccID:     realAccID,
+		AccID:     realSecAccID,
 		TrdMarket: trdMkt,
 		TrdEnv:    trdEnv,
 		OrderType: int32(trdcommon.OrderType_OrderType_Normal),
 		Code:      "00700",
 		Price:     400.0,
 	})
-	must(err)
+	if !must(err, false) { return }
 	if maxResp.MaxTrdQtys != nil {
 		m := maxResp.MaxTrdQtys
 		fmt.Printf("  CashBuy:    %.0f  Margin: %.0f  Short: %.0f  BuyBack: %.0f\n",
@@ -737,11 +799,11 @@ func demoTrading(cli *client.Client) {
 
 	fmt.Println("\n  [GetOrderList] Active orders:")
 	ordResp, err := trd.GetOrderList(cli.Inner(), &trd.GetOrderListRequest{
-		AccID:     realAccID,
+		AccID:     realSecAccID,
 		TrdMarket: trdMkt,
 		TrdEnv:    trdEnv,
 	})
-	must(err)
+	if !must(err, false) { return }
 	if len(ordResp.OrderList) == 0 {
 		fmt.Println("  No active orders.")
 	}
@@ -756,11 +818,11 @@ func demoTrading(cli *client.Client) {
 
 	fmt.Println("\n  [GetOrderFillList] Recent fills:")
 	fillResp, err := trd.GetOrderFillList(cli.Inner(), &trd.GetOrderFillListRequest{
-		AccID:     realAccID,
+		AccID:     realSecAccID,
 		TrdMarket: trdMkt,
 		TrdEnv:    trdEnv,
 	})
-	must(err)
+	if !must(err, false) { return }
 	if len(fillResp.OrderFillList) == 0 {
 		fmt.Println("  No recent fills.")
 	}
@@ -780,7 +842,7 @@ func demoTrading(cli *client.Client) {
 	beginTime := time.Now().AddDate(0, 0, -7).Format("2006-01-02")
 	endTime := time.Now().Format("2006-01-02")
 	histOrdResp, err := trd.GetHistoryOrderList(cli.Inner(), &trd.GetHistoryOrderListRequest{
-		AccID:     realAccID,
+		AccID:     realSecAccID,
 		TrdMarket: trdMkt,
 		TrdEnv:    trdEnv,
 		FilterConditions: &trdcommon.TrdFilterConditions{
@@ -788,7 +850,7 @@ func demoTrading(cli *client.Client) {
 			EndTime:   ptrStr(endTime),
 		},
 	})
-	must(err)
+	if !must(err, false) { return }
 	fmt.Printf("  Historical orders: %d\n", len(histOrdResp.OrderList))
 	for i, o := range histOrdResp.OrderList {
 		if i >= 3 {
@@ -802,7 +864,7 @@ func demoTrading(cli *client.Client) {
 
 	fmt.Println("\n  [PlaceOrder] Placing DEMO paper order (no real trade):")
 	placeResp, err := trd.PlaceOrder(cli.Inner(), &trd.PlaceOrderRequest{
-		AccID:     realAccID,
+		AccID:     realSecAccID,
 		TrdMarket: trdMkt,
 		TrdEnv:    trdEnv,
 		TrdSide:   int32(trdcommon.TrdSide_TrdSide_Buy),
@@ -820,7 +882,7 @@ func demoTrading(cli *client.Client) {
 	fmt.Println("\n  [GetFlowSummary] Fund flow summary (today):")
 	clearDate := time.Now().Format("2006-01-02")
 	fsResp, err := trd.GetFlowSummary(cli.Inner(), &trd.GetFlowSummaryRequest{
-		Header:       &trdcommon.TrdHeader{AccID: ptrUint64(realAccID), TrdEnv: ptrInt32(trdEnv)},
+		Header:       &trdcommon.TrdHeader{AccID: ptrUint64(realSecAccID), TrdEnv: ptrInt32(trdEnv)},
 		ClearingDate: clearDate,
 	})
 	if err != nil {
@@ -844,7 +906,7 @@ func demoUserGroupsAlerts(cli *client.Client) {
 	grpResp, err := qot.GetUserSecurityGroup(cli.Inner(), &qot.GetUserSecurityGroupRequest{
 		GroupType: 1,
 	})
-	must(err)
+	if !must(err, false) { return }
 	for _, g := range grpResp.GroupList {
 		fmt.Printf("  Group: %s  (type=%d)\n", g.GroupName, g.GroupType)
 	}
@@ -853,7 +915,7 @@ func demoUserGroupsAlerts(cli *client.Client) {
 		grpName := grpResp.GroupList[0].GroupName
 		fmt.Printf("\n  [GetUserSecurity] Securities in '%s':\n", grpName)
 		secResp, err := qot.GetUserSecurity(cli.Inner(), grpName)
-		must(err)
+		if !must(err, false) { return }
 		for i, s := range secResp.StaticInfoList {
 			if i >= 5 {
 				break
@@ -883,7 +945,7 @@ func demoUserGroupsAlerts(cli *client.Client) {
 
 	fmt.Println("\n  [GetPriceReminder] Active alerts for Tencent:")
 	prResp, err := qot.GetPriceReminder(cli.Inner(), sec(MarketHK, "00700"), MarketHK)
-	must(err)
+	if !must(err, false) { return }
 	if len(prResp.PriceReminderList) == 0 {
 		fmt.Println("  No active alerts.")
 	}
@@ -969,7 +1031,7 @@ func demoPushSubscriptions(cli *client.Client) {
 		IsSubOrUnSub:     true,
 		IsRegOrUnRegPush: true,
 	})
-	must(err)
+	if !must(err, false) { return }
 	fmt.Println("  Subscribed successfully.")
 
 	sig := make(chan os.Signal, 1)
