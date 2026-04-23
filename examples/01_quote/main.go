@@ -22,7 +22,11 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	quote, err := client.GetQuote(context.Background(), cli, constant.Market_US, "NVDA")
+	if err := client.Subscribe(cli, int32(constant.Market_US), "NVDA", []constant.SubType{constant.SubType_Quote}); err != nil {
+		log.Fatalf("Subscribe failed: %v", err)
+	}
+
+	quote, err := client.GetQuote(context.Background(), cli, int32(constant.Market_US), "NVDA")
 	if err != nil {
 		log.Fatalf("GetQuote failed: %v", err)
 	}

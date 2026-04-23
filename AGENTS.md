@@ -2,25 +2,24 @@
 
 ## Project
 
-Go demo showcasing the futuapi4go SDK. Connects to a running Futu OpenD instance and demonstrates all major APIs via an interactive menu.
+Go demo showcasing the futuapi4go SDK. Each example is a standalone `main.go` demonstrating one SDK function.
 
 ## Dev Commands
 
 ```bash
-.\run.bat                    # Run demo (requires Futu OpenD on 127.0.0.1:11111)
-FUTU_ADDR=192.168.1.100:11111 .\run.bat  # Custom OpenD address
-go build ./...                    # Build
-go vet ./...                     # Lint
+go run ./examples/00_connect        # Run an example
+go build ./...                      # Build
+go vet ./...                        # Lint
 ```
 
 ## OpenD Simulator (for testing without a real account)
 
 ```bash
 # Terminal 1: run the simulator (in futuapi4go repo)
-go run D:\github\futuapi4go\cmd\examples\simulator
+go run github.com/shing1211/futuapi4go/cmd/examples/simulator
 
-# Terminal 2: run the demo
-.\run.bat
+# Terminal 2: run any example
+go run ./examples/00_connect
 ```
 
 ## Project Structure
@@ -38,10 +37,8 @@ futuapi4go-demo/
 │   ├── 06_kline_single/     # GetKLines (one-shot)
 │   └── 07_kline_multi/      # SubscribeKLines (multi-period)
 ├── docs/                     # Supplementary docs (proto reference)
-├── build.bat / .sh           # Build script
-├── run.bat / .sh             # Run script (default: 00_connect)
-├── clean.bat / .sh           # Clean script
-└── upgrade.bat / .sh         # Upgrade dependencies
+├── AGENTS.md                # This file
+└── README.md
 ```
 
 ## Examples
@@ -57,17 +54,6 @@ go run ./examples/05_broker
 go run ./examples/06_kline_single
 go run ./examples/07_kline_multi
 ```
-
-## Scripts
-
-| Script | Platform | Description |
-|--------|---------|-------------|
-| `build.bat` / `.sh` | Win/Mac/Linux | Build all packages |
-| `run.bat` / `.sh` | Win/Mac/Linux | Run an example (default: 00_connect) |
-| `clean.bat` / `.sh` | Win/Mac/Linux | Clean build artifacts |
-| `upgrade.bat` / `.sh` | Win/Mac/Linux | Upgrade dependencies |
-
-## SDK Debugging
 
 ## SDK Debugging
 

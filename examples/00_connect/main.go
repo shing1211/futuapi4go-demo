@@ -10,7 +10,10 @@ import (
 
 func main() {
 	cli := client.New()
-	defer cli.Close()
+	defer func() {
+		cli.Close()
+		fmt.Println("Disconnected.")
+	}()
 
 	addr := os.Getenv("FUTU_ADDR")
 	if addr == "" {

@@ -1,22 +1,8 @@
 ﻿# Examples
 
-> Copy-paste-ready Go programs. Each demonstrates one SDK function.
+> Each `main.go` demonstrates one SDK function. Run with `go run ./examples/NN_name`.
 
-## Run
-
-```powershell
-# Simulator (no account needed)
-go run github.com/shing1211/futuapi4go/cmd/examples/simulator
-go run ./examples/00_connect
-
-# Real OpenD
-set FUTU_ADDR=127.0.0.1:11111
-go run ./examples/01_quote
-```
-
-## All Examples
-
-### Market Data — Requests
+## Market Data — Snapshot & History
 
 | # | Example | SDK Function |
 |---|---------|-------------|
@@ -28,10 +14,14 @@ go run ./examples/01_quote
 | 11 | [`11_broker_req`](./11_broker_req) | `client.GetBroker` |
 | 15 | [`15_history_kline`](./15_history_kline) | `client.RequestHistoryKL` |
 | 17 | [`17_snapshot`](./17_snapshot) | `client.GetSecuritySnapshot` |
-| 25 | [`25_trade_date`](./25_trade_date) | `client.GetTradeDate` |
-| 30 | [`30_stock_filter`](./30_stock_filter) | `client.StockFilter` |
+| 30 | [`30_trade_date`](./30_trade_date) | `client.GetTradeDate` |
+| 36 | [`36_ipo_list`](./36_ipo_list) | `client.GetIpoList` |
+| 37 | [`37_future_info`](./37_future_info) | `client.GetFutureInfo` |
+| 38 | [`38_suspend`](./38_suspend) | `client.GetSuspend` |
+| 40 | [`40_rehab`](./40_rehab) | `client.RequestRehab` |
+| 41 | [`41_code_change`](./41_code_change) | `client.GetCodeChange` |
 
-### Market Data — Real-time Push
+## Market Data — Real-time Push
 
 | # | Example | SDK Function |
 |---|---------|-------------|
@@ -41,33 +31,58 @@ go run ./examples/01_quote
 | 04 | [`04_rt`](./04_rt) | `chanpkg.SubscribeRT` |
 | 05 | [`05_broker`](./05_broker) | `chanpkg.SubscribeBroker` |
 | 07 | [`07_kline_multi`](./07_kline_multi) | `chanpkg.SubscribeKLines` |
+| 16 | [`16_market_state`](./16_market_state) | `client.GetMarketState` |
+| 47 | [`47_subscribe_quote`](./47_subscribe_quote) | `chanpkg.SubscribeQuote` |
+| 48 | [`48_subscribe_kline_single`](./48_subscribe_kline_single) | `chanpkg.SubscribeKLine` |
 
-### Market Analysis
+## Market Analysis
 
 | # | Example | SDK Function |
 |---|---------|-------------|
 | 12 | [`12_capital_flow`](./12_capital_flow) | `client.GetCapitalFlow` |
 | 13 | [`13_plate_set`](./13_plate_set) | `client.GetPlateSet` |
 | 14 | [`14_plate_stock`](./14_plate_stock) | `client.GetPlateSecurity` |
-| 16 | [`16_market_state`](./16_market_state) | `client.GetMarketState` |
-| 28 | [`28_owner_plate`](./28_owner_plate) | `client.GetOwnerPlate` |
-| 29 | [`29_capital_distribution`](./29_capital_distribution) | `client.GetCapitalDistribution` |
+| 32 | [`32_owner_plate`](./32_owner_plate) | `client.GetOwnerPlate` |
+| 33 | [`33_capital_distribution`](./33_capital_distribution) | `client.GetCapitalDistribution` |
+| 34 | [`34_stock_filter`](./34_stock_filter) | `client.StockFilter` |
+| 35 | [`35_reference`](./35_reference) | `client.GetReference` |
+| 39 | [`39_holding_change`](./39_holding_change) | `client.GetHoldingChangeList` |
 
-### Trading
+## Trading
 
 | # | Example | SDK Function |
 |---|---------|-------------|
-| 17 | [`17_global_state`](./17_global_state) | `client.GetGlobalState` |
-| 18 | [`18_account_list`](./18_account_list) | `client.GetAccountList` |
-| 19 | [`19_funds`](./19_funds) | `client.GetFunds` |
-| 20 | [`20_positions`](./20_positions) | `client.GetPositionList` |
-| 21 | [`21_unlock_trade`](./21_unlock_trade) | `client.UnlockTrading` |
-| 22 | [`22_place_order`](./22_place_order) | `client.PlaceOrder` |
-| 23 | [`23_order_list`](./23_order_list) | `client.GetOrderList` |
-| 26 | [`26_price_reminder`](./26_price_reminder) | `client.GetPriceReminder` |
-| 27 | [`27_cancel_order`](./27_cancel_order) | `client.ModifyOrder` (cancel) |
+| 18 | [`18_global_state`](./18_global_state) | `client.GetGlobalState` |
+| 19 | [`19_account_list`](./19_account_list) | `client.GetAccountList` |
+| 20 | [`20_funds`](./20_funds) | `client.GetFunds` |
+| 21 | [`21_positions`](./21_positions) | `client.GetPositionList` |
+| 22 | [`22_unlock_trade`](./22_unlock_trade) | `client.UnlockTrading` |
+| 23 | [`23_place_order`](./23_place_order) | `client.PlaceOrder` |
+| 24 | [`24_order_list`](./24_order_list) | `client.GetOrderList` |
+| 25 | [`25_cancel_order`](./25_cancel_order) | `client.ModifyOrder` (cancel) |
+| 26 | [`26_history_order`](./26_history_order) | `client.GetHistoryOrderList` |
+| 27 | [`27_order_fill`](./27_order_fill) | `client.GetOrderFillList` |
+| 28 | [`28_history_fill`](./28_history_fill) | `client.GetHistoryOrderFillList` |
+| 29 | [`29_acc_trading_info`](./29_acc_trading_info) | `client.GetAccTradingInfo` |
 
-## Quick Reference
+## Derivatives
+
+| # | Example | SDK Function |
+|---|---------|-------------|
+| 42 | [`42_warrant`](./42_warrant) | `client.GetWarrant` |
+| 43 | [`43_option_expiration`](./43_option_expiration) | `client.GetOptionExpirationDate` |
+| 44 | [`44_option_chain`](./44_option_chain) | `client.GetOptionChain` |
+
+## Alerts & User Data
+
+| # | Example | SDK Function |
+|---|---------|-------------|
+| 31 | [`31_price_reminder`](./31_price_reminder) | `client.GetPriceReminder` |
+| 45 | [`45_user_security`](./45_user_security) | `client.GetUserSecurity` |
+| 46 | [`46_user_info`](./46_user_info) | `client.GetUserInfo` |
+| 49 | [`49_subscribe_price_reminder`](./49_subscribe_price_reminder) | `chanpkg.SubscribePriceReminder` |
+
+## Common Patterns
 
 ```go
 // Market constant — all APIs take int32
@@ -85,5 +100,5 @@ defer stop()
 ## Troubleshooting
 
 - **`connection refused`** — OpenD isn't running. Set `FUTU_ADDR=127.0.0.1:11111`
-- **`no positions`** — normal for simulator
-- **`subscribe first`** — `GetKLines` requires `client.Subscribe` first
+- **`subscribe first`** — `GetKLines`, `GetQuote`, `GetTicker`, `GetRT`, `GetBroker`, `GetOrderBook` require `client.Subscribe` first
+- **`no positions`** — normal for simulator; real OpenD shows actual positions
