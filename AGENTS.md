@@ -7,8 +7,8 @@ Go demo showcasing the futuapi4go SDK. Connects to a running Futu OpenD instance
 ## Dev Commands
 
 ```bash
-scripts\run.bat                    # Run demo (requires Futu OpenD on 127.0.0.1:11111)
-FUTU_ADDR=192.168.1.100:11111 scripts\run.bat  # Custom OpenD address
+.\run.bat                    # Run demo (requires Futu OpenD on 127.0.0.1:11111)
+FUTU_ADDR=192.168.1.100:11111 .\run.bat  # Custom OpenD address
 go build ./...                    # Build
 go vet ./...                     # Lint
 ```
@@ -20,7 +20,7 @@ go vet ./...                     # Lint
 go run D:\github\futuapi4go\cmd\examples\simulator
 
 # Terminal 2: run the demo
-scripts\run.bat
+.\run.bat
 ```
 
 ## Project Structure
@@ -33,7 +33,10 @@ futuapi4go-demo/
 │   ├── getting_started/      # Basic usage example
 │   └── trading_demo/         # Trading operations example
 ├── docs/                     # Supplementary docs (proto reference)
-├── scripts/                  # Build & run scripts (.bat/.sh)
+├── build.bat / .sh           # Build script
+├── run.bat / .sh             # Run script
+├── clean.bat / .sh           # Clean script
+├── upgrade.bat / .sh         # Upgrade dependencies
 ├── .github/                  # GitHub config
 ├── AGENTS.md                 # This file
 ├── README.md                 # User-facing documentation
@@ -63,10 +66,10 @@ go run ./examples/trading_demo
 
 | Script | Platform | Description |
 |--------|---------|-------------|
-| `scripts/build.bat` / `.sh` | Win/Mac/Linux | Build binary to `cmd/demo/` |
-| `scripts/run.bat` / `.sh` | Win/Mac/Linux | Run the demo |
-| `scripts/clean.bat` / `.sh` | Win/Mac/Linux | Clean build artifacts |
-| `scripts/upgrade.bat` / `.sh` | Win/Mac/Linux | Upgrade dependencies |
+| `build.bat` / `.sh` | Win/Mac/Linux | Build binary to `cmd/demo/` |
+| `run.bat` / `.sh` | Win/Mac/Linux | Run the demo |
+| `clean.bat` / `.sh` | Win/Mac/Linux | Clean build artifacts |
+| `upgrade.bat` / `.sh` | Win/Mac/Linux | Upgrade dependencies |
 
 ## SDK Debugging
 
