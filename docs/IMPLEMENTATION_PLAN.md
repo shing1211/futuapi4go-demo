@@ -94,8 +94,6 @@ with sensible defaults:
 | `FUTU_SKIP_TRADING` | `0` | Set to `1` to skip all trading API calls |
 | `FUTU_SEC_HK` | `00700` | Hong Kong demo security |
 | `FUTU_SEC_US` | `AAPL` | US demo security |
-| `FUTU_SEC_CNSH` | `600519` | China SH demo security |
-| `FUTU_SEC_CNSZ` | `000001` | China SZ demo security |
 
 Replace all hardcoded `sec(MarketHK, "00700")` calls with values read from env.
 
@@ -113,9 +111,7 @@ address: "127.0.0.1:11111"
 securities:
   HK: "00700"
   US: "AAPL"
-  CNSH: "600519"
-  CNSZ: "000001"
-skip_trading: false
+  skip_trading: false
 output_format: "text"  # or "json"
 ```
 
@@ -144,22 +140,11 @@ Show a clear error listing all ports tried.
 ---
 
 ### 7. Simulator Detection — Skip Trading Automatically
-**Priority:** P1 | **Status:** `todo`
+**Priority:** P1 | **Status:** `done`
 
-Detect whether connected to the simulator vs. a real OpenD with trading
-accounts. Skip the entire trading section gracefully if no real accounts
-are available:
-
-```go
-// After GetAccList, check if any account has TrdEnv == 1 (real)
-if realAccID == 0 {
-    yellow("  No real trading account — skipping trading section.\n")
-    return
-}
-```
-
-This is partially implemented but should be more prominent and skip
-the entire section instead of just specific calls.
+`demoTrading` checks for `realAccID == 0` after `GetAccList` and skips
+the entire trading section gracefully with a clear message.
+No further changes needed.
 
 ---
 
@@ -295,7 +280,7 @@ if chgRate > 0 {
 | 4 | Env-var config for demo securities | P2 | `todo` |
 | 5 | Config file support | P2 | `todo` |
 | 6 | Auto-detect OpenD port | P3 | `todo` |
-| 7 | Simulator detection — skip trading | P1 | `todo` |
+| 7 | Simulator detection — skip trading | P1 | `done` |
 | 8 | Table-formatted output | P2 | `todo` |
 | 9 | JSON export option | P3 | `todo` |
 | 10 | Parallel API calls | P3 | `todo` |
@@ -305,7 +290,7 @@ if chgRate > 0 {
 | 14 | Colored price changes | P3 | `todo` |
 
 **P0 items:** none (project currently builds and runs cleanly)
-**P1 items:** 3 open
+**P1 items:** 2 open
 **P2 items:** 8 open
 **P3 items:** 3 open
-**Total:** 14 items | **Done:** 0
+**Total:** 14 items | **Done:** 1

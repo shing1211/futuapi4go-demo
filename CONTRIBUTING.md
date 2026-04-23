@@ -35,11 +35,35 @@ go mod download
 go build ./...
 ```
 
-### Running Tests
+### Running the Demo
 
 ```bash
-go build ./...
-go vet ./...
+# With local OpenD running on default 127.0.0.1:11111
+go run ./cmd/demo/main.go
+
+# With custom OpenD address
+FUTU_ADDR=192.168.1.100:11111 go run ./cmd/demo/main.go
+
+# With mock simulator (no real account needed)
+# Terminal 1: start simulator (requires futuapi4go source at ../futuapi4go)
+go run github.com/shing1211/futuapi4go/cmd/examples/simulator
+# Terminal 2: run demo
+go run ./cmd/demo/main.go
+```
+
+### Using a Local SDK Version
+
+If you need to test changes to the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK alongside this demo, add a `replace` directive to `go.mod`:
+
+```go
+replace github.com/shing1211/futuapi4go => D:/github/futuapi4go
+```
+
+After editing `go.mod`, clear the module cache:
+
+```bash
+go clean -modcache
+go mod download
 ```
 
 ## Coding Standards
@@ -48,10 +72,18 @@ go vet ./...
 - Keep the demo focused — it should remain a single-file, menu-driven showcase.
 - New API additions should mirror the style of existing demo functions.
 - Follow standard `gofmt` formatting.
+- Helper functions (`sec()`, `ptrStr()`, `ptrInt32()`, etc.) are defined at the top of `main.go` for reuse.
+
+## Adding a New Demo Category
+
+1. Add a new `func demoXXX(cli *client.Client)` function in `cmd/demo/main.go`.
+2. Use `section(n, "Title")` to print the category header.
+3. Call the function from `main()` using the interactive menu switch.
+4. Update the demo menu table in `README.md`.
 
 ## Pull Request Process
 
 1. Ensure no build errors or vet warnings.
-2. Update README.md if you add new API coverage.
+2. Update README.md if you add new API coverage or change the demo menu.
 3. Your PR will be reviewed by a maintainer. Feedback may be provided.
 4. Once approved, a maintainer will merge your PR.

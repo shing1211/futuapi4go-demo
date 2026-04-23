@@ -1,4 +1,7 @@
 @echo off
+setlocal
+cd /d "%~dp0.."
+
 echo Building futuapi4go-demo...
 
 set OUTPUT=cmd\demo\futuapi4go-demo.exe

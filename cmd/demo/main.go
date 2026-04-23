@@ -22,10 +22,8 @@ import (
 const defaultAddr = "127.0.0.1:11111"
 
 const (
-	MarketHK   = client.Market_HK_Security
-	MarketUS   = client.Market_US_Security
-	MarketCNSH = client.Market_CNSH_Security
-	MarketCNSZ = client.Market_CNSZ_Security
+	MarketHK = client.Market_HK_Security
+	MarketUS = client.Market_US_Security
 )
 
 func ptrStr(v string) *string   { return &v }
@@ -93,7 +91,8 @@ func trdSideName(s int32) string {
 
 func must(err error) {
 	if err != nil {
-		yellow(fmt.Sprintf("  WARNING: %v (continuing anyway)\n", err))
+		red(fmt.Sprintf("  ERROR: %v\n", err))
+		os.Exit(1)
 	}
 }
 
@@ -121,17 +120,7 @@ func demoConnection(cli *client.Client) {
 	fmt.Printf("  Nickname:     %s\n", userInfo.NickName)
 	fmt.Printf("  API Level:    %s\n", userInfo.ApiLevel)
 
-	delay, err := sys.GetDelayStatistics(cli.Inner())
-	must(err)
-	if delay != nil && len(delay.QotPushStatisticsList) > 0 {
-		fmt.Printf("  Quote latency:   %.1fms\n", delay.QotPushStatisticsList[0].GetDelayAvg()/1000.0)
-	}
-	if delay != nil && len(delay.ReqReplyStatisticsList) > 0 {
-		fmt.Printf("  Req-reply:       %.1fms\n", delay.ReqReplyStatisticsList[0].GetNetDelayAvg()/1000.0)
-	}
-	if delay != nil && len(delay.PlaceOrderStatisticsList) > 0 {
-		fmt.Printf("  Order latency:   %.1fms\n", delay.PlaceOrderStatisticsList[0].GetTotalCost()/1000.0)
-	}
+	fmt.Println("  [GetDelayStatistics] skipped — known proto2 wire-format incompatibility with OpenD serverVer 1003")
 
 	ms, err := qot.GetMarketState(cli.Inner(), &qot.GetMarketStateRequest{
 		SecurityList: []*qotcommon.Security{sec(MarketHK, "00700")},
@@ -166,7 +155,6 @@ func demoMarketData(cli *client.Client) {
 	quotes, err := qot.GetBasicQot(context.Background(), cli.Inner(), []*qotcommon.Security{
 		sec(MarketHK, "00700"),
 		sec(MarketUS, "AAPL"),
-		sec(MarketCNSH, "600519"),
 	})
 	must(err)
 	for _, q := range quotes {
@@ -369,7 +357,7 @@ func demoMarketAnalysis(cli *client.Client) {
 		SecType: int32(qotcommon.SecurityType_SecurityType_Warrant),
 		SecurityList: []*qotcommon.Security{
 			sec(MarketUS, "AAPL"),
-			sec(MarketCNSH, "600519"),
+			sec(MarketHK, "00700"),
 		},
 	})
 	must(err)
@@ -386,7 +374,7 @@ func demoMarketAnalysis(cli *client.Client) {
 	must(err)
 	for _, fi := range fiResp.FutureInfoList {
 		fmt.Printf("  Name:         %s\n", fi.Name)
-		fmt.Printf("  Contract:     %.0f %s\n", fi.ContractSize, fi.ContractSizeUnit)
+		fmt.Printf("  Contract:     %g %s\n", fi.ContractSize, fi.ContractSizeUnit)
 		fmt.Printf("  Quote Unit:   %s\n", fi.QuoteUnit)
 		fmt.Printf("  Min Var:      %s\n", fi.MinVarUnit)
 	}

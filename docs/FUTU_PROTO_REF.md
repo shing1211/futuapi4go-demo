@@ -2,6 +2,20 @@
 
 > Slimmed reference for futuapi4go-demo. Full docs: https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
 
+## Table of Contents
+
+- [Common Types](#common-types)
+- [System APIs (pkg/sys)](#system-apis-pkgsys)
+- [Market Data APIs (pkg/qot)](#market-data-apis-pkgqot)
+- [Market Analysis APIs (pkg/qot)](#market-analysis-apis-pkgqot)
+- [Options & Warrants APIs (pkg/qot)](#options--warrants-apis-pkgqot)
+- [Historical Data APIs (pkg/qot)](#historical-data-apis-pkgqot)
+- [Corporate Actions APIs (pkg/qot)](#corporate-actions-apis-pkgqot)
+- [User Data APIs (pkg/qot)](#user-data-apis-pkgqot)
+- [Trading APIs (pkg/trd)](#trading-apis-pkgtrd)
+- [Push Subscriptions (pkg/qot)](#push-subscriptions-pkgqot)
+- [Known Issues](#known-issues)
+
 ---
 
 ## Common Types
@@ -381,13 +395,98 @@ message C2S {
 ## Trading APIs (pkg/trd)
 
 ### GetAccList — ProtoID 2001
+```protobuf
+message C2S {
+    optional int32 trdMarket = 1;  // TrdMarket filter
+}
+```
+
 ### GetFunds — ProtoID 2002
+```protobuf
+message C2S {
+    required int32 trdMarket = 1;
+    required int32 accID = 2;
+    optional int32 currency = 3;  // 1=HKD, 2=USD, 3=CAD
+}
+```
+
 ### GetPositionList — ProtoID 2003
+```protobuf
+message C2S {
+    required int32 trdMarket = 1;
+    required int32 accID = 2;
+    optional string code = 3;
+    optional int32 positionID = 4;
+}
+```
+
 ### GetOrderList — ProtoID 2004
+```protobuf
+message C2S {
+    required int32 trdMarket = 1;
+    required int32 accID = 2;
+    optional string orderID = 3;
+    optional int32 envFlag = 4;  // 1=SIMULATE, 2=REAL
+}
+```
+
 ### GetOrderFillList — ProtoID 2005
+```protobuf
+message C2S {
+    required int32 trdMarket = 1;
+    required int32 accID = 2;
+    optional string orderID = 3;
+    optional int32 envFlag = 4;
+}
+```
+
 ### GetHistoryOrderList — ProtoID 2006
+```protobuf
+message C2S {
+    required int32 trdMarket = 1;
+    required int32 accID = 2;
+    optional string beginTime = 3;
+    optional string endTime = 4;
+    optional int32 envFlag = 5;
+    optional int32 orderID = 6;
+}
+```
+
 ### GetMaxTrdQtys — ProtoID 2206
+```protobuf
+message C2S {
+    required int32 trdMarket = 1;
+    required int32 accID = 2;
+    required Security security = 3;
+    required int32 orderType = 4;  // OrderType
+    required double price = 5;
+}
+```
+
 ### PlaceOrder — ProtoID 2201
+```protobuf
+message C2S {
+    required int32 trdMarket = 1;
+    required int32 accID = 2;
+    required int32 orderType = 3;   // OrderType.NORMAL / MARKET
+    required Security security = 4;
+    required int32 trdSide = 5;     // 1=BUY, 2=SELL
+    required double price = 6;
+    required int64 qty = 7;
+    optional string orderID = 8;    // for modify/cancel
+    optional int32 modifyOrderOp = 9; // 1=normal, 2=cancel
+}
+```
+
+### GetFlowSummary — ProtoID 2214
+```protobuf
+message C2S {
+    required int32 trdMarket = 1;
+    required int32 accID = 2;
+    optional string beginTime = 3;
+    optional string endTime = 4;
+}
+```
 
 ---
 

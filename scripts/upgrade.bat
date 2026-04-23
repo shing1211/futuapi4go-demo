@@ -1,4 +1,7 @@
 @echo off
+setlocal
+cd /d "%~dp0.."
+
 echo Upgrading dependencies...
 
 go get -u github.com/shing1211/futuapi4go@latest
