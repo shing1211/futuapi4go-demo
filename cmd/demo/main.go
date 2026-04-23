@@ -142,13 +142,12 @@ func demoConnection(cli *client.Client) {
 	fmt.Printf("  TotalUsedQuota:  %d\n", subInfo.TotalUsedQuota)
 	fmt.Printf("  RemainQuota:     %d\n", subInfo.RemainQuota)
 
-	td, err := qot.GetTradeDate(cli.Inner(), &qot.GetTradeDateRequest{
+	td, err := qot.RequestTradeDate(cli.Inner(), &qot.RequestTradeDateRequest{
 		Market:    int32(qotcommon.QotMarket_QotMarket_HK_Security),
 		BeginTime: "2026-01-01",
 		EndTime:   "2026-12-31",
 	})
 	if !must(err, false) {
-		yellow("  [GetTradeDate] skipped — known proto2 wire-format incompatibility\n")
 		return
 	}
 	fmt.Printf("  Trade dates (2026 HK): %d days\n", len(td.TradeDateList))
