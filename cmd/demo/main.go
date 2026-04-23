@@ -601,18 +601,15 @@ func demoHistoricalData(cli *client.Client) {
 
 	fmt.Println("\n  [GetRehab] Adjustment factors for Tencent:")
 	rehabResp, err := qot.GetRehab(cli.Inner(), &qot.GetRehabRequest{
-		SecurityList: []*qotcommon.Security{sec(MarketHK, "00700")},
+		Security: sec(MarketHK, "00700"),
 	})
 	if !must(err, false) { return }
-	if len(rehabResp.SecurityRehabList) > 0 {
-		r := rehabResp.SecurityRehabList[0]
-		if len(r.GetRehabList()) > 0 {
-			rehab := r.GetRehabList()[0]
-			fmt.Printf("  Time:       %s\n", rehab.GetTime())
-			fmt.Printf("  FwdFactor: %.6f / %.6f\n", rehab.GetFwdFactorA(), rehab.GetFwdFactorB())
-			fmt.Printf("  BwdFactor: %.6f / %.6f\n", rehab.GetBwdFactorA(), rehab.GetBwdFactorB())
-			fmt.Printf("  Dividend:  %.6f\n", rehab.GetDividend())
-		}
+	if len(rehabResp.RehabList) > 0 {
+		rehab := rehabResp.RehabList[0]
+		fmt.Printf("  Time:       %s\n", rehab.GetTime())
+		fmt.Printf("  FwdFactor: %.6f / %.6f\n", rehab.GetFwdFactorA(), rehab.GetFwdFactorB())
+		fmt.Printf("  BwdFactor: %.6f / %.6f\n", rehab.GetBwdFactorA(), rehab.GetBwdFactorB())
+		fmt.Printf("  Dividend:  %.6f\n", rehab.GetDividend())
 	}
 }
 
