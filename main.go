@@ -32,19 +32,20 @@ func main() {
 	chanpkg.SubscribeRT(cli, constant.Market_US, "NVDA", rtCh)
 	chanpkg.SubscribeBroker(cli, constant.Market_US, "NVDA", brokerCh)
 
-	stop := chanpkg.SubscribeKLinesHandler(cli, constant.Market_US, "NVDA", func(kl *push.UpdateKL) {
-		label := "unknown"
-		switch constant.KLType(kl.KlType) {
-		case constant.KLType_K_1Min:
-			label = "1m"
-		case constant.KLType_K_5Min:
-			label = "5m"
-		}
-		for _, bar := range kl.KLList {
-			fmt.Printf("KL [%s/handler]: %s O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
-				label, *bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
-		}
-	}, constant.KLType_K_1Min, constant.KLType_K_5Min)
+	stop := chanpkg.SubscribeKLines(cli, constant.Market_US, "NVDA", map[constant.KLType]func(*push.UpdateKL){
+		constant.KLType_K_1Min: func(kl *push.UpdateKL) {
+			for _, bar := range kl.KLList {
+				fmt.Printf("KL [1m]: %s O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
+					*bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
+			}
+		},
+		constant.KLType_K_5Min: func(kl *push.UpdateKL) {
+			for _, bar := range kl.KLList {
+				fmt.Printf("KL [5m]: %s O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
+					*bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
+			}
+		},
+	})
 	defer stop()
 
 	sig := make(chan os.Signal, 1)
