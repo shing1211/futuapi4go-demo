@@ -40,7 +40,7 @@ func main() {
 		select {
 		case t := <-ch:
 			for _, tick := range t.TickerList {
-				fmt.Printf("TICKER: price=%.2f vol=%d dir=%s\n",
+				fmt.Printf("TICKER: price=%.2f vol=%d dir=%d\n",
 					tick.GetPrice(), tick.GetVolume(), tick.GetDir())
 			}
 		case <-sig:

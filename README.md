@@ -19,7 +19,7 @@
 git clone https://github.com/shing1211/futuapi4go-demo.git
 cd futuapi4go-demo
 
-# Pick one (00-49):
+# Pick one (00-65):
 go run ./examples/00_connect
 go run ./examples/07_kline_multi
 go run ./examples/23_place_order
@@ -42,7 +42,7 @@ go run github.com/shing1211/futuapi4go/cmd/examples/simulator
 go run ./examples/07_kline_multi
 ```
 
-## All Examples (00–49)
+## All Examples (00–65)
 
 ### Market Data — Snapshot & History
 
@@ -62,6 +62,7 @@ go run ./examples/07_kline_multi
 | 38 | [`38_suspend`](./examples/38_suspend) | `client.GetSuspend` |
 | 40 | [`40_rehab`](./examples/40_rehab) | `client.RequestRehab` |
 | 41 | [`41_code_change`](./examples/41_code_change) | `client.GetCodeChange` |
+| 59 | [`59_static_info`](./examples/59_static_info) | `client.GetStaticInfo` |
 
 ### Market Data — Real-time Push
 
@@ -76,6 +77,15 @@ go run ./examples/07_kline_multi
 | 16 | [`16_market_state`](./examples/16_market_state) | `client.GetMarketState` |
 | 47 | [`47_subscribe_quote`](./examples/47_subscribe_quote) | `chanpkg.SubscribeQuote` |
 | 48 | [`48_subscribe_kline_single`](./examples/48_subscribe_kline_single) | `chanpkg.SubscribeKLine` |
+| 53 | [`53_reg_qot_push`](./examples/53_reg_qot_push) | `client.RegQotPush` |
+
+### Subscription Management
+
+| # | Example | SDK Function |
+|---|---------|-------------|
+| 50 | [`50_unsubscribe`](./examples/50_unsubscribe) | `client.Unsubscribe` |
+| 51 | [`51_unsubscribe_all`](./examples/51_unsubscribe_all) | `client.UnsubscribeAll` |
+| 52 | [`52_query_subscription`](./examples/52_query_subscription) | `client.GetSubInfo` |
 
 ### Market Analysis
 
@@ -106,6 +116,15 @@ go run ./examples/07_kline_multi
 | 27 | [`27_order_fill`](./examples/27_order_fill) | `client.GetOrderFillList` |
 | 28 | [`28_history_fill`](./examples/28_history_fill) | `client.GetHistoryOrderFillList` |
 | 29 | [`29_acc_trading_info`](./examples/29_acc_trading_info) | `client.GetAccTradingInfo` |
+| 54 | [`54_cancel_all_order`](./examples/54_cancel_all_order) | `client.CancelAllOrder` |
+| 55 | [`55_max_trd_qtys`](./examples/55_max_trd_qtys) | `client.GetMaxTrdQtys` |
+| 56 | [`56_order_fee`](./examples/56_order_fee) | `client.GetOrderFee` |
+| 57 | [`57_margin_ratio`](./examples/57_margin_ratio) | `client.GetMarginRatio` |
+| 58 | [`58_flow_summary`](./examples/58_flow_summary) | `client.GetFlowSummary` |
+| 60 | [`60_modify_user_security`](./examples/60_modify_user_security) | `client.ModifyUserSecurity` |
+| 62 | [`62_set_price_reminder`](./examples/62_set_price_reminder) | `client.SetPriceReminder` |
+| 63 | [`63_sub_acc_push`](./examples/63_sub_acc_push) | `client.SubAccPush` |
+| 64 | [`64_reconfirm_order`](./examples/64_reconfirm_order) | `client.ReconfirmOrder` |
 
 ### Derivatives
 
@@ -123,6 +142,13 @@ go run ./examples/07_kline_multi
 | 45 | [`45_user_security`](./examples/45_user_security) | `client.GetUserSecurity` |
 | 46 | [`46_user_info`](./examples/46_user_info) | `client.GetUserInfo` |
 | 49 | [`49_subscribe_price_reminder`](./examples/49_subscribe_price_reminder) | `chanpkg.SubscribePriceReminder` |
+| 61 | [`61_sub_info`](./examples/61_sub_info) | `client.GetSubInfo` |
+
+### Data & History
+
+| # | Example | SDK Function |
+|---|---------|-------------|
+| 65 | [`65_history_kl_quota`](./examples/65_history_kl_quota) | `client.RequestHistoryKLQuota` |
 
 ## Common Patterns
 

@@ -20,6 +20,7 @@
 | 38 | [`38_suspend`](./38_suspend) | `client.GetSuspend` |
 | 40 | [`40_rehab`](./40_rehab) | `client.RequestRehab` |
 | 41 | [`41_code_change`](./41_code_change) | `client.GetCodeChange` |
+| 59 | [`59_static_info`](./59_static_info) | `client.GetStaticInfo` |
 
 ## Market Data — Real-time Push
 
@@ -34,6 +35,15 @@
 | 16 | [`16_market_state`](./16_market_state) | `client.GetMarketState` |
 | 47 | [`47_subscribe_quote`](./47_subscribe_quote) | `chanpkg.SubscribeQuote` |
 | 48 | [`48_subscribe_kline_single`](./48_subscribe_kline_single) | `chanpkg.SubscribeKLine` |
+| 53 | [`53_reg_qot_push`](./53_reg_qot_push) | `client.RegQotPush` |
+
+## Subscription Management
+
+| # | Example | SDK Function |
+|---|---------|-------------|
+| 50 | [`50_unsubscribe`](./50_unsubscribe) | `client.Unsubscribe` |
+| 51 | [`51_unsubscribe_all`](./51_unsubscribe_all) | `client.UnsubscribeAll` |
+| 52 | [`52_query_subscription`](./52_query_subscription) | `client.GetSubInfo` |
 
 ## Market Analysis
 
@@ -64,6 +74,15 @@
 | 27 | [`27_order_fill`](./27_order_fill) | `client.GetOrderFillList` |
 | 28 | [`28_history_fill`](./28_history_fill) | `client.GetHistoryOrderFillList` |
 | 29 | [`29_acc_trading_info`](./29_acc_trading_info) | `client.GetAccTradingInfo` |
+| 54 | [`54_cancel_all_order`](./54_cancel_all_order) | `client.CancelAllOrder` |
+| 55 | [`55_max_trd_qtys`](./55_max_trd_qtys) | `client.GetMaxTrdQtys` |
+| 56 | [`56_order_fee`](./56_order_fee) | `client.GetOrderFee` |
+| 57 | [`57_margin_ratio`](./57_margin_ratio) | `client.GetMarginRatio` |
+| 58 | [`58_flow_summary`](./58_flow_summary) | `client.GetFlowSummary` |
+| 60 | [`60_modify_user_security`](./60_modify_user_security) | `client.ModifyUserSecurity` |
+| 62 | [`62_set_price_reminder`](./62_set_price_reminder) | `client.SetPriceReminder` |
+| 63 | [`63_sub_acc_push`](./63_sub_acc_push) | `client.SubAccPush` |
+| 64 | [`64_reconfirm_order`](./64_reconfirm_order) | `client.ReconfirmOrder` |
 
 ## Derivatives
 
@@ -81,18 +100,18 @@
 | 45 | [`45_user_security`](./45_user_security) | `client.GetUserSecurity` |
 | 46 | [`46_user_info`](./46_user_info) | `client.GetUserInfo` |
 | 49 | [`49_subscribe_price_reminder`](./49_subscribe_price_reminder) | `chanpkg.SubscribePriceReminder` |
+| 61 | [`61_sub_info`](./61_sub_info) | `client.GetSubInfo` |
+
+## Data & History
+
+| # | Example | SDK Function |
+|---|---------|-------------|
+| 65 | [`65_history_kl_quota`](./65_history_kl_quota) | `client.RequestHistoryKLQuota` |
 
 ## SDK Functions Without Examples
 
 | SDK Function | Reason |
 |-------------|--------|
-| `client.GetStaticInfo` | Not covered |
-| `client.Unsubscribe` | Not covered |
-| `client.UnsubscribeAll` | Not covered |
-| `client.CancelAllOrder` | Not covered |
-| `client.GetOrderFee` | Not covered |
-| `client.GetMarginRatio` | Not covered |
-| `client.SetPriceReminder` | Not covered |
 | `client.GetDelayStatistics` | Known bug — proto2/proto3 wire-format mismatch |
 
 ## Common Patterns
