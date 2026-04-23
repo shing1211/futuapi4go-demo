@@ -46,6 +46,20 @@ go run ./cmd/demo/main.go
 Every example follows the same three-step pattern:
 
 ```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "log"
+    "os"
+
+    "github.com/shing1211/futuapi4go/client"
+    "github.com/shing1211/futuapi4go/pkg/constant"
+    "github.com/shing1211/futuapi4go/pkg/push"
+    chanpkg "github.com/shing1211/futuapi4go/pkg/push/chan"
+)
+
 func main() {
     // 1. Create & connect
     cli := client.New()
@@ -65,10 +79,19 @@ func main() {
     if err != nil {
         log.Fatalf("GetQuote failed: %v", err)
     }
-    fmt.Printf("HK.00700: %.2f\n", quote.CurPrice)
+    fmt.Printf("HK.00700: price=%.2f\n", quote.Price)
 
-    // 3. Subscribe to real-time updates
-    client.Subscribe(cli, constant.Market_HK, "00700", []int32{constant.SubType_Quote})
+    // 3. Subscribe to real-time K-line updates via channel
+    klCh := make(chan *push.UpdateKL, 100)
+    stop := chanpkg.SubscribeKLine(cli, constant.Market_HK, "00700", constant.KLType_K_1Min, klCh)
+    defer stop()
+
+    for kl := range klCh {
+        for _, bar := range kl.KLList {
+            fmt.Printf("KL: %s O=%.2f H=%.2f L=%.2f C=%.2f\n",
+                *bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice)
+        }
+    }
 }
 ```
 
