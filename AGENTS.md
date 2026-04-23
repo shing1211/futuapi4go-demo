@@ -27,12 +27,16 @@ scripts\run.bat
 
 ```
 futuapi4go-demo/
-├── cmd/demo/main.go     # Source code (single-file, menu-driven)
-├── docs/               # Supplementary docs (proto reference)
-├── scripts/            # Build & run scripts (.bat/.sh)
-├── .github/           # GitHub config (issue templates, PR template)
-├── AGENTS.md         # This file
-├── README.md         # User-facing documentation
+├── cmd/demo/main.go          # Interactive menu demo (single-file)
+├── examples/
+│   ├── README.md             # Examples overview
+│   ├── getting_started/      # Basic usage example
+│   └── trading_demo/         # Trading operations example
+├── docs/                     # Supplementary docs (proto reference)
+├── scripts/                  # Build & run scripts (.bat/.sh)
+├── .github/                  # GitHub config
+├── AGENTS.md                 # This file
+├── README.md                 # User-facing documentation
 ├── LICENSE
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
@@ -40,6 +44,19 @@ futuapi4go-demo/
 ├── SECURITY.md
 ├── go.mod
 └── go.sum
+```
+
+## Examples
+
+- `cmd/demo` — Interactive menu demo (recommended for exploration)
+- `examples/getting_started` — Basic: connect, quotes, K-lines, subscribe
+- `examples/trading_demo` — Trading: accounts, positions, orders, place/cancel
+
+Run individual examples:
+```bash
+go run ./cmd/demo
+go run ./examples/getting_started
+go run ./examples/trading_demo
 ```
 
 ## Scripts
@@ -50,6 +67,8 @@ futuapi4go-demo/
 | `scripts/run.bat` / `.sh` | Win/Mac/Linux | Run the demo |
 | `scripts/clean.bat` / `.sh` | Win/Mac/Linux | Clean build artifacts |
 | `scripts/upgrade.bat` / `.sh` | Win/Mac/Linux | Upgrade dependencies |
+
+## SDK Debugging
 
 ## SDK Debugging
 

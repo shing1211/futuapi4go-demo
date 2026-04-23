@@ -78,7 +78,7 @@ func runQuoteExample(cli *client.Client) {
 	}
 
 	for _, q := range quotes {
-		fmt.Printf("  %s (%s): %.2f\n", q.Name, q.Security.Code, q.CurPrice)
+		fmt.Printf("  %s (%s): %.2f\n", q.Name, q.Security.GetCode(), q.CurPrice)
 	}
 }
 

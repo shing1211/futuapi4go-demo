@@ -109,7 +109,7 @@ func runPositionList(cli *client.Client) {
 	}
 
 	for _, pos := range resp.PositionList {
-		fmt.Printf("  %s: %d shares @ avg %.2f\n",
+		fmt.Printf("  %s: %.0f shares @ avg %.2f\n",
 			pos.Code, pos.Qty, pos.CostPrice)
 	}
 }
@@ -133,7 +133,7 @@ func runOrderList(cli *client.Client) {
 	}
 
 	for _, order := range resp.OrderList {
-		fmt.Printf("  %s: %s %d@%.2f [%s]\n",
+		fmt.Printf("  %s: %s %.0f@%.2f [%s]\n",
 			order.Code,
 			mapTrdSide(order.TrdSide),
 			order.Qty,
