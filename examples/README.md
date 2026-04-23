@@ -74,16 +74,21 @@ func main() {
         log.Fatalf("Connection failed: %v", err)
     }
 
-    // 2. Call APIs
-    quote, err := client.GetQuote(context.Background(), cli, constant.Market_HK, "00700")
+    // 2. Call APIs — US stocks require subscription first
+    if err := client.Subscribe(cli, constant.Market_US, "NVDA",
+        []int32{int32(constant.SubType_Quote), int32(constant.SubType_K_1Min)}); err != nil {
+        log.Fatalf("Subscribe failed: %v", err)
+    }
+
+    quote, err := client.GetQuote(context.Background(), cli, constant.Market_US, "NVDA")
     if err != nil {
         log.Fatalf("GetQuote failed: %v", err)
     }
-    fmt.Printf("HK.00700: price=%.2f\n", quote.Price)
+    fmt.Printf("US.NVDA: price=%.2f\n", quote.Price)
 
     // 3. Subscribe to real-time K-line updates via channel
     klCh := make(chan *push.UpdateKL, 100)
-    stop := chanpkg.SubscribeKLine(cli, constant.Market_HK, "00700", constant.KLType_K_1Min, klCh)
+    stop := chanpkg.SubscribeKLine(cli, constant.Market_US, "NVDA", constant.KLType_K_1Min, klCh)
     defer stop()
 
     for kl := range klCh {
