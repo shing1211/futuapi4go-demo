@@ -74,9 +74,23 @@ func main() {
         log.Fatalf("Connection failed: %v", err)
     }
 
-    // 2. Call APIs — US stocks require subscription first
-    if err := client.Subscribe(cli, constant.Market_US, "NVDA",
-        []int32{int32(constant.SubType_Quote), int32(constant.SubType_K_1Min)}); err != nil {
+    // 2. Subscribe to ALL data types for NVDA
+    allSubTypes := []constant.SubType{
+        constant.SubType_Quote,
+        constant.SubType_OrderBook,
+        constant.SubType_Ticker,
+        constant.SubType_RT,
+        constant.SubType_Broker,
+        constant.SubType_K_1Min,
+        constant.SubType_K_5Min,
+        constant.SubType_K_15Min,
+        constant.SubType_K_30Min,
+        constant.SubType_K_60Min,
+        constant.SubType_K_Day,
+        constant.SubType_K_Week,
+        constant.SubType_K_Month,
+    }
+    if err := client.Subscribe(cli, constant.Market_US, "NVDA", allSubTypes); err != nil {
         log.Fatalf("Subscribe failed: %v", err)
     }
 
@@ -84,17 +98,54 @@ func main() {
     if err != nil {
         log.Fatalf("GetQuote failed: %v", err)
     }
-    fmt.Printf("US.NVDA: price=%.2f\n", quote.Price)
+    fmt.Printf("US.NVDA: price=%.2f open=%.2f high=%.2f low=%.2f vol=%d\n",
+        quote.Price, quote.Open, quote.High, quote.Low, quote.Volume)
 
-    // 3. Subscribe to real-time K-line updates via channel
-    klCh := make(chan *push.UpdateKL, 100)
-    stop := chanpkg.SubscribeKLine(cli, constant.Market_US, "NVDA", constant.KLType_K_1Min, klCh)
-    defer stop()
+    // 3. Set up channel listeners for each data type
+    quoteCh     := make(chan *push.UpdateBasicQot, 100)
+    tickerCh    := make(chan *push.UpdateTicker, 100)
+    orderBookCh := make(chan *push.UpdateOrderBook, 100)
+    rtCh        := make(chan *push.UpdateRT, 100)
+    brokerCh    := make(chan *push.UpdateBroker, 100)
+    klCh        := make(chan *push.UpdateKL, 100)
 
-    for kl := range klCh {
-        for _, bar := range kl.KLList {
-            fmt.Printf("KL: %s O=%.2f H=%.2f L=%.2f C=%.2f\n",
-                *bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice)
+    chanpkg.SubscribeQuote(cli, constant.Market_US, "NVDA", quoteCh)
+    chanpkg.SubscribeTicker(cli, constant.Market_US, "NVDA", tickerCh)
+    chanpkg.SubscribeOrderBook(cli, constant.Market_US, "NVDA", orderBookCh)
+    chanpkg.SubscribeRT(cli, constant.Market_US, "NVDA", rtCh)
+    chanpkg.SubscribeBroker(cli, constant.Market_US, "NVDA", brokerCh)
+    chanpkg.SubscribeKLine(cli, constant.Market_US, "NVDA", constant.KLType_K_1Min, klCh)
+
+    for {
+        select {
+        case q := <-quoteCh:
+            fmt.Printf("QUOTE [%s]: price=%.2f vol=%d\n",
+                q.Security.GetCode(), q.CurPrice, q.Volume)
+        case t := <-tickerCh:
+            if len(t.TickerList) > 0 {
+                fmt.Printf("TICKER: price=%.2f vol=%d\n",
+                    t.TickerList[0].GetPrice(), t.TickerList[0].GetVolume())
+            }
+        case ob := <-orderBookCh:
+            if len(ob.OrderBookBidList) > 0 && len(ob.OrderBookAskList) > 0 {
+                fmt.Printf("ORDERBOOK: bid=%.2f ask=%.2f\n",
+                    ob.OrderBookBidList[0].GetPrice(), ob.OrderBookAskList[0].GetPrice())
+            }
+        case rt := <-rtCh:
+            if len(rt.RTList) > 0 {
+                fmt.Printf("RT: price=%.2f avg=%.2f\n",
+                    rt.RTList[0].GetPrice(), rt.RTList[0].GetAvgPrice())
+            }
+        case b := <-brokerCh:
+            if len(b.BidBrokerList) > 0 {
+                fmt.Printf("BROKER: name=%s pos=%d\n",
+                    b.BidBrokerList[0].GetName(), b.BidBrokerList[0].GetPos())
+            }
+        case kl := <-klCh:
+            for _, bar := range kl.KLList {
+                fmt.Printf("KL: %s O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
+                    *bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
+            }
         }
     }
 }
@@ -116,7 +167,7 @@ quote, _ := client.GetQuote(ctx, cli, constant.Market_HK, "00700")
 klines, _ := client.GetKLines(cli, constant.Market_HK, "00700", constant.KLType_K_Day, 100)
 
 // Subscribe to real-time data
-client.Subscribe(cli, constant.Market_HK, "00700", []int32{constant.SubType_Quote})
+client.Subscribe(cli, constant.Market_HK, "00700", []constant.SubType{constant.SubType_Quote})
 
 // List accounts
 accounts, _ := client.GetAccountList(cli)

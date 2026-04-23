@@ -35,6 +35,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
+	"github.com/shing1211/futuapi4go/pkg/push"
 	"github.com/shing1211/futuapi4go/pkg/qot"
 )
 
@@ -164,13 +165,13 @@ func runPushExample(cli *client.Client) {
 	}
 
 	cli.RegisterHandler(constant.ProtoID_Qot_UpdateBasicQot, func(protoID uint32, body []byte) {
-		quote, err := client.ParsePushQuote(body)
+		quote, err := push.ParseUpdateBasicQot(body)
 		if err != nil || quote == nil {
 			return
 		}
 		fmt.Printf("\r  [%s] %s: %.2f   ",
 			time.Now().Format("15:04:05"),
-			quote.Code,
+			quote.Security.GetCode(),
 			quote.CurPrice)
 	})
 
