@@ -27,7 +27,7 @@ scripts\run.bat
 
 ```
 futuapi4go-demo/
-├── cmd/demo/main.go     # Source code
+├── cmd/demo/main.go     # Source code (single-file, menu-driven)
 ├── docs/               # Supplementary docs (proto reference)
 ├── scripts/            # Build & run scripts (.bat/.sh)
 ├── .github/           # GitHub config (issue templates, PR template)

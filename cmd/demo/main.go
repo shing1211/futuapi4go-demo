@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotgetreference"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotstockfilter"
@@ -22,8 +23,8 @@ import (
 const defaultAddr = "127.0.0.1:11111"
 
 const (
-	MarketHK = client.Market_HK_Security
-	MarketUS = client.Market_US_Security
+	MarketHK = constant.Market_HK
+	MarketUS = constant.Market_US
 )
 
 func ptrStr(v string) *string   { return &v }
@@ -971,7 +972,7 @@ func demoPushSubscriptions(cli *client.Client) {
 	fmt.Println("  Watching for BasicQot, KL (1min), OrderBook, Ticker updates...")
 	fmt.Println("  Press Ctrl+C to stop.")
 
-	cli.RegisterHandler(client.ProtoID_Qot_UpdateBasicQot, func(protoID uint32, body []byte) {
+	cli.RegisterHandler(constant.ProtoID_Qot_UpdateBasicQot, func(protoID uint32, body []byte) {
 		q, err := client.ParsePushQuote(body)
 		if err != nil || q == nil {
 			return
@@ -980,7 +981,7 @@ func demoPushSubscriptions(cli *client.Client) {
 			q.Code, q.CurPrice, formatVolume(q.Volume))
 	})
 
-	cli.RegisterHandler(client.ProtoID_Qot_UpdateKL, func(protoID uint32, body []byte) {
+	cli.RegisterHandler(constant.ProtoID_Qot_UpdateKL, func(protoID uint32, body []byte) {
 		kl, err := client.ParsePushKLine(body)
 		if err != nil || kl == nil {
 			return
@@ -996,7 +997,7 @@ func demoPushSubscriptions(cli *client.Client) {
 			kl.Code, klType, kl.Close, formatVolume(kl.Volume))
 	})
 
-	cli.RegisterHandler(client.ProtoID_Qot_UpdateOrderBook, func(protoID uint32, body []byte) {
+	cli.RegisterHandler(constant.ProtoID_Qot_UpdateOrderBook, func(protoID uint32, body []byte) {
 		ob, err := client.ParsePushOrderBook(body)
 		if err != nil || ob == nil || len(ob.Asks) == 0 || len(ob.Bids) == 0 {
 			return
@@ -1006,7 +1007,7 @@ func demoPushSubscriptions(cli *client.Client) {
 			len(ob.Asks)+len(ob.Bids))
 	})
 
-	cli.RegisterHandler(client.ProtoID_Qot_UpdateTicker, func(protoID uint32, body []byte) {
+	cli.RegisterHandler(constant.ProtoID_Qot_UpdateTicker, func(protoID uint32, body []byte) {
 		tk, err := client.ParsePushTicker(body)
 		if err != nil || tk == nil {
 			return

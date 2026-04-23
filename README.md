@@ -16,6 +16,22 @@
 - **Multi-market** — Hong Kong, US
 - **Color terminal output** — green/red/yellow for quick visual parsing
 - **Zero config** — reads `FUTU_ADDR` env var for custom OpenD addresses
+- **Python SDK compatible** — uses `pkg/constant` for Python-style constants (e.g., `constant.Market_HK`)
+
+## Python SDK Migration
+
+For developers migrating from the Python `futu-api` SDK, the demo uses Python-style constants from `pkg/constant`:
+
+```go
+import "github.com/shing1211/futuapi4go/pkg/constant"
+
+// Market: constant.Market_HK, constant.Market_US
+// K-Line: constant.KLType_K_Day, constant.KLType_K_1Min
+// Trading: constant.TrdEnv_Simulate, constant.TrdSide_Buy
+// ProtoID: constant.ProtoID_Qot_UpdateBasicQot
+```
+
+See the [Python Migration Guide](https://github.com/shing1211/futuapi4go/blob/main/PYTHON_MIGRATION_GUIDE.md) for the full reference.
 
 ## Requirements
 
