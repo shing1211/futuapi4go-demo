@@ -11,11 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **`chanpkg.SubscribeKLinesHandler`** — Python-style callback for multi-period K-line subscription; single callback receives all periods, caller switches on `KlType`
+- **`chanpkg.SubscribeKLines`** — subscribe to multiple K-line periods with type-safe per-period callbacks (map[KLType]func)
 
 ### Changed
 
-- **main.go** — rewritten to use `SubscribeKLinesHandler` (Python style) instead of map-of-channels
+- **main.go** — use `SubscribeKLines(map[KLType]func)`
 
 ### Fixed
 
