@@ -26,18 +26,20 @@ go run ./examples/00_connect
 
 ```
 futuapi4go-demo/
-├── examples/
-│   ├── README.md             # Example descriptions
-│   ├── 00_connect/          # Connect & disconnect
-│   ├── 01_quote/            # GetQuote snapshot
-│   ├── 02_ticker/          # SubscribeTicker
-│   ├── 03_orderbook/        # SubscribeOrderBook
-│   ├── 04_rt/               # SubscribeRT
-│   ├── 05_broker/           # SubscribeBroker
-│   ├── 06_kline_single/     # GetKLines (one-shot)
-│   └── 07_kline_multi/      # SubscribeKLines (multi-period)
-├── docs/                     # Supplementary docs (proto reference)
-├── AGENTS.md                # This file
+├── examples/                  # 50 standalone examples (00-49)
+│   ├── README.md              # Example descriptions & links
+│   ├── 00_connect/           # client.Connect
+│   ├── 01_quote/             # client.GetQuote
+│   ├── 02_ticker/           # chanpkg.SubscribeTicker
+│   ├── 03_orderbook/        # chanpkg.SubscribeOrderBook
+│   ├── 04_rt/               # chanpkg.SubscribeRT
+│   ├── 05_broker/           # chanpkg.SubscribeBroker
+│   ├── 06_kline_single/     # client.GetKLines
+│   ├── 07_kline_multi/      # chanpkg.SubscribeKLines
+│   └── ... (40 more: 08-49)
+├── docs/
+│   └── FUTU_PROTO_REF.md
+├── AGENTS.md
 └── README.md
 ```
 
@@ -47,12 +49,8 @@ Run any example:
 ```bash
 go run ./examples/00_connect
 go run ./examples/01_quote
-go run ./examples/02_ticker
-go run ./examples/03_orderbook
-go run ./examples/04_rt
-go run ./examples/05_broker
-go run ./examples/06_kline_single
 go run ./examples/07_kline_multi
+# ... 47 more in examples/
 ```
 
 ## SDK Debugging

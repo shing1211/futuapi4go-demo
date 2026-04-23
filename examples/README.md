@@ -82,6 +82,19 @@
 | 46 | [`46_user_info`](./46_user_info) | `client.GetUserInfo` |
 | 49 | [`49_subscribe_price_reminder`](./49_subscribe_price_reminder) | `chanpkg.SubscribePriceReminder` |
 
+## SDK Functions Without Examples
+
+| SDK Function | Reason |
+|-------------|--------|
+| `client.GetStaticInfo` | Not covered |
+| `client.Unsubscribe` | Not covered |
+| `client.UnsubscribeAll` | Not covered |
+| `client.CancelAllOrder` | Not covered |
+| `client.GetOrderFee` | Not covered |
+| `client.GetMarginRatio` | Not covered |
+| `client.SetPriceReminder` | Not covered |
+| `client.GetDelayStatistics` | Known bug — proto2/proto3 wire-format mismatch |
+
 ## Common Patterns
 
 ```go
