@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-04-24
+
+### Changed
+
+- **main.go** — use `SubscribeKLines` for multi-period K-line routing instead of shared single channel
+- **go.mod** — `futuapi4go` upgraded to **v0.9.7** with local `replace` directive pointing to `D:/github/futuapi4go`
+
 ## [0.2.0] - 2026-04-23
 
 ### Changed
