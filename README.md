@@ -19,15 +19,12 @@
 git clone https://github.com/shing1211/futuapi4go-demo.git
 cd futuapi4go-demo
 
-# Pick one:
+# Pick one (00-30):
 go run ./examples/00_connect
 go run ./examples/01_quote
 go run ./examples/02_ticker
-go run ./examples/03_orderbook
-go run ./examples/04_rt
-go run ./examples/05_broker
-go run ./examples/06_kline_single
 go run ./examples/07_kline_multi
+# ... 28 more in examples/
 ```
 
 ### Custom OpenD Address
@@ -59,6 +56,29 @@ go run ./examples/07_kline_multi
 | 05 | `05_broker` | `chanpkg.SubscribeBroker` | Broker queue |
 | 06 | `06_kline_single` | `client.GetKLines` | Historical K-lines (one-shot) |
 | 07 | `07_kline_multi` | `chanpkg.SubscribeKLines` | Live K-lines for multiple periods |
+| 08 | `08_orderbook_req` | `client.GetOrderBook` | Order book snapshot |
+| 09 | `09_ticker_req` | `client.GetTicker` | Ticker history |
+| 10 | `10_rt_req` | `client.GetRT` | RT time & sales |
+| 11 | `11_broker_req` | `client.GetBroker` | Broker queue |
+| 12 | `12_capital_flow` | `client.GetCapitalFlow` | Capital flow |
+| 13 | `13_plate_set` | `client.GetPlateSet` | Sector plates |
+| 14 | `14_plate_stock` | `client.GetPlateSecurity` | Stocks in a plate |
+| 15 | `15_history_kline` | `client.RequestHistoryKL` | Historical K-lines by date range |
+| 16 | `16_market_state` | `client.GetMarketState` | Market open/close state |
+| 17 | `17_global_state` | `client.GetGlobalState` | OpenD global state |
+| 18 | `18_account_list` | `client.GetAccountList` | Trading accounts |
+| 19 | `19_funds` | `client.GetFunds` | Account funds |
+| 20 | `20_positions` | `client.GetPositionList` | Open positions |
+| 21 | `21_unlock_trade` | `client.UnlockTrading` | Unlock trading |
+| 22 | `22_place_order` | `client.PlaceOrder` | Place an order |
+| 23 | `23_order_list` | `client.GetOrderList` | Open orders |
+| 24 | `24_snapshot` | `client.GetSecuritySnapshot` | Multi-stock snapshot |
+| 25 | `25_trade_date` | `client.GetTradeDate` | Trading dates |
+| 26 | `26_price_reminder` | `client.GetPriceReminder` | Price alerts |
+| 27 | `27_cancel_order` | `client.ModifyOrder` | Cancel an order |
+| 28 | `28_owner_plate` | `client.GetOwnerPlate` | Owner plates |
+| 29 | `29_capital_distribution` | `client.GetCapitalDistribution` | Capital distribution |
+| 30 | `30_stock_filter` | `client.StockFilter` | Stock screener |
 
 ## Project Layout
 

@@ -21,13 +21,14 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	if err := client.Subscribe(cli, int32(constant.Market_US), "NVDA", []constant.SubType{constant.SubType_K_Day}); err != nil {
-		log.Fatalf("Subscribe failed: %v", err)
-	}
-
-	klines, err := client.GetKLines(cli, int32(constant.Market_US), "NVDA", int32(constant.KLType_K_Day), 10)
+	klines, err := client.RequestHistoryKL(
+		cli,
+		int32(constant.Market_US), "NVDA",
+		int32(constant.KLType_K_Day),
+		"2026-01-01", "2026-04-24",
+	)
 	if err != nil {
-		log.Fatalf("GetKLines failed: %v", err)
+		log.Fatalf("RequestHistoryKL failed: %v", err)
 	}
 	for _, bar := range klines {
 		fmt.Printf("%s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
