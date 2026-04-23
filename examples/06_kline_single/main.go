@@ -1,0 +1,32 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
+)
+
+func main() {
+	cli := client.New()
+	defer cli.Close()
+
+	addr := os.Getenv("FUTU_ADDR")
+	if addr == "" {
+		addr = "127.0.0.1:11111"
+	}
+	if err := cli.Connect(addr); err != nil {
+		log.Fatalf("Connect failed: %v", err)
+	}
+
+	klines, err := client.GetKLines(cli, int32(constant.Market_US), "NVDA", int32(constant.KLType_K_Day), 10)
+	if err != nil {
+		log.Fatalf("GetKLines failed: %v", err)
+	}
+	for _, bar := range klines {
+		fmt.Printf("%s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
+			bar.Time, bar.Open, bar.High, bar.Low, bar.Close, bar.Volume)
+	}
+}

@@ -1,6 +1,6 @@
 ﻿# Examples
 
-> Copy-paste-ready code that actually works. Each example is a complete, runnable program.
+> Copy-paste-ready code that actually works. Each example is a complete, runnable program demonstrating one SDK function.
 
 ## Quick Start
 
@@ -11,218 +11,129 @@
 go run github.com/shing1211/futuapi4go/cmd/examples/simulator
 
 # Terminal 2 — run any example
-go run ./examples/getting_started
-go run ./examples/trading_demo
+go run ./examples/00_connect
+go run ./examples/01_quote
+go run ./examples/02_ticker
+go run ./examples/03_orderbook
+go run ./examples/04_rt
+go run ./examples/05_broker
+go run ./examples/06_kline_single
+go run ./examples/07_kline_multi
 ```
-
-The simulator fires back realistic mock data so you can run the full stack without a Futu account or OpenD installed.
 
 ### With a Real OpenD
 
 ```powershell
-# Make sure Futu OpenD is running (default: 127.0.0.1:11111)
 set FUTU_ADDR=127.0.0.1:11111
-
-go run ./examples/getting_started
-go run ./examples/trading_demo
-```
-
-### Interactive Menu Demo
-
-```powershell
-go run ./cmd/demo/main.go
+go run ./examples/00_connect
+# ...
 ```
 
 ## Available Examples
 
-| Example | What it Does |
-|---------|-------------|
-| `cmd/demo` | Interactive menu with all 10 demo categories |
-| `examples/getting_started` | Connect → quote → K-line → subscribe |
-| `examples/trading_demo` | Accounts → positions → orders → fills |
+| Example | SDK Function | What it Does |
+|---------|-------------|-------------|
+| [`00_connect`](./00_connect) | `client.Connect` | Connect to OpenD and disconnect |
+| [`01_quote`](./01_quote) | `client.GetQuote` | Snapshot quote (price, open, high, low, volume) |
+| [`02_ticker`](./02_ticker) | `chanpkg.SubscribeTicker` | Real-time tick trades |
+| [`03_orderbook`](./03_orderbook) | `chanpkg.SubscribeOrderBook` | Order book (bids & asks) |
+| [`04_rt`](./04_rt) | `chanpkg.SubscribeRT` | Tick-by-tick time & sales |
+| [`05_broker`](./05_broker) | `chanpkg.SubscribeBroker` | Broker queue (bid/ask queues) |
+| [`06_kline_single`](./06_kline_single) | `client.GetKLines` | Historical K-lines (one-shot) |
+| [`07_kline_multi`](./07_kline_multi) | `chanpkg.SubscribeKLines` | Live K-lines for multiple periods |
 
-## Example Structure
+## Example Descriptions
 
-Every example follows the same three-step pattern:
+### 00_connect — `client.Connect`
+The simplest possible program — connect to OpenD and exit cleanly. Verifies your OpenD address and network are working.
 
 ```go
-package main
+cli := client.New()
+cli.Connect("127.0.0.1:11111")
+```
 
-import (
-    "context"
-    "fmt"
-    "log"
-    "os"
+### 01_quote — `client.GetQuote`
+Fetches a snapshot quote for NVDA: last price, open, high, low, volume. One-shot request, no subscription needed.
 
-    "github.com/shing1211/futuapi4go/client"
-    "github.com/shing1211/futuapi4go/pkg/constant"
-    "github.com/shing1211/futuapi4go/pkg/push"
-    chanpkg "github.com/shing1211/futuapi4go/pkg/push/chan"
-)
+```go
+quote, _ := client.GetQuote(ctx, cli, int32(constant.Market_US), "NVDA")
+fmt.Println(quote.Price, quote.Open, quote.High, quote.Low, quote.Volume)
+```
 
-func main() {
-    // 1. Create & connect
-    cli := client.New()
-    defer cli.Close()
+### 02_ticker — `chanpkg.SubscribeTicker`
+Subscribes to real-time tick trades for NVDA. Each tick includes price, volume, and trade direction. Fires continuously while the market is open.
 
-    addr := os.Getenv("FUTU_ADDR")
-    if addr == "" {
-        addr = "127.0.0.1:11111"
-    }
+```go
+chanpkg.SubscribeTicker(cli, int32(constant.Market_US), "NVDA", tickerCh)
+```
 
-    if err := cli.Connect(addr); err != nil {
-        log.Fatalf("Connection failed: %v", err)
-    }
+### 03_orderbook — `chanpkg.SubscribeOrderBook`
+Subscribes to the real-time order book (limit order book) for NVDA. Shows top 5 bid and ask price levels with volumes. Updates as orders are placed, modified, and cancelled.
 
-    // 2. Subscribe to ALL data types for NVDA
-    allSubTypes := []constant.SubType{
-        constant.SubType_Quote,
-        constant.SubType_OrderBook,
-        constant.SubType_Ticker,
-        constant.SubType_RT,
-        constant.SubType_Broker,
-        constant.SubType_K_1Min,
-        constant.SubType_K_5Min,
-        constant.SubType_K_15Min,
-        constant.SubType_K_30Min,
-        constant.SubType_K_60Min,
-        constant.SubType_K_Day,
-        constant.SubType_K_Week,
-        constant.SubType_K_Month,
-    }
-    if err := client.Subscribe(cli, constant.Market_US, "NVDA", allSubTypes); err != nil {
-        log.Fatalf("Subscribe failed: %v", err)
-    }
+```go
+chanpkg.SubscribeOrderBook(cli, int32(constant.Market_US), "NVDA", orderBookCh)
+```
 
-    quote, err := client.GetQuote(context.Background(), cli, constant.Market_US, "NVDA")
-    if err != nil {
-        log.Fatalf("GetQuote failed: %v", err)
-    }
-    fmt.Printf("US.NVDA: price=%.2f open=%.2f high=%.2f low=%.2f vol=%d\n",
-        quote.Price, quote.Open, quote.High, quote.Low, quote.Volume)
+### 04_rt — `chanpkg.SubscribeRT`
+Subscribes to tick-by-tick time & sales data for NVDA. Each record is an individual trade: timestamp, price, volume, and average price. No aggregation.
 
-    // 3. Set up channel listeners for each data type
-    quoteCh     := make(chan *push.UpdateBasicQot, 100)
-    tickerCh    := make(chan *push.UpdateTicker, 100)
-    orderBookCh := make(chan *push.UpdateOrderBook, 100)
-    rtCh        := make(chan *push.UpdateRT, 100)
-    brokerCh    := make(chan *push.UpdateBroker, 100)
-    klCh        := make(chan *push.UpdateKL, 100)
+```go
+chanpkg.SubscribeRT(cli, int32(constant.Market_US), "NVDA", rtCh)
+```
 
-    chanpkg.SubscribeQuote(cli, constant.Market_US, "NVDA", quoteCh)
-    chanpkg.SubscribeTicker(cli, constant.Market_US, "NVDA", tickerCh)
-    chanpkg.SubscribeOrderBook(cli, constant.Market_US, "NVDA", orderBookCh)
-    chanpkg.SubscribeRT(cli, constant.Market_US, "NVDA", rtCh)
-    chanpkg.SubscribeBroker(cli, constant.Market_US, "NVDA", brokerCh)
-    chanpkg.SubscribeKLine(cli, constant.Market_US, "NVDA", constant.KLType_K_1Min, klCh)
+### 05_broker — `chanpkg.SubscribeBroker`
+Subscribes to broker queue data for NVDA. Shows the top-of-book broker (market maker) names and their positions on the bid and ask sides.
 
-    for {
-        select {
-        case q := <-quoteCh:
-            fmt.Printf("QUOTE [%s]: price=%.2f vol=%d\n",
-                q.Security.GetCode(), q.CurPrice, q.Volume)
-        case t := <-tickerCh:
-            if len(t.TickerList) > 0 {
-                fmt.Printf("TICKER: price=%.2f vol=%d\n",
-                    t.TickerList[0].GetPrice(), t.TickerList[0].GetVolume())
-            }
-        case ob := <-orderBookCh:
-            if len(ob.OrderBookBidList) > 0 && len(ob.OrderBookAskList) > 0 {
-                fmt.Printf("ORDERBOOK: bid=%.2f ask=%.2f\n",
-                    ob.OrderBookBidList[0].GetPrice(), ob.OrderBookAskList[0].GetPrice())
-            }
-        case rt := <-rtCh:
-            if len(rt.RTList) > 0 {
-                fmt.Printf("RT: price=%.2f avg=%.2f\n",
-                    rt.RTList[0].GetPrice(), rt.RTList[0].GetAvgPrice())
-            }
-        case b := <-brokerCh:
-            if len(b.BidBrokerList) > 0 {
-                fmt.Printf("BROKER: name=%s pos=%d\n",
-                    b.BidBrokerList[0].GetName(), b.BidBrokerList[0].GetPos())
-            }
-        case kl := <-klCh:
-            for _, bar := range kl.KLList {
-                fmt.Printf("KL: %s O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
-                    *bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
-            }
-        }
-    }
+```go
+chanpkg.SubscribeBroker(cli, int32(constant.Market_US), "NVDA", brokerCh)
+```
+
+### 06_kline_single — `client.GetKLines`
+Fetches historical K-line (candlestick) data for NVDA as a one-shot request. Gets the last 10 daily bars. Supports any `KLType`: `KLType_K_1Min`, `KLType_K_5Min`, `KLType_K_15Min`, `KLType_K_30Min`, `KLType_K_60Min`, `KLType_K_Day`, `KLType_K_Week`, `KLType_K_Month`, `KLType_K_Quarter`, `KLType_K_Year`.
+
+```go
+klines, _ := client.GetKLines(cli, int32(constant.Market_US), "NVDA", int32(constant.KLType_K_Day), 10)
+for _, bar := range klines {
+    fmt.Printf("%s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
+        bar.Time, bar.Open, bar.High, bar.Low, bar.Close, bar.Volume)
 }
 ```
 
-## High-Level Client API
-
-The `client` package wraps the raw SDK into friendly functions:
-
-```go
-// Connect
-cli := client.New()
-cli.Connect("127.0.0.1:11111")
-
-// Get a quote
-quote, _ := client.GetQuote(ctx, cli, constant.Market_HK, "00700")
-
-// Fetch K-lines
-klines, _ := client.GetKLines(cli, constant.Market_HK, "00700", constant.KLType_K_Day, 100)
-
-// Subscribe to real-time data
-client.Subscribe(cli, constant.Market_HK, "00700", []constant.SubType{constant.SubType_Quote})
-
-// List accounts
-accounts, _ := client.GetAccountList(cli)
-
-// Place a simulated order
-result, _ := client.PlaceOrder(cli, accID, constant.Market_HK, "00700",
-    constant.TrdSide_Buy, constant.OrderType_Normal, 350.0, 100)
-```
-
-## Helper Utilities
-
-Every example uses these pointer helpers to keep proto struct literals clean:
+### 07_kline_multi — `chanpkg.SubscribeKLines`
+Subscribes to live K-line updates for NVDA across multiple periods simultaneously — 1 min, 5 min, and daily. Uses a single call with a map of period-to-callback functions. Each callback fires independently when that period's bar updates.
 
 ```go
-func ptrStr(s string) *string    { return &s }
-func ptrInt32(v int32) *int32   { return &v }
-func ptrFloat64(v float64) *float64 { return &v }
-func ptrBool(v bool) *bool       { return &v }
+stop := chanpkg.SubscribeKLines(cli, int32(constant.Market_US), "NVDA", map[constant.KLType]func(*push.UpdateKL){
+    KLType_K_1Min: func(kl *push.UpdateKL) { fmt.Println("1min bar!") },
+    KLType_K_5Min: func(kl *push.UpdateKL) { fmt.Println("5min bar!") },
+    KLType_K_Day:  func(kl *push.UpdateKL) { fmt.Println("day bar!") },
+})
+defer stop()
 ```
 
-## Simulator vs Real OpenD
+## Common Patterns
 
-| | Simulator | Real OpenD |
-|---|---|---|
-| Quote data | Realistic mock | Live market |
-| Trading | Simulated fills | Real fills |
-| API latency | Instant | Network-dependent |
-| Account needed | No | Yes (logged in) |
+**Market constant** — all APIs take `int32` for market:
+```go
+int32(constant.Market_HK)  // 1 — Hong Kong
+int32(constant.Market_US)  // 11 — United States
+int32(constant.Market_SH)  // 21 — Shanghai A
+int32(constant.Market_SZ)  // 22 — Shenzhen A
+```
 
-Both work with the exact same code — swap the address and you're done.
+**Request vs Subscribe**
+- **Request** (`client.GetQuote`, `client.GetKLines`): one-shot call, returns data immediately.
+- **Subscribe** (`chanpkg.Subscribe*`): registers a channel; data flows continuously. Call the returned `stop` function to unsubscribe.
 
-## Trading Safety
-
-- **Always test with the simulator first.** Switch to `constant.TrdEnv_Real` only when you're ready.
-- The client defaults to **simulate mode** (`constant.TrdEnv_Simulate`) out of the box.
-- If you accidentally run a live order in simulate mode, nothing actually trades.
+**Stock codes**: `"00700"`, `"NVDA"`, `"AAPL"`, `"9988.HK"`.
 
 ## Troubleshooting
 
-**`connection refused`**
-
-Futu OpenD (or the simulator) isn't running on the specified address. Check the port:
-
+**`connection refused`** — OpenD isn't running. Check `FUTU_ADDR`:
 ```powershell
 set FUTU_ADDR=127.0.0.1:11111
 ```
 
-**`Found 0 positions`**
+**`Found 0 positions`** — normal for the simulator; real OpenD shows actual positions.
 
-Normal for the simulator — it returns an empty account. With a real OpenD you'll see your actual positions.
-
-**`no such host`**
-
-Make sure your `FUTU_ADDR` doesn't have a trailing slash or spaces.
-
----
-
-**Happy exploring!**
+**`no such host`** — `FUTU_ADDR` has a trailing slash or spaces.

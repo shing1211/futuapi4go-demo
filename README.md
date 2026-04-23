@@ -6,160 +6,117 @@
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
 </p>
 
-> **Spin up the full Futu OpenAPI in your terminal.** This demo walks you through every market data, trading, and real-time push API in the futuapi4go SDK — no account needed to explore.
-
-## What You'll Get
-
-Walk through **10 interactive demo categories** that cover the complete Futu OpenAPI surface:
-
-| # | Category | What's Inside |
-|---|---------|-------------|
-| 1 | **Connection & System** | OpenD state, user info, server version |
-| 2 | **Market Data** | Real-time quotes, K-lines, order book, tick data, broker queue |
-| 3 | **Market Analysis** | Sector plates, capital flow, owner plates, stock filter |
-| 4 | **Stock Screening** | Multi-criteria screener with 20+ filter fields |
-| 5 | **Options & Warrants** | Option chains, expiry dates, warrant data |
-| 6 | **Historical Data** | K-line history, rehab data, API quota |
-| 7 | **Corporate Actions** | IPO calendar, stock splits, trading halts |
-| 8 | **Trading Operations** | Accounts, positions, orders, fills, fund flow |
-| 9 | **Watchlists & Alerts** | Custom groups, price reminders |
-| 10 | **Real-time Push** | Live quote, K-line, order book, ticker streams |
-| 0 | **Run All** | Execute demos 1–9 in one shot |
+> **Copy-paste-ready Go examples for the futuapi4go SDK.** Each example is a standalone `main.go` demonstrating one SDK function. No account needed — run against the built-in simulator.
 
 ## Prerequisites
 
 - **Go 1.26+** — [golang.org/dl](https://golang.org/dl)
-- **Futu OpenD** running on `127.0.0.1:11111` — [download here](https://www.futunn.com/download/fetch-lasted-link?name=opend-windows)
+- **Futu OpenD** on `127.0.0.1:11111` — [download](https://www.futunn.com/download/fetch-lasted-link?name=opend-windows), or use the simulator below
 
-Don't have OpenD or a trading account? **No problem.** Use the built-in mock simulator instead (see below).
+## Run an Example
 
-## Get Up and Running
-
-```bash
+```powershell
 git clone https://github.com/shing1211/futuapi4go-demo.git
 cd futuapi4go-demo
 
-go run ./cmd/demo/main.go
+# Pick one:
+go run ./examples/00_connect
+go run ./examples/01_quote
+go run ./examples/02_ticker
+go run ./examples/03_orderbook
+go run ./examples/04_rt
+go run ./examples/05_broker
+go run ./examples/06_kline_single
+go run ./examples/07_kline_multi
 ```
-
-The interactive menu will greet you. Pick a category (or `0` to run everything) and watch the data flow.
 
 ### Custom OpenD Address
 
-```bash
-FUTU_ADDR=192.168.1.100:11111 go run ./cmd/demo/main.go
+```powershell
+set FUTU_ADDR=192.168.1.100:11111
+go run ./examples/01_quote
 ```
 
-### No Account? Use the Simulator
+### Simulator (No Account Needed)
 
-```bash
-# Terminal 1 — fire up the mock OpenD
+```powershell
+# Terminal 1
 go run github.com/shing1211/futuapi4go/cmd/examples/simulator
 
-# Terminal 2 — run the demo
-go run ./cmd/demo/main.go
+# Terminal 2
+go run ./examples/07_kline_multi
 ```
 
-The simulator returns realistic mock data for all APIs so you can explore without risking a single dollar.
+## Examples Overview
 
-## Build Scripts
+| # | Example | SDK Function | Description |
+|---|---------|-------------|-------------|
+| 00 | `00_connect` | `client.Connect` | Connect and disconnect |
+| 01 | `01_quote` | `client.GetQuote` | Snapshot quote |
+| 02 | `02_ticker` | `chanpkg.SubscribeTicker` | Real-time tick trades |
+| 03 | `03_orderbook` | `chanpkg.SubscribeOrderBook` | Order book (bids & asks) |
+| 04 | `04_rt` | `chanpkg.SubscribeRT` | Tick-by-tick time & sales |
+| 05 | `05_broker` | `chanpkg.SubscribeBroker` | Broker queue |
+| 06 | `06_kline_single` | `client.GetKLines` | Historical K-lines (one-shot) |
+| 07 | `07_kline_multi` | `chanpkg.SubscribeKLines` | Live K-lines for multiple periods |
 
-```bash
-# Build the binary
-.\build.bat          # Windows
-./build.sh           # Linux / macOS
+## Project Layout
 
-# Run the demo
-.\run.bat            # Windows
-./run.sh             # Linux / macOS
-
-# Clean up
-.\clean.bat          # Windows
-./clean.sh           # Linux / macOS
-
-# Upgrade SDK to latest
-.\upgrade.bat        # Windows
-./upgrade.sh         # Linux / macOS
+```
+futuapi4go-demo/
+├── examples/
+│   ├── README.md              # Example descriptions & usage guide
+│   ├── 00_connect/
+│   ├── 01_quote/
+│   ├── 02_ticker/
+│   ├── 03_orderbook/
+│   ├── 04_rt/
+│   ├── 05_broker/
+│   ├── 06_kline_single/
+│   └── 07_kline_multi/
+├── docs/
+│   └── FUTU_PROTO_REF.md      # Proto field reference
+├── build.bat / .sh            # Build
+├── run.bat / .sh              # Run (uses run.bat in examples/)
+├── clean.bat / .sh            # Clean
+├── upgrade.bat / .sh          # Upgrade SDK
+├── AGENTS.md                  # AI agent instructions
+├── README.md
+└── LICENSE
 ```
 
-## Python SDK? The Constants Are Familiar
+## SDK Reference
 
-The demo (and the full SDK) mirror Python SDK naming conventions so the migration feels natural:
+The SDK mirrors Python SDK naming conventions:
 
 ```go
 import "github.com/shing1211/futuapi4go/pkg/constant"
 
 // Markets: constant.Market_HK, constant.Market_US, constant.Market_SH
 // K-Lines: constant.KLType_K_Day, constant.KLType_K_1Min
-// Trading: constant.TrdEnv_Simulate, constant.TrdSide_Buy
 // Subscriptions: constant.SubType_Quote, constant.SubType_K_1Min
+// Trading: constant.TrdEnv_Simulate, constant.TrdSide_Buy
 ```
 
-See the full [Python Migration Guide](https://github.com/shing1211/futuapi4go/blob/main/PYTHON_MIGRATION_GUIDE.md) for side-by-side comparisons of every API.
+See the full [Python Migration Guide](https://github.com/shing1211/futuapi4go/blob/main/PYTHON_MIGRATION_GUIDE.md).
 
-## Color Terminal Output
+## Build & Scripts
 
-Every demo prints with ANSI color coding for quick visual parsing:
-
-- **Green** — buy side, positive change, success
-- **Red** — sell side, negative change, error
-- **Yellow** — warnings, skipped sections, partial data
-- **Cyan** — section headers and key metrics
-
-## Project Layout
-
+```powershell
+.\build.bat      # Build
+.\run.bat        # Run (default: 00_connect)
+.\clean.bat      # Clean artifacts
+.\upgrade.bat    # Upgrade futuapi4go dependency
 ```
-futuapi4go-demo/
-├── cmd/demo/main.go           # Single-file interactive demo (~1,500 lines)
-├── examples/
-│   ├── getting_started/       # First steps: connect → quote → K-line → subscribe
-│   └── trading_demo/          # Full trading flow: accounts → positions → orders
-├── docs/
-│   └── FUTU_PROTO_REF.md     # Proto field reference for all APIs
-├── build.bat / .sh            # Build binary to cmd/demo/
-├── run.bat / .sh              # Run the demo
-├── clean.bat / .sh            # Remove build artifacts
-├── upgrade.bat / .sh          # Upgrade futuapi4go dependency
-├── .github/                  # Issue templates, PR template
-├── AGENTS.md                  # AI agent instructions
-├── README.md
-└── LICENSE                   # Apache 2.0
-```
-
-## API Coverage at a Glance
-
-### Market Data
-`GetBasicQot` · `GetKL` · `GetOrderBook` · `GetTicker` · `GetRT` · `GetBroker` · `GetSecuritySnapshot` · `GetTradeDate`
-
-### Market Analysis
-`GetPlateSet` · `GetPlateSecurity` · `GetCapitalFlow` · `GetCapitalDistribution` · `GetOwnerPlate` · `GetReference` · `GetStaticInfo` · `GetFutureInfo` · `StockFilter`
-
-### Options & Warrants
-`GetOptionExpirationDate` · `GetOptionChain` · `GetWarrant`
-
-### Historical Data
-`RequestHistoryKL` · `GetHistoryKL` · `RequestHistoryKLQuota` · `GetRehab`
-
-### Corporate Actions
-`GetIpoList` · `GetCodeChange` · `GetSuspend` · `GetHoldingChangeList`
-
-### Trading
-`GetAccList` · `GetFunds` · `GetPositionList` · `GetMaxTrdQtys` · `GetOrderList` · `GetOrderFillList` · `GetHistoryOrderList` · `PlaceOrder` · `ModifyOrder` · `GetFlowSummary`
-
-### System & User
-`GetGlobalState` · `GetUserInfo` · `GetUserSecurityGroup` · `GetUserSecurity` · `SetPriceReminder` · `GetPriceReminder`
-
-### Real-time Push
-`Subscribe` · `UnsubscribeAll` · `RegQotPush`
 
 ## Known Caveats
 
-- **`GetDelayStatistics`** — skipped in the demo due to a proto2/proto3 wire-format mismatch between Go's protobuf library and OpenD's C++ parser. All other APIs work normally.
+- **`GetDelayStatistics`** — skipped due to a proto2/proto3 wire-format mismatch between Go's protobuf library and OpenD's C++ parser. All other APIs work normally.
 - **`GetTradeDate`** — may return an error on older OpenD versions if all required C2S fields aren't populated.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). All contributions welcome — new API demos, better output formatting, test coverage, you name it.
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 

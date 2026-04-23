@@ -27,47 +27,43 @@ go run D:\github\futuapi4go\cmd\examples\simulator
 
 ```
 futuapi4go-demo/
-├── cmd/demo/main.go          # Interactive menu demo (single-file)
 ├── examples/
-│   ├── README.md             # Examples overview
-│   ├── getting_started/      # Basic usage example
-│   └── trading_demo/         # Trading operations example
+│   ├── README.md             # Example descriptions
+│   ├── 00_connect/          # Connect & disconnect
+│   ├── 01_quote/            # GetQuote snapshot
+│   ├── 02_ticker/          # SubscribeTicker
+│   ├── 03_orderbook/        # SubscribeOrderBook
+│   ├── 04_rt/               # SubscribeRT
+│   ├── 05_broker/           # SubscribeBroker
+│   ├── 06_kline_single/     # GetKLines (one-shot)
+│   └── 07_kline_multi/      # SubscribeKLines (multi-period)
 ├── docs/                     # Supplementary docs (proto reference)
 ├── build.bat / .sh           # Build script
-├── run.bat / .sh             # Run script
+├── run.bat / .sh             # Run script (default: 00_connect)
 ├── clean.bat / .sh           # Clean script
-├── upgrade.bat / .sh         # Upgrade dependencies
-├── .github/                  # GitHub config
-├── AGENTS.md                 # This file
-├── README.md                 # User-facing documentation
-├── LICENSE
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-├── CODE_OF_CONDUCT.md
-├── SECURITY.md
-├── go.mod
-└── go.sum
+└── upgrade.bat / .sh         # Upgrade dependencies
 ```
 
 ## Examples
 
-- `cmd/demo` — Interactive menu demo (recommended for exploration)
-- `examples/getting_started` — Basic: connect, quotes, K-lines, subscribe
-- `examples/trading_demo` — Trading: accounts, positions, orders, place/cancel
-
-Run individual examples:
+Run any example:
 ```bash
-go run ./cmd/demo
-go run ./examples/getting_started
-go run ./examples/trading_demo
+go run ./examples/00_connect
+go run ./examples/01_quote
+go run ./examples/02_ticker
+go run ./examples/03_orderbook
+go run ./examples/04_rt
+go run ./examples/05_broker
+go run ./examples/06_kline_single
+go run ./examples/07_kline_multi
 ```
 
 ## Scripts
 
 | Script | Platform | Description |
 |--------|---------|-------------|
-| `build.bat` / `.sh` | Win/Mac/Linux | Build binary to `cmd/demo/` |
-| `run.bat` / `.sh` | Win/Mac/Linux | Run the demo |
+| `build.bat` / `.sh` | Win/Mac/Linux | Build all packages |
+| `run.bat` / `.sh` | Win/Mac/Linux | Run an example (default: 00_connect) |
 | `clean.bat` / `.sh` | Win/Mac/Linux | Clean build artifacts |
 | `upgrade.bat` / `.sh` | Win/Mac/Linux | Upgrade dependencies |
 

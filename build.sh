@@ -4,7 +4,6 @@ cd "$(dirname "$0")"
 
 echo "Building futuapi4go-demo..."
 
-OUTPUT=cmd/demo/futuapi4go-demo
-go build -o "$OUTPUT" ./cmd/demo
+go build ./...
 
-echo "Build successful: $OUTPUT"
+echo "Build successful."

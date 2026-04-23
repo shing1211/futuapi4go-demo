@@ -4,11 +4,10 @@ cd /d "%~dp0"
 
 echo Building futuapi4go-demo...
 
-set OUTPUT=cmd\demo\futuapi4go-demo.exe
-go build -o %OUTPUT% ./cmd/demo
+go build ./...
 
 if %ERRORLEVEL% EQU 0 (
-    echo Build successful: %OUTPUT%
+    echo Build successful.
 ) else (
     echo Build failed!
     exit /b %ERRORLEVEL%
