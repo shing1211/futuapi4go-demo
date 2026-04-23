@@ -1,48 +1,40 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project are documented here.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-04-23
+
 ### Changed
 
-- README.md: enriched with API coverage tables, badges, troubleshooting, known issues section
-- AGENTS.md: corrected project structure, expanded SDK debugging documentation
-- CONTRIBUTING.md: added local SDK setup, mock simulator usage, new demo category guide
-- docs/FUTU_PROTO_REF.md: added table of contents, trading API proto definitions
-- main.go: fixed 4 `go vet` warnings (wrong format verbs, redundant newlines)
-- main.go: removed CNSH/CNSZ stocks (demo only uses HK and US now), removed unused `MarketCNSH`/`MarketCNSZ` constants
-- main.go: removed `GetDelayStatistics` call from demo (known proto2 wire-format incompatibility with OpenD)
-- scripts: added `run.bat` / `run.sh`, improved all scripts with proper `cd`, `setlocal`/`set -e`, correct exit codes
+- **README.md** — rewritten with vivid style, visual demo table, color output description, vibrant layout
+- **examples/README.md** — rewritten with vivid style, friendly tone, clear troubleshooting section
+- **AGENTS.md** — corrected script paths (`scripts\` → root), expanded SDK debugging section
+- **CONTRIBUTING.md** — polished with local SDK setup instructions
+- **build.bat / .sh**, **run.bat / .sh**, **clean.bat / .sh**, **upgrade.bat / .sh** — fixed `cd` path bug (`%cd%..` → `%cd%`)
 
-### Added
+### Dependencies
 
-- README.md, CHANGELOG.md, CONTRIBUTING.md, CODE_OF_CONDUCT.md, LICENSE, SECURITY.md: moved from `docs/` to project root for standard layout
-- docs/README.md: removed (merged into root README.md)
-- docs/IMPLEMENTATION_PLAN.md: pre-existing implementation tracking document (unchanged)
+- **futuapi4go** upgraded to **v0.9.0** — removes local replace directive, pulls from `proxy.golang.org`
 
 ## [0.1.0] - 2026-04-22
 
 ### Added
 
-- Interactive menu-driven demo with 10 categories
-- Connection & System demos (GetGlobalState, GetUserInfo, GetDelayStatistics)
-- Market Data demos (GetBasicQot, GetKL, GetOrderBook, GetTicker, GetRT, GetBroker, GetSecuritySnapshot, GetTradeDate)
-- Market Analysis demos (GetPlateSet, GetPlateSecurity, GetCapitalFlow, GetCapitalDistribution, GetOwnerPlate, GetReference, GetStaticInfo, GetFutureInfo, StockFilter)
-- Options & Warrants demos (GetOptionExpirationDate, GetOptionChain, GetWarrant)
-- Historical Data demos (RequestHistoryKL, GetHistoryKL, RequestHistoryKLQuota, GetRehab)
-- Corporate Actions demos (GetIpoList, GetCodeChange, GetSuspend, GetHoldingChangeList)
-- Trading Operations demos (GetAccList, GetFunds, GetPositionList, GetMaxTrdQtys, GetOrderList, GetOrderFillList, GetHistoryOrderList, PlaceOrder, GetFlowSummary)
-- User Groups & Alerts demos (GetUserSecurityGroup, GetUserSecurity, SetPriceReminder, GetPriceReminder)
+- Interactive menu-driven demo with 10 categories covering all major APIs
+- Connection & System demos (`GetGlobalState`, `GetUserInfo`)
+- Market Data demos (quote, K-line, order book, tick, broker, snapshot)
+- Market Analysis demos (plates, capital flow, stock filter)
+- Options & Warrants demos (option chain, expiry dates, warrant data)
+- Historical Data demos (K-line history, rehab, quota)
+- Corporate Actions demos (IPO, splits, suspensions)
+- Trading Operations demos (accounts, positions, orders, fills, flow)
+- Watchlists & Alerts demos (groups, price reminders)
 - Real-time Push Subscriptions (BasicQot, K-line, OrderBook, Ticker)
-- Multi-market support (HK, US, China A-shares)
-- Custom OpenD address via `FUTU_ADDR` environment variable
-- Apache 2.0 License
-- Contributing guidelines
-- Code of Conduct
-- Security policy
-
-[0.1.0]: https://github.com/shing1211/futuapi4go-demo/releases/tag/v0.1.0
+- Multi-market support (HK, US)
+- `FUTU_ADDR` environment variable for custom OpenD addresses
+- Apache 2.0 License, Contributing guidelines, Code of Conduct, Security policy

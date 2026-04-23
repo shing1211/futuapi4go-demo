@@ -1,6 +1,6 @@
 # Futu API Proto Reference
 
-> Slimmed reference for futuapi4go-demo. Full docs: https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
+> The field-by-field reference for every API in the demo. Full protocol docs: https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
 
 ## Table of Contents
 

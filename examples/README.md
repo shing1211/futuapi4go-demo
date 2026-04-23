@@ -1,70 +1,53 @@
-﻿# FutuAPI4Go Examples
+﻿# Examples
 
-This directory contains examples demonstrating how to use the futuapi4go SDK.
+> Copy-paste-ready code that actually works. Each example is a complete, runnable program.
 
 ## Quick Start
 
-### Using with Simulator (Recommended for Development)
+### With the Simulator (Recommended)
 
-1. **Start the simulator** (from the SDK directory):
-```bash
-cd D:\github\futuapi4go
-go run .\cmd\examples\simulator
+```powershell
+# Terminal 1 — start the mock OpenD
+go run github.com/shing1211/futuapi4go/cmd/examples/simulator
+
+# Terminal 2 — run any example
+go run ./examples/getting_started
+go run ./examples/trading_demo
 ```
 
-2. **Run the demo** (from the demo directory):
-```bash
-cd futuapi4go-demo
-go run .\cmd\demo
-```
+The simulator fires back realistic mock data so you can run the full stack without a Futu account or OpenD installed.
 
-Or run individual examples:
-```bash
-go run examples/getting_started
-go run examples/trading_demo
-```
+### With a Real OpenD
 
-### Using with Real Futu OpenD
-
-1. **Ensure Futu OpenD is running** on `127.0.0.1:11111`
-
-2. **Set environment variable** (optional):
-```bash
+```powershell
+# Make sure Futu OpenD is running (default: 127.0.0.1:11111)
 set FUTU_ADDR=127.0.0.1:11111
+
+go run ./examples/getting_started
+go run ./examples/trading_demo
 ```
 
-3. **Run the demo**:
-```bash
-go run .\cmd\demo
+### Interactive Menu Demo
+
+```powershell
+go run ./cmd/demo/main.go
 ```
 
 ## Available Examples
 
-| Example | Description |
+| Example | What it Does |
 |---------|-------------|
-| `cmd/demo` | Interactive menu demo — covers all major APIs |
-| `getting_started` | Basic usage: connect, query quotes, fetch K-lines, subscribe |
-| `trading_demo` | Trading operations: accounts, positions, orders, place/cancel |
+| `cmd/demo` | Interactive menu with all 10 demo categories |
+| `examples/getting_started` | Connect → quote → K-line → subscribe |
+| `examples/trading_demo` | Accounts → positions → orders → fills |
 
 ## Example Structure
 
-Each example follows a consistent pattern:
+Every example follows the same three-step pattern:
 
 ```go
-package main
-
-import (
-    "fmt"
-    "log"
-    "os"
-
-    "github.com/shing1211/futuapi4go/client"
-    "github.com/shing1211/futuapi4go/pkg/constant"
-    "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
-    "github.com/shing1211/futuapi4go/pkg/qot"
-)
-
 func main() {
+    // 1. Create & connect
     cli := client.New()
     defer cli.Close()
 
@@ -77,85 +60,90 @@ func main() {
         log.Fatalf("Connection failed: %v", err)
     }
 
-    // Use public client API helpers or SDK functions with cli.Inner()
-    hkMarket := int32(constant.Market_HK)
-    sec := &qotcommon.Security{Market: &hkMarket, Code: ptrStr("00700")}
-
-    quotes, err := qot.GetBasicQot(context.Background(), cli.Inner(), []*qotcommon.Security{sec})
+    // 2. Call APIs
+    quote, err := client.GetQuote(context.Background(), cli, constant.Market_HK, "00700")
     if err != nil {
-        log.Fatalf("GetBasicQot failed: %v", err)
+        log.Fatalf("GetQuote failed: %v", err)
     }
-    // ...
+    fmt.Printf("HK.00700: %.2f\n", quote.CurPrice)
+
+    // 3. Subscribe to real-time updates
+    client.Subscribe(cli, constant.Market_HK, "00700", []int32{constant.SubType_Quote})
 }
 ```
 
-## Public Client API
+## High-Level Client API
 
-The `github.com/shing1211/futuapi4go/client` package provides a high-level API:
+The `client` package wraps the raw SDK into friendly functions:
 
 ```go
 // Connect
 cli := client.New()
 cli.Connect("127.0.0.1:11111")
 
-// GetQuote
+// Get a quote
 quote, _ := client.GetQuote(ctx, cli, constant.Market_HK, "00700")
 
-// GetKLines
-klines, _ := client.GetKLines(cli, constant.Market_HK, "00700", constant.KLType_Day, 100)
+// Fetch K-lines
+klines, _ := client.GetKLines(cli, constant.Market_HK, "00700", constant.KLType_K_Day, 100)
 
-// Subscribe
-client.Subscribe(cli, constant.Market_HK, "00700", []int32{constant.SubType_Basic})
+// Subscribe to real-time data
+client.Subscribe(cli, constant.Market_HK, "00700", []int32{constant.SubType_Quote})
 
-// GetAccountList
+// List accounts
 accounts, _ := client.GetAccountList(cli)
 
-// PlaceOrder
+// Place a simulated order
 result, _ := client.PlaceOrder(cli, accID, constant.Market_HK, "00700",
-    constant.TrdSide_Buy, constant.OrderType_Normal, 350.0, 100.0)
+    constant.TrdSide_Buy, constant.OrderType_Normal, 350.0, 100)
 ```
 
-## Helper Functions
+## Helper Utilities
 
-All examples include helper functions for creating pointers:
+Every example uses these pointer helpers to keep proto struct literals clean:
 
 ```go
-func ptrStr(s string) *string { return &s }
-func ptrInt32(v int32) *int32 { return &v }
+func ptrStr(s string) *string    { return &s }
+func ptrInt32(v int32) *int32   { return &v }
 func ptrFloat64(v float64) *float64 { return &v }
-func ptrBool(v bool) *bool { return &v }
+func ptrBool(v bool) *bool       { return &v }
 ```
 
-## Notes
+## Simulator vs Real OpenD
 
-1. **Simulator vs Real OpenD**:
-   - Simulator returns mock data for testing
-   - Real OpenD provides live market data
-   - Examples work with both!
+| | Simulator | Real OpenD |
+|---|---|---|
+| Quote data | Realistic mock | Live market |
+| Trading | Simulated fills | Real fills |
+| API latency | Instant | Network-dependent |
+| Account needed | No | Yes (logged in) |
 
-2. **Trading Safety**:
-   - Always test with simulator first
-   - The public `client.New()` defaults to simulate trading environment
-   - Use `cli.WithTradeEnv(constant.TrdEnv_Real)` for live trading
+Both work with the exact same code — swap the address and you're done.
 
-3. **API Coverage**:
-   - All documented APIs are implemented
-   - Some advanced APIs may return empty results in simulator
+## Trading Safety
+
+- **Always test with the simulator first.** Switch to `constant.TrdEnv_Real` only when you're ready.
+- The client defaults to **simulate mode** (`constant.TrdEnv_Simulate`) out of the box.
+- If you accidentally run a live order in simulate mode, nothing actually trades.
 
 ## Troubleshooting
 
-### Connection Failed
-```
-Connection failed: dial: connection refused
-```
-**Solution**: Ensure Futu OpenD or simulator is running on the specified address.
+**`connection refused`**
 
-### API Returns Empty Results
+Futu OpenD (or the simulator) isn't running on the specified address. Check the port:
+
+```powershell
+set FUTU_ADDR=127.0.0.1:11111
 ```
-Found 0 positions
-```
-**Solution**: Normal for simulator; try with real OpenD for actual data.
+
+**`Found 0 positions`**
+
+Normal for the simulator — it returns an empty account. With a real OpenD you'll see your actual positions.
+
+**`no such host`**
+
+Make sure your `FUTU_ADDR` doesn't have a trailing slash or spaces.
 
 ---
 
-**Happy Coding!**
+**Happy exploring!**
