@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **main.go** — rewritten to use `SubscribeKLinesHandler` (Python style) instead of map-of-channels
 
+### Fixed
+
+- **`constant.KLType` enum values** — were scrambled (SubType values used instead of KLType values); 5min=2→6, 60min=5→9, Day=6→2, etc.
+
 ## [0.2.0] - 2026-04-23
 
 ### Changed
