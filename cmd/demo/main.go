@@ -151,9 +151,8 @@ func demoConnection(cli *client.Client) {
 func demoMarketData(cli *client.Client) {
 	section(2, "Market Data")
 
-	fmt.Println("\n  [GetBasicQot] Multi-market quotes:")
+	fmt.Println("\n  [GetBasicQot] US market quote:")
 	quotes, err := qot.GetBasicQot(context.Background(), cli.Inner(), []*qotcommon.Security{
-		sec(MarketHK, "00700"),
 		sec(MarketUS, "AAPL"),
 	})
 	must(err)
@@ -910,7 +909,7 @@ func demoUserGroupsAlerts(cli *client.Client) {
 func demoPushSubscriptions(cli *client.Client) {
 	section(10, "Real-time Push Subscriptions")
 
-	fmt.Println("\n  Subscribing to HK.00700 and US.AAPL...")
+	fmt.Println("\n  Subscribing to US.AAPL...")
 	fmt.Println("  Watching for BasicQot, KL (1min), OrderBook, Ticker updates...")
 	fmt.Println("  Press Ctrl+C to stop.")
 
@@ -964,7 +963,6 @@ func demoPushSubscriptions(cli *client.Client) {
 
 	_, err := qot.Subscribe(cli.Inner(), &qot.SubscribeRequest{
 		SecurityList: []*qotcommon.Security{
-			sec(MarketHK, "00700"),
 			sec(MarketUS, "AAPL"),
 		},
 		SubTypeList:      []qot.SubType{qot.SubType_Basic, qot.SubType_KL_1Min, qot.SubType_OrderBook, qot.SubType_Ticker},
