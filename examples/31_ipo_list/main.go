@@ -21,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	ipos, err := client.GetIpoList(cli, int32(constant.Market_US))
+	ipos, err := client.GetIpoList(cli, int32(constant.Market_HK))
 	if err != nil {
 		log.Fatalf("GetIpoList failed: %v", err)
 	}
