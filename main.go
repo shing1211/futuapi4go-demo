@@ -20,7 +20,6 @@ func main() {
 		panic(err)
 	}
 
-	// Set up channel listeners for each data type
 	quoteCh := make(chan *push.UpdateBasicQot, 100)
 	tickerCh := make(chan *push.UpdateTicker, 100)
 	orderBookCh := make(chan *push.UpdateOrderBook, 100)
@@ -32,12 +31,21 @@ func main() {
 	chanpkg.SubscribeOrderBook(cli, constant.Market_US, "NVDA", orderBookCh)
 	chanpkg.SubscribeRT(cli, constant.Market_US, "NVDA", rtCh)
 	chanpkg.SubscribeBroker(cli, constant.Market_US, "NVDA", brokerCh)
-	klCh1, klCh5, stopKLs := func() (chan *push.UpdateKL, chan *push.UpdateKL, func()) {
-		channels, stop := chanpkg.SubscribeKLines(cli, constant.Market_US, "NVDA",
-			constant.KLType_K_1Min, constant.KLType_K_5Min)
-		return channels[constant.KLType_K_1Min], channels[constant.KLType_K_5Min], stop
-	}()
-	defer stopKLs()
+
+	stop := chanpkg.SubscribeKLinesHandler(cli, constant.Market_US, "NVDA", func(kl *push.UpdateKL) {
+		label := "unknown"
+		switch constant.KLType(kl.KlType) {
+		case constant.KLType_K_1Min:
+			label = "1m"
+		case constant.KLType_K_5Min:
+			label = "5m"
+		}
+		for _, bar := range kl.KLList {
+			fmt.Printf("KL [%s/handler]: %s O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
+				label, *bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
+		}
+	}, constant.KLType_K_1Min, constant.KLType_K_5Min)
+	defer stop()
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
@@ -67,16 +75,6 @@ func main() {
 			if len(b.BidBrokerList) > 0 {
 				fmt.Printf("BROKER: name=%s pos=%d\n",
 					b.BidBrokerList[0].GetName(), b.BidBrokerList[0].GetPos())
-			}
-		case kl1 := <-klCh1:
-			for _, bar := range kl1.KLList {
-				fmt.Printf("KL [1m/SubscribeKLines]: %s O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
-					*bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
-			}
-		case kl5 := <-klCh5:
-			for _, bar := range kl5.KLList {
-				fmt.Printf("KL [5m/SubscribeKLines]: %s O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
-					*bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
 			}
 		case <-sig:
 			fmt.Println("Shutting down...")
