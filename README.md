@@ -6,43 +6,54 @@
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
 </p>
 
-> **Copy-paste-ready Go examples for the futuapi4go SDK.** Each example is a standalone `main.go` demonstrating one SDK function. Run against the simulator or a real OpenD.
+> **Copy-paste-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** Each example is a standalone `main.go` demonstrating one SDK function. Run against the simulator or a real OpenD.
 
-## Prerequisites
-
-- **Go 1.26+** — [golang.org/dl](https://golang.org/dl)
-- **Futu OpenD** on `127.0.0.1:11111` — [download](https://www.futunn.com/download/fetch-lasted-link?name=opend-windows), or use the simulator below
-
-## Run an Example
+## Quick Start
 
 ```powershell
+# Clone and run
 git clone https://github.com/shing1211/futuapi4go-demo.git
 cd futuapi4go-demo
 
-# Pick one (00-65):
+# Run an example (all 66 examples: 00–65)
 go run ./examples/00_connect
-go run ./examples/07_kline_multi
+go run ./examples/01_quote
 go run ./examples/23_place_order
-```
 
-### Custom OpenD Address
-
-```powershell
+# Custom OpenD address
 set FUTU_ADDR=192.168.1.100:11111
 go run ./examples/01_quote
 ```
 
-### Simulator (No Account Needed)
+### Simulator (no account needed)
 
 ```powershell
-# Terminal 1
+# Terminal 1: start the simulator
 go run github.com/shing1211/futuapi4go/cmd/examples/simulator
 
-# Terminal 2
+# Terminal 2: run any example
 go run ./examples/07_kline_multi
 ```
 
+## Project Structure
+
+```
+examples/           # 66 standalone examples (00–65), one main.go each
+  00_connect/       # client.Connect
+  01_quote/         # client.GetQuote
+  02_ticker/        # chanpkg.SubscribeTicker
+  ...
+  65_history_kl_quota/  # client.RequestHistoryKLQuota
+```
+
 ## All Examples (00–65)
+
+### Connection & Market State
+
+| # | Example | SDK Function |
+|---|---------|-------------|
+| 00 | [`00_connect`](./examples/00_connect) | `client.Connect` |
+| 16 | [`16_market_state`](./examples/16_market_state) | `client.GetMarketState` |
 
 ### Market Data — Snapshot & History
 
@@ -68,16 +79,13 @@ go run ./examples/07_kline_multi
 
 | # | Example | SDK Function |
 |---|---------|-------------|
-| 00 | [`00_connect`](./examples/00_connect) | `client.Connect` |
 | 02 | [`02_ticker`](./examples/02_ticker) | `chanpkg.SubscribeTicker` |
 | 03 | [`03_orderbook`](./examples/03_orderbook) | `chanpkg.SubscribeOrderBook` |
 | 04 | [`04_rt`](./examples/04_rt) | `chanpkg.SubscribeRT` |
 | 05 | [`05_broker`](./examples/05_broker) | `chanpkg.SubscribeBroker` |
 | 07 | [`07_kline_multi`](./examples/07_kline_multi) | `chanpkg.SubscribeKLines` |
-| 16 | [`16_market_state`](./examples/16_market_state) | `client.GetMarketState` |
 | 47 | [`47_subscribe_quote`](./examples/47_subscribe_quote) | `chanpkg.SubscribeQuote` |
 | 48 | [`48_subscribe_kline_single`](./examples/48_subscribe_kline_single) | `chanpkg.SubscribeKLine` |
-| 53 | [`53_reg_qot_push`](./examples/53_reg_qot_push) | `client.RegQotPush` |
 
 ### Subscription Management
 
@@ -85,7 +93,9 @@ go run ./examples/07_kline_multi
 |---|---------|-------------|
 | 50 | [`50_unsubscribe`](./examples/50_unsubscribe) | `client.Unsubscribe` |
 | 51 | [`51_unsubscribe_all`](./examples/51_unsubscribe_all) | `client.UnsubscribeAll` |
-| 52 | [`52_query_subscription`](./examples/52_query_subscription) | `client.GetSubInfo` |
+| 52 | [`52_query_subscription`](./examples/52_query_subscription) | `client.QuerySubscription` |
+| 53 | [`53_reg_qot_push`](./examples/53_reg_qot_push) | `client.RegQotPush` |
+| 61 | [`61_sub_info`](./examples/61_sub_info) | `client.GetSubInfo` |
 
 ### Market Analysis
 
@@ -142,7 +152,6 @@ go run ./examples/07_kline_multi
 | 45 | [`45_user_security`](./examples/45_user_security) | `client.GetUserSecurity` |
 | 46 | [`46_user_info`](./examples/46_user_info) | `client.GetUserInfo` |
 | 49 | [`49_subscribe_price_reminder`](./examples/49_subscribe_price_reminder) | `chanpkg.SubscribePriceReminder` |
-| 61 | [`61_sub_info`](./examples/61_sub_info) | `client.GetSubInfo` |
 
 ### Data & History
 
@@ -157,23 +166,25 @@ go run ./examples/07_kline_multi
 int32(constant.Market_US)  // 11
 int32(constant.Market_HK)  // 1
 
-// Request: one-shot, returns immediately
-client.GetQuote(ctx, cli, int32(constant.Market_US), "NVDA")
+// One-shot request
+client.GetQuote(cli, int32(constant.Market_US), "NVDA")
 
-// Subscribe: continuous stream, call returned stop() to unsubscribe
+// Subscribe: continuous stream, call stop() to unsubscribe
 stop := chanpkg.SubscribeTicker(cli, int32(constant.Market_US), "NVDA", tickerCh)
 defer stop()
 ```
 
+## Troubleshooting
+
+| Error | Cause |
+|-------|-------|
+| `connection refused` | OpenD not running. Set `FUTU_ADDR=127.0.0.1:11111` |
+| no data from `GetKLines`, `GetQuote`, etc. | Call `client.Subscribe` first for those push types |
+| no positions in simulator | Normal — simulator has no positions |
+
 ## Known Caveats
 
-- **`GetDelayStatistics`** — skipped due to a proto2/proto3 wire-format mismatch. All other APIs work normally.
-- **`subscribe first`** — `GetKLines`, `GetQuote`, `GetTicker`, `GetRT`, `GetBroker`, `GetOrderBook` require `client.Subscribe` first.
-- **`no positions`** — normal for simulator; real OpenD shows actual positions.
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+- **`GetDelayStatistics`** — skipped. Known proto2/proto3 wire-format mismatch in OpenD.
 
 ## License
 

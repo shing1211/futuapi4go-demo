@@ -25,12 +25,15 @@ func main() {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	resp, err := client.GetSubInfo(cli)
+	resp, err := client.QuerySubscription(cli)
 	if err != nil {
-		log.Fatalf("GetSubInfo failed: %v", err)
+		log.Fatalf("QuerySubscription failed: %v", err)
 	}
-	fmt.Printf("IsSub: %v  Detail: %s\n", resp.IsSub, resp.Security)
-	for _, t := range resp.SubTypes {
-		fmt.Printf("  Active SubType: %d\n", t)
+	fmt.Printf("RemainQuota: %d\n", resp.RemainQuota)
+	for _, si := range resp.ConnSubInfoList {
+		fmt.Printf("  UsedQuota: %d\n", si.GetUsedQuota())
+		for _, sub := range si.GetSubInfoList() {
+			fmt.Printf("    SubType: %d\n", sub.GetSubType())
+		}
 	}
 }
