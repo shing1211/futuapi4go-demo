@@ -26,7 +26,7 @@ go run ./examples/00_connect
 
 ```
 futuapi4go-demo/
-├── examples/                  # 50 standalone examples (00-49)
+├── examples/                  # 66 standalone examples (00-65)
 │   ├── README.md              # Example descriptions & links
 │   ├── 00_connect/           # client.Connect
 │   ├── 01_quote/             # client.GetQuote
@@ -36,22 +36,29 @@ futuapi4go-demo/
 │   ├── 05_broker/           # chanpkg.SubscribeBroker
 │   ├── 06_kline_single/     # client.GetKLines
 │   ├── 07_kline_multi/      # chanpkg.SubscribeKLines
-│   └── ... (40 more: 08-49)
+│   └── ... (59 more: 08-65)
 ├── docs/
 │   └── FUTU_PROTO_REF.md
 ├── AGENTS.md
 └── README.md
 ```
 
-## Examples
+## Environment Variables
 
-Run any example:
-```bash
-go run ./examples/00_connect
-go run ./examples/01_quote
-go run ./examples/07_kline_multi
-# ... 47 more in examples/
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `FUTU_ADDR` | OpenD server address | `127.0.0.1:11111` |
+| `FUTU_TRADE_PWD` | MD5 hash of trading password (32 hex chars) | (not set) |
+
+## Trading Modes
+
+The SDK defaults to **simulate trading** (`TrdEnv=0`). To use real trading:
+
+```go
+cli := client.New().WithTradeEnv(1) // Real trading
 ```
+
+Real trading requires `FUTU_TRADE_PWD` environment variable with MD5 hash of your trading password.
 
 ## SDK Debugging
 
@@ -96,6 +103,21 @@ OpenD rejects the `GetDelayStatistics` request with "解析protobuf协议失败"
 **Workaround in demo:** If this API fails, the demo exits with a red error.
 
 **Proto reference:** See `docs/FUTU_PROTO_REF.md` or https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
+
+## Simulate Trading Limitations
+
+The following APIs are **not supported** in simulate trading mode:
+
+| Example | Function | Error |
+|---------|----------|-------|
+| 43_order_fill | GetOrderFillList | 模拟交易不支持成交数据 |
+| 44_history_fill | GetHistoryOrderFillList | 模拟交易不支持成交数据 |
+| 56_order_fee | GetOrderFee | 暂时不支持模拟交易 |
+| 57_margin_ratio | GetMarginRatio | 模拟账户不支持 |
+| 58_flow_summary | GetFlowSummary | 模拟账户不支持查询现金流水 |
+| 64_reconfirm_order | ReconfirmOrder | 未知的协议ID (OpenD doesn't implement) |
+
+For these, use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD` set.
 
 ## Related Repositories
 

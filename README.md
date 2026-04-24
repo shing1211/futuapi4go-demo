@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.0.5-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.0.6-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
 > **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 66 standalone examples (00–65), each demonstrating one SDK function. All examples tested and verified against the OpenD simulator.
@@ -19,10 +19,10 @@ cd futuapi4go-demo
 # Run an example (all 66 examples: 00–65)
 go run ./examples/00_connect
 go run ./examples/01_quote
-go run ./examples/23_place_order
+go run ./examples/22_place_order
 
 # Custom OpenD address
-set FUTU_ADDR=192.168.1.100:11111
+$env:FUTU_ADDR="192.168.1.100:11111"
 go run ./examples/01_quote
 ```
 
@@ -36,25 +36,44 @@ go run github.com/shing1211/futuapi4go/cmd/examples/simulator
 go run ./examples/07_kline_multi
 ```
 
+### Real Trading (requires unlocked account)
+
+```powershell
+# Set trading password (MD5 hash of your trade password)
+$env:FUTU_TRADE_PWD="32-char-md5-hex-string"
+go run ./examples/54_cancel_all_order
+```
+
 ## Project Structure
 
 ```
-examples/           # 66 standalone examples (00–65), one main.go each
-  00_connect/       # client.Connect
-  01_quote/         # client.GetQuote
-  02_ticker/        # chanpkg.SubscribeTicker
-  ...
-  65_history_kl_quota/  # client.RequestHistoryKLQuota
+futuapi4go-demo/
+├── examples/           # 66 standalone examples (00–65), one main.go each
+│   ├── 00_connect/     # client.Connect
+│   ├── 01_quote/       # client.GetQuote
+│   ├── 02_ticker/      # chanpkg.SubscribeTicker
+│   ...
+│   └── 65_history_kl_quota/  # client.RequestHistoryKLQuota
+└── docs/
+    └── FUTU_PROTO_REF.md  # Futu OpenAPI protobuf reference
 ```
+
+## Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `FUTU_ADDR` | OpenD server address | `127.0.0.1:11111` |
+| `FUTU_TRADE_PWD` | MD5 hash of trading password (32 chars) | (not set) |
 
 ## All Examples (00–65)
 
-### Connection & Market State
+### Connection & System State
 
 | # | Example | SDK Function |
 |---|---------|-------------|
 | 00 | [`00_connect`](./examples/00_connect) | `client.Connect` |
 | 16 | [`16_market_state`](./examples/16_market_state) | `client.GetMarketState` |
+| 17 | [`17_global_state`](./examples/17_global_state) | `client.GetGlobalState` |
 
 ### Market Data — Snapshot & History
 
@@ -67,13 +86,14 @@ examples/           # 66 standalone examples (00–65), one main.go each
 | 10 | [`10_rt_req`](./examples/10_rt_req) | `client.GetRT` |
 | 11 | [`11_broker_req`](./examples/11_broker_req) | `client.GetBroker` |
 | 15 | [`15_history_kline`](./examples/15_history_kline) | `client.RequestHistoryKL` |
-| 17 | [`17_snapshot`](./examples/17_snapshot) | `client.GetSecuritySnapshot` |
-| 30 | [`30_trade_date`](./examples/30_trade_date) | `client.GetTradeDate` |
-| 36 | [`36_ipo_list`](./examples/36_ipo_list) | `client.GetIpoList` |
-| 37 | [`37_future_info`](./examples/37_future_info) | `client.GetFutureInfo` |
-| 38 | [`38_suspend`](./examples/38_suspend) | `client.GetSuspend` |
-| 40 | [`40_rehab`](./examples/40_rehab) | `client.RequestRehab` |
-| 41 | [`41_code_change`](./examples/41_code_change) | `client.GetCodeChange` |
+| 24 | [`24_snapshot`](./examples/24_snapshot) | `client.GetSecuritySnapshot` |
+| 25 | [`25_trade_date`](./examples/25_trade_date) | `client.GetTradeDate` |
+| 31 | [`31_ipo_list`](./examples/31_ipo_list) | `client.GetIpoList` |
+| 32 | [`32_future_info`](./examples/32_future_info) | `client.GetFutureInfo` |
+| 33 | [`33_suspend`](./examples/33_suspend) | `client.GetSuspend` |
+| 34 | [`34_holding_change`](./examples/34_holding_change) | `client.GetHoldingChangeList` |
+| 35 | [`35_rehab`](./examples/35_rehab) | `client.RequestRehab` |
+| 36 | [`36_code_change`](./examples/36_code_change) | `client.GetCodeChange` |
 | 59 | [`59_static_info`](./examples/59_static_info) | `client.GetStaticInfo` |
 
 ### Market Data — Real-time Push
@@ -87,6 +107,7 @@ examples/           # 66 standalone examples (00–65), one main.go each
 | 07 | [`07_kline_multi`](./examples/07_kline_multi) | `chanpkg.SubscribeKLines` |
 | 47 | [`47_subscribe_quote`](./examples/47_subscribe_quote) | `chanpkg.SubscribeQuote` |
 | 48 | [`48_subscribe_kline_single`](./examples/48_subscribe_kline_single) | `chanpkg.SubscribeKLine` |
+| 49 | [`49_subscribe_price_reminder`](./examples/49_subscribe_price_reminder) | `chanpkg.SubscribePriceReminder` |
 
 ### Subscription Management
 
@@ -105,54 +126,51 @@ examples/           # 66 standalone examples (00–65), one main.go each
 | 12 | [`12_capital_flow`](./examples/12_capital_flow) | `client.GetCapitalFlow` |
 | 13 | [`13_plate_set`](./examples/13_plate_set) | `client.GetPlateSet` |
 | 14 | [`14_plate_stock`](./examples/14_plate_stock) | `client.GetPlateSecurity` |
-| 32 | [`32_owner_plate`](./examples/32_owner_plate) | `client.GetOwnerPlate` |
-| 33 | [`33_capital_distribution`](./examples/33_capital_distribution) | `client.GetCapitalDistribution` |
-| 34 | [`34_stock_filter`](./examples/34_stock_filter) | `client.StockFilter` |
-| 35 | [`35_reference`](./examples/35_reference) | `client.GetReference` |
-| 39 | [`39_holding_change`](./examples/39_holding_change) | `client.GetHoldingChangeList` |
+| 28 | [`28_owner_plate`](./examples/28_owner_plate) | `client.GetOwnerPlate` |
+| 29 | [`29_capital_distribution`](./examples/29_capital_distribution) | `client.GetCapitalDistribution` |
+| 30 | [`30_stock_filter`](./examples/30_stock_filter) | `client.StockFilter` |
+| 40 | [`40_reference`](./examples/40_reference) | `client.GetReference` |
+| 41 | [`41_user_security`](./examples/41_user_security) | `client.GetUserSecurityGroup` |
 
-### Trading
+### Trading (simulate mode by default)
 
-| # | Example | SDK Function |
-|---|---------|-------------|
-| 18 | [`18_global_state`](./examples/18_global_state) | `client.GetGlobalState` |
-| 19 | [`19_account_list`](./examples/19_account_list) | `client.GetAccountList` |
-| 20 | [`20_funds`](./examples/20_funds) | `client.GetFunds` |
-| 21 | [`21_positions`](./examples/21_positions) | `client.GetPositionList` |
-| 22 | [`22_unlock_trade`](./examples/22_unlock_trade) | `client.UnlockTrading` |
-| 23 | [`23_place_order`](./examples/23_place_order) | `client.PlaceOrder` |
-| 24 | [`24_order_list`](./examples/24_order_list) | `client.GetOrderList` |
-| 25 | [`25_cancel_order`](./examples/25_cancel_order) | `client.ModifyOrder` (cancel) |
-| 26 | [`26_history_order`](./examples/26_history_order) | `client.GetHistoryOrderList` |
-| 27 | [`27_order_fill`](./examples/27_order_fill) | `client.GetOrderFillList` |
-| 28 | [`28_history_fill`](./examples/28_history_fill) | `client.GetHistoryOrderFillList` |
-| 29 | [`29_acc_trading_info`](./examples/29_acc_trading_info) | `client.GetAccTradingInfo` |
-| 54 | [`54_cancel_all_order`](./examples/54_cancel_all_order) | `client.CancelAllOrder` |
-| 55 | [`55_max_trd_qtys`](./examples/55_max_trd_qtys) | `client.GetMaxTrdQtys` |
-| 56 | [`56_order_fee`](./examples/56_order_fee) | `client.GetOrderFee` |
-| 57 | [`57_margin_ratio`](./examples/57_margin_ratio) | `client.GetMarginRatio` |
-| 58 | [`58_flow_summary`](./examples/58_flow_summary) | `client.GetFlowSummary` |
-| 60 | [`60_modify_user_security`](./examples/60_modify_user_security) | `client.ModifyUserSecurity` |
-| 62 | [`62_set_price_reminder`](./examples/62_set_price_reminder) | `client.SetPriceReminder` |
-| 63 | [`63_sub_acc_push`](./examples/63_sub_acc_push) | `client.SubAccPush` |
-| 64 | [`64_reconfirm_order`](./examples/64_reconfirm_order) | `client.ReconfirmOrder` |
-
-### Derivatives
-
-| # | Example | SDK Function |
-|---|---------|-------------|
-| 42 | [`42_warrant`](./examples/42_warrant) | `client.GetWarrant` |
-| 43 | [`43_option_expiration`](./examples/43_option_expiration) | `client.GetOptionExpirationDate` |
-| 44 | [`44_option_chain`](./examples/44_option_chain) | `client.GetOptionChain` |
+| # | Example | SDK Function | Notes |
+|---|---------|-------------|-------|
+| 18 | [`18_account_list`](./examples/18_account_list) | `client.GetAccountList` | |
+| 19 | [`19_account_list`](./examples/19_account_list) | `client.GetAccountInfo` | |
+| 20 | [`20_funds`](./examples/20_funds) | `client.GetFunds` | |
+| 21 | [`21_positions`](./examples/21_positions) | `client.GetPositionList` | |
+| 22 | [`22_place_order`](./examples/22_place_order) | `client.PlaceOrder` | |
+| 23 | [`23_order_list`](./examples/23_order_list) | `client.GetOrderList` | |
+| 27 | [`27_cancel_order`](./examples/27_cancel_order) | `client.ModifyOrder` (cancel) | |
+| 42 | [`42_history_order`](./examples/42_history_order) | `client.GetHistoryOrderList` | |
+| 43 | [`43_order_fill`](./examples/43_order_fill) | `client.GetOrderFillList` | Simulate: not supported |
+| 44 | [`44_history_fill`](./examples/44_history_fill) | `client.GetHistoryOrderFillList` | Simulate: not supported |
+| 45 | [`45_acc_trading_info`](./examples/45_acc_trading_info) | `client.GetAccTradingInfo` | |
+| 54 | [`54_cancel_all_order`](./examples/54_cancel_all_order) | `client.CancelAllOrder` | Real trading only; needs `FUTU_TRADE_PWD` |
+| 55 | [`55_max_trd_qtys`](./examples/55_max_trd_qtys) | `client.GetMaxTrdQtys` | |
+| 56 | [`56_order_fee`](./examples/56_order_fee) | `client.GetOrderFee` | Simulate: not supported |
+| 57 | [`57_margin_ratio`](./examples/57_margin_ratio) | `client.GetMarginRatio` | Simulate: not supported |
+| 58 | [`58_flow_summary`](./examples/58_flow_summary) | `client.GetFlowSummary` | Simulate: not supported |
+| 60 | [`60_modify_user_security`](./examples/60_modify_user_security) | `client.ModifyUserSecurity` | |
+| 62 | [`62_set_price_reminder`](./examples/62_set_price_reminder) | `client.SetPriceReminder` | |
+| 63 | [`63_sub_acc_push`](./examples/63_sub_acc_push) | `client.SubAccPush` | |
+| 64 | [`64_reconfirm_order`](./examples/64_reconfirm_order) | `client.ReconfirmOrder` | OpenD: not supported |
 
 ### Alerts & User Data
 
 | # | Example | SDK Function |
 |---|---------|-------------|
-| 31 | [`31_price_reminder`](./examples/31_price_reminder) | `client.GetPriceReminder` |
-| 45 | [`45_user_security`](./examples/45_user_security) | `client.GetUserSecurity` |
+| 26 | [`26_price_reminder`](./examples/26_price_reminder) | `client.GetPriceReminder` |
 | 46 | [`46_user_info`](./examples/46_user_info) | `client.GetUserInfo` |
-| 49 | [`49_subscribe_price_reminder`](./examples/49_subscribe_price_reminder) | `chanpkg.SubscribePriceReminder` |
+
+### Derivatives
+
+| # | Example | SDK Function |
+|---|---------|-------------|
+| 37 | [`37_warrant`](./examples/37_warrant) | `client.GetWarrant` |
+| 38 | [`38_option_chain`](./examples/38_option_chain) | `client.GetOptionChain` |
+| 39 | [`39_option_expiration`](./examples/39_option_expiration) | `client.GetOptionExpirationDate` |
 
 ### Data & History
 
@@ -163,6 +181,14 @@ examples/           # 66 standalone examples (00–65), one main.go each
 ## Common Patterns
 
 ```go
+// Create client (default: simulate trading)
+cli := client.New()
+defer cli.Close()
+cli.Connect("127.0.0.1:11111")
+
+// Real trading: use WithTradeEnv(1)
+cli := client.New().WithTradeEnv(1) // Real trading
+
 // Market constant — all APIs take int32
 int32(constant.Market_US)  // 11
 int32(constant.Market_HK)  // 1
@@ -173,6 +199,12 @@ client.GetQuote(cli, int32(constant.Market_US), "NVDA")
 // Subscribe: continuous stream, call stop() to unsubscribe
 stop := chanpkg.SubscribeTicker(cli, int32(constant.Market_US), "NVDA", tickerCh)
 defer stop()
+
+// Dynamic account selection (no hardcoded account numbers)
+accounts, _ := client.GetAccountList(cli)
+acc := cli.FindAccount(accounts)
+accID := acc.AccID
+market := acc.TrdMarketAuthList[0]
 ```
 
 ## Troubleshooting
@@ -180,14 +212,18 @@ defer stop()
 | Error | Cause |
 |-------|-------|
 | `connection refused` | OpenD not running. Set `FUTU_ADDR=127.0.0.1:11111` |
-| no data from `GetKLines`, `GetQuote`, etc. | Call `client.Subscribe` first for those push types |
-| no positions in simulator | Normal — simulator has no positions |
+| no data from `GetKLines`, `GetQuote`, etc. | Call `client.Subscribe` first for push-type data |
+| `账户购买力不足` | Simulate account has no buying power — expected |
+| `模拟交易不支持` | Function not supported in simulate mode — use real trading |
+| `未知的协议ID` | OpenD doesn't implement this API (e.g. ReconfirmOrder) |
+| `没有解锁交易，请先解锁交易` | Need to unlock trading with `FUTU_TRADE_PWD` env var |
 
 ## Known Caveats
 
-- **`GetDelayStatistics`** — skipped. Known proto2/proto3 wire-format mismatch with OpenD serverVer=1003. See SDK's [CHANGELOG](https://github.com/shing1211/futuapi4go/blob/master/CHANGELOG.md).
+- **`GetDelayStatistics`** — skipped. Known proto2/proto3 wire-format mismatch with OpenD serverVer=1003. See SDK's CHANGELOG.
 - **`GetTradeDate`** — requires OpenD serverVer >= 1004 for proto2 field compatibility. Use `RequestTradeDate` as a fallback.
 - **US stocks** — require `client.Subscribe` before `GetQuote` returns data. HK stocks do not.
+- **Simulate trading** — many order/flow APIs are not supported. Use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD` set.
 
 ## License
 
