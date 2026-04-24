@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -25,7 +26,15 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
-	positions, err := client.GetPositionList(cli, accounts[0].AccID)
+	accID := accounts[0].AccID
+	for _, acc := range accounts {
+		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
+			accID = acc.AccID
+			break
+		}
+	}
+
+	positions, err := client.GetPositionList(cli, accID)
 	if err != nil {
 		log.Fatalf("GetPositionList failed: %v", err)
 	}
@@ -33,7 +42,7 @@ func main() {
 		fmt.Println("(no positions)")
 	}
 	for _, p := range positions {
-		fmt.Printf("POS: %s %s qty=%.0f cost=%.2f cur=%.2f pnl=%.2f (%.2f%%)\n",
-			p.Code, p.Name, p.Quantity, p.CostPrice, p.CurPrice, p.PnL, p.PnLRate*100)
+		fmt.Printf("POS: %s qty=%.0f cost=%.2f cur=%.2f pnl=%.2f (%.2f%%)\n",
+			p.Code, p.Quantity, p.CostPrice, p.CurPrice, p.PnL, p.PnLRate)
 	}
 }

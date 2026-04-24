@@ -26,9 +26,17 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
+	accID := accounts[0].AccID
+	for _, acc := range accounts {
+		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
+			accID = acc.AccID
+			break
+		}
+	}
+
 	// ReconfirmOrder is used to confirm an order that requires additional verification
 	result, err := client.ReconfirmOrder(cli,
-		accounts[0].AccID,
+		accID,
 		int32(constant.TrdMarket_US),
 		0, // orderID: 0 means not confirming a specific order
 		0, // reason: 0=Normal

@@ -26,8 +26,16 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
+	accID := accounts[0].AccID
+	for _, acc := range accounts {
+		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
+			accID = acc.AccID
+			break
+		}
+	}
+
 	fees, err := client.GetOrderFee(cli,
-		accounts[0].AccID,
+		accID,
 		int32(constant.TrdMarket_US),
 		[]string{}, // empty list returns all order fees
 	)

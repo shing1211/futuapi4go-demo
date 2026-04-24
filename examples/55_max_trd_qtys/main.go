@@ -26,8 +26,16 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
+	accID := accounts[0].AccID
+	for _, acc := range accounts {
+		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
+			accID = acc.AccID
+			break
+		}
+	}
+
 	info, err := client.GetMaxTrdQtys(cli,
-		accounts[0].AccID,
+		accID,
 		int32(constant.Market_US), "NVDA",
 		int32(constant.OrderType_Normal), 100.0,
 	)

@@ -26,9 +26,17 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
+	accID := accounts[0].AccID
+	for _, acc := range accounts {
+		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
+			accID = acc.AccID
+			break
+		}
+	}
+
 	// direction=1 means cash inflow, direction=2 means outflow
 	flows, err := client.GetFlowSummary(cli,
-		accounts[0].AccID,
+		accID,
 		int32(constant.TrdMarket_US),
 		"",    // clearingDate: empty for today
 		1,     // direction: 1=inflow

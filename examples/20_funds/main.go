@@ -20,9 +20,10 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	err := client.UnlockTrading(cli, "futu123456")
+	funds, err := client.GetFunds(cli, 0)
 	if err != nil {
-		log.Fatalf("UnlockTrading failed: %v (hint: set password env var or use empty for simulator)", err)
+		log.Fatalf("GetFunds failed: %v", err)
 	}
-	fmt.Println("Trading unlocked.")
+	fmt.Printf("Power=%.2f Cash=%.2f Assets=%.2f\n",
+		funds.Power, funds.Cash, funds.TotalAssets)
 }

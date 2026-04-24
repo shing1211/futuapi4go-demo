@@ -26,7 +26,15 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
-	if err := client.CancelAllOrder(cli, accounts[0].AccID, int32(constant.TrdMarket_US), int32(constant.TrdEnv_Simulate)); err != nil {
+	accID := accounts[0].AccID
+	for _, acc := range accounts {
+		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
+			accID = acc.AccID
+			break
+		}
+	}
+
+	if err := client.CancelAllOrder(cli, accID, int32(constant.TrdMarket_US), int32(constant.TrdEnv_Simulate)); err != nil {
 		log.Fatalf("CancelAllOrder failed: %v", err)
 	}
 	fmt.Println("All orders cancelled.")

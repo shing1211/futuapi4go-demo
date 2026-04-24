@@ -27,9 +27,17 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
+	accID := accounts[0].AccID
+	for _, acc := range accounts {
+		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
+			accID = acc.AccID
+			break
+		}
+	}
+
 	sec := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("NVDA")}
 	ratios, err := client.GetMarginRatio(cli,
-		accounts[0].AccID,
+		accID,
 		int32(constant.TrdMarket_US),
 		[]*qotcommon.Security{sec},
 	)

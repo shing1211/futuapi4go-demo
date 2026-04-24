@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -25,7 +26,15 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
-	fills, err := client.GetOrderFillList(cli, accounts[0].AccID)
+	accID := accounts[0].AccID
+	for _, acc := range accounts {
+		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
+			accID = acc.AccID
+			break
+		}
+	}
+
+	fills, err := client.GetOrderFillList(cli, accID)
 	if err != nil {
 		log.Fatalf("GetOrderFillList failed: %v", err)
 	}
