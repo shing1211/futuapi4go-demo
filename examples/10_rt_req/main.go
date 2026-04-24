@@ -21,6 +21,10 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
+	if err := client.Subscribe(cli, int32(constant.Market_US), "NVDA", []constant.SubType{constant.SubType_RT}); err != nil {
+		log.Fatalf("Subscribe failed: %v", err)
+	}
+
 	rt, err := client.GetRT(cli, int32(constant.Market_US), "NVDA")
 	if err != nil {
 		log.Fatalf("GetRT failed: %v", err)

@@ -20,8 +20,8 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	// HK futures: HSI (恒生指数期货)
-	infos, err := client.GetFutureInfo(cli, "HIF8")
+	// HK futures: HSI (恒生指数期货) continuous contract
+	infos, err := client.GetFutureInfo(cli, "HSImain")
 	if err != nil {
 		log.Fatalf("GetFutureInfo failed: %v", err)
 	}

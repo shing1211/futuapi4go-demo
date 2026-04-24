@@ -20,7 +20,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	funds, err := client.GetFunds(cli, 0)
+	funds, err := client.GetAccountInfo(cli, 3845999, 1) // accID=3845999, market=1 (HK)
 	if err != nil {
 		log.Fatalf("GetFunds failed: %v", err)
 	}
