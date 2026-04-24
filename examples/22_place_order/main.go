@@ -33,7 +33,7 @@ func main() {
 	accID := acc.AccID
 	market := acc.TrdMarketAuthList[0]
 
-result, err := client.PlaceOrder(cli,
+	result, err := client.PlaceOrder(cli,
 		accID,
 		market,
 		"00100",  // Tencent (from position list)
@@ -42,7 +42,8 @@ result, err := client.PlaceOrder(cli,
 		100.0, 100, 1, // qty=100 (1 lot for HK)
 	)
 	if err != nil {
-		log.Fatalf("PlaceOrder failed: %v", err)
+		fmt.Printf("PlaceOrder: %v\n", err)
+		return
 	}
 	fmt.Printf("Order placed: id=%d idEx=%s\n", result.OrderID, result.OrderIDEx)
 }

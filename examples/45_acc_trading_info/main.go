@@ -35,8 +35,10 @@ func main() {
 
 	info, err := client.GetAccTradingInfo(cli,
 		accID,
-		market, "NVDA",
-		int32(constant.OrderType_Normal), 100.0,
+		market,
+		"00100", // Tencent (HK stock)
+		int32(constant.OrderType_Normal),
+		100.0,
 	)
 	if err != nil {
 		log.Fatalf("GetAccTradingInfo failed: %v", err)
