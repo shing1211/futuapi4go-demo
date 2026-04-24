@@ -4,9 +4,10 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.0.5-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
-> **Copy-paste-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** Each example is a standalone `main.go` demonstrating one SDK function. Run against the simulator or a real OpenD.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 66 standalone examples (00–65), each demonstrating one SDK function. All examples tested and verified against the OpenD simulator.
 
 ## Quick Start
 
@@ -184,7 +185,9 @@ defer stop()
 
 ## Known Caveats
 
-- **`GetDelayStatistics`** — skipped. Known proto2/proto3 wire-format mismatch in OpenD.
+- **`GetDelayStatistics`** — skipped. Known proto2/proto3 wire-format mismatch with OpenD serverVer=1003. See SDK's [CHANGELOG](https://github.com/shing1211/futuapi4go/blob/master/CHANGELOG.md).
+- **`GetTradeDate`** — requires OpenD serverVer >= 1004 for proto2 field compatibility. Use `RequestTradeDate` as a fallback.
+- **US stocks** — require `client.Subscribe` before `GetQuote` returns data. HK stocks do not.
 
 ## License
 
