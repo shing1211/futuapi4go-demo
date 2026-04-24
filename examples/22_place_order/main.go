@@ -26,21 +26,20 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
-	accID := accounts[0].AccID
-	for _, acc := range accounts {
-		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
-			accID = acc.AccID
-			break
-		}
+	acc := cli.FindAccount(accounts)
+	if acc == nil {
+		log.Fatal("no account found")
 	}
+	accID := acc.AccID
+	market := acc.TrdMarketAuthList[0]
 
-	result, err := client.PlaceOrder(cli,
+result, err := client.PlaceOrder(cli,
 		accID,
-		int32(constant.TrdMarket_US),
-		"NVDA",
+		market,
+		"00100",  // Tencent (from position list)
 		int32(constant.TrdSide_Buy),
 		int32(constant.OrderType_Normal),
-		100.0, 1,
+		100.0, 100, 1, // qty=100 (1 lot for HK)
 	)
 	if err != nil {
 		log.Fatalf("PlaceOrder failed: %v", err)

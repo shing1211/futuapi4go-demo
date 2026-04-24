@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -26,18 +25,17 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
-	accID := accounts[0].AccID
-	for _, acc := range accounts {
-		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
-			accID = acc.AccID
-			break
-		}
+	acc := cli.FindAccount(accounts)
+	if acc == nil {
+		log.Fatal("no account found")
 	}
+	accID := acc.AccID
+	market := acc.TrdMarketAuthList[0]
 
 	// direction=1 means cash inflow, direction=2 means outflow
 	flows, err := client.GetFlowSummary(cli,
 		accID,
-		int32(constant.TrdMarket_US),
+		market,
 		"",    // clearingDate: empty for today
 		1,     // direction: 1=inflow
 	)

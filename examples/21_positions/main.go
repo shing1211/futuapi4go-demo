@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -22,17 +21,15 @@ func main() {
 	}
 
 	accounts, err := client.GetAccountList(cli)
-	if err != nil || len(accounts) == 0 {
+	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
-
-	accID := accounts[0].AccID
-	for _, acc := range accounts {
-		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
-			accID = acc.AccID
-			break
-		}
+	acc := cli.FindAccount(accounts)
+	if acc == nil {
+		log.Fatal("no account found")
 	}
+	accID := acc.AccID
+	_ = accID // unused in this example
 
 	positions, err := client.GetPositionList(cli, accID)
 	if err != nil {

@@ -6,7 +6,6 @@ import (
 	"os"
 
 	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -26,13 +25,12 @@ func main() {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
-	accID := accounts[0].AccID
-	for _, acc := range accounts {
-		if acc.TrdEnv == int32(constant.TrdEnv_Real) {
-			accID = acc.AccID
-			break
-		}
+	acc := cli.FindAccount(accounts)
+	if acc == nil {
+		log.Fatal("no account found")
 	}
+	accID := acc.AccID
+	market := acc.TrdMarketAuthList[0]
 
 	// Get open orders, cancel the first one
 	orders, err := client.GetOrderList(cli, accID)
@@ -48,7 +46,7 @@ func main() {
 	fmt.Printf("Cancelling order %d (%s)...\n", order.OrderID, order.Code)
 	_, err = client.ModifyOrder(cli,
 		accID,
-		int32(constant.TrdMarket_US),
+		market,
 		order.OrderID,
 		2, // ModifyOrderOp_Cancel
 		0, 0,
