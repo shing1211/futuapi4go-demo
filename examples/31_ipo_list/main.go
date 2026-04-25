@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	ipos, err := client.GetIpoList(cli, int32(constant.Market_HK))
+	ipos, err := client.GetIpoList(context.Background(), cli, int32(constant.Market_HK))
 	if err != nil {
 		log.Fatalf("GetIpoList failed: %v", err)
 	}

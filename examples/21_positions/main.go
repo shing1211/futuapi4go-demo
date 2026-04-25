@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	accounts, err := client.GetAccountList(cli)
+	accounts, err := client.GetAccountList(context.Background(), cli)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -31,7 +32,7 @@ func main() {
 	accID := acc.AccID
 	_ = accID // unused in this example
 
-	positions, err := client.GetPositionList(cli, accID)
+	positions, err := client.GetPositionList(context.Background(), cli, accID)
 	if err != nil {
 		log.Fatalf("GetPositionList failed: %v", err)
 	}

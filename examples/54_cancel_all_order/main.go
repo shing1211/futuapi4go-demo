@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -31,7 +32,7 @@ func main() {
 		log.Fatalf("UnlockTrading failed: %v", err)
 	}
 
-	accounts, err := client.GetAccountList(cli)
+	accounts, err := client.GetAccountList(context.Background(), cli)
 	if err != nil || len(accounts) == 0 {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -43,7 +44,7 @@ func main() {
 	accID := acc.AccID
 	market := acc.TrdMarketAuthList[0]
 
-	if err := client.CancelAllOrder(cli, accID, market, cli.GetTradeEnv()); err != nil {
+	if err := client.CancelAllOrder(context.Background(), cli, accID, market, cli.GetTradeEnv()); err != nil {
 		log.Fatalf("CancelAllOrder failed: %v", err)
 	}
 	fmt.Println("All orders cancelled.")

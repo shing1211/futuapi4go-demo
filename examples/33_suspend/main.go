@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -23,7 +24,7 @@ func main() {
 	}
 
 	sec := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("NVDA")}
-	susp, err := client.GetSuspend(cli, []*qotcommon.Security{sec}, "2026-01-01", "2026-04-24")
+	susp, err := client.GetSuspend(context.Background(), cli, []*qotcommon.Security{sec}, "2026-01-01", "2026-04-24")
 	if err != nil {
 		log.Fatalf("GetSuspend failed: %v", err)
 	}

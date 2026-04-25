@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	exps, err := client.GetOptionExpirationDate(cli, int32(constant.Market_US), "NVDA")
+	exps, err := client.GetOptionExpirationDate(context.Background(), cli, int32(constant.Market_US), "NVDA")
 	if err != nil {
 		log.Fatalf("GetOptionExpirationDate failed: %v", err)
 	}

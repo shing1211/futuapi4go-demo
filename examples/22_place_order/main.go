@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	accounts, err := client.GetAccountList(cli)
+	accounts, err := client.GetAccountList(context.Background(), cli)
 	if err != nil || len(accounts) == 0 {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -33,7 +34,7 @@ func main() {
 	accID := acc.AccID
 	market := acc.TrdMarketAuthList[0]
 
-	result, err := client.PlaceOrder(cli,
+	result, err := client.PlaceOrder(context.Background(), cli,
 		accID,
 		market,
 		"00100",  // Tencent (from position list)

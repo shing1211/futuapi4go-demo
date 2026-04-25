@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	flows, err := client.GetCapitalFlow(cli, int32(constant.Market_HK), "00700")
+	flows, err := client.GetCapitalFlow(context.Background(), cli, int32(constant.Market_HK), "00700")
 	if err != nil {
 		log.Fatalf("GetCapitalFlow failed: %v", err)
 	}

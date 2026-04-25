@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	accounts, err := client.GetAccountList(cli)
+	accounts, err := client.GetAccountList(context.Background(), cli)
 	if err != nil || len(accounts) == 0 {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -36,7 +37,7 @@ func main() {
 	fmt.Printf("Using AccID=%d (TrdEnv=%d) for market=%d\n",
 		acc.AccID, acc.TrdEnv, acc.TrdMarketAuthList[0])
 
-	funds, err := client.GetAccountInfo(cli, acc.AccID, acc.TrdMarketAuthList[0])
+	funds, err := client.GetAccountInfo(context.Background(), cli, acc.AccID, acc.TrdMarketAuthList[0])
 	if err != nil {
 		log.Fatalf("GetAccountInfo failed: %v", err)
 	}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	quota, err := client.RequestHistoryKLQuota(cli)
+	quota, err := client.RequestHistoryKLQuota(context.Background(), cli)
 	if err != nil {
 		log.Fatalf("RequestHistoryKLQuota failed: %v", err)
 	}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	funds, err := client.GetFunds(cli, 0)
+	funds, err := client.GetFunds(context.Background(), cli, 0)
 	if err != nil {
 		log.Fatalf("GetFunds failed: %v", err)
 	}

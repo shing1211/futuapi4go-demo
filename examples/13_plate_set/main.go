@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	plates, err := client.GetPlateSet(cli, int32(constant.Market_US))
+	plates, err := client.GetPlateSet(context.Background(), cli, int32(constant.Market_US))
 	if err != nil {
 		log.Fatalf("GetPlateSet failed: %v", err)
 	}

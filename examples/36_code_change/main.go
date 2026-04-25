@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -23,7 +24,7 @@ func main() {
 	}
 
 	sec := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("AAPL")}
-	changes, err := client.GetCodeChange(cli, []*qotcommon.Security{sec})
+	changes, err := client.GetCodeChange(context.Background(), cli, []*qotcommon.Security{sec})
 	if err != nil {
 		log.Fatalf("GetCodeChange failed: %v", err)
 	}

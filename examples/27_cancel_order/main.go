@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	accounts, err := client.GetAccountList(cli)
+	accounts, err := client.GetAccountList(context.Background(), cli)
 	if err != nil || len(accounts) == 0 {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -32,8 +33,7 @@ func main() {
 	accID := acc.AccID
 	market := acc.TrdMarketAuthList[0]
 
-	// Get open orders, cancel the first one
-	orders, err := client.GetOrderList(cli, accID)
+	orders, err := client.GetOrderList(context.Background(), cli, accID)
 	if err != nil {
 		log.Fatalf("GetOrderList failed: %v", err)
 	}
@@ -44,7 +44,7 @@ func main() {
 
 	order := orders[0]
 	fmt.Printf("Cancelling order %d (%s)...\n", order.OrderID, order.Code)
-	_, err = client.ModifyOrder(cli,
+	_, err = client.ModifyOrder(context.Background(), cli,
 		accID,
 		market,
 		order.OrderID,

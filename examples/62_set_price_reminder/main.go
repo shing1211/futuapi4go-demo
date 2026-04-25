@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	key, err := client.SetPriceReminder(cli,
+	key, err := client.SetPriceReminder(context.Background(), cli,
 		int32(constant.Market_US), "NVDA",
 		1,  // op: 1=Add
 		1,  // reminderType: 1=Price above or below

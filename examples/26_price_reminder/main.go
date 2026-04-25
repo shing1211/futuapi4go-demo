@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	alerts, err := client.GetPriceReminder(cli, int32(constant.Market_US), "NVDA")
+	alerts, err := client.GetPriceReminder(context.Background(), cli, int32(constant.Market_US), "NVDA")
 	if err != nil {
 		log.Fatalf("GetPriceReminder failed: %v", err)
 	}

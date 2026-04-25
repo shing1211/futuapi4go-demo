@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -22,14 +23,14 @@ func main() {
 	}
 
 	// Get existing groups first
-	groups, err := client.GetUserSecurityGroup(cli)
+	groups, err := client.GetUserSecurityGroup(context.Background(), cli)
 	if err != nil {
 		log.Fatalf("GetUserSecurityGroup failed: %v", err)
 	}
 
 	// Add a stock to the first group (op=1 means add)
 	if len(groups) > 0 {
-		if err := client.ModifyUserSecurity(cli,
+		if err := client.ModifyUserSecurity(context.Background(), cli,
 			groups[0].Name,
 			1, // op: 1=Add
 			int32(constant.Market_US),
@@ -40,7 +41,7 @@ func main() {
 		fmt.Printf("Added NVDA to group '%s'.\n", groups[0].Name)
 	} else {
 		// Create a new group and add stock (op=3 means add group)
-		if err := client.ModifyUserSecurity(cli,
+		if err := client.ModifyUserSecurity(context.Background(), cli,
 			"MyWatchlist",
 			3, // op: 3=Add group
 			int32(constant.Market_US),

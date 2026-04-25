@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -22,7 +23,7 @@ func main() {
 	}
 
 	// Get warrants linked to NVDA
-	warrants, err := client.GetWarrant(cli,
+	warrants, err := client.GetWarrant(context.Background(), cli,
 		int32(constant.Market_US), "NVDA",
 		0, 10,   // begin, num
 		1, true, // sortField=ChangeRate, ascend

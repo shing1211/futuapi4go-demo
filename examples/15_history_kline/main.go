@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -22,7 +23,7 @@ func main() {
 	}
 
 	klines, err := client.RequestHistoryKL(
-		cli,
+		context.Background(), cli,
 		int32(constant.Market_US), "NVDA",
 		int32(constant.KLType_K_Day),
 		"2026-01-01", "2026-04-24",

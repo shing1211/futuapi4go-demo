@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	if err := client.Subscribe(cli, int32(constant.Market_US), "NVDA", []constant.SubType{
+	if err := client.Subscribe(context.Background(), cli, int32(constant.Market_US), "NVDA", []constant.SubType{
 		constant.SubType_Quote,
 		constant.SubType_Ticker,
 		constant.SubType_K_Day,
@@ -30,7 +31,7 @@ func main() {
 	}
 	fmt.Println("Subscribed to NVDA quote, ticker, day K-line.")
 
-	if err := client.UnsubscribeAll(cli); err != nil {
+	if err := client.UnsubscribeAll(context.Background(), cli); err != nil {
 		log.Fatalf("UnsubscribeAll failed: %v", err)
 	}
 	fmt.Println("Unsubscribed from all.")

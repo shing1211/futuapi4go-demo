@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	if err := client.RegQotPush(cli,
+	if err := client.RegQotPush(context.Background(), cli,
 		int32(constant.Market_US), "NVDA",
 		[]int32{int32(constant.SubType_Quote)},
 		[]int32{0},

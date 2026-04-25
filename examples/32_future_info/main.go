@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 	}
 
 	// HK futures: HSI (恒生指数期货) continuous contract
-	infos, err := client.GetFutureInfo(cli, "HSImain")
+	infos, err := client.GetFutureInfo(context.Background(), cli, "HSImain")
 	if err != nil {
 		log.Fatalf("GetFutureInfo failed: %v", err)
 	}

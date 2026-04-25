@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	groups, err := client.GetUserSecurityGroup(cli)
+	groups, err := client.GetUserSecurityGroup(context.Background(), cli)
 	if err != nil {
 		log.Fatalf("GetUserSecurityGroup failed: %v", err)
 	}
@@ -30,7 +31,7 @@ func main() {
 
 	// List stocks in first group
 	if len(groups) > 0 {
-		stocks, err := client.GetUserSecurity(cli, groups[0].Name)
+		stocks, err := client.GetUserSecurity(context.Background(), cli, groups[0].Name)
 		if err != nil {
 			log.Fatalf("GetUserSecurity failed: %v", err)
 		}

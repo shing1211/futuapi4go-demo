@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,11 +22,11 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	if err := client.Subscribe(cli, int32(constant.Market_US), "NVDA", []constant.SubType{constant.SubType_K_Day}); err != nil {
+	if err := client.Subscribe(context.Background(), cli, int32(constant.Market_US), "NVDA", []constant.SubType{constant.SubType_K_Day}); err != nil {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	klines, err := client.GetKLines(cli, int32(constant.Market_US), "NVDA", int32(constant.KLType_K_Day), 10)
+	klines, err := client.GetKLines(context.Background(), cli, int32(constant.Market_US), "NVDA", int32(constant.KLType_K_Day), 10)
 	if err != nil {
 		log.Fatalf("GetKLines failed: %v", err)
 	}
