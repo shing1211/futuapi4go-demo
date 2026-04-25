@@ -22,12 +22,12 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	if err := client.Subscribe(context.Background(), cli, int32(constant.Market_US), "NVDA", []constant.SubType{constant.SubType_Quote}); err != nil {
+	if err := client.Subscribe(context.Background(), cli, constant.Market_US, "NVDA", []constant.SubType{constant.SubType_Quote}); err != nil {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 	fmt.Println("Subscribed to NVDA quote.")
 
-	if err := client.Unsubscribe(context.Background(), cli, int32(constant.Market_US), "NVDA", []int32{int32(constant.SubType_Quote)}); err != nil {
+	if err := client.Unsubscribe(context.Background(), cli, constant.Market_US, "NVDA", []int32{int32(constant.SubType_Quote)}); err != nil {
 		log.Fatalf("Unsubscribe failed: %v", err)
 	}
 	fmt.Println("Unsubscribed from NVDA quote.")

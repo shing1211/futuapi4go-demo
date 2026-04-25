@@ -26,7 +26,7 @@ func main() {
 	}
 
 	ch := make(chan *push.UpdateKL, 100)
-	stop := chanpkg.SubscribeKLine(cli, int32(constant.Market_US), "NVDA", constant.KLType_K_5Min, ch)
+	stop := chanpkg.SubscribeKLine(cli, constant.Market_US, "NVDA", constant.KLType_K_5Min, ch)
 	defer stop()
 
 	sig := make(chan os.Signal, 1)

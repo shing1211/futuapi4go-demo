@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	if err := client.Subscribe(context.Background(), cli, int32(constant.Market_US), "NVDA", []constant.SubType{
+	if err := client.Subscribe(context.Background(), cli, constant.Market_US, "NVDA", []constant.SubType{
 		constant.SubType_Quote,
 		constant.SubType_Ticker,
 		constant.SubType_K_Day,

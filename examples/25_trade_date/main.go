@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	dates, err := client.GetTradeDate(context.Background(), cli, int32(constant.Market_HK), "2026-01-01", "2026-04-24")
+	dates, err := client.GetTradeDate(context.Background(), cli, constant.Market_HK, "2026-01-01", "2026-04-24")
 	if err != nil {
 		log.Fatalf("GetTradeDate failed: %v", err)
 	}

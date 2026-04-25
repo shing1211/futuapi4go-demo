@@ -22,11 +22,11 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	if err := client.Subscribe(context.Background(), cli, int32(constant.Market_US), "NVDA", []constant.SubType{constant.SubType_Broker}); err != nil {
+	if err := client.Subscribe(context.Background(), cli, constant.Market_US, "NVDA", []constant.SubType{constant.SubType_Broker}); err != nil {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	bids, asks, err := client.GetBroker(context.Background(), cli, int32(constant.Market_US), "NVDA", 10)
+	bids, asks, err := client.GetBroker(context.Background(), cli, constant.Market_US, "NVDA", 10)
 	if err != nil {
 		log.Fatalf("GetBroker failed: %v", err)
 	}

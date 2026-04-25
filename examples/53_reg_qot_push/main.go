@@ -23,7 +23,7 @@ func main() {
 	}
 
 	if err := client.RegQotPush(context.Background(), cli,
-		int32(constant.Market_US), "NVDA",
+		constant.Market_US, "NVDA",
 		[]int32{int32(constant.SubType_Quote)},
 		[]int32{0},
 		true,  // isReg

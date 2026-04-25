@@ -21,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	state, err := client.GetMarketState(cli, int32(constant.Market_US), "NVDA")
+	state, err := client.GetMarketState(cli, constant.Market_US, "NVDA")
 	if err != nil {
 		log.Fatalf("GetMarketState failed: %v", err)
 	}

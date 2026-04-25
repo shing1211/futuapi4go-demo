@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	infos, err := client.GetStaticInfo(context.Background(), cli, int32(constant.Market_US), "NVDA")
+	infos, err := client.GetStaticInfo(context.Background(), cli, constant.Market_US, "NVDA")
 	if err != nil {
 		log.Fatalf("GetStaticInfo failed: %v", err)
 	}

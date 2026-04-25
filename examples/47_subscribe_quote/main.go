@@ -26,12 +26,12 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	if err := client.Subscribe(context.Background(), cli, int32(constant.Market_US), "NVDA", []constant.SubType{constant.SubType_Quote}); err != nil {
+	if err := client.Subscribe(context.Background(), cli, constant.Market_US, "NVDA", []constant.SubType{constant.SubType_Quote}); err != nil {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
 	ch := make(chan *push.UpdateBasicQot, 100)
-	chanpkg.SubscribeQuote(cli, int32(constant.Market_US), "NVDA", ch)
+	chanpkg.SubscribeQuote(cli, constant.Market_US, "NVDA", ch)
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
