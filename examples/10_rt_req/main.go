@@ -22,11 +22,11 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	if err := client.Subscribe(context.Background(), cli, int32(constant.Market_US), "NVDA", []constant.SubType{constant.SubType_RT}); err != nil {
+	if err := client.Subscribe(context.Background(), cli, constant.Market_US, "NVDA", []constant.SubType{constant.SubType_RT}); err != nil {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	rt, err := client.GetRT(context.Background(), cli, int32(constant.Market_US), "NVDA")
+	rt, err := client.GetRT(context.Background(), cli, constant.Market_US, "NVDA")
 	if err != nil {
 		log.Fatalf("GetRT failed: %v", err)
 	}
