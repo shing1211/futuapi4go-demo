@@ -26,7 +26,7 @@ func main() {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	resp, err := client.QuerySubscription(cli)
+	resp, err := client.QuerySubscription(context.Background(), cli)
 	if err != nil {
 		log.Fatalf("QuerySubscription failed: %v", err)
 	}

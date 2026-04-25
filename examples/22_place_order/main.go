@@ -32,14 +32,14 @@ func main() {
 		log.Fatal("no account found")
 	}
 	accID := acc.AccID
-	market := acc.TrdMarketAuthList[0]
+	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
 
 	result, err := client.PlaceOrder(context.Background(), cli,
 		accID,
 		market,
 		"00100",  // Tencent (from position list)
-		int32(constant.TrdSide_Buy),
-		int32(constant.OrderType_Normal),
+		constant.TrdSide_Buy,
+		constant.OrderType_Normal,
 		100.0, 100, 1, // qty=100 (1 lot for HK)
 	)
 	if err != nil {

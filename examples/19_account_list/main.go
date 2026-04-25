@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -37,7 +38,7 @@ func main() {
 	fmt.Printf("Using AccID=%d (TrdEnv=%d) for market=%d\n",
 		acc.AccID, acc.TrdEnv, acc.TrdMarketAuthList[0])
 
-	funds, err := client.GetAccountInfo(context.Background(), cli, acc.AccID, acc.TrdMarketAuthList[0])
+	funds, err := client.GetAccountInfo(context.Background(), cli, acc.AccID, constant.TrdMarket(acc.TrdMarketAuthList[0]))
 	if err != nil {
 		log.Fatalf("GetAccountInfo failed: %v", err)
 	}

@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -31,7 +32,7 @@ func main() {
 		log.Fatal("no account found")
 	}
 	accID := acc.AccID
-	market := acc.TrdMarketAuthList[0]
+	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
 
 	fills, err := client.GetHistoryOrderFillList(cli,
 		accID,

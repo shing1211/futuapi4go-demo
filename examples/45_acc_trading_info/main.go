@@ -32,13 +32,14 @@ func main() {
 		log.Fatal("no account found")
 	}
 	accID := acc.AccID
-	market := acc.TrdMarketAuthList[0]
+	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
+	orderType := constant.OrderType_Normal
 
 	info, err := client.GetAccTradingInfo(cli,
 		accID,
 		market,
 		"00100", // Tencent (HK stock)
-		int32(constant.OrderType_Normal),
+		orderType,
 		100.0,
 	)
 	if err != nil {

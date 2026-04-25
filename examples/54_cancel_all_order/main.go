@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -28,7 +29,7 @@ func main() {
 	if len(pwdMD5) != 32 {
 		log.Fatal("FUTU_TRADE_PWD must be a 32-char MD5 hex string")
 	}
-	if err := client.UnlockTrading(cli, pwdMD5); err != nil {
+	if err := client.UnlockTrading(context.Background(), cli, pwdMD5); err != nil {
 		log.Fatalf("UnlockTrading failed: %v", err)
 	}
 
@@ -42,9 +43,10 @@ func main() {
 		log.Fatal("no account found")
 	}
 	accID := acc.AccID
-	market := acc.TrdMarketAuthList[0]
+	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
+	trdEnv := constant.TrdEnv(acc.TrdEnv)
 
-	if err := client.CancelAllOrder(context.Background(), cli, accID, market, cli.GetTradeEnv()); err != nil {
+	if err := client.CancelAllOrder(context.Background(), cli, accID, market, trdEnv); err != nil {
 		log.Fatalf("CancelAllOrder failed: %v", err)
 	}
 	fmt.Println("All orders cancelled.")

@@ -33,7 +33,7 @@ func main() {
 		log.Fatal("no account found")
 	}
 	accID := acc.AccID
-	market := acc.TrdMarketAuthList[0]
+	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
 
 	sec := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("NVDA")}
 	ratios, err := client.GetMarginRatio(cli,
