@@ -90,15 +90,15 @@ cd D:\github\futuapi4go
 
 ## Known SDK Issues
 
-### GetDelayStatistics — proto2 wire-format incompatibility (serverVer=1003)
+### GetDelayStatistics — may have proto2 wire-format incompatibility with certain OpenD versions
 
-OpenD rejects the `GetDelayStatistics` request with "解析protobuf协议失败". Root cause: `google.golang.org/protobuf` encodes `repeated int32` fields using proto3 packed wire format by default, but OpenD's C++ parser expects proto2 non-packed encoding. This is an SDK-level issue requiring a fix in `futuapi4go` itself.
+OpenD may reject the `GetDelayStatistics` request with "解析protobuf协议失败". Root cause: `google.golang.org/protobuf` encodes `repeated int32` fields using proto3 packed wire format by default, but some OpenD C++ parsers expect proto2 non-packed encoding.
 
-**Workaround in demo:** The call is skipped with a printed note. All other APIs work normally.
+**Workaround in demo:** The call is skipped with a printed note. All other APIs work normally with OpenD v10.4.6408.
 
-### GetTradeDate — all C2S fields are required (serverVer=1003)
+### GetTradeDate — all C2S fields are required
 
-`GetTradeDate` has all required fields in its C2S. If the SDK doesn't populate all required fields, OpenD returns "解析protobuf协议失败". This may also be a proto2 wire-format issue.
+`GetTradeDate` has all required fields in its C2S. If the SDK doesn't populate all required fields, OpenD returns "解析protobuf协议失败". Works correctly with OpenD v10.4.6408.
 
 **Workaround in demo:** If this API fails, the demo exits with a red error.
 
