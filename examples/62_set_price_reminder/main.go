@@ -25,7 +25,7 @@ func main() {
 	key, err := client.SetPriceReminder(context.Background(), cli,
 		constant.Market_US, "NVDA",
 		constant.PriceReminderOp_Add,         // op: 1=Add
-		constant.PriceReminderType_Price,     // reminderType: 1=Price above or below
+		constant.PriceReminderType_Above,     // reminderType: 1=Above
 		constant.PriceReminderFreq_Once,     // freq: 0=Once
 		150.0,                               // value: trigger when price reaches 150
 		"Watch for NVDA at 150",

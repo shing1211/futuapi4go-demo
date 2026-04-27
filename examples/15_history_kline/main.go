@@ -25,7 +25,7 @@ func main() {
 	klines, err := client.RequestHistoryKL(
 		context.Background(), cli,
 		constant.Market_US, "NVDA",
-		int32(constant.KLType_K_Day),
+		constant.KLType_K_Day,
 		"2026-01-01", "2026-04-24",
 	)
 	if err != nil {

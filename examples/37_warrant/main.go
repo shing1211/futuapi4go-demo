@@ -25,11 +25,11 @@ func main() {
 
 	warrants, err := client.GetWarrant(context.Background(), cli,
 		constant.Market_US, "NVDA",
-		0, 10,                      // begin, num
-		constant.WarrantSortField_ChangeRate, true, // sortField, ascend
-		constant.WarrantType_None,  // optType=All
-		qotcommon.Issuer_Issuer_Unknow, // issuer=All
-		constant.WarrantStatus_None,   // status=All
+		0, 10,                            // begin, num
+		constant.WarrantSortField_None, true, // sortField, ascend
+		constant.WarrantType_None,       // optType=All
+		qotcommon.Issuer_Issuer_Unknow,   // issuer=All
+		constant.WarrantStatus_None,      // status=All
 	)
 	if err != nil {
 		log.Fatalf("GetWarrant failed: %v", err)

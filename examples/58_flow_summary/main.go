@@ -37,7 +37,7 @@ func main() {
 	// direction=1 means cash inflow, direction=2 means outflow
 	flows, err := client.GetFlowSummary(cli,
 		accID,
-		int32(market),
+		market,
 		"",    // clearingDate: empty for today
 		1,     // direction: 1=inflow
 	)

@@ -24,8 +24,8 @@ func main() {
 
 	if err := client.RegQotPush(context.Background(), cli,
 		constant.Market_US, "NVDA",
-		[]int32{int32(constant.SubType_Quote)},
-		[]int32{0},
+		[]constant.SubType{constant.SubType_Quote},
+		[]constant.RehabType{constant.RehabType_None},
 		true,  // isReg
 		true,  // isFirstPush
 	); err != nil {
