@@ -7,6 +7,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go/pkg/pb/qotgetreference"
 )
 
 func main() {
@@ -21,8 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	// Get related stocks: 1=Premium List (related stocks)
-	refs, err := client.GetReference(cli, int32(constant.Market_US), "NVDA", 1)
+	refs, err := client.GetReference(cli, constant.Market_US, "NVDA", qotgetreference.ReferenceType_Warrant)
 	if err != nil {
 		log.Fatalf("GetReference failed: %v", err)
 	}

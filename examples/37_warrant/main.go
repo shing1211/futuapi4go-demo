@@ -8,6 +8,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 )
 
 func main() {
@@ -22,12 +23,13 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	// Get warrants linked to NVDA
 	warrants, err := client.GetWarrant(context.Background(), cli,
-		int32(constant.Market_US), "NVDA",
-		0, 10,   // begin, num
-		1, true, // sortField=ChangeRate, ascend
-		0, 0, 0, // optType=All, issuer=All, status=All
+		constant.Market_US, "NVDA",
+		0, 10,                      // begin, num
+		constant.WarrantSortField_ChangeRate, true, // sortField, ascend
+		constant.WarrantType_None,  // optType=All
+		qotcommon.Issuer_Issuer_Unknow, // issuer=All
+		constant.WarrantStatus_None,   // status=All
 	)
 	if err != nil {
 		log.Fatalf("GetWarrant failed: %v", err)

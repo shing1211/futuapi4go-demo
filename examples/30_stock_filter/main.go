@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	results, err := client.StockFilter(context.Background(), cli, int32(constant.Market_US), 0, 10)
+	results, err := client.StockFilter(context.Background(), cli, constant.Market_US, 0, 10)
 	if err != nil {
 		log.Fatalf("StockFilter failed: %v", err)
 	}

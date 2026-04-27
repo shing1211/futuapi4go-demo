@@ -23,7 +23,7 @@ func main() {
 	}
 
 	changes, err := client.GetHoldingChangeList(context.Background(), cli,
-		int32(constant.Market_US), "NVDA",
+		constant.Market_US, "NVDA",
 		1, // holderCategory: 1=Mutual Fund
 		"2026-01-01", "2026-04-24",
 	)

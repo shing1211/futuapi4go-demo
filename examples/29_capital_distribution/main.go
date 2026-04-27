@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	dist, err := client.GetCapitalDistribution(context.Background(), cli, int32(constant.Market_US), "NVDA")
+	dist, err := client.GetCapitalDistribution(context.Background(), cli, constant.Market_US, "NVDA")
 	if err != nil {
 		log.Fatalf("GetCapitalDistribution failed: %v", err)
 	}

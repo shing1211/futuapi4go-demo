@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	rehabs, err := client.RequestRehab(context.Background(), cli, int32(constant.Market_US), "NVDA")
+	rehabs, err := client.RequestRehab(context.Background(), cli, constant.Market_US, "NVDA")
 	if err != nil {
 		log.Fatalf("RequestRehab failed: %v", err)
 	}

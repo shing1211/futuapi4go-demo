@@ -21,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	plates, err := client.GetOwnerPlate(cli, int32(constant.Market_US), "NVDA")
+	plates, err := client.GetOwnerPlate(cli, constant.Market_US, "NVDA")
 	if err != nil {
 		log.Fatalf("GetOwnerPlate failed: %v", err)
 	}

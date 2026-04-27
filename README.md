@@ -189,15 +189,15 @@ cli.Connect("127.0.0.1:11111")
 // Real trading: use WithTradeEnv(1)
 cli := client.New().WithTradeEnv(1) // Real trading
 
-// Market constant — all APIs take int32
-int32(constant.Market_US)  // 11
-int32(constant.Market_HK)  // 1
+// Market constant — typed constant (no cast needed)
+constant.Market_US  // 11
+constant.Market_HK   // 1
 
 // One-shot request
-client.GetQuote(cli, int32(constant.Market_US), "NVDA")
+client.GetQuote(ctx, cli, constant.Market_US, "NVDA")
 
 // Subscribe: continuous stream, call stop() to unsubscribe
-stop := chanpkg.SubscribeTicker(cli, int32(constant.Market_US), "NVDA", tickerCh)
+stop := chanpkg.SubscribeTicker(ctx, cli, constant.Market_US, "NVDA", tickerCh)
 defer stop()
 
 // Dynamic account selection (no hardcoded account numbers)

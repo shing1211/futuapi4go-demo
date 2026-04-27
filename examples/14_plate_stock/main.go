@@ -23,7 +23,7 @@ func main() {
 	}
 
 	// US tech sector plate
-	stocks, err := client.GetPlateSecurity(context.Background(), cli, int32(constant.Market_US), "LIST20882")
+	stocks, err := client.GetPlateSecurity(context.Background(), cli, constant.Market_US, "LIST20882")
 	if err != nil {
 		log.Fatalf("GetPlateSecurity failed: %v", err)
 	}

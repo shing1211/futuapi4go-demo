@@ -33,7 +33,7 @@ func main() {
 		if err := client.ModifyUserSecurity(context.Background(), cli,
 			groups[0].Name,
 			1, // op: 1=Add
-			int32(constant.Market_US),
+			constant.Market_US,
 			[]string{"NVDA"},
 		); err != nil {
 			log.Fatalf("ModifyUserSecurity failed: %v", err)
@@ -44,7 +44,7 @@ func main() {
 		if err := client.ModifyUserSecurity(context.Background(), cli,
 			"MyWatchlist",
 			3, // op: 3=Add group
-			int32(constant.Market_US),
+			constant.Market_US,
 			[]string{"NVDA"},
 		); err != nil {
 			log.Fatalf("ModifyUserSecurity (create group) failed: %v", err)

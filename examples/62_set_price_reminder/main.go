@@ -23,11 +23,11 @@ func main() {
 	}
 
 	key, err := client.SetPriceReminder(context.Background(), cli,
-		int32(constant.Market_US), "NVDA",
-		1,  // op: 1=Add
-		1,  // reminderType: 1=Price above or below
-		0,  // freq: 0=Once
-		150.0, // value: trigger when price reaches 150
+		constant.Market_US, "NVDA",
+		constant.PriceReminderOp_Add,         // op: 1=Add
+		constant.PriceReminderType_Price,     // reminderType: 1=Price above or below
+		constant.PriceReminderFreq_Once,     // freq: 0=Once
+		150.0,                               // value: trigger when price reaches 150
 		"Watch for NVDA at 150",
 	)
 	if err != nil {

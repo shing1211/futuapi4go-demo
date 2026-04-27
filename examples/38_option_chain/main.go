@@ -24,7 +24,7 @@ func main() {
 
 	// Get US equity option chain for NVDA
 	chains, err := client.GetOptionChain(context.Background(), cli,
-		int32(constant.Market_US), "NVDA",
+		constant.Market_US, "NVDA",
 		1, // indexOptionType: 1=US Equity
 		0, // optType: 0=All
 		0, // condition: 0=All
