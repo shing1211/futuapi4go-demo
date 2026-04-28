@@ -33,7 +33,7 @@ func main() {
 	accID := acc.AccID
 	_ = accID // unused in this example
 
-	fills, err := client.GetOrderFillList(cli, accID)
+	fills, err := client.GetOrderFillList(context.Background(), cli, accID)
 	if err != nil {
 		log.Fatalf("GetOrderFillList failed: %v", err)
 	}

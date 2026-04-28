@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	user, err := client.GetUserInfo(cli)
+	user, err := client.GetUserInfo(context.Background(), cli)
 	if err != nil {
 		log.Fatalf("GetUserInfo failed: %v", err)
 	}

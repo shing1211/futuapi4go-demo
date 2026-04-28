@@ -36,11 +36,11 @@ func main() {
 	}
 
 	// ReconfirmOrder is used to confirm an order that requires additional verification
-	result, err := client.ReconfirmOrder(cli,
+result, err := client.ReconfirmOrder(context.Background(), cli,
 		accID,
 		constant.TrdMarket_US,
-		0, // orderID: 0 means not confirming a specific order
-		0, // reason: 0=Normal
+		0,
+		0,
 	)
 	if err != nil {
 		log.Fatalf("ReconfirmOrder failed: %v", err)

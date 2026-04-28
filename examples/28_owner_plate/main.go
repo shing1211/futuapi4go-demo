@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -21,7 +22,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	plates, err := client.GetOwnerPlate(cli, constant.Market_US, "NVDA")
+	plates, err := client.GetOwnerPlate(context.Background(), cli, constant.Market_US, "NVDA")
 	if err != nil {
 		log.Fatalf("GetOwnerPlate failed: %v", err)
 	}

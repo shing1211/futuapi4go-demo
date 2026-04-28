@@ -7,10 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-04-28
+
 ### Changed
 
-- **Updated for futuapi4go v0.2.0** — all API calls now use `context.Context` for cancellation and timeout support
-- **go.mod** — updated dependency to `github.com/shing1211/futuapi4go v0.2.0`
+- **Updated for futuapi4go v0.5.1** — all API calls now use context.Context as first parameter
+- **go.mod** — updated dependency to `github.com/shing1211/futuapi4go v0.5.1`
+- **Typed enums** — examples updated to use typed constants (constant.TrdMarket_HK, constant.TrdMarket_US, etc.)
+- **Input validation** — examples updated with proper typed enum values
 
 ## [0.3.0] - 2026-04-24
 

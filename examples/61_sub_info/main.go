@@ -26,7 +26,7 @@ func main() {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	info, err := client.GetSubInfo(cli)
+	info, err := client.GetSubInfo(context.Background(), cli)
 	if err != nil {
 		log.Fatalf("GetSubInfo failed: %v", err)
 	}

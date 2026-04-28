@@ -35,7 +35,7 @@ func main() {
 
 	accIDs := []uint64{accID}
 
-	if err := client.SubAccPush(cli, accIDs); err != nil {
+	if err := client.SubAccPush(context.Background(), cli, accIDs); err != nil {
 		log.Fatalf("SubAccPush failed: %v", err)
 	}
 	fmt.Printf("Subscribed to %d account push notifications.\n", len(accIDs))

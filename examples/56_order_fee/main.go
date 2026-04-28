@@ -32,13 +32,11 @@ func main() {
 		log.Fatal("no account found")
 	}
 	accID := acc.AccID
-	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
+	_ = accID
 
-	fees, err := client.GetOrderFee(cli,
-		accID,
-		market,
-		[]string{}, // empty list returns all order fees
-	)
+fees, err := client.GetOrderFee(context.Background(), cli,
+	accID, constant.TrdMarket_HK, []string{"00700"},
+)
 	if err != nil {
 		log.Fatalf("GetOrderFee failed: %v", err)
 	}

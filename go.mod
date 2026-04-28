@@ -2,7 +2,7 @@ module github.com/shing1211/futuapi4go-demo
 
 go 1.26.1
 
-require github.com/shing1211/futuapi4go v0.5.0
+require github.com/shing1211/futuapi4go v0.5.1
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect

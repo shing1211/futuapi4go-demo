@@ -8,6 +8,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go/pkg/pb/trdflowsummary"
 )
 
 func main() {
@@ -32,15 +33,14 @@ func main() {
 		log.Fatal("no account found")
 	}
 	accID := acc.AccID
-	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
+	_ = accID
 
-	// direction=1 means cash inflow, direction=2 means outflow
-	flows, err := client.GetFlowSummary(cli,
-		accID,
-		market,
-		"",    // clearingDate: empty for today
-		1,     // direction: 1=inflow
-	)
+flows, err := client.GetFlowSummary(context.Background(), cli,
+	accID,
+	constant.TrdMarket_HK,
+	"",
+	trdflowsummary.TrdCashFlowDirection(1),
+)
 	if err != nil {
 		log.Fatalf("GetFlowSummary failed: %v", err)
 	}

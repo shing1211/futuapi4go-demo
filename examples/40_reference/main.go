@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -22,7 +23,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	refs, err := client.GetReference(cli, constant.Market_US, "NVDA", qotgetreference.ReferenceType_ReferenceType_Warrant)
+	refs, err := client.GetReference(context.Background(), cli, constant.Market_US, "NVDA", qotgetreference.ReferenceType_ReferenceType_Warrant)
 	if err != nil {
 		log.Fatalf("GetReference failed: %v", err)
 	}

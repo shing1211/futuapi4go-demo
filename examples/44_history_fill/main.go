@@ -32,12 +32,11 @@ func main() {
 		log.Fatal("no account found")
 	}
 	accID := acc.AccID
-	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
+	_ = accID
 
-	fills, err := client.GetHistoryOrderFillList(cli,
-		accID,
-		market,
-	)
+fills, err := client.GetHistoryOrderFillList(context.Background(), cli,
+	accID, constant.TrdMarket_HK,
+)
 	if err != nil {
 		log.Fatalf("GetHistoryOrderFillList failed: %v", err)
 	}
