@@ -35,13 +35,13 @@ func main() {
 	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
 	orderType := constant.OrderType_Normal
 
-	info, err := client.GetMaxTrdQtys(cli,
+	info, err := client.GetMaxTrdQtys(context.Background(), cli,
 		accID,
 		market,
-		"00100", // Tencent (HK stock)
+		"00100",
 		orderType,
 		100.0,
-		1, // secMarket=1 (HK)
+		constant.TrdSecMarket_HK,
 	)
 	if err != nil {
 		log.Fatalf("GetMaxTrdQtys failed: %v", err)

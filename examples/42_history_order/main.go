@@ -34,7 +34,7 @@ func main() {
 	accID := acc.AccID
 	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
 
-	orders, err := client.GetHistoryOrderList(cli,
+	orders, err := client.GetHistoryOrderList(context.Background(), cli,
 		accID,
 		market,
 		"2026-01-01", "2026-04-24",

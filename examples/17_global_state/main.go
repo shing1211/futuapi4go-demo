@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -20,7 +21,7 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	state, err := client.GetGlobalState(cli)
+	state, err := client.GetGlobalState(context.Background(), cli)
 	if err != nil {
 		log.Fatalf("GetGlobalState failed: %v", err)
 	}

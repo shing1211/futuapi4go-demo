@@ -34,10 +34,10 @@ func main() {
 	accID := acc.AccID
 	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
 
-	fees, err := client.GetOrderFee(cli,
+	fees, err := client.GetOrderFee(context.Background(), cli,
 		accID,
 		market,
-		[]string{}, // empty list returns all order fees
+		[]string{},
 	)
 	if err != nil {
 		log.Fatalf("GetOrderFee failed: %v", err)

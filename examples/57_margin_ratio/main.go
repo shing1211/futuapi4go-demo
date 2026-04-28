@@ -36,7 +36,7 @@ func main() {
 	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
 
 	sec := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("NVDA")}
-	ratios, err := client.GetMarginRatio(cli,
+	ratios, err := client.GetMarginRatio(context.Background(), cli,
 		accID,
 		market,
 		[]*qotcommon.Security{sec},

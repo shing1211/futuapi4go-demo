@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
@@ -26,7 +27,7 @@ func main() {
 	sec2 := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("AAPL")}
 	sec3 := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("TSLA")}
 
-	snapshots, err := client.GetSecuritySnapshot(cli, []*qotcommon.Security{sec1, sec2, sec3})
+	snapshots, err := client.GetSecuritySnapshot(context.Background(), cli, []*qotcommon.Security{sec1, sec2, sec3})
 	if err != nil {
 		log.Fatalf("GetSecuritySnapshot failed: %v", err)
 	}

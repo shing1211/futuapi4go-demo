@@ -35,10 +35,10 @@ func main() {
 	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
 	orderType := constant.OrderType_Normal
 
-	info, err := client.GetAccTradingInfo(cli,
+	info, err := client.GetAccTradingInfo(context.Background(), cli,
 		accID,
 		market,
-		"00100", // Tencent (HK stock)
+		"00100",
 		orderType,
 		100.0,
 	)
