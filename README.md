@@ -4,10 +4,25 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.5.1-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.5.2-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
 > **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 66 standalone examples (00–65), each demonstrating one SDK function. All examples tested and verified against the OpenD simulator.
+
+## v0.5.2 New Features
+
+```go
+// Fluent API
+cli.Quote().GetBasicQot(ctx, securities)
+cli.Trade().PlaceOrder(ctx, req)
+cli.System().GetGlobalState(ctx)
+
+// Historical K-line at specific time points
+cli.Quote().GetHistoryKLPoints(ctx, req)
+
+// Quota usage
+cli.System().GetUsedQuota(ctx)
+```
 
 ## Quick Start
 

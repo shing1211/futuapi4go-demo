@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.2] - 2026-04-28
+
+### Changed
+
+- **Updated for futuapi4go v0.5.2** — Fluent API, GetHistoryKLPoints, GetUsedQuota
+- **go.mod** — updated dependency to `github.com/shing1211/futuapi4go v0.5.2`
+- **README.md** — added v0.5.2 examples
+
 ## [0.4.0] - 2026-04-28
 
 ### Changed
