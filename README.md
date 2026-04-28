@@ -4,7 +4,7 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.0.6-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.5.1-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
 > **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 66 standalone examples (00–65), each demonstrating one SDK function. All examples tested and verified against the OpenD simulator.
@@ -190,8 +190,10 @@ cli.Connect("127.0.0.1:11111")
 cli := client.New().WithTradeEnv(1) // Real trading
 
 // Market constant — typed constant (no cast needed)
-constant.Market_US  // 11
-constant.Market_HK   // 1
+constant.Market_US // 11
+constant.Market_HK // 1
+constant.TrdMarket_HK // 1 — HK trading market
+constant.TrdMarket_US // 2 — US trading market
 
 // One-shot request
 client.GetQuote(ctx, cli, constant.Market_US, "NVDA")
@@ -201,10 +203,9 @@ stop := chanpkg.SubscribeTicker(ctx, cli, constant.Market_US, "NVDA", tickerCh)
 defer stop()
 
 // Dynamic account selection (no hardcoded account numbers)
-accounts, _ := client.GetAccountList(cli)
+accounts, _ := client.GetAccountList(ctx, cli)
 acc := cli.FindAccount(accounts)
 accID := acc.AccID
-market := acc.TrdMarketAuthList[0]
 ```
 
 ## Troubleshooting
