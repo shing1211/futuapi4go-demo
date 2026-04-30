@@ -12,10 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **70_futures_account_list** — `cli.Trade().GetAccList(TrdCategory_Future)` for futures account discovery
 - **71_futures_cash** — `client.GetAccTradingInfo` for futures margin/cash info
 - **72_futures_positions** — `cli.Trade().GetPositionList` with `TrdMarket_Futures` for futures positions
+- **73_options_account_list** — `cli.Trade().GetAccList` + options rights check (TrdMarketAuthList)
+- **74_options_cash** — `client.GetAccountInfo` + `GetFunds` for options-enabled accounts
+- **75_options_positions** — `client.GetPositionList` (stocks + options same API)
 
 ### Changed
 
-- **README.md** — added examples 70, 71, 72 for futures trading
+- **README.md** — added examples 70-75 for futures and options trading
 
 ## [0.5.2] - 2026-04-28
 
