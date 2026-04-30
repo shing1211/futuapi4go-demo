@@ -72,5 +72,8 @@ For full documentation, see the [root README.md](../README.md).
 | 63 | [`63_sub_acc_push`](./63_sub_acc_push) | `client.SubAccPush` |
 | 64 | [`64_reconfirm_order`](./64_reconfirm_order) | `client.ReconfirmOrder` |
 | 65 | [`65_history_kl_quota`](./65_history_kl_quota) | `client.RequestHistoryKLQuota` |
+| 70 | [`70_futures_account_list`](./70_futures_account_list) | `cli.Trade().GetAccList(TrdCategory_Future)` |
+| 71 | [`71_futures_cash`](./71_futures_cash) | `client.GetAccTradingInfo` (futures margin) |
+| 72 | [`72_futures_positions`](./72_futures_positions) | `cli.Trade().GetPositionList(TrdMarket_Futures)` |
 
 **66 examples total** — all SDK functions covered except `client.GetDelayStatistics` (known OpenD proto bug).
