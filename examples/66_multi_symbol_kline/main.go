@@ -28,15 +28,24 @@ func main() {
 	fmt.Println("=== Multi-Symbol K-Line Query (US Stocks) ===")
 	fmt.Println()
 
-	// US stock symbols
 	symbols := []string{"AAPL", "TSLA", "NVDA", "MSFT", "AMZN"}
 
+	fmt.Println("--- Subscribing to K-line data ---")
+	for _, symbol := range symbols {
+		if err := client.Subscribe(ctx, cli, constant.Market_US, symbol,
+			[]constant.SubType{constant.SubType_K_Day}); err != nil {
+			fmt.Printf("Subscribe %s failed: %v\n", symbol, err)
+		} else {
+			fmt.Printf("Subscribed to %s daily K-lines\n", symbol)
+		}
+	}
+
+	fmt.Println("\n--- GetKLines (after subscription) ---")
 	for _, symbol := range symbols {
 		fmt.Printf("\n--- %s ---\n", symbol)
 
-		// Get recent K-lines (daily, last 5 days)
 		klines, err := client.GetKLines(ctx, cli, constant.Market_US, symbol,
-			constant.KLType_KDay, "", 5)
+			constant.KLType_K_Day, 5)
 		if err != nil {
 			fmt.Printf("  GetKLines failed: %v\n", err)
 			continue
@@ -51,14 +60,13 @@ func main() {
 	fmt.Println("\n=== Request Historical K-Lines (Batch) ===")
 	fmt.Println()
 
-	// Request historical K-lines for multiple symbols
 	startTime := time.Now().AddDate(0, 0, -10).Format("2006-01-02")
 
-	for _, symbol := range symbols[:3] { // Limit to 3 for brevity
+	for _, symbol := range symbols[:3] {
 		fmt.Printf("Requesting historical K-lines for %s since %s...\n", symbol, startTime)
 
 		klines, err := client.RequestHistoryKL(ctx, cli, constant.Market_US, symbol,
-			constant.KLType_KDay, startTime, "", false)
+			constant.KLType_K_Day, startTime, "")
 		if err != nil {
 			fmt.Printf("  RequestHistoryKL failed: %v\n", err)
 			continue
@@ -72,6 +80,6 @@ func main() {
 	}
 
 	fmt.Println("\n=== Note ===")
-	fmt.Println("Use RequestHistoryKLWithLimit for paginated historical data")
-	fmt.Println("GetKLines is for recent/realtime K-line data")
+	fmt.Println("RequestHistoryKLWithLimit for paginated historical data")
+	fmt.Println("GetKLines for recent/realtime K-line data")
 }

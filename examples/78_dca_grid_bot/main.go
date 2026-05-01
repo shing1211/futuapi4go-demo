@@ -29,7 +29,6 @@ func main() {
 	fmt.Println("Dollar Cost Averaging with Grid Strategy")
 	fmt.Println()
 
-	// Get simulated US account
 	accounts, err := client.GetAccountList(ctx, cli)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
@@ -54,7 +53,6 @@ func main() {
 	}
 	fmt.Printf("Using AccID=%d\n", accID)
 
-	// Check account funds
 	funds, err := client.GetFunds(ctx, cli, accID)
 	if err != nil {
 		fmt.Printf("GetFunds failed: %v\n", err)
@@ -62,11 +60,10 @@ func main() {
 		fmt.Printf("Available Power: $%.2f\n", funds.Power)
 	}
 
-	// Strategy parameters
 	targetSymbol := "AAPL"
 	basePrice := 180.0
 	gridLevels := 5
-	investmentPerLevel := funds.Power / float64(gridLevels*2) // Reserve half for safety
+	investmentPerLevel := funds.Power / float64(gridLevels*2)
 
 	fmt.Printf("\n=== Strategy Configuration ===\n")
 	fmt.Printf("Symbol: %s\n", targetSymbol)
@@ -74,15 +71,13 @@ func main() {
 	fmt.Printf("Grid Levels: %d\n", gridLevels)
 	fmt.Printf("Investment per level: $%.2f\n", investmentPerLevel)
 
-	// Get current quote
 	quote, err := client.GetQuote(ctx, cli, constant.Market_US, targetSymbol)
 	if err != nil {
 		fmt.Printf("GetQuote failed: %v\n", err)
 	} else {
-		fmt.Printf("Current Price: $%.2f\n", quote.LastPrice)
+		fmt.Printf("Current Price: $%.2f\n", quote.Price)
 	}
 
-	// Unlock trading
 	pwd := os.Getenv("FUTU_TRADE_PWD")
 	if pwd != "" {
 		if err := client.UnlockTrading(ctx, cli, pwd); err != nil {
@@ -96,19 +91,16 @@ func main() {
 	fmt.Printf("%-20s %15s %15s %10s\n", "Order Type", "Price", "Qty", "Status")
 	fmt.Println("─────────────────────────────────────────────────")
 
-	// Generate grid orders (buy below base, sell above)
 	for i := 1; i <= gridLevels; i++ {
-		// Buy order below current price
 		buyPrice := basePrice - float64(i)*5.0
 		buyQty := investmentPerLevel / buyPrice
 		fmt.Printf("%-20s $%14.2f %15.2f %10s\n",
-			"Buy Grid "+string(rune('A'+i-1)), buyPrice, buyQty, "SIMULATED")
+			fmt.Sprintf("Buy Grid %c", 'A'+i-1), buyPrice, buyQty, "SIMULATED")
 
-		// Sell order above current price
 		sellPrice := basePrice + float64(i)*5.0
 		sellQty := investmentPerLevel / sellPrice
 		fmt.Printf("%-20s $%14.2f %15.2f %10s\n",
-			"Sell Grid "+string(rune('A'+i-1)), sellPrice, sellQty, "SIMULATED")
+			fmt.Sprintf("Sell Grid %c", 'A'+i-1), sellPrice, sellQty, "SIMULATED")
 	}
 
 	fmt.Println("\n=== Current Holdings ===")

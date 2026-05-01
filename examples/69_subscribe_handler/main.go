@@ -5,23 +5,18 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"sync/atomic"
+	"os/signal"
+	"syscall"
 	"time"
 
-	futoclient "github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
-	"github.com/shing1211/futuapi4go/pkg/proto"
-)
-
-var (
-	tickerCount int32
-	klineCount  int32
-	orderbookCount int32
-	stopCh      chan struct{}
+	"github.com/shing1211/futuapi4go/pkg/push"
+	chanpkg "github.com/shing1211/futuapi4go/pkg/push/chan"
 )
 
 func main() {
-	cli := futoclient.New()
+	cli := client.New()
 	defer cli.Close()
 
 	addr := os.Getenv("FUTU_ADDR")
@@ -32,125 +27,80 @@ func main() {
 		log.Fatalf("Connect failed: %v", err)
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+	ctx := context.Background()
 
 	fmt.Println("=== Comprehensive Subscribe Handler Demo (US Stocks) ===")
 	fmt.Println()
 
-	// Create channels for push data
-	tickerCh := make(chan *futoclient.PushTicker, 100)
-	klineCh := make(chan *futoclient.PushKLine, 100)
-	orderbookCh := make(chan *futoclient.PushOrderBook, 100)
-
-	// Register push handlers
-	cli.RegisterHandler(proto.ProtoID_Qot_UpdateTicker, func(protoID uint32, body []byte) {
-		if ticker, err := futoclient.ParsePushTicker(body); err == nil {
-			select {
-			case tickerCh <- ticker:
-			default:
-			}
-		}
-	})
-
-	cli.RegisterHandler(proto.ProtoID_Qot_UpdateKL, func(protoID uint32, body []byte) {
-		if kline, err := futoclient.ParsePushKLine(body); err == nil {
-			select {
-			case klineCh <- kline:
-			default:
-			}
-		}
-	})
-
-	cli.RegisterHandler(proto.ProtoID_Qot_UpdateOrderBook, func(protoID uint32, body []byte) {
-		if ob, err := futoclient.ParsePushOrderBook(body); err == nil {
-			select {
-			case orderbookCh <- ob:
-			default:
-			}
-		}
-	})
-
-	// Subscribe to US stocks
 	symbols := []string{"AAPL", "TSLA", "NVDA"}
-
 	fmt.Printf("Subscribing to %d symbols: %v\n", len(symbols), symbols)
-	if err := futoclient.Subscribe(ctx, cli, constant.Market_US, symbols[0],
-		constant.SubType_Ticker, constant.SubType_KL_Day, constant.SubType_OrderBook); err != nil {
-		fmt.Printf("Subscribe failed: %v\n", err)
+
+	for _, symbol := range symbols {
+		if err := client.Subscribe(ctx, cli, constant.Market_US, symbol,
+			[]constant.SubType{constant.SubType_Ticker}); err != nil {
+			fmt.Printf("Subscribe %s ticker failed: %v\n", symbol, err)
+		}
 	}
 
-	// Subscribe remaining symbols to ticker only
-	for i := 1; i < len(symbols); i++ {
-		futoclient.Subscribe(ctx, cli, constant.Market_US, symbols[i], constant.SubType_Ticker)
+	if err := client.Subscribe(ctx, cli, constant.Market_US, symbols[0],
+		[]constant.SubType{constant.SubType_K_Day, constant.SubType_OrderBook}); err != nil {
+		fmt.Printf("Subscribe %s kline/orderbook failed: %v\n", symbols[0], err)
 	}
+
+	tickerCh := make(chan *push.UpdateTicker, 100)
+	klineCh := make(chan *push.UpdateKL, 100)
+	orderbookCh := make(chan *push.UpdateOrderBook, 100)
+
+	go chanpkg.SubscribeTicker(cli, constant.Market_US, symbols[0], tickerCh)
+	go chanpkg.SubscribeKLine(cli, constant.Market_US, symbols[0], constant.KLType_K_Day, klineCh)
+	go chanpkg.SubscribeOrderBook(cli, constant.Market_US, symbols[0], orderbookCh)
 
 	fmt.Println("\nWaiting for push data (5 seconds)...")
-	fmt.Println("Press Ctrl+C to stop early")
 
-	stopCh = make(chan struct{})
+	sig := make(chan os.Signal, 1)
+	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
 
-	// Start goroutines to process push data
-	go processTickers(tickerCh)
-	go processKlines(klineCh)
-	go processOrderBooks(orderbookCh)
+	tickerCount := 0
+	klineCount := 0
+	orderbookCount := 0
 
-	// Wait for stop signal or timeout
-	select {
-	case <-time.After(5 * time.Second):
-		close(stopCh)
-	case <-ctx.Done():
+	fmt.Println("─────────────────────────────────────────────────")
+
+	for {
+		select {
+		case t := <-tickerCh:
+			for _, tick := range t.TickerList {
+				if tickerCount < 3 {
+					fmt.Printf("[Ticker] %s: price=%.2f vol=%d dir=%d\n",
+						symbols[0], tick.GetPrice(), tick.GetVolume(), tick.GetDir())
+				}
+				tickerCount++
+			}
+		case kl := <-klineCh:
+			for _, kline := range kl.KLList {
+				if klineCount < 3 {
+					fmt.Printf("[KL] %s: O=%.2f H=%.2f L=%.2f C=%.2f\n",
+						symbols[0], kline.GetOpenPrice(), kline.GetHighPrice(), kline.GetLowPrice(), kline.GetClosePrice())
+				}
+				klineCount++
+			}
+		case ob := <-orderbookCh:
+			if orderbookCount < 2 {
+				fmt.Printf("[OrderBook] %s: %d bids, %d asks\n",
+					symbols[0], len(ob.OrderBookBidList), len(ob.OrderBookAskList))
+			}
+			orderbookCount++
+		case <-time.After(5 * time.Second):
+			goto done
+		case <-sig:
+			goto done
+		}
 	}
 
-	// Summary
+done:
 	fmt.Println("\n=== Summary ===")
 	fmt.Printf("Received: %d tickers, %d klines, %d orderbooks\n",
 		tickerCount, klineCount, orderbookCount)
 
-	// Cleanup
-	futoclient.UnsubscribeAll(ctx, cli)
-}
-
-func processTickers(ch <-chan *futoclient.PushTicker) {
-	for {
-		select {
-		case <-stopCh:
-			return
-		case ticker := <-ch:
-			atomic.AddInt32(&tickerCount, 1)
-			if atomic.LoadInt32(&tickerCount) <= 3 {
-				fmt.Printf("[Ticker] %s: Last=%d Vol=%d\n",
-					ticker.Code, ticker.LastPrice, ticker.Volume)
-			}
-		}
-	}
-}
-
-func processKlines(ch <-chan *futoclient.PushKLine) {
-	for {
-		select {
-		case <-stopCh:
-			return
-		case kline := <-ch:
-			atomic.AddInt32(&klineCount, 1)
-			if atomic.LoadInt32(&klineCount) <= 3 {
-				fmt.Printf("[KL] %s: O=%.2f H=%.2f L=%.2f C=%.2f\n",
-					kline.Code, kline.Open, kline.High, kline.Low, kline.Close)
-			}
-		}
-	}
-}
-
-func processOrderBooks(ch <-chan *futoclient.PushOrderBook) {
-	for {
-		select {
-		case <-stopCh:
-			return
-		case ob := <-ch:
-			atomic.AddInt32(&orderbookCount, 1)
-			if atomic.LoadInt32(&orderbookCount) <= 2 {
-				fmt.Printf("[OrderBook] %s: %d levels\n", ob.Code, len(ob.BidItems)+len(ob.AskItems))
-			}
-		}
-	}
+	client.UnsubscribeAll(ctx, cli)
 }

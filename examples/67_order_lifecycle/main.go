@@ -27,34 +27,39 @@ func main() {
 	fmt.Println("=== Order Lifecycle Demo (US Simulated) ===")
 	fmt.Println()
 
-	// Get simulated US account
 	accounts, err := client.GetAccountList(ctx, cli)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
 	var accID uint64
+	var accMarket constant.TrdMarket
 	for _, acc := range accounts {
-		if acc.TrdEnv == 0 { // Simulated
+		if acc.TrdEnv == 0 {
 			for _, auth := range acc.TrdMarketAuthList {
-				if auth == constant.TrdMarket_US.Int32() || auth == constant.TrdMarket_HK.Int32() {
+				if auth == constant.TrdMarket_US.Int32() {
 					accID = acc.AccID
-					fmt.Printf("Using simulated AccID=%d (TrdEnv=%d)\n", accID, acc.TrdEnv)
+					accMarket = constant.TrdMarket_US
+					fmt.Printf("Using US simulated AccID=%d\n", accID)
 					break
+				} else if auth == constant.TrdMarket_HK.Int32() {
+					accID = acc.AccID
+					accMarket = constant.TrdMarket_HK
+					fmt.Printf("Using HK simulated AccID=%d\n", accID)
 				}
 			}
 		}
-		if accID != 0 {
+		if accID != 0 && accMarket != 0 {
 			break
 		}
 	}
 
 	if accID == 0 {
 		accID = accounts[0].AccID
+		accMarket = constant.TrdMarket(accounts[0].TrdMarketAuthList[0])
 		fmt.Printf("Using AccID=%d\n", accID)
 	}
 
-	// Unlock trading (required for simulated trading)
 	pwd := os.Getenv("FUTU_TRADE_PWD")
 	if pwd != "" {
 		if err := client.UnlockTrading(ctx, cli, pwd); err != nil {
@@ -86,21 +91,37 @@ func main() {
 	}
 
 	fmt.Println("\n=== Step 3: Place a Limit Order (Demo) ===")
-	// Place a demo order - this will likely fail if market is closed or price is invalid
-	// In simulated mode, use a price within reasonable range
-	stock := "AAPL"
-	price := 180.0
-	qty := 1.0
+	var stock string
+	var price float64
+	var secMarket constant.TrdSecMarket
+	var qty float64
 
-	fmt.Printf("Placing order: Buy %d share(s) of %s @ $%.2f\n", int(qty), stock, price)
+	switch accMarket {
+	case constant.TrdMarket_US:
+		stock = "AAPL"
+		price = 180.0
+		secMarket = constant.TrdSecMarket_US
+		qty = 1.0
+	case constant.TrdMarket_HK:
+		stock = "00100"
+		price = 700.0
+		secMarket = constant.TrdSecMarket_HK
+		qty = 100.0 // HK lot size
+	default:
+		stock = "AAPL"
+		price = 180.0
+		secMarket = constant.TrdSecMarket_US
+		qty = 1.0
+	}
 
-	result, err := client.PlaceOrder(ctx, cli, accID, constant.TrdMarket_US,
-		stock, constant.TrdSide_Buy, constant.OrderType_Normal, price, qty, 0)
+	fmt.Printf("Placing order: Buy %.0f share(s) of %s @ $%.2f\n", qty, stock, price)
+
+	result, err := client.PlaceOrder(ctx, cli, accID, accMarket,
+		stock, constant.TrdSide_Buy, constant.OrderType_Normal, price, qty, secMarket)
 	if err != nil {
 		fmt.Printf("PlaceOrder failed: %v\n", err)
 	} else {
 		fmt.Printf("Order placed successfully! OrderID=%d\n", result.OrderID)
-		fmt.Printf("  Status: %s\n", result.Status)
 	}
 
 	fmt.Println("\n=== Step 4: List Open Orders ===")
@@ -110,31 +131,25 @@ func main() {
 	} else {
 		fmt.Printf("Open orders: %d\n", len(orders))
 		for _, o := range orders {
-			fmt.Printf("  OrderID=%d %s %s Qty=%.0f Price=%.2f Status=%s\n",
-				o.OrderID, o.Code, o.Side, o.Qty, o.Price, o.Status)
+			fmt.Printf("  OrderID=%d %s TrdSide=%d Qty=%.0f Price=%.2f OrderStatus=%d\n",
+				o.OrderID, o.Code, o.TrdSide, o.Qty, o.Price, o.OrderStatus)
 		}
 	}
 
 	fmt.Println("\n=== Step 5: Modify/Cancel Order (Demo) ===")
-	// Note: In real usage, you'd cancel specific orders
-	// Here we demonstrate the modify flow
 	if len(orders) > 0 {
 		orderID := orders[0].OrderID
-		newPrice := 185.0
+		newPrice := price * 1.05
 		fmt.Printf("Modifying order %d to price $%.2f...\n", orderID, newPrice)
 
-		modResult, err := client.ModifyOrder(ctx, cli, accID, constant.TrdMarket_US,
-			orderID, constant.ModifyOrderOp_Modify, newPrice, 0)
+		modResult, err := client.ModifyOrder(ctx, cli, accID, accMarket,
+			orderID, constant.ModifyOrderOp_Normal, newPrice, 0)
 		if err != nil {
 			fmt.Printf("ModifyOrder failed: %v\n", err)
 		} else {
-			fmt.Printf("Modify result: %s\n", modResult.ModifyStatus)
+			fmt.Printf("Modify result: OrderID=%d\n", modResult.OrderID)
 		}
 	}
 
 	fmt.Println("\n=== Order Lifecycle Complete ===")
-	fmt.Println("Note: In simulated mode, orders are simulated but may fail if:")
-	fmt.Println("  - Market is closed")
-	fmt.Println("  - Price is outside valid range")
-	fmt.Println("  - Insufficient funds")
 }

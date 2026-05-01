@@ -77,32 +77,32 @@ For full documentation, see the [root README.md](../README.md).
 
 ## Gap Fill Examples (66-69)
 
-| # | Example | SDK Function |
-|---|---------|-------------|
-| 66 | [`66_multi_symbol_kline`](./66_multi_symbol_kline) | `client.GetKLines` + `RequestHistoryKL` (batch) |
+| # | Example | SDK Functions |
+|---|---------|---------------|
+| 66 | [`66_multi_symbol_kline`](./66_multi_symbol_kline) | `Subscribe` + `GetKLines` + `RequestHistoryKL` |
 | 67 | [`67_order_lifecycle`](./67_order_lifecycle) | `PlaceOrder` → `GetOrderList` → `ModifyOrder` |
 | 68 | [`68_market_hours_check`](./68_market_hours_check) | `GetMarketState` + `GetTradeDate` |
-| 69 | [`69_subscribe_handler`](./69_subscribe_handler) | `Subscribe` + push handlers |
+| 69 | [`69_subscribe_handler`](./69_subscribe_handler) | `Subscribe` + push handlers (Ticker/KLine/OrderBook) |
 
 ## Futures & Options Examples (70-75)
 
-| # | Example | SDK Function |
+| # | Example | Description |
 |---|---------|-------------|
-| 70 | [`70_futures_account_list`](./70_futures_account_list) | `cli.Trade().GetAccList(TrdCategory_Future)` |
-| 71 | [`71_futures_cash`](./71_futures_cash) | `client.GetAccTradingInfo` (futures margin) |
-| 72 | [`72_futures_positions`](./72_futures_positions) | `cli.Trade().GetPositionList(TrdMarket_Futures)` |
-| 73 | [`73_options_account_list`](./73_options_account_list) | `cli.Trade().GetAccList` + options rights check |
-| 74 | [`74_options_cash`](./74_options_cash) | `client.GetAccountInfo` + `GetFunds` for options |
-| 75 | [`75_options_positions`](./75_options_positions) | `client.GetPositionList` (stocks + options) |
+| 70 | [`70_futures_account_list`](./70_futures_account_list) | `GetAccList(TrdCategory_Future)` for futures accounts |
+| 71 | [`71_futures_cash`](./71_futures_cash) | Futures margin and cash queries |
+| 72 | [`72_futures_positions`](./72_futures_positions) | `GetPositionList(TrdMarket_Futures)` |
+| 73 | [`73_options_account_list`](./73_options_account_list) | Options rights check via `GetAccList` |
+| 74 | [`74_options_cash`](./74_options_cash) | Options buying power and margin |
+| 75 | [`75_options_positions`](./75_options_positions) | Stock + options combined positions |
 
 ## Advanced Combo Examples (76-80)
 
-| # | Example | Strategy |
-|---|---------|----------|
-| 76 | [`76_pre_trade_checks`](./76_pre_trade_checks) | Market + Account + Position validation |
-| 77 | [`77_realtime_dashboard`](./77_realtime_dashboard) | Real-time monitoring with subscriptions |
+| # | Example | Description |
+|---|---------|-------------|
+| 76 | [`76_pre_trade_checks`](./76_pre_trade_checks) | Market state + account funds + position validation |
+| 77 | [`77_realtime_dashboard`](./77_realtime_dashboard) | Real-time monitoring with ticker subscriptions |
 | 78 | [`78_dca_grid_bot`](./78_dca_grid_bot) | Dollar Cost Averaging + Grid strategy |
-| 79 | [`79_momentum_scanner`](./79_momentum_scanner) | StockFilter + Snapshot + K-lines |
+| 79 | [`79_momentum_scanner`](./79_momentum_scanner) | StockFilter + Snapshot + K-lines momentum analysis |
 | 80 | [`80_vwap_executor`](./80_vwap_executor) | OrderBook + VWAP calculation + execution |
 
 **80 examples total** — all SDK functions covered except `client.GetDelayStatistics` (known OpenD proto bug).

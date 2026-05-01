@@ -8,6 +8,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 )
 
 func main() {
@@ -27,7 +28,6 @@ func main() {
 	fmt.Println("=== Pre-Trade Checks Demo (US Simulated) ===")
 	fmt.Println()
 
-	// Get simulated US account
 	accounts, err := client.GetAccountList(ctx, cli)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
@@ -35,7 +35,7 @@ func main() {
 
 	var accID uint64
 	for _, acc := range accounts {
-		if acc.TrdEnv == 0 { // Simulated
+		if acc.TrdEnv == 0 {
 			for _, auth := range acc.TrdMarketAuthList {
 				if auth == constant.TrdMarket_US.Int32() {
 					accID = acc.AccID
@@ -52,13 +52,12 @@ func main() {
 	}
 	fmt.Printf("Using AccID=%d\n", accID)
 
-	// Step 1: Check Market State
 	fmt.Println("\n=== Check 1: Market State ===")
 	state, err := client.GetMarketState(ctx, cli, constant.Market_US, "AAPL")
 	if err != nil {
 		fmt.Printf("  GetMarketState failed: %v\n", err)
 	} else {
-		canTrade := state == 1 // Trading = 1
+		canTrade := state == 1
 		fmt.Printf("  US Market State: %d (%s)\n", state, marketStateString(state))
 		if canTrade {
 			fmt.Println("  ✓ Market is OPEN")
@@ -67,7 +66,6 @@ func main() {
 		}
 	}
 
-	// Step 2: Check Account Funds
 	fmt.Println("\n=== Check 2: Account Funds ===")
 	funds, err := client.GetFunds(ctx, cli, accID)
 	if err != nil {
@@ -81,21 +79,18 @@ func main() {
 		}
 	}
 
-	// Step 3: Check Current Positions
 	fmt.Println("\n=== Check 3: Position Limits ===")
 	positions, err := client.GetPositionList(ctx, cli, accID)
 	if err != nil {
 		fmt.Printf("  GetPositionList failed: %v\n", err)
 	} else {
 		fmt.Printf("  Current positions: %d\n", len(positions))
-		// Calculate position value
 		totalValue := 0.0
 		for _, p := range positions {
 			totalValue += p.MarketVal
 		}
 		fmt.Printf("  Total position value: $%.2f\n", totalValue)
 
-		// Check if already holding AAPL (for example)
 		for _, p := range positions {
 			if p.Code == "AAPL" {
 				fmt.Printf("  ✗ Already holding %s (Qty=%.0f)\n", p.Code, p.Quantity)
@@ -103,33 +98,34 @@ func main() {
 		}
 	}
 
-	// Step 4: Get Quote for Target Symbol
 	fmt.Println("\n=== Check 4: Current Quote ===")
-	quote, err := client.GetQuote(ctx, cli, constant.Market_US, "AAPL")
-	if err != nil {
-		fmt.Printf("  GetQuote failed: %v\n", err)
+	if err := client.Subscribe(ctx, cli, constant.Market_US, "AAPL",
+		[]constant.SubType{constant.SubType_Quote}); err != nil {
+		fmt.Printf("  Subscribe failed: %v\n", err)
 	} else {
-		fmt.Printf("  AAPL: Last=$%.2f Bid=$%.2f Ask=$%.2f\n",
-			quote.LastPrice, quote.BidPrice[0], quote.AskPrice[0])
+		quote, err := client.GetQuote(ctx, cli, constant.Market_US, "AAPL")
+		if err != nil {
+			fmt.Printf("  GetQuote failed: %v\n", err)
+		} else {
+			fmt.Printf("  AAPL: Last=$%.2f Open=$%.2f High=$%.2f Low=$%.2f\n",
+				quote.Price, quote.Open, quote.High, quote.Low)
+		}
 	}
 
-	// Step 5: Get Security Snapshot (comprehensive)
 	fmt.Println("\n=== Check 5: Security Snapshot ===")
-	snapshots, err := client.GetSecuritySnapshot(ctx, cli, []*constant.Security{
-		{Market: constant.Market_US, Code: "AAPL"},
-		{Market: constant.Market_US, Code: "TSLA"},
-	})
+	sec1 := qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("AAPL")}
+	sec2 := qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("TSLA")}
+	snapshots, err := client.GetSecuritySnapshot(ctx, cli, []*qotcommon.Security{&sec1, &sec2})
 	if err != nil {
 		fmt.Printf("  GetSecuritySnapshot failed: %v\n", err)
 	} else {
 		for _, s := range snapshots {
-			fmt.Printf("  %s: Price=%.2f Volume=%d 52W_High=%.2f 52W_Low=%.2f\n",
-				s.Name, s.LastPrice, s.Volume, s.High52Week, s.Low52Week)
+			fmt.Printf("  %s: Price=%.2f Vol=%d 52W_High=%.2f 52W_Low=%.2f\n",
+				s.Name, s.CurPrice, s.Volume, s.Highest52WeeksPrice, s.Lowest52WeeksPrice)
 		}
 	}
 
 	fmt.Println("\n=== Pre-Trade Check Complete ===")
-	fmt.Println("Summary: All checks completed. Ready to trade if all checks pass.")
 }
 
 func marketStateString(state int32) string {
@@ -146,3 +142,6 @@ func marketStateString(state int32) string {
 		return "Unknown"
 	}
 }
+
+func ptrInt32(v int32) *int32   { return &v }
+func ptrStr(v string) *string { return &v }

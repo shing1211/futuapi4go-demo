@@ -9,16 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **70_futures_account_list** — `cli.Trade().GetAccList(TrdCategory_Future)` for futures account discovery
-- **71_futures_cash** — `client.GetAccTradingInfo` for futures margin/cash info
-- **72_futures_positions** — `cli.Trade().GetPositionList` with `TrdMarket_Futures` for futures positions
-- **73_options_account_list** — `cli.Trade().GetAccList` + options rights check (TrdMarketAuthList)
-- **74_options_cash** — `client.GetAccountInfo` + `GetFunds` for options-enabled accounts
-- **75_options_positions** — `client.GetPositionList` (stocks + options same API)
+- **66_multi_symbol_kline** — `Subscribe` + `GetKLines` + `RequestHistoryKL` batch queries
+- **67_order_lifecycle** — Full order workflow: `PlaceOrder` → `GetOrderList` → `ModifyOrder`
+- **68_market_hours_check** — `GetMarketState` + `GetTradeDate` for market timing
+- **69_subscribe_handler** — Push handlers for Ticker/KLine/OrderBook streams
+- **76_pre_trade_checks** — Market state + funds + position + quote + snapshot validation
+- **77_realtime_dashboard** — Real-time price monitoring with ticker subscriptions
+- **78_dca_grid_bot** — Dollar Cost Averaging + Grid trading strategy
+- **79_momentum_scanner** — StockFilter + Snapshot + K-lines momentum analysis
+- **80_vwap_executor** — OrderBook + VWAP calculation + execution planning
+- **go.mod** — updated dependency to `github.com/shing1211/futuapi4go v0.5.4`
 
 ### Changed
 
-- **README.md** — added examples 70-75 for futures and options trading
+- **README.md** — added examples 66-80 for gap fill, advanced combos, and v0.5.4 features
 
 ## [0.5.2] - 2026-04-28
 
