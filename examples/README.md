@@ -4,6 +4,8 @@
 
 For full documentation, see the [root README.md](../README.md).
 
+## Basic Function Examples (00-65)
+
 | # | Example | SDK Function |
 |---|---------|-------------|
 | 00 | [`00_connect`](./00_connect) | `client.Connect` |
@@ -72,6 +74,20 @@ For full documentation, see the [root README.md](../README.md).
 | 63 | [`63_sub_acc_push`](./63_sub_acc_push) | `client.SubAccPush` |
 | 64 | [`64_reconfirm_order`](./64_reconfirm_order) | `client.ReconfirmOrder` |
 | 65 | [`65_history_kl_quota`](./65_history_kl_quota) | `client.RequestHistoryKLQuota` |
+
+## Gap Fill Examples (66-69)
+
+| # | Example | SDK Function |
+|---|---------|-------------|
+| 66 | [`66_multi_symbol_kline`](./66_multi_symbol_kline) | `client.GetKLines` + `RequestHistoryKL` (batch) |
+| 67 | [`67_order_lifecycle`](./67_order_lifecycle) | `PlaceOrder` → `GetOrderList` → `ModifyOrder` |
+| 68 | [`68_market_hours_check`](./68_market_hours_check) | `GetMarketState` + `GetTradeDate` |
+| 69 | [`69_subscribe_handler`](./69_subscribe_handler) | `Subscribe` + push handlers |
+
+## Futures & Options Examples (70-75)
+
+| # | Example | SDK Function |
+|---|---------|-------------|
 | 70 | [`70_futures_account_list`](./70_futures_account_list) | `cli.Trade().GetAccList(TrdCategory_Future)` |
 | 71 | [`71_futures_cash`](./71_futures_cash) | `client.GetAccTradingInfo` (futures margin) |
 | 72 | [`72_futures_positions`](./72_futures_positions) | `cli.Trade().GetPositionList(TrdMarket_Futures)` |
@@ -79,4 +95,14 @@ For full documentation, see the [root README.md](../README.md).
 | 74 | [`74_options_cash`](./74_options_cash) | `client.GetAccountInfo` + `GetFunds` for options |
 | 75 | [`75_options_positions`](./75_options_positions) | `client.GetPositionList` (stocks + options) |
 
-**66 examples total** — all SDK functions covered except `client.GetDelayStatistics` (known OpenD proto bug).
+## Advanced Combo Examples (76-80)
+
+| # | Example | Strategy |
+|---|---------|----------|
+| 76 | [`76_pre_trade_checks`](./76_pre_trade_checks) | Market + Account + Position validation |
+| 77 | [`77_realtime_dashboard`](./77_realtime_dashboard) | Real-time monitoring with subscriptions |
+| 78 | [`78_dca_grid_bot`](./78_dca_grid_bot) | Dollar Cost Averaging + Grid strategy |
+| 79 | [`79_momentum_scanner`](./79_momentum_scanner) | StockFilter + Snapshot + K-lines |
+| 80 | [`80_vwap_executor`](./80_vwap_executor) | OrderBook + VWAP calculation + execution |
+
+**80 examples total** — all SDK functions covered except `client.GetDelayStatistics` (known OpenD proto bug).
