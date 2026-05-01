@@ -42,22 +42,36 @@ func main() {
 					accMarket = constant.TrdMarket_US
 					fmt.Printf("Using US simulated AccID=%d\n", accID)
 					break
-				} else if auth == constant.TrdMarket_HK.Int32() {
-					accID = acc.AccID
-					accMarket = constant.TrdMarket_HK
-					fmt.Printf("Using HK simulated AccID=%d\n", accID)
 				}
 			}
 		}
-		if accID != 0 && accMarket != 0 {
+		if accID != 0 {
 			break
+		}
+	}
+
+	if accID == 0 {
+		for _, acc := range accounts {
+			if acc.TrdEnv == 0 {
+				for _, auth := range acc.TrdMarketAuthList {
+					if auth == constant.TrdMarket_HK.Int32() {
+						accID = acc.AccID
+						accMarket = constant.TrdMarket_HK
+						fmt.Printf("Using HK simulated AccID=%d\n", accID)
+						break
+					}
+				}
+			}
+			if accID != 0 {
+				break
+			}
 		}
 	}
 
 	if accID == 0 {
 		accID = accounts[0].AccID
 		accMarket = constant.TrdMarket(accounts[0].TrdMarketAuthList[0])
-		fmt.Printf("Using AccID=%d\n", accID)
+		fmt.Printf("Using AccID=%d (market=%d)\n", accID, accMarket)
 	}
 
 	pwd := os.Getenv("FUTU_TRADE_PWD")
@@ -106,7 +120,7 @@ func main() {
 		stock = "00100"
 		price = 700.0
 		secMarket = constant.TrdSecMarket_HK
-		qty = 100.0 // HK lot size
+		qty = 100.0
 	default:
 		stock = "AAPL"
 		price = 180.0

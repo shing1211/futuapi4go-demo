@@ -71,11 +71,16 @@ func main() {
 	fmt.Printf("Grid Levels: %d\n", gridLevels)
 	fmt.Printf("Investment per level: $%.2f\n", investmentPerLevel)
 
-	quote, err := client.GetQuote(ctx, cli, constant.Market_US, targetSymbol)
-	if err != nil {
-		fmt.Printf("GetQuote failed: %v\n", err)
+	if err := client.Subscribe(ctx, cli, constant.Market_US, targetSymbol,
+		[]constant.SubType{constant.SubType_Quote}); err != nil {
+		fmt.Printf("Subscribe %s failed: %v (will skip quote)\n", targetSymbol, err)
 	} else {
-		fmt.Printf("Current Price: $%.2f\n", quote.Price)
+		quote, err := client.GetQuote(ctx, cli, constant.Market_US, targetSymbol)
+		if err != nil {
+			fmt.Printf("GetQuote failed: %v\n", err)
+		} else {
+			fmt.Printf("Current Price: $%.2f\n", quote.Price)
+		}
 	}
 
 	pwd := os.Getenv("FUTU_TRADE_PWD")

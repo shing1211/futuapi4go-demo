@@ -24,10 +24,10 @@ func main() {
 
 	ctx := context.Background()
 
-	fmt.Println("=== Market Hours Check (US Stocks) ===")
+	fmt.Println("=== Market Hours Check (US + HK Stocks) ===")
+	fmt.Println("Note: Simulator may return extended state values")
 	fmt.Println()
 
-	// Check US market state
 	fmt.Println("--- US Market ---")
 	state, err := client.GetMarketState(ctx, cli, constant.Market_US, "AAPL")
 	if err != nil {
@@ -36,11 +36,10 @@ func main() {
 		fmt.Printf("Market State: %d (%s)\n", state, marketStateString(state))
 	}
 
-	// Get trade dates for US
 	fmt.Println("\n--- US Trading Days ---")
 	tradeDates, err := client.GetTradeDate(ctx, cli, constant.Market_US, "", "")
 	if err != nil {
-		fmt.Printf("GetTradeDate failed: %v\n", err)
+		fmt.Printf("GetTradeDate failed: %v (expected for simulator)\n", err)
 	} else {
 		fmt.Printf("Recent trading days: %d days available\n", len(tradeDates))
 		if len(tradeDates) > 0 {
@@ -54,7 +53,6 @@ func main() {
 		}
 	}
 
-	// Also check HK market for comparison
 	fmt.Println("\n--- HK Market ---")
 	hkState, err := client.GetMarketState(ctx, cli, constant.Market_HK, "00100")
 	if err != nil {
@@ -65,19 +63,18 @@ func main() {
 
 	hkDates, err := client.GetTradeDate(ctx, cli, constant.Market_HK, "", "")
 	if err != nil {
-		fmt.Printf("GetTradeDate failed: %v\n", err)
+		fmt.Printf("GetTradeDate failed: %v (expected for simulator)\n", err)
 	} else {
 		fmt.Printf("Recent trading days: %d days available\n", len(hkDates))
 	}
 
-	// Helper for trading decisions
 	fmt.Println("\n=== Pre-Trade Check Helper ===")
 	checkMarketReadiness(constant.Market_US, "AAPL", cli, ctx)
 	checkMarketReadiness(constant.Market_HK, "00100", cli, ctx)
 }
 
 func checkMarketReadiness(market constant.Market, code string, cli *client.Client, ctx context.Context) {
-	fmt.Printf("\nChecking %s market readiness...\n", market)
+	fmt.Printf("\nChecking %s market readiness for %s...\n", market, code)
 
 	state, err := client.GetMarketState(ctx, cli, market, code)
 	if err != nil {
@@ -86,16 +83,16 @@ func checkMarketReadiness(market constant.Market, code string, cli *client.Clien
 	}
 
 	switch state {
-	case 0: // Pre-Market
+	case 0:
 		fmt.Println("  Status: PRE-MARKET (not tradeable)")
-	case 1: // Trading
+	case 1:
 		fmt.Println("  Status: OPEN (tradeable)")
-	case 2: // Post-Market
+	case 2:
 		fmt.Println("  Status: POST-MARKET (not tradeable)")
-	case 3: // Closed
+	case 3:
 		fmt.Println("  Status: CLOSED (not tradeable)")
 	default:
-		fmt.Printf("  Status: UNKNOWN (%d)\n", state)
+		fmt.Printf("  Status: EXTENDED (%d) - may indicate simulator mode\n", state)
 	}
 }
 
@@ -110,6 +107,6 @@ func marketStateString(state int32) string {
 	case 3:
 		return "Closed"
 	default:
-		return "Unknown"
+		return fmt.Sprintf("Extended(%d)", state)
 	}
 }

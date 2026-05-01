@@ -60,13 +60,14 @@ func main() {
 	fmt.Println("\n=== Request Historical K-Lines (Batch) ===")
 	fmt.Println()
 
-	startTime := time.Now().AddDate(0, 0, -10).Format("2006-01-02")
+	startTime := "2026-01-01"
+	endTime := time.Now().Format("2006-01-02")
 
 	for _, symbol := range symbols[:3] {
-		fmt.Printf("Requesting historical K-lines for %s since %s...\n", symbol, startTime)
+		fmt.Printf("Requesting historical K-lines for %s (%s to %s)...\n", symbol, startTime, endTime)
 
 		klines, err := client.RequestHistoryKL(ctx, cli, constant.Market_US, symbol,
-			constant.KLType_K_Day, startTime, "")
+			constant.KLType_K_Day, startTime, endTime)
 		if err != nil {
 			fmt.Printf("  RequestHistoryKL failed: %v\n", err)
 			continue
