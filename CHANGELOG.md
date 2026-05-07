@@ -9,20 +9,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- (none yet)
+
+### Changed
+
+- (none yet)
+
+## [0.5.6] - 2026-05-07
+
+### Added
+
 - **66_multi_symbol_kline** — `Subscribe` + `GetKLines` + `RequestHistoryKL` batch queries
 - **67_order_lifecycle** — Full order workflow: `PlaceOrder` → `GetOrderList` → `ModifyOrder`
 - **68_market_hours_check** — `GetMarketState` + `GetTradeDate` for market timing
 - **69_subscribe_handler** — Push handlers for Ticker/KLine/OrderBook streams
+- **70_futures_account_list** — Futures account support via `GetAccList(TrdCategory_Future)`
+- **71_futures_cash** — Futures margin and cash queries
+- **72_futures_positions** — `GetPositionList(TrdMarket_Futures)`
+- **73_options_account_list** — Options rights check via `GetAccList`
+- **74_options_cash** — Options buying power and margin
+- **75_options_positions** — Stock + options combined positions
 - **76_pre_trade_checks** — Market state + funds + position + quote + snapshot validation
 - **77_realtime_dashboard** — Real-time price monitoring with ticker subscriptions
 - **78_dca_grid_bot** — Dollar Cost Averaging + Grid trading strategy
 - **79_momentum_scanner** — StockFilter + Snapshot + K-lines momentum analysis
 - **80_vwap_executor** — OrderBook + VWAP calculation + execution planning
-- **go.mod** — updated dependency to `github.com/shing1211/futuapi4go v0.5.4`
+- **81 examples total** — now includes examples 66-80 for gap fill, advanced combos, futures & options
+- **go.mod** — updated dependency to `github.com/shing1211/futuapi4go v0.5.6`
 
 ### Changed
 
-- **README.md** — added examples 66-80 for gap fill, advanced combos, and v0.5.4 features
+- **README.md** — updated SDK version badge to v0.5.6, added v0.5.6 changelog
+- **AGENTS.md** — corrected example count (66 → 81)
+- **SUMMARY.md** — updated verification date and SDK version
 
 ## [0.5.2] - 2026-04-28
 

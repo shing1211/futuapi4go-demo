@@ -1,0 +1,17 @@
+# Default owners for the entire repo
+* @shing1211
+
+# Examples - owned by maintainers
+/examples/ @shing1211
+
+# CI/CD and build config
+/.github/ @shing1211
+/Makefile @shing1211
+
+# Documentation
+/*.md @shing1211
+/docs/ @shing1211
+
+# Core project files
+/go.mod @shing1211
+/go.sum @shing1211

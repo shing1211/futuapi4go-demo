@@ -1,8 +1,8 @@
 # futuapi4go-demo Verification Results
 
-## Date: 2026-04-28
-## OpenD Server: 127.0.0.1:11111 (ServerVer: 1003)
-## SDK Version: v0.5.2
+## Date: 2026-05-07
+## OpenD Server: 127.0.0.1:11111 (ServerVer: 1003+)
+## SDK Version: v0.5.6
 
 ---
 
@@ -54,7 +54,7 @@
 
 ## 📋 Notes
 
-- All **66 examples** compile successfully (`go build ./...` passes)
+- All **81 examples** compile successfully (`go build ./...` passes)
 - The examples cover the entire futuapi4go SDK functionality
 - Trading-related APIs require valid Futu account credentials
 - Some APIs are market-specific (HK vs US vs SH/SZ)
@@ -64,7 +64,7 @@
 
 ## Summary
 
-**Total Examples**: 66  
+**Total Examples**: 81  
 **Compilation Status**: All ✅ Passed  
 **Successfully Tested (Functionality)**: ~20 examples working as expected  
 **Known Limitations**: Account/market-specific APIs fail gracefully with proper error messages

@@ -44,3 +44,15 @@ Desktop.ini
 
 # Logs
 *.log
+
+# Build binaries (generated during development)
+*.exe
+*.exe~
+demo
+
+# Graphify output (generated, not source)
+graphify-out/
+.graphify_*
+
+# GitNexus
+.gitnexus/
