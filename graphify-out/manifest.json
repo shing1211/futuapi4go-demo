@@ -1,0 +1,378 @@
+{
+  "D:\\github\\futuapi4go-demo\\examples\\00_connect\\main.go": {
+    "mtime": 1776996773.9474194,
+    "hash": "53e6401384b6fd5a3ab2680e5a693c86"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\00_ws_connect\\main.go": {
+    "mtime": 1777252436.8505976,
+    "hash": "b4798f9abc1c01f3a5c2c209498a76ca"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\01_quote\\main.go": {
+    "mtime": 1777252436.851602,
+    "hash": "ab06db2b3a7cf6e9bdcf3194093e34fc"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\02_ticker\\main.go": {
+    "mtime": 1777252436.851602,
+    "hash": "959be99c60b366187331dc678887f025"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\03_orderbook\\main.go": {
+    "mtime": 1777252436.851602,
+    "hash": "4380546883d8d56f23469aca8f62a636"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\04_rt\\main.go": {
+    "mtime": 1777252436.8526008,
+    "hash": "f4907eca40dd659b9c7014e008c57e2e"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\05_broker\\main.go": {
+    "mtime": 1777252436.8526008,
+    "hash": "f032f8ed2ccd75b013ddddbcd6f786eb"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\06_kline_single\\main.go": {
+    "mtime": 1777252436.8526008,
+    "hash": "3b1b92c774f769f1c41e1bb27d3790fb"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\07_kline_multi\\main.go": {
+    "mtime": 1776996773.950411,
+    "hash": "b067d437bd3af44de5550bd83da90b57"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\08_orderbook_req\\main.go": {
+    "mtime": 1777252436.853609,
+    "hash": "023c48906f994ec88d32c02bffad51c2"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\09_ticker_req\\main.go": {
+    "mtime": 1777252436.853609,
+    "hash": "01662d0f96b467b6b59c79524753174c"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\10_rt_req\\main.go": {
+    "mtime": 1777252436.853609,
+    "hash": "c4a42224b866b6bec95fb6a424827eb3"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\11_broker_req\\main.go": {
+    "mtime": 1777252436.8546011,
+    "hash": "d6088349a0e93a274cbe7ce35bcda1c5"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\12_capital_flow\\main.go": {
+    "mtime": 1777265576.347739,
+    "hash": "7cdafc1d8721c913d14de8f2c4dd3071"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\13_plate_set\\main.go": {
+    "mtime": 1777265633.6237328,
+    "hash": "60c9b9f2377964379de6cfa52ab95067"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\14_plate_stock\\main.go": {
+    "mtime": 1777265629.7241316,
+    "hash": "973540fa5e2986910e0797b9cd1cae7a"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\15_history_kline\\main.go": {
+    "mtime": 1777856713.5947526,
+    "hash": "2b6763d8cd80aac723efbd5d1695d04a"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\16_market_state\\main.go": {
+    "mtime": 1777380927.8394146,
+    "hash": "ba33417d23a204238deb87a12c31cf1d"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\17_global_state\\main.go": {
+    "mtime": 1777380932.4634762,
+    "hash": "6dfd20a2c6ce60ed33e79ce961ccfa0f"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\18_account_list\\main.go": {
+    "mtime": 1777252436.8566093,
+    "hash": "1983699cfca3f8e1456a002c7a7854f9"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\19_account_list\\main.go": {
+    "mtime": 1777252436.8566093,
+    "hash": "f56933cc1caf6d137baa133b74aaf175"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\20_funds\\main.go": {
+    "mtime": 1777252436.8566093,
+    "hash": "8f352f04675d123b8e335abaf4db91ec"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\21_positions\\main.go": {
+    "mtime": 1777252436.8576012,
+    "hash": "94778dc9260a585f02aab235a3e15ffe"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\22_place_order\\main.go": {
+    "mtime": 1777252436.8576012,
+    "hash": "442352e53ee174434cd0ca76aeec096b"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\23_order_list\\main.go": {
+    "mtime": 1777252436.8576012,
+    "hash": "ba6d62e13b144ce56c476c01b62c6f34"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\24_snapshot\\main.go": {
+    "mtime": 1777380940.108615,
+    "hash": "343218475f9ac8c45a9307c6e675b2f1"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\25_trade_date\\main.go": {
+    "mtime": 1777252436.8586009,
+    "hash": "7c795e4a918e001d8f5e9bbb86a2cf7e"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\26_price_reminder\\main.go": {
+    "mtime": 1777265622.4785051,
+    "hash": "a6401c433d72bb36ba5e88b71f058621"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\27_cancel_order\\main.go": {
+    "mtime": 1777252436.8586009,
+    "hash": "f4fb93e5fe472162105455407d03a35c"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\28_owner_plate\\main.go": {
+    "mtime": 1777380946.050781,
+    "hash": "73e5fc2f684581b01c32869ac3bf1ab0"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\29_capital_distribution\\main.go": {
+    "mtime": 1777265614.8728943,
+    "hash": "295b1db823f825134c2a70ce2c0146fd"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\30_stock_filter\\main.go": {
+    "mtime": 1777265619.1326797,
+    "hash": "8c530953df34b6c8b02808982314a23f"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\31_ipo_list\\main.go": {
+    "mtime": 1777265572.1381533,
+    "hash": "01d75d0a8e272c4e0de78cfe8e1b1cc9"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\32_future_info\\main.go": {
+    "mtime": 1777252436.8606017,
+    "hash": "fd096c887e64fda60d9762182474a1c2"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\33_suspend\\main.go": {
+    "mtime": 1777252436.8606017,
+    "hash": "48c719ea95d5b6d5e84277b3e1b66c0d"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\34_holding_change\\main.go": {
+    "mtime": 1777265606.7091846,
+    "hash": "24a20173d6775681ad8fff2c280bc358"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\35_rehab\\main.go": {
+    "mtime": 1777265610.9900749,
+    "hash": "6b5606924b7621e2bf8fd2bb99e53ae3"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\36_code_change\\main.go": {
+    "mtime": 1777252436.8616097,
+    "hash": "5f10804d082daf5c60e490afd6241673"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\37_warrant\\main.go": {
+    "mtime": 1777266807.693033,
+    "hash": "ea862b3edf0a8ed3340ef9dd77ce7887"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\38_option_chain\\main.go": {
+    "mtime": 1777265603.3252637,
+    "hash": "838eef105c09cf387d561ff2439c54e6"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\39_option_expiration\\main.go": {
+    "mtime": 1777265599.5620248,
+    "hash": "9cedf14ceaec50aa9aa418b75b41e8af"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\40_reference\\main.go": {
+    "mtime": 1777380953.7720265,
+    "hash": "c4c17086333f2c7b2fe8e6c35449c3d8"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\41_user_security\\main.go": {
+    "mtime": 1777252436.863609,
+    "hash": "8ac0453af6c22f7cacdd9e49ee2f6d19"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\42_history_order\\main.go": {
+    "mtime": 1777426626.1518402,
+    "hash": "cfa16c65a70544cf32b1c5081edbabe8"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\43_order_fill\\main.go": {
+    "mtime": 1777380959.2732897,
+    "hash": "fd227a8acaf9b891b6d665d01bca1e4d"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\44_history_fill\\main.go": {
+    "mtime": 1777426626.1523433,
+    "hash": "1efde1f43199dd6abd329b7591b9fb03"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\45_acc_trading_info\\main.go": {
+    "mtime": 1777426626.1523433,
+    "hash": "fdfcea587e166d67532cb637ddcb8fb3"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\46_user_info\\main.go": {
+    "mtime": 1777380970.0814078,
+    "hash": "246d2c227eae0b02b57b149bd1317310"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\47_subscribe_quote\\main.go": {
+    "mtime": 1777252436.8646011,
+    "hash": "df0bad934de33700a70110a639b99e82"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\48_subscribe_kline_single\\main.go": {
+    "mtime": 1777252436.8656013,
+    "hash": "b2bd8cf8017012332c1f0dcf33d981af"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\49_subscribe_price_reminder\\main.go": {
+    "mtime": 1776996773.9659984,
+    "hash": "bd4a00fd5e6b84f8b03dc2811639ed79"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\50_unsubscribe\\main.go": {
+    "mtime": 1777266817.1296284,
+    "hash": "3db26e12319e3a2b407e78e07cf3c6dc"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\51_unsubscribe_all\\main.go": {
+    "mtime": 1777252436.866601,
+    "hash": "196acc8b67c544a39c778d856dd252d5"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\52_query_subscription\\main.go": {
+    "mtime": 1777252436.866601,
+    "hash": "bb89cf60e659cfce758cccab278886c3"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\53_reg_qot_push\\main.go": {
+    "mtime": 1777266828.717737,
+    "hash": "d65107d9b37ad5a3012890bf13edae5f"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\54_cancel_all_order\\main.go": {
+    "mtime": 1777252436.867609,
+    "hash": "d000c082894a4e094f02e4dcf3ab2a3c"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\55_max_trd_qtys\\main.go": {
+    "mtime": 1777426626.1533463,
+    "hash": "4cee18b9d5e5e4f4e553f3d4bdbf30cf"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\56_order_fee\\main.go": {
+    "mtime": 1777426626.1533463,
+    "hash": "5bba1fb22386d0b6fc1412339ad9ea70"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\57_margin_ratio\\main.go": {
+    "mtime": 1777426626.154346,
+    "hash": "51d636c5c10b714f5596e0c38f9762cf"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\58_flow_summary\\main.go": {
+    "mtime": 1777426626.154346,
+    "hash": "a0d5d02658ec0135eef0d302dd69a250"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\59_static_info\\main.go": {
+    "mtime": 1777252436.8693178,
+    "hash": "29390caa07f01ef2eb682fa880c65b0b"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\60_modify_user_security\\main.go": {
+    "mtime": 1777265663.6784873,
+    "hash": "60f4e1f7a833cfd2ee8e1fe15bfe34c4"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\61_sub_info\\main.go": {
+    "mtime": 1777380990.9090962,
+    "hash": "0ede07f7b5871200b9e0e73cef5f7c67"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\62_set_price_reminder\\main.go": {
+    "mtime": 1777266856.094099,
+    "hash": "b543125bfc8832133e88e92d6a152c60"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\63_sub_acc_push\\main.go": {
+    "mtime": 1777380993.1352754,
+    "hash": "3628b3bb9a05b6f3e4d4e60aeed9ffbe"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\64_reconfirm_order\\main.go": {
+    "mtime": 1777426626.154346,
+    "hash": "2712140013f980abb283f0ff92b3da04"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\65_history_kl_quota\\main.go": {
+    "mtime": 1777252436.871179,
+    "hash": "8f051c0adaef9f43baaf855c0f896a7e"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\66_multi_symbol_kline\\main.go": {
+    "mtime": 1777856713.5967672,
+    "hash": "e704ca61ce957ccc0e3645145a68b477"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\67_order_lifecycle\\main.go": {
+    "mtime": 1777856713.5967672,
+    "hash": "718f7b9d6cc9817538f1f70370f2ae4f"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\68_market_hours_check\\main.go": {
+    "mtime": 1777856713.5977674,
+    "hash": "28fd3e3c7760ea23f3f3b02a309e2d9a"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\69_subscribe_handler\\main.go": {
+    "mtime": 1777856713.5987678,
+    "hash": "8ff470f46e4ebe38b8c1ecab1880ac81"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\70_futures_account_list\\main.go": {
+    "mtime": 1777856713.5987678,
+    "hash": "a87bfbe9587f7273b07ae0810b54e59d"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\71_futures_cash\\main.go": {
+    "mtime": 1777856713.5997746,
+    "hash": "fee3e2fbd817f65c35ca85fb73eb8ee6"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\72_futures_positions\\main.go": {
+    "mtime": 1777856713.6004624,
+    "hash": "52e41c7c9d3d95f090288805eb82d8e9"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\73_options_account_list\\main.go": {
+    "mtime": 1777856713.6009746,
+    "hash": "8c09f535db0ad5cf70b4b05034fec1e0"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\74_options_cash\\main.go": {
+    "mtime": 1777856713.6009746,
+    "hash": "c74705d38736446fe46902d5dc918dd5"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\75_options_positions\\main.go": {
+    "mtime": 1777856713.6015792,
+    "hash": "d5b015c1d3f3f90cda52e9aa21cca235"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\76_pre_trade_checks\\main.go": {
+    "mtime": 1777856713.6021633,
+    "hash": "dd322200dc882ad7f725bf542f3057e5"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\77_realtime_dashboard\\main.go": {
+    "mtime": 1777856713.6026657,
+    "hash": "674d841c03cd8fa0fa6636eb9d2c1506"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\78_dca_grid_bot\\main.go": {
+    "mtime": 1777856713.6027498,
+    "hash": "d385a234889200ee5de9a67a6b83ed98"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\79_momentum_scanner\\main.go": {
+    "mtime": 1777856713.6032562,
+    "hash": "82d84513e9269c81cd5e8cac1515b539"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\80_vwap_executor\\main.go": {
+    "mtime": 1777856713.603857,
+    "hash": "94be6810f18d82ba979ff07c86ffa128"
+  },
+  "D:\\github\\futuapi4go-demo\\AGENTS.md": {
+    "mtime": 1777252436.8492534,
+    "hash": "987690c7dd8d7cae2db2b2c1d75dcd93"
+  },
+  "D:\\github\\futuapi4go-demo\\CHANGELOG.md": {
+    "mtime": 1777856713.5937603,
+    "hash": "a5253a21afd6bf589ad3eca7bcbeba6b"
+  },
+  "D:\\github\\futuapi4go-demo\\CODE_OF_CONDUCT.md": {
+    "mtime": 1776921196.9104452,
+    "hash": "85f99b06f39af82923c54fde63e63de0"
+  },
+  "D:\\github\\futuapi4go-demo\\CONTRIBUTING.md": {
+    "mtime": 1776996773.946412,
+    "hash": "2562c2795c24ef99b087014760570092"
+  },
+  "D:\\github\\futuapi4go-demo\\README.md": {
+    "mtime": 1777856713.5947526,
+    "hash": "6c51910ecef01631cdc8cee8d162c5d4"
+  },
+  "D:\\github\\futuapi4go-demo\\SECURITY.md": {
+    "mtime": 1776921196.912446,
+    "hash": "03744024ccae2f42d4ae37e0b9ac1c10"
+  },
+  "D:\\github\\futuapi4go-demo\\SUMMARY.md": {
+    "mtime": 1777426626.150839,
+    "hash": "db9df89a91fc276ece754e5607925a29"
+  },
+  "D:\\github\\futuapi4go-demo\\test_input.txt": {
+    "mtime": 1776925011.2289648,
+    "hash": "0f6178ae825d241c49206ab090f02b04"
+  },
+  "D:\\github\\futuapi4go-demo\\docs\\FUTU_PROTO_REF.md": {
+    "mtime": 1776996773.9474194,
+    "hash": "8f874cdddaaba0d26faab5f10bd74270"
+  },
+  "D:\\github\\futuapi4go-demo\\docs\\IMPLEMENTATION_PLAN.md": {
+    "mtime": 1776921409.8472822,
+    "hash": "efd5a4fe2f8b704a2eb70c1ea301268d"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\README.md": {
+    "mtime": 1777856713.6048832,
+    "hash": "8548365fa7514d789f0376e43959441e"
+  },
+  "D:\\github\\futuapi4go-demo\\examples\\00_ws_connect\\README.md": {
+    "mtime": 1777252436.8505976,
+    "hash": "7326653dee88c5865b157faa35dbe75f"
+  }
+}

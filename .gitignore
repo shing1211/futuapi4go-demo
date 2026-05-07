@@ -50,8 +50,7 @@ Desktop.ini
 *.exe~
 demo
 
-# Graphify output (generated, not source)
-graphify-out/
+# Graphify working files (temp only)
 .graphify_*
 
 # GitNexus

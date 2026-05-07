@@ -1,0 +1,4653 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "hyperedges": [
+      {
+        "id": "trading_system_components",
+        "label": "Trading System Components",
+        "nodes": [
+          "trading_mode_simulate",
+          "trading_mode_real",
+          "env_futu_trade_pwd",
+          "opend_server",
+          "simulator"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "AGENTS.md"
+      },
+      {
+        "id": "push_subscription_examples",
+        "label": "Push Subscription Examples",
+        "nodes": [
+          "example_02_ticker",
+          "example_03_orderbook",
+          "example_07_kline_multi"
+        ],
+        "relation": "implement",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "examples/README.md"
+      },
+      {
+        "id": "advanced_combo_examples",
+        "label": "Advanced Combo Examples",
+        "nodes": [
+          "example_76_pre_trade_checks",
+          "example_78_dca_grid_bot",
+          "example_79_momentum_scanner",
+          "example_80_vwap_executor"
+        ],
+        "relation": "form",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "examples/README.md"
+      },
+      {
+        "id": "proto_known_issues",
+        "label": "Proto Known Issues",
+        "nodes": [
+          "issue_proto2_wire_format",
+          "issue_get_trade_date",
+          "proto_get_delay_statistics",
+          "proto_get_trade_date"
+        ],
+        "relation": "participate_in",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "AGENTS.md"
+      },
+      {
+        "id": "sdk_api_packages",
+        "label": "SDK API Packages",
+        "nodes": [
+          "proto_api_sys",
+          "proto_api_qot",
+          "proto_api_trd"
+        ],
+        "relation": "form",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "docs/FUTU_PROTO_REF.md"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "00_connect/main.go",
+      "source_location": "L1",
+      "community": 15,
+      "norm_label": "main.go",
+      "id": "00_connect_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "00_connect/main.go",
+      "source_location": "L11",
+      "community": 15,
+      "norm_label": "main()",
+      "id": "00_connect_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "00_ws_connect/main.go",
+      "source_location": "L1",
+      "community": 16,
+      "norm_label": "main.go",
+      "id": "00_ws_connect_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "00_ws_connect/main.go",
+      "source_location": "L11",
+      "community": 16,
+      "norm_label": "main()",
+      "id": "00_ws_connect_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "01_quote/main.go",
+      "source_location": "L1",
+      "community": 17,
+      "norm_label": "main.go",
+      "id": "01_quote_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "01_quote/main.go",
+      "source_location": "L13",
+      "community": 17,
+      "norm_label": "main()",
+      "id": "01_quote_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "02_ticker/main.go",
+      "source_location": "L1",
+      "community": 18,
+      "norm_label": "main.go",
+      "id": "02_ticker_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "02_ticker/main.go",
+      "source_location": "L17",
+      "community": 18,
+      "norm_label": "main()",
+      "id": "02_ticker_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "03_orderbook/main.go",
+      "source_location": "L1",
+      "community": 19,
+      "norm_label": "main.go",
+      "id": "03_orderbook_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "03_orderbook/main.go",
+      "source_location": "L17",
+      "community": 19,
+      "norm_label": "main()",
+      "id": "03_orderbook_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "04_rt/main.go",
+      "source_location": "L1",
+      "community": 20,
+      "norm_label": "main.go",
+      "id": "04_rt_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "04_rt/main.go",
+      "source_location": "L17",
+      "community": 20,
+      "norm_label": "main()",
+      "id": "04_rt_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "05_broker/main.go",
+      "source_location": "L1",
+      "community": 21,
+      "norm_label": "main.go",
+      "id": "05_broker_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "05_broker/main.go",
+      "source_location": "L17",
+      "community": 21,
+      "norm_label": "main()",
+      "id": "05_broker_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "06_kline_single/main.go",
+      "source_location": "L1",
+      "community": 22,
+      "norm_label": "main.go",
+      "id": "06_kline_single_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "06_kline_single/main.go",
+      "source_location": "L13",
+      "community": 22,
+      "norm_label": "main()",
+      "id": "06_kline_single_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "07_kline_multi/main.go",
+      "source_location": "L1",
+      "community": 23,
+      "norm_label": "main.go",
+      "id": "07_kline_multi_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "07_kline_multi/main.go",
+      "source_location": "L16",
+      "community": 23,
+      "norm_label": "main()",
+      "id": "07_kline_multi_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "08_orderbook_req/main.go",
+      "source_location": "L1",
+      "community": 24,
+      "norm_label": "main.go",
+      "id": "08_orderbook_req_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "08_orderbook_req/main.go",
+      "source_location": "L13",
+      "community": 24,
+      "norm_label": "main()",
+      "id": "08_orderbook_req_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "09_ticker_req/main.go",
+      "source_location": "L1",
+      "community": 25,
+      "norm_label": "main.go",
+      "id": "09_ticker_req_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "09_ticker_req/main.go",
+      "source_location": "L13",
+      "community": 25,
+      "norm_label": "main()",
+      "id": "09_ticker_req_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "10_rt_req/main.go",
+      "source_location": "L1",
+      "community": 26,
+      "norm_label": "main.go",
+      "id": "10_rt_req_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "10_rt_req/main.go",
+      "source_location": "L13",
+      "community": 26,
+      "norm_label": "main()",
+      "id": "10_rt_req_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "11_broker_req/main.go",
+      "source_location": "L1",
+      "community": 27,
+      "norm_label": "main.go",
+      "id": "11_broker_req_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "11_broker_req/main.go",
+      "source_location": "L13",
+      "community": 27,
+      "norm_label": "main()",
+      "id": "11_broker_req_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "12_capital_flow/main.go",
+      "source_location": "L1",
+      "community": 28,
+      "norm_label": "main.go",
+      "id": "12_capital_flow_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "12_capital_flow/main.go",
+      "source_location": "L13",
+      "community": 28,
+      "norm_label": "main()",
+      "id": "12_capital_flow_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "13_plate_set/main.go",
+      "source_location": "L1",
+      "community": 29,
+      "norm_label": "main.go",
+      "id": "13_plate_set_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "13_plate_set/main.go",
+      "source_location": "L13",
+      "community": 29,
+      "norm_label": "main()",
+      "id": "13_plate_set_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "14_plate_stock/main.go",
+      "source_location": "L1",
+      "community": 30,
+      "norm_label": "main.go",
+      "id": "14_plate_stock_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "14_plate_stock/main.go",
+      "source_location": "L13",
+      "community": 30,
+      "norm_label": "main()",
+      "id": "14_plate_stock_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "15_history_kline/main.go",
+      "source_location": "L1",
+      "community": 31,
+      "norm_label": "main.go",
+      "id": "15_history_kline_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "15_history_kline/main.go",
+      "source_location": "L13",
+      "community": 31,
+      "norm_label": "main()",
+      "id": "15_history_kline_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "16_market_state/main.go",
+      "source_location": "L1",
+      "community": 32,
+      "norm_label": "main.go",
+      "id": "16_market_state_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "16_market_state/main.go",
+      "source_location": "L13",
+      "community": 32,
+      "norm_label": "main()",
+      "id": "16_market_state_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "17_global_state/main.go",
+      "source_location": "L1",
+      "community": 33,
+      "norm_label": "main.go",
+      "id": "17_global_state_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "17_global_state/main.go",
+      "source_location": "L12",
+      "community": 33,
+      "norm_label": "main()",
+      "id": "17_global_state_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "18_account_list/main.go",
+      "source_location": "L1",
+      "community": 34,
+      "norm_label": "main.go",
+      "id": "18_account_list_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "18_account_list/main.go",
+      "source_location": "L12",
+      "community": 34,
+      "norm_label": "main()",
+      "id": "18_account_list_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "19_account_list/main.go",
+      "source_location": "L1",
+      "community": 35,
+      "norm_label": "main.go",
+      "id": "19_account_list_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "19_account_list/main.go",
+      "source_location": "L13",
+      "community": 35,
+      "norm_label": "main()",
+      "id": "19_account_list_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "20_funds/main.go",
+      "source_location": "L1",
+      "community": 36,
+      "norm_label": "main.go",
+      "id": "20_funds_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "20_funds/main.go",
+      "source_location": "L12",
+      "community": 36,
+      "norm_label": "main()",
+      "id": "20_funds_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "21_positions/main.go",
+      "source_location": "L1",
+      "community": 37,
+      "norm_label": "main.go",
+      "id": "21_positions_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "21_positions/main.go",
+      "source_location": "L12",
+      "community": 37,
+      "norm_label": "main()",
+      "id": "21_positions_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "22_place_order/main.go",
+      "source_location": "L1",
+      "community": 38,
+      "norm_label": "main.go",
+      "id": "22_place_order_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "22_place_order/main.go",
+      "source_location": "L13",
+      "community": 38,
+      "norm_label": "main()",
+      "id": "22_place_order_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "23_order_list/main.go",
+      "source_location": "L1",
+      "community": 39,
+      "norm_label": "main.go",
+      "id": "23_order_list_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "23_order_list/main.go",
+      "source_location": "L12",
+      "community": 39,
+      "norm_label": "main()",
+      "id": "23_order_list_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "24_snapshot/main.go",
+      "source_location": "L1",
+      "community": 7,
+      "norm_label": "main.go",
+      "id": "24_snapshot_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "24_snapshot/main.go",
+      "source_location": "L14",
+      "community": 7,
+      "norm_label": "main()",
+      "id": "24_snapshot_main_main"
+    },
+    {
+      "label": "ptrInt32()",
+      "file_type": "code",
+      "source_file": "24_snapshot/main.go",
+      "source_location": "L40",
+      "community": 7,
+      "norm_label": "ptrint32()",
+      "id": "24_snapshot_main_ptrint32"
+    },
+    {
+      "label": "ptrStr()",
+      "file_type": "code",
+      "source_file": "24_snapshot/main.go",
+      "source_location": "L41",
+      "community": 7,
+      "norm_label": "ptrstr()",
+      "id": "24_snapshot_main_ptrstr"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "25_trade_date/main.go",
+      "source_location": "L1",
+      "community": 40,
+      "norm_label": "main.go",
+      "id": "25_trade_date_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "25_trade_date/main.go",
+      "source_location": "L13",
+      "community": 40,
+      "norm_label": "main()",
+      "id": "25_trade_date_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "26_price_reminder/main.go",
+      "source_location": "L1",
+      "community": 41,
+      "norm_label": "main.go",
+      "id": "26_price_reminder_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "26_price_reminder/main.go",
+      "source_location": "L13",
+      "community": 41,
+      "norm_label": "main()",
+      "id": "26_price_reminder_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "27_cancel_order/main.go",
+      "source_location": "L1",
+      "community": 42,
+      "norm_label": "main.go",
+      "id": "27_cancel_order_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "27_cancel_order/main.go",
+      "source_location": "L13",
+      "community": 42,
+      "norm_label": "main()",
+      "id": "27_cancel_order_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "28_owner_plate/main.go",
+      "source_location": "L1",
+      "community": 43,
+      "norm_label": "main.go",
+      "id": "28_owner_plate_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "28_owner_plate/main.go",
+      "source_location": "L13",
+      "community": 43,
+      "norm_label": "main()",
+      "id": "28_owner_plate_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "29_capital_distribution/main.go",
+      "source_location": "L1",
+      "community": 44,
+      "norm_label": "main.go",
+      "id": "29_capital_distribution_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "29_capital_distribution/main.go",
+      "source_location": "L13",
+      "community": 44,
+      "norm_label": "main()",
+      "id": "29_capital_distribution_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "30_stock_filter/main.go",
+      "source_location": "L1",
+      "community": 45,
+      "norm_label": "main.go",
+      "id": "30_stock_filter_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "30_stock_filter/main.go",
+      "source_location": "L13",
+      "community": 45,
+      "norm_label": "main()",
+      "id": "30_stock_filter_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "31_ipo_list/main.go",
+      "source_location": "L1",
+      "community": 46,
+      "norm_label": "main.go",
+      "id": "31_ipo_list_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "31_ipo_list/main.go",
+      "source_location": "L13",
+      "community": 46,
+      "norm_label": "main()",
+      "id": "31_ipo_list_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "32_future_info/main.go",
+      "source_location": "L1",
+      "community": 47,
+      "norm_label": "main.go",
+      "id": "32_future_info_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "32_future_info/main.go",
+      "source_location": "L12",
+      "community": 47,
+      "norm_label": "main()",
+      "id": "32_future_info_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "33_suspend/main.go",
+      "source_location": "L1",
+      "community": 8,
+      "norm_label": "main.go",
+      "id": "33_suspend_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "33_suspend/main.go",
+      "source_location": "L14",
+      "community": 8,
+      "norm_label": "main()",
+      "id": "33_suspend_main_main"
+    },
+    {
+      "label": "ptrInt32()",
+      "file_type": "code",
+      "source_file": "33_suspend/main.go",
+      "source_location": "L37",
+      "community": 8,
+      "norm_label": "ptrint32()",
+      "id": "33_suspend_main_ptrint32"
+    },
+    {
+      "label": "ptrStr()",
+      "file_type": "code",
+      "source_file": "33_suspend/main.go",
+      "source_location": "L38",
+      "community": 8,
+      "norm_label": "ptrstr()",
+      "id": "33_suspend_main_ptrstr"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "34_holding_change/main.go",
+      "source_location": "L1",
+      "community": 48,
+      "norm_label": "main.go",
+      "id": "34_holding_change_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "34_holding_change/main.go",
+      "source_location": "L13",
+      "community": 48,
+      "norm_label": "main()",
+      "id": "34_holding_change_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "35_rehab/main.go",
+      "source_location": "L1",
+      "community": 49,
+      "norm_label": "main.go",
+      "id": "35_rehab_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "35_rehab/main.go",
+      "source_location": "L13",
+      "community": 49,
+      "norm_label": "main()",
+      "id": "35_rehab_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "36_code_change/main.go",
+      "source_location": "L1",
+      "community": 9,
+      "norm_label": "main.go",
+      "id": "36_code_change_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "36_code_change/main.go",
+      "source_location": "L14",
+      "community": 9,
+      "norm_label": "main()",
+      "id": "36_code_change_main_main"
+    },
+    {
+      "label": "ptrInt32()",
+      "file_type": "code",
+      "source_file": "36_code_change/main.go",
+      "source_location": "L37",
+      "community": 9,
+      "norm_label": "ptrint32()",
+      "id": "36_code_change_main_ptrint32"
+    },
+    {
+      "label": "ptrStr()",
+      "file_type": "code",
+      "source_file": "36_code_change/main.go",
+      "source_location": "L38",
+      "community": 9,
+      "norm_label": "ptrstr()",
+      "id": "36_code_change_main_ptrstr"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "37_warrant/main.go",
+      "source_location": "L1",
+      "community": 50,
+      "norm_label": "main.go",
+      "id": "37_warrant_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "37_warrant/main.go",
+      "source_location": "L14",
+      "community": 50,
+      "norm_label": "main()",
+      "id": "37_warrant_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "38_option_chain/main.go",
+      "source_location": "L1",
+      "community": 51,
+      "norm_label": "main.go",
+      "id": "38_option_chain_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "38_option_chain/main.go",
+      "source_location": "L13",
+      "community": 51,
+      "norm_label": "main()",
+      "id": "38_option_chain_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "39_option_expiration/main.go",
+      "source_location": "L1",
+      "community": 52,
+      "norm_label": "main.go",
+      "id": "39_option_expiration_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "39_option_expiration/main.go",
+      "source_location": "L13",
+      "community": 52,
+      "norm_label": "main()",
+      "id": "39_option_expiration_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "40_reference/main.go",
+      "source_location": "L1",
+      "community": 53,
+      "norm_label": "main.go",
+      "id": "40_reference_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "40_reference/main.go",
+      "source_location": "L14",
+      "community": 53,
+      "norm_label": "main()",
+      "id": "40_reference_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "41_user_security/main.go",
+      "source_location": "L1",
+      "community": 54,
+      "norm_label": "main.go",
+      "id": "41_user_security_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "41_user_security/main.go",
+      "source_location": "L12",
+      "community": 54,
+      "norm_label": "main()",
+      "id": "41_user_security_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "42_history_order/main.go",
+      "source_location": "L1",
+      "community": 55,
+      "norm_label": "main.go",
+      "id": "42_history_order_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "42_history_order/main.go",
+      "source_location": "L13",
+      "community": 55,
+      "norm_label": "main()",
+      "id": "42_history_order_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "43_order_fill/main.go",
+      "source_location": "L1",
+      "community": 56,
+      "norm_label": "main.go",
+      "id": "43_order_fill_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "43_order_fill/main.go",
+      "source_location": "L12",
+      "community": 56,
+      "norm_label": "main()",
+      "id": "43_order_fill_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "44_history_fill/main.go",
+      "source_location": "L1",
+      "community": 57,
+      "norm_label": "main.go",
+      "id": "44_history_fill_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "44_history_fill/main.go",
+      "source_location": "L13",
+      "community": 57,
+      "norm_label": "main()",
+      "id": "44_history_fill_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "45_acc_trading_info/main.go",
+      "source_location": "L1",
+      "community": 58,
+      "norm_label": "main.go",
+      "id": "45_acc_trading_info_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "45_acc_trading_info/main.go",
+      "source_location": "L13",
+      "community": 58,
+      "norm_label": "main()",
+      "id": "45_acc_trading_info_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "46_user_info/main.go",
+      "source_location": "L1",
+      "community": 59,
+      "norm_label": "main.go",
+      "id": "46_user_info_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "46_user_info/main.go",
+      "source_location": "L12",
+      "community": 59,
+      "norm_label": "main()",
+      "id": "46_user_info_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "47_subscribe_quote/main.go",
+      "source_location": "L1",
+      "community": 60,
+      "norm_label": "main.go",
+      "id": "47_subscribe_quote_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "47_subscribe_quote/main.go",
+      "source_location": "L17",
+      "community": 60,
+      "norm_label": "main()",
+      "id": "47_subscribe_quote_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "48_subscribe_kline_single/main.go",
+      "source_location": "L1",
+      "community": 61,
+      "norm_label": "main.go",
+      "id": "48_subscribe_kline_single_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "48_subscribe_kline_single/main.go",
+      "source_location": "L16",
+      "community": 61,
+      "norm_label": "main()",
+      "id": "48_subscribe_kline_single_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "49_subscribe_price_reminder/main.go",
+      "source_location": "L1",
+      "community": 62,
+      "norm_label": "main.go",
+      "id": "49_subscribe_price_reminder_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "49_subscribe_price_reminder/main.go",
+      "source_location": "L15",
+      "community": 62,
+      "norm_label": "main()",
+      "id": "49_subscribe_price_reminder_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "50_unsubscribe/main.go",
+      "source_location": "L1",
+      "community": 63,
+      "norm_label": "main.go",
+      "id": "50_unsubscribe_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "50_unsubscribe/main.go",
+      "source_location": "L13",
+      "community": 63,
+      "norm_label": "main()",
+      "id": "50_unsubscribe_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "51_unsubscribe_all/main.go",
+      "source_location": "L1",
+      "community": 64,
+      "norm_label": "main.go",
+      "id": "51_unsubscribe_all_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "51_unsubscribe_all/main.go",
+      "source_location": "L13",
+      "community": 64,
+      "norm_label": "main()",
+      "id": "51_unsubscribe_all_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "52_query_subscription/main.go",
+      "source_location": "L1",
+      "community": 65,
+      "norm_label": "main.go",
+      "id": "52_query_subscription_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "52_query_subscription/main.go",
+      "source_location": "L13",
+      "community": 65,
+      "norm_label": "main()",
+      "id": "52_query_subscription_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "53_reg_qot_push/main.go",
+      "source_location": "L1",
+      "community": 66,
+      "norm_label": "main.go",
+      "id": "53_reg_qot_push_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "53_reg_qot_push/main.go",
+      "source_location": "L13",
+      "community": 66,
+      "norm_label": "main()",
+      "id": "53_reg_qot_push_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "54_cancel_all_order/main.go",
+      "source_location": "L1",
+      "community": 67,
+      "norm_label": "main.go",
+      "id": "54_cancel_all_order_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "54_cancel_all_order/main.go",
+      "source_location": "L13",
+      "community": 67,
+      "norm_label": "main()",
+      "id": "54_cancel_all_order_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "55_max_trd_qtys/main.go",
+      "source_location": "L1",
+      "community": 68,
+      "norm_label": "main.go",
+      "id": "55_max_trd_qtys_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "55_max_trd_qtys/main.go",
+      "source_location": "L13",
+      "community": 68,
+      "norm_label": "main()",
+      "id": "55_max_trd_qtys_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "56_order_fee/main.go",
+      "source_location": "L1",
+      "community": 69,
+      "norm_label": "main.go",
+      "id": "56_order_fee_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "56_order_fee/main.go",
+      "source_location": "L13",
+      "community": 69,
+      "norm_label": "main()",
+      "id": "56_order_fee_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "57_margin_ratio/main.go",
+      "source_location": "L1",
+      "community": 10,
+      "norm_label": "main.go",
+      "id": "57_margin_ratio_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "57_margin_ratio/main.go",
+      "source_location": "L14",
+      "community": 10,
+      "norm_label": "main()",
+      "id": "57_margin_ratio_main_main"
+    },
+    {
+      "label": "ptrInt32()",
+      "file_type": "code",
+      "source_file": "57_margin_ratio/main.go",
+      "source_location": "L51",
+      "community": 10,
+      "norm_label": "ptrint32()",
+      "id": "57_margin_ratio_main_ptrint32"
+    },
+    {
+      "label": "ptrStr()",
+      "file_type": "code",
+      "source_file": "57_margin_ratio/main.go",
+      "source_location": "L52",
+      "community": 10,
+      "norm_label": "ptrstr()",
+      "id": "57_margin_ratio_main_ptrstr"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "58_flow_summary/main.go",
+      "source_location": "L1",
+      "community": 70,
+      "norm_label": "main.go",
+      "id": "58_flow_summary_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "58_flow_summary/main.go",
+      "source_location": "L14",
+      "community": 70,
+      "norm_label": "main()",
+      "id": "58_flow_summary_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "59_static_info/main.go",
+      "source_location": "L1",
+      "community": 71,
+      "norm_label": "main.go",
+      "id": "59_static_info_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "59_static_info/main.go",
+      "source_location": "L13",
+      "community": 71,
+      "norm_label": "main()",
+      "id": "59_static_info_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "60_modify_user_security/main.go",
+      "source_location": "L1",
+      "community": 72,
+      "norm_label": "main.go",
+      "id": "60_modify_user_security_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "60_modify_user_security/main.go",
+      "source_location": "L13",
+      "community": 72,
+      "norm_label": "main()",
+      "id": "60_modify_user_security_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "61_sub_info/main.go",
+      "source_location": "L1",
+      "community": 73,
+      "norm_label": "main.go",
+      "id": "61_sub_info_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "61_sub_info/main.go",
+      "source_location": "L13",
+      "community": 73,
+      "norm_label": "main()",
+      "id": "61_sub_info_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "62_set_price_reminder/main.go",
+      "source_location": "L1",
+      "community": 74,
+      "norm_label": "main.go",
+      "id": "62_set_price_reminder_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "62_set_price_reminder/main.go",
+      "source_location": "L13",
+      "community": 74,
+      "norm_label": "main()",
+      "id": "62_set_price_reminder_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "63_sub_acc_push/main.go",
+      "source_location": "L1",
+      "community": 75,
+      "norm_label": "main.go",
+      "id": "63_sub_acc_push_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "63_sub_acc_push/main.go",
+      "source_location": "L12",
+      "community": 75,
+      "norm_label": "main()",
+      "id": "63_sub_acc_push_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "64_reconfirm_order/main.go",
+      "source_location": "L1",
+      "community": 76,
+      "norm_label": "main.go",
+      "id": "64_reconfirm_order_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "64_reconfirm_order/main.go",
+      "source_location": "L13",
+      "community": 76,
+      "norm_label": "main()",
+      "id": "64_reconfirm_order_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "65_history_kl_quota/main.go",
+      "source_location": "L1",
+      "community": 77,
+      "norm_label": "main.go",
+      "id": "65_history_kl_quota_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "65_history_kl_quota/main.go",
+      "source_location": "L12",
+      "community": 77,
+      "norm_label": "main()",
+      "id": "65_history_kl_quota_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "66_multi_symbol_kline/main.go",
+      "source_location": "L1",
+      "community": 78,
+      "norm_label": "main.go",
+      "id": "66_multi_symbol_kline_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "66_multi_symbol_kline/main.go",
+      "source_location": "L14",
+      "community": 78,
+      "norm_label": "main()",
+      "id": "66_multi_symbol_kline_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "67_order_lifecycle/main.go",
+      "source_location": "L1",
+      "community": 79,
+      "norm_label": "main.go",
+      "id": "67_order_lifecycle_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "67_order_lifecycle/main.go",
+      "source_location": "L13",
+      "community": 79,
+      "norm_label": "main()",
+      "id": "67_order_lifecycle_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "68_market_hours_check/main.go",
+      "source_location": "L1",
+      "community": 11,
+      "norm_label": "main.go",
+      "id": "68_market_hours_check_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "68_market_hours_check/main.go",
+      "source_location": "L13",
+      "community": 11,
+      "norm_label": "main()",
+      "id": "68_market_hours_check_main_main"
+    },
+    {
+      "label": "checkMarketReadiness()",
+      "file_type": "code",
+      "source_file": "68_market_hours_check/main.go",
+      "source_location": "L76",
+      "community": 11,
+      "norm_label": "checkmarketreadiness()",
+      "id": "68_market_hours_check_main_checkmarketreadiness"
+    },
+    {
+      "label": "marketStateString()",
+      "file_type": "code",
+      "source_file": "68_market_hours_check/main.go",
+      "source_location": "L99",
+      "community": 11,
+      "norm_label": "marketstatestring()",
+      "id": "68_market_hours_check_main_marketstatestring"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "69_subscribe_handler/main.go",
+      "source_location": "L1",
+      "community": 80,
+      "norm_label": "main.go",
+      "id": "69_subscribe_handler_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "69_subscribe_handler/main.go",
+      "source_location": "L18",
+      "community": 80,
+      "norm_label": "main()",
+      "id": "69_subscribe_handler_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "70_futures_account_list/main.go",
+      "source_location": "L1",
+      "community": 81,
+      "norm_label": "main.go",
+      "id": "70_futures_account_list_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "70_futures_account_list/main.go",
+      "source_location": "L14",
+      "community": 81,
+      "norm_label": "main()",
+      "id": "70_futures_account_list_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "71_futures_cash/main.go",
+      "source_location": "L1",
+      "community": 82,
+      "norm_label": "main.go",
+      "id": "71_futures_cash_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "71_futures_cash/main.go",
+      "source_location": "L13",
+      "community": 82,
+      "norm_label": "main()",
+      "id": "71_futures_cash_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "72_futures_positions/main.go",
+      "source_location": "L1",
+      "community": 83,
+      "norm_label": "main.go",
+      "id": "72_futures_positions_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "72_futures_positions/main.go",
+      "source_location": "L14",
+      "community": 83,
+      "norm_label": "main()",
+      "id": "72_futures_positions_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "73_options_account_list/main.go",
+      "source_location": "L1",
+      "community": 84,
+      "norm_label": "main.go",
+      "id": "73_options_account_list_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "73_options_account_list/main.go",
+      "source_location": "L13",
+      "community": 84,
+      "norm_label": "main()",
+      "id": "73_options_account_list_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "74_options_cash/main.go",
+      "source_location": "L1",
+      "community": 85,
+      "norm_label": "main.go",
+      "id": "74_options_cash_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "74_options_cash/main.go",
+      "source_location": "L13",
+      "community": 85,
+      "norm_label": "main()",
+      "id": "74_options_cash_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "75_options_positions/main.go",
+      "source_location": "L1",
+      "community": 86,
+      "norm_label": "main.go",
+      "id": "75_options_positions_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "75_options_positions/main.go",
+      "source_location": "L13",
+      "community": 86,
+      "norm_label": "main()",
+      "id": "75_options_positions_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L1",
+      "community": 5,
+      "norm_label": "main.go",
+      "id": "76_pre_trade_checks_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L14",
+      "community": 5,
+      "norm_label": "main()",
+      "id": "76_pre_trade_checks_main_main"
+    },
+    {
+      "label": "marketStateString()",
+      "file_type": "code",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L131",
+      "community": 5,
+      "norm_label": "marketstatestring()",
+      "id": "76_pre_trade_checks_main_marketstatestring"
+    },
+    {
+      "label": "ptrInt32()",
+      "file_type": "code",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L146",
+      "community": 5,
+      "norm_label": "ptrint32()",
+      "id": "76_pre_trade_checks_main_ptrint32"
+    },
+    {
+      "label": "ptrStr()",
+      "file_type": "code",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L147",
+      "community": 5,
+      "norm_label": "ptrstr()",
+      "id": "76_pre_trade_checks_main_ptrstr"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L1",
+      "community": 6,
+      "norm_label": "main.go",
+      "id": "77_realtime_dashboard_main_go"
+    },
+    {
+      "label": "PriceData",
+      "file_type": "code",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L19",
+      "community": 6,
+      "norm_label": "pricedata",
+      "id": "77_realtime_dashboard_pricedata"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L34",
+      "community": 6,
+      "norm_label": "main()",
+      "id": "77_realtime_dashboard_main_main"
+    },
+    {
+      "label": "updatePrice()",
+      "file_type": "code",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L103",
+      "community": 6,
+      "norm_label": "updateprice()",
+      "id": "77_realtime_dashboard_main_updateprice"
+    },
+    {
+      "label": "printPrices()",
+      "file_type": "code",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L127",
+      "community": 6,
+      "norm_label": "printprices()",
+      "id": "77_realtime_dashboard_main_printprices"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "78_dca_grid_bot/main.go",
+      "source_location": "L1",
+      "community": 87,
+      "norm_label": "main.go",
+      "id": "78_dca_grid_bot_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "78_dca_grid_bot/main.go",
+      "source_location": "L14",
+      "community": 87,
+      "norm_label": "main()",
+      "id": "78_dca_grid_bot_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "79_momentum_scanner/main.go",
+      "source_location": "L1",
+      "community": 88,
+      "norm_label": "main.go",
+      "id": "79_momentum_scanner_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "79_momentum_scanner/main.go",
+      "source_location": "L15",
+      "community": 88,
+      "norm_label": "main()",
+      "id": "79_momentum_scanner_main_main"
+    },
+    {
+      "label": "main.go",
+      "file_type": "code",
+      "source_file": "80_vwap_executor/main.go",
+      "source_location": "L1",
+      "community": 89,
+      "norm_label": "main.go",
+      "id": "80_vwap_executor_main_go"
+    },
+    {
+      "label": "main()",
+      "file_type": "code",
+      "source_file": "80_vwap_executor/main.go",
+      "source_location": "L13",
+      "community": 89,
+      "norm_label": "main()",
+      "id": "80_vwap_executor_main_main"
+    },
+    {
+      "label": "futuapi4go-demo Project",
+      "file_type": "document",
+      "source_file": "AGENTS.md",
+      "source_location": "1-6",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "futuapi4go-demo project",
+      "id": "project_futuapi4go_demo"
+    },
+    {
+      "label": "futuapi4go SDK",
+      "file_type": "code",
+      "source_file": "AGENTS.md",
+      "source_location": "65-69",
+      "source_url": "https://github.com/shing1211/futuapi4go",
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 1,
+      "norm_label": "futuapi4go sdk",
+      "id": "sdk_futuapi4go"
+    },
+    {
+      "label": "SDK Version v0.5.4",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "7",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 1,
+      "norm_label": "sdk version v0.5.4",
+      "id": "sdk_version_v054"
+    },
+    {
+      "label": "Environment Variable FUTU_ADDR",
+      "file_type": "code",
+      "source_file": "AGENTS.md",
+      "source_location": "48-51",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "environment variable futu_addr",
+      "id": "env_futu_addr"
+    },
+    {
+      "label": "Environment Variable FUTU_TRADE_PWD",
+      "file_type": "code",
+      "source_file": "AGENTS.md",
+      "source_location": "48-51",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "environment variable futu_trade_pwd",
+      "id": "env_futu_trade_pwd"
+    },
+    {
+      "label": "Futu OpenD Server",
+      "file_type": "code",
+      "source_file": "AGENTS.md",
+      "source_location": "15-23",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "futu opend server",
+      "id": "opend_server"
+    },
+    {
+      "label": "OpenD Simulator",
+      "file_type": "code",
+      "source_file": "AGENTS.md",
+      "source_location": "15-23",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "opend simulator",
+      "id": "simulator"
+    },
+    {
+      "label": "Simulate Trading Mode",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": "53-61",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 90,
+      "norm_label": "simulate trading mode",
+      "id": "trading_mode_simulate"
+    },
+    {
+      "label": "Real Trading Mode",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": "53-61",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "real trading mode",
+      "id": "trading_mode_real"
+    },
+    {
+      "label": "GetDelayStatistics Proto2 Wire Format Issue",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": "93-97",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "getdelaystatistics proto2 wire format issue",
+      "id": "issue_proto2_wire_format"
+    },
+    {
+      "label": "GetTradeDate Required Fields Issue",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": "99-103",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 91,
+      "norm_label": "gettradedate required fields issue",
+      "id": "issue_get_trade_date"
+    },
+    {
+      "label": "Simulate Trading Limitations",
+      "file_type": "rationale",
+      "source_file": "AGENTS.md",
+      "source_location": "107-120",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 90,
+      "norm_label": "simulate trading limitations",
+      "id": "simulate_trading_limitation"
+    },
+    {
+      "label": "Example 00: client.Connect",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "11",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 00: client.connect",
+      "id": "example_00_connect"
+    },
+    {
+      "label": "Example 01: client.GetQuote",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "12",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 01: client.getquote",
+      "id": "example_01_quote"
+    },
+    {
+      "label": "Example 02: chanpkg.SubscribeTicker",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "13",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 02: chanpkg.subscribeticker",
+      "id": "example_02_ticker"
+    },
+    {
+      "label": "Example 03: chanpkg.SubscribeOrderBook",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "14",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 03: chanpkg.subscribeorderbook",
+      "id": "example_03_orderbook"
+    },
+    {
+      "label": "Example 07: chanpkg.SubscribeKLines",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "18",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 12,
+      "norm_label": "example 07: chanpkg.subscribeklines",
+      "id": "example_07_kline_multi"
+    },
+    {
+      "label": "Example 15: client.RequestHistoryKL",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "26",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 12,
+      "norm_label": "example 15: client.requesthistorykl",
+      "id": "example_15_history_kline"
+    },
+    {
+      "label": "Example 22: client.PlaceOrder",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "33",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 22: client.placeorder",
+      "id": "example_22_place_order"
+    },
+    {
+      "label": "Example 67: Order Lifecycle",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "82",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 67: order lifecycle",
+      "id": "example_67_order_lifecycle"
+    },
+    {
+      "label": "Example 76: Pre-trade Checks",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "102",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 76: pre-trade checks",
+      "id": "example_76_pre_trade_checks"
+    },
+    {
+      "label": "Example 78: DCA Grid Bot",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "104",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 78: dca grid bot",
+      "id": "example_78_dca_grid_bot"
+    },
+    {
+      "label": "Example 79: Momentum Scanner",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "105",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 79: momentum scanner",
+      "id": "example_79_momentum_scanner"
+    },
+    {
+      "label": "Example 80: VWAP Executor",
+      "file_type": "code",
+      "source_file": "examples/README.md",
+      "source_location": "106",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "example 80: vwap executor",
+      "id": "example_80_vwap_executor"
+    },
+    {
+      "label": "System APIs (pkg/sys)",
+      "file_type": "document",
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "70",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 1,
+      "norm_label": "system apis (pkg/sys)",
+      "id": "proto_api_sys"
+    },
+    {
+      "label": "Market Data APIs (pkg/qot)",
+      "file_type": "document",
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "97",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 1,
+      "norm_label": "market data apis (pkg/qot)",
+      "id": "proto_api_qot"
+    },
+    {
+      "label": "Trading APIs (pkg/trd)",
+      "file_type": "document",
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "395",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 1,
+      "norm_label": "trading apis (pkg/trd)",
+      "id": "proto_api_trd"
+    },
+    {
+      "label": "QotMarket",
+      "file_type": "document",
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "23-33",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 1,
+      "norm_label": "qotmarket",
+      "id": "qot_market"
+    },
+    {
+      "label": "KLType",
+      "file_type": "document",
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "54-66",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 1,
+      "norm_label": "kltype",
+      "id": "kl_type"
+    },
+    {
+      "label": "GetDelayStatistics ProtoID 1006",
+      "file_type": "document",
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "84-93",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "getdelaystatistics protoid 1006",
+      "id": "proto_get_delay_statistics"
+    },
+    {
+      "label": "GetTradeDate ProtoID 2205",
+      "file_type": "document",
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "155-163",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 91,
+      "norm_label": "gettradedate protoid 2205",
+      "id": "proto_get_trade_date"
+    },
+    {
+      "label": "Implementation Plan",
+      "file_type": "document",
+      "source_file": "docs/IMPLEMENTATION_PLAN.md",
+      "source_location": "1-5",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 0,
+      "norm_label": "implementation plan",
+      "id": "implementation_plan"
+    },
+    {
+      "label": "Structured Error Handling",
+      "file_type": "rationale",
+      "source_file": "docs/IMPLEMENTATION_PLAN.md",
+      "source_location": "27-44",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 13,
+      "norm_label": "structured error handling",
+      "id": "feature_structured_error_handling"
+    },
+    {
+      "label": "Context with Timeout",
+      "file_type": "rationale",
+      "source_file": "docs/IMPLEMENTATION_PLAN.md",
+      "source_location": "48-63",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 13,
+      "norm_label": "context with timeout",
+      "id": "feature_context_timeout"
+    },
+    {
+      "label": "Graceful Shutdown",
+      "file_type": "rationale",
+      "source_file": "docs/IMPLEMENTATION_PLAN.md",
+      "source_location": "66-82",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 13,
+      "norm_label": "graceful shutdown",
+      "id": "feature_graceful_shutdown"
+    },
+    {
+      "label": "Simulator Detection",
+      "file_type": "rationale",
+      "source_file": "docs/IMPLEMENTATION_PLAN.md",
+      "source_location": "142-148",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 102,
+      "norm_label": "simulator detection",
+      "id": "feature_simulator_detection"
+    },
+    {
+      "label": "WebSocket Connection Example",
+      "file_type": "code",
+      "source_file": "examples/00_ws_connect/README.md",
+      "source_location": "5-46",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 1,
+      "norm_label": "websocket connection example",
+      "id": "ws_connect_example"
+    },
+    {
+      "label": "Connection Pool O(1) Lookup",
+      "file_type": "rationale",
+      "source_file": "examples/00_ws_connect/README.md",
+      "source_location": "55-64",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 1,
+      "norm_label": "connection pool o(1) lookup",
+      "id": "connection_pool_o1"
+    },
+    {
+      "label": "Historical Data Downloader",
+      "file_type": "code",
+      "source_file": "examples/00_ws_connect/README.md",
+      "source_location": "76-89",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 12,
+      "norm_label": "historical data downloader",
+      "id": "historical_data_downloader"
+    },
+    {
+      "label": "Market Hours Utility",
+      "file_type": "code",
+      "source_file": "examples/00_ws_connect/README.md",
+      "source_location": "91-98",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 103,
+      "norm_label": "market hours utility",
+      "id": "market_hours_utility"
+    },
+    {
+      "label": "Option Chain Utilities",
+      "file_type": "code",
+      "source_file": "examples/00_ws_connect/README.md",
+      "source_location": "100-107",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 104,
+      "norm_label": "option chain utilities",
+      "id": "option_chain_utilities"
+    },
+    {
+      "label": "Changelog",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "1-6",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 105,
+      "norm_label": "changelog",
+      "id": "changelog"
+    },
+    {
+      "label": "Version 0.5.1",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "35-43",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 14,
+      "norm_label": "version 0.5.1",
+      "id": "version_051"
+    },
+    {
+      "label": "Version 0.5.2",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "27-34",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 14,
+      "norm_label": "version 0.5.2",
+      "id": "version_052"
+    },
+    {
+      "label": "Unreleased Version",
+      "file_type": "document",
+      "source_file": "CHANGELOG.md",
+      "source_location": "8-26",
+      "source_url": null,
+      "captured_at": null,
+      "author": null,
+      "contributor": null,
+      "community": 14,
+      "norm_label": "unreleased version",
+      "id": "version_unreleased"
+    },
+    {
+      "id": "proto_ref",
+      "label": "FUTU_API_PROTO_REFERENCE",
+      "file_type": "document",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": null,
+      "community": 3,
+      "norm_label": "futu_api_proto_reference"
+    },
+    {
+      "id": "python_ref",
+      "label": "FUTU_API_PYTHON_REFERENCE",
+      "file_type": "document",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": null,
+      "community": 2,
+      "norm_label": "futu_api_python_reference"
+    },
+    {
+      "id": "1001",
+      "label": "InitConnect",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "16-36",
+      "community": 3,
+      "norm_label": "initconnect"
+    },
+    {
+      "id": "1002",
+      "label": "GetGlobalState",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "11",
+      "community": 106,
+      "norm_label": "getglobalstate"
+    },
+    {
+      "id": "1003",
+      "label": "Notify",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "11",
+      "community": 107,
+      "norm_label": "notify"
+    },
+    {
+      "id": "1004",
+      "label": "KeepAlive",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "43-80",
+      "community": 3,
+      "norm_label": "keepalive"
+    },
+    {
+      "id": "3001",
+      "label": "QOT_SUB",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "335",
+      "community": 4,
+      "norm_label": "qot_sub"
+    },
+    {
+      "id": "3002",
+      "label": "QOT_REG_QOT_PUSH",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "336",
+      "community": 108,
+      "norm_label": "qot_reg_qot_push"
+    },
+    {
+      "id": "3006",
+      "label": "QOT_GET_KL",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "340",
+      "community": 98,
+      "norm_label": "qot_get_kl"
+    },
+    {
+      "id": "3008",
+      "label": "QOT_GET_RT",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "342",
+      "community": 92,
+      "norm_label": "qot_get_rt"
+    },
+    {
+      "id": "3010",
+      "label": "QOT_GET_TICKER",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "344",
+      "community": 93,
+      "norm_label": "qot_get_ticker"
+    },
+    {
+      "id": "3012",
+      "label": "QOT_GET_ORDER_BOOK",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "346",
+      "community": 94,
+      "norm_label": "qot_get_order_book"
+    },
+    {
+      "id": "3014",
+      "label": "QOT_GET_BROKER",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "348",
+      "community": 109,
+      "norm_label": "qot_get_broker"
+    },
+    {
+      "id": "3100",
+      "label": "QOT_GET_HISTORY_KL",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "350",
+      "community": 99,
+      "norm_label": "qot_get_history_kl"
+    },
+    {
+      "id": "3200",
+      "label": "QOT_GET_TRADE_DATE",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "352",
+      "community": 110,
+      "norm_label": "qot_get_trade_date"
+    },
+    {
+      "id": "3203",
+      "label": "QOT_GET_SECURITY_SNAPSHOT",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "353",
+      "community": 111,
+      "norm_label": "qot_get_security_snapshot"
+    },
+    {
+      "id": "3204",
+      "label": "QOT_GET_PLATE_SET",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "354",
+      "community": 100,
+      "norm_label": "qot_get_plate_set"
+    },
+    {
+      "id": "3205",
+      "label": "QOT_GET_PLATE_SECURITY",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "355",
+      "community": 95,
+      "norm_label": "qot_get_plate_security"
+    },
+    {
+      "id": "3209",
+      "label": "QOT_GET_OPTION_CHAIN",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "356",
+      "community": 112,
+      "norm_label": "qot_get_option_chain"
+    },
+    {
+      "id": "2001",
+      "label": "TRD_GET_ACC_LIST",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "362",
+      "community": 113,
+      "norm_label": "trd_get_acc_list"
+    },
+    {
+      "id": "2005",
+      "label": "TRD_UNLOCK_TRADE",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "363",
+      "community": 114,
+      "norm_label": "trd_unlock_trade"
+    },
+    {
+      "id": "2101",
+      "label": "TRD_GET_FUNDS",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "364",
+      "community": 115,
+      "norm_label": "trd_get_funds"
+    },
+    {
+      "id": "2102",
+      "label": "TRD_GET_POSITION_LIST",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "365",
+      "community": 116,
+      "norm_label": "trd_get_position_list"
+    },
+    {
+      "id": "2201",
+      "label": "TRD_GET_ORDER_LIST",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "366",
+      "community": 101,
+      "norm_label": "trd_get_order_list"
+    },
+    {
+      "id": "2202",
+      "label": "TRD_PLACE_ORDER",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "367",
+      "community": 2,
+      "norm_label": "trd_place_order"
+    },
+    {
+      "id": "2205",
+      "label": "TRD_MODIFY_ORDER",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "368",
+      "community": 96,
+      "norm_label": "trd_modify_order"
+    },
+    {
+      "id": "2211",
+      "label": "TRD_GET_ORDER_FILL_LIST",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "369",
+      "community": 117,
+      "norm_label": "trd_get_order_fill_list"
+    },
+    {
+      "id": "2221",
+      "label": "TRD_GET_HISTORY_ORDER_LIST",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "370",
+      "community": 118,
+      "norm_label": "trd_get_history_order_list"
+    },
+    {
+      "id": "2222",
+      "label": "TRD_GET_HISTORY_ORDER_FILL_LIST",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "371",
+      "community": 119,
+      "norm_label": "trd_get_history_order_fill_list"
+    },
+    {
+      "id": "protobuf",
+      "label": "Protobuf",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "104",
+      "community": 4,
+      "norm_label": "protobuf"
+    },
+    {
+      "id": "json_fmt",
+      "label": "Json",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "105",
+      "community": 4,
+      "norm_label": "json"
+    },
+    {
+      "id": "rsa_enc",
+      "label": "RSA Encryption",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "32-36",
+      "community": 3,
+      "norm_label": "rsa encryption"
+    },
+    {
+      "id": "aes_enc",
+      "label": "AES Encryption",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "312-317",
+      "community": 3,
+      "norm_label": "aes encryption"
+    },
+    {
+      "id": "ret_type",
+      "label": "RetType",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "86-96",
+      "community": 120,
+      "norm_label": "rettype"
+    },
+    {
+      "id": "proto_fmt",
+      "label": "ProtoFmt",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "100-107",
+      "community": 4,
+      "norm_label": "protofmt"
+    },
+    {
+      "id": "packet_enc_algo",
+      "label": "PacketEncAlgo",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "109-120",
+      "community": 3,
+      "norm_label": "packetencalgo"
+    },
+    {
+      "id": "program_status_type",
+      "label": "ProgramStatusType",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "122-142",
+      "community": 121,
+      "norm_label": "programstatustype"
+    },
+    {
+      "id": "gtw_event_type",
+      "label": "GtwEventType",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "144-167",
+      "community": 122,
+      "norm_label": "gtweventtype"
+    },
+    {
+      "id": "notify_type",
+      "label": "NotifyType",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md",
+      "source_location": "169-183",
+      "community": 123,
+      "norm_label": "notifytype"
+    },
+    {
+      "id": "opend",
+      "label": "OpenD",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "11",
+      "community": 2,
+      "norm_label": "opend"
+    },
+    {
+      "id": "openquotecontext",
+      "label": "OpenQuoteContext",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "102",
+      "community": 2,
+      "norm_label": "openquotecontext"
+    },
+    {
+      "id": "opensectradecontext",
+      "label": "OpenSecTradeContext",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "105",
+      "community": 2,
+      "norm_label": "opensectradecontext"
+    },
+    {
+      "id": "trdenv",
+      "label": "TrdEnv",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "84-85",
+      "community": 2,
+      "norm_label": "trdenv"
+    },
+    {
+      "id": "get_market_snapshot",
+      "label": "get_market_snapshot",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "35",
+      "community": 97,
+      "norm_label": "get_market_snapshot"
+    },
+    {
+      "id": "get_stock_quote",
+      "label": "get_stock_quote",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "36",
+      "community": 4,
+      "norm_label": "get_stock_quote"
+    },
+    {
+      "id": "get_cur_kline",
+      "label": "get_cur_kline",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "39",
+      "community": 98,
+      "norm_label": "get_cur_kline"
+    },
+    {
+      "id": "get_history_kline",
+      "label": "get_history_kline",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "40",
+      "community": 99,
+      "norm_label": "get_history_kline"
+    },
+    {
+      "id": "get_order_book",
+      "label": "get_order_book",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "44",
+      "community": 94,
+      "norm_label": "get_order_book"
+    },
+    {
+      "id": "get_ticker",
+      "label": "get_ticker",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "47",
+      "community": 93,
+      "norm_label": "get_ticker"
+    },
+    {
+      "id": "get_stock_time_sharing",
+      "label": "get_stock_time_sharing",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "50",
+      "community": 92,
+      "norm_label": "get_stock_time_sharing"
+    },
+    {
+      "id": "get_capital_flow",
+      "label": "get_capital_flow",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "56",
+      "community": 124,
+      "norm_label": "get_capital_flow"
+    },
+    {
+      "id": "get_plate_set",
+      "label": "get_plate_set",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "60",
+      "community": 100,
+      "norm_label": "get_plate_set"
+    },
+    {
+      "id": "get_plate_stock",
+      "label": "get_plate_stock",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "61",
+      "community": 95,
+      "norm_label": "get_plate_stock"
+    },
+    {
+      "id": "place_order",
+      "label": "place_order",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "73",
+      "community": 2,
+      "norm_label": "place_order"
+    },
+    {
+      "id": "cancel_order",
+      "label": "cancel_order",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "74",
+      "community": 101,
+      "norm_label": "cancel_order"
+    },
+    {
+      "id": "modify_order",
+      "label": "modify_order",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "75",
+      "community": 96,
+      "norm_label": "modify_order"
+    },
+    {
+      "id": "subscribe",
+      "label": "subscribe",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "67",
+      "community": 4,
+      "norm_label": "subscribe"
+    },
+    {
+      "id": "unsubscribe",
+      "label": "unsubscribe",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "68",
+      "community": 125,
+      "norm_label": "unsubscribe"
+    },
+    {
+      "id": "futu_id",
+      "label": "Futu ID",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "15",
+      "community": 126,
+      "norm_label": "futu id"
+    },
+    {
+      "id": "universal_account",
+      "label": "Universal Account",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "16",
+      "community": 127,
+      "norm_label": "universal account"
+    },
+    {
+      "id": "quotation",
+      "label": "Quotation",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "19",
+      "community": 97,
+      "norm_label": "quotation"
+    },
+    {
+      "id": "trading",
+      "label": "Trading",
+      "file_type": "concept",
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md",
+      "source_location": "20",
+      "community": 2,
+      "norm_label": "trading"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "00_connect/main.go",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "00_connect_main_go",
+      "target": "00_connect_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "00_ws_connect/main.go",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "00_ws_connect_main_go",
+      "target": "00_ws_connect_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "01_quote/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "01_quote_main_go",
+      "target": "01_quote_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "02_ticker/main.go",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "02_ticker_main_go",
+      "target": "02_ticker_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "03_orderbook/main.go",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "03_orderbook_main_go",
+      "target": "03_orderbook_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "04_rt/main.go",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "04_rt_main_go",
+      "target": "04_rt_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "05_broker/main.go",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "05_broker_main_go",
+      "target": "05_broker_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "06_kline_single/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "06_kline_single_main_go",
+      "target": "06_kline_single_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "07_kline_multi/main.go",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "07_kline_multi_main_go",
+      "target": "07_kline_multi_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "08_orderbook_req/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "08_orderbook_req_main_go",
+      "target": "08_orderbook_req_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "09_ticker_req/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "09_ticker_req_main_go",
+      "target": "09_ticker_req_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "10_rt_req/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "10_rt_req_main_go",
+      "target": "10_rt_req_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "11_broker_req/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "11_broker_req_main_go",
+      "target": "11_broker_req_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "12_capital_flow/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "12_capital_flow_main_go",
+      "target": "12_capital_flow_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "13_plate_set/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "13_plate_set_main_go",
+      "target": "13_plate_set_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "14_plate_stock/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "14_plate_stock_main_go",
+      "target": "14_plate_stock_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "15_history_kline/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "15_history_kline_main_go",
+      "target": "15_history_kline_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "16_market_state/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "16_market_state_main_go",
+      "target": "16_market_state_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "17_global_state/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "17_global_state_main_go",
+      "target": "17_global_state_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "18_account_list/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "18_account_list_main_go",
+      "target": "18_account_list_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "19_account_list/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "19_account_list_main_go",
+      "target": "19_account_list_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "20_funds/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "20_funds_main_go",
+      "target": "20_funds_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "21_positions/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "21_positions_main_go",
+      "target": "21_positions_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "22_place_order/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "22_place_order_main_go",
+      "target": "22_place_order_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "23_order_list/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "23_order_list_main_go",
+      "target": "23_order_list_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "24_snapshot/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "24_snapshot_main_go",
+      "target": "24_snapshot_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "24_snapshot/main.go",
+      "source_location": "L40",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "24_snapshot_main_go",
+      "target": "24_snapshot_main_ptrint32"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "24_snapshot/main.go",
+      "source_location": "L41",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "24_snapshot_main_go",
+      "target": "24_snapshot_main_ptrstr"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "24_snapshot/main.go",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "24_snapshot_main_main",
+      "target": "24_snapshot_main_ptrint32"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "24_snapshot/main.go",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "24_snapshot_main_main",
+      "target": "24_snapshot_main_ptrstr"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "25_trade_date/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "25_trade_date_main_go",
+      "target": "25_trade_date_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "26_price_reminder/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "26_price_reminder_main_go",
+      "target": "26_price_reminder_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "27_cancel_order/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "27_cancel_order_main_go",
+      "target": "27_cancel_order_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "28_owner_plate/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "28_owner_plate_main_go",
+      "target": "28_owner_plate_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "29_capital_distribution/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "29_capital_distribution_main_go",
+      "target": "29_capital_distribution_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "30_stock_filter/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "30_stock_filter_main_go",
+      "target": "30_stock_filter_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "31_ipo_list/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "31_ipo_list_main_go",
+      "target": "31_ipo_list_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "32_future_info/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "32_future_info_main_go",
+      "target": "32_future_info_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "33_suspend/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "33_suspend_main_go",
+      "target": "33_suspend_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "33_suspend/main.go",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "33_suspend_main_go",
+      "target": "33_suspend_main_ptrint32"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "33_suspend/main.go",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "33_suspend_main_go",
+      "target": "33_suspend_main_ptrstr"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "33_suspend/main.go",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "33_suspend_main_main",
+      "target": "33_suspend_main_ptrint32"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "33_suspend/main.go",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "33_suspend_main_main",
+      "target": "33_suspend_main_ptrstr"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "34_holding_change/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "34_holding_change_main_go",
+      "target": "34_holding_change_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "35_rehab/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "35_rehab_main_go",
+      "target": "35_rehab_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "36_code_change/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "36_code_change_main_go",
+      "target": "36_code_change_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "36_code_change/main.go",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "36_code_change_main_go",
+      "target": "36_code_change_main_ptrint32"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "36_code_change/main.go",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "36_code_change_main_go",
+      "target": "36_code_change_main_ptrstr"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "36_code_change/main.go",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "36_code_change_main_main",
+      "target": "36_code_change_main_ptrint32"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "36_code_change/main.go",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "36_code_change_main_main",
+      "target": "36_code_change_main_ptrstr"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "37_warrant/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "37_warrant_main_go",
+      "target": "37_warrant_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "38_option_chain/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "38_option_chain_main_go",
+      "target": "38_option_chain_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "39_option_expiration/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "39_option_expiration_main_go",
+      "target": "39_option_expiration_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "40_reference/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "40_reference_main_go",
+      "target": "40_reference_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "41_user_security/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "41_user_security_main_go",
+      "target": "41_user_security_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "42_history_order/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "42_history_order_main_go",
+      "target": "42_history_order_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "43_order_fill/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "43_order_fill_main_go",
+      "target": "43_order_fill_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "44_history_fill/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "44_history_fill_main_go",
+      "target": "44_history_fill_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "45_acc_trading_info/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "45_acc_trading_info_main_go",
+      "target": "45_acc_trading_info_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "46_user_info/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "46_user_info_main_go",
+      "target": "46_user_info_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "47_subscribe_quote/main.go",
+      "source_location": "L17",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "47_subscribe_quote_main_go",
+      "target": "47_subscribe_quote_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "48_subscribe_kline_single/main.go",
+      "source_location": "L16",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "48_subscribe_kline_single_main_go",
+      "target": "48_subscribe_kline_single_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "49_subscribe_price_reminder/main.go",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "49_subscribe_price_reminder_main_go",
+      "target": "49_subscribe_price_reminder_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "50_unsubscribe/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "50_unsubscribe_main_go",
+      "target": "50_unsubscribe_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "51_unsubscribe_all/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "51_unsubscribe_all_main_go",
+      "target": "51_unsubscribe_all_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "52_query_subscription/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "52_query_subscription_main_go",
+      "target": "52_query_subscription_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "53_reg_qot_push/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "53_reg_qot_push_main_go",
+      "target": "53_reg_qot_push_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "54_cancel_all_order/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "54_cancel_all_order_main_go",
+      "target": "54_cancel_all_order_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "55_max_trd_qtys/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "55_max_trd_qtys_main_go",
+      "target": "55_max_trd_qtys_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "56_order_fee/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "56_order_fee_main_go",
+      "target": "56_order_fee_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "57_margin_ratio/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "57_margin_ratio_main_go",
+      "target": "57_margin_ratio_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "57_margin_ratio/main.go",
+      "source_location": "L51",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "57_margin_ratio_main_go",
+      "target": "57_margin_ratio_main_ptrint32"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "57_margin_ratio/main.go",
+      "source_location": "L52",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "57_margin_ratio_main_go",
+      "target": "57_margin_ratio_main_ptrstr"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "57_margin_ratio/main.go",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "57_margin_ratio_main_main",
+      "target": "57_margin_ratio_main_ptrint32"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "57_margin_ratio/main.go",
+      "source_location": "L38",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "57_margin_ratio_main_main",
+      "target": "57_margin_ratio_main_ptrstr"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "58_flow_summary/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "58_flow_summary_main_go",
+      "target": "58_flow_summary_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "59_static_info/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "59_static_info_main_go",
+      "target": "59_static_info_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "60_modify_user_security/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "60_modify_user_security_main_go",
+      "target": "60_modify_user_security_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "61_sub_info/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "61_sub_info_main_go",
+      "target": "61_sub_info_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "62_set_price_reminder/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "62_set_price_reminder_main_go",
+      "target": "62_set_price_reminder_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "63_sub_acc_push/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "63_sub_acc_push_main_go",
+      "target": "63_sub_acc_push_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "64_reconfirm_order/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "64_reconfirm_order_main_go",
+      "target": "64_reconfirm_order_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "65_history_kl_quota/main.go",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "65_history_kl_quota_main_go",
+      "target": "65_history_kl_quota_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "66_multi_symbol_kline/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "66_multi_symbol_kline_main_go",
+      "target": "66_multi_symbol_kline_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "67_order_lifecycle/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "67_order_lifecycle_main_go",
+      "target": "67_order_lifecycle_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "68_market_hours_check/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "68_market_hours_check_main_go",
+      "target": "68_market_hours_check_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "68_market_hours_check/main.go",
+      "source_location": "L76",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "68_market_hours_check_main_go",
+      "target": "68_market_hours_check_main_checkmarketreadiness"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "68_market_hours_check/main.go",
+      "source_location": "L99",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "68_market_hours_check_main_go",
+      "target": "68_market_hours_check_main_marketstatestring"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "68_market_hours_check/main.go",
+      "source_location": "L36",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "68_market_hours_check_main_main",
+      "target": "68_market_hours_check_main_marketstatestring"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "68_market_hours_check/main.go",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "68_market_hours_check_main_main",
+      "target": "68_market_hours_check_main_checkmarketreadiness"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "69_subscribe_handler/main.go",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "69_subscribe_handler_main_go",
+      "target": "69_subscribe_handler_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "70_futures_account_list/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "70_futures_account_list_main_go",
+      "target": "70_futures_account_list_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "71_futures_cash/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "71_futures_cash_main_go",
+      "target": "71_futures_cash_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "72_futures_positions/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "72_futures_positions_main_go",
+      "target": "72_futures_positions_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "73_options_account_list/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "73_options_account_list_main_go",
+      "target": "73_options_account_list_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "74_options_cash/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "74_options_cash_main_go",
+      "target": "74_options_cash_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "75_options_positions/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "75_options_positions_main_go",
+      "target": "75_options_positions_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "76_pre_trade_checks_main_go",
+      "target": "76_pre_trade_checks_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L131",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "76_pre_trade_checks_main_go",
+      "target": "76_pre_trade_checks_main_marketstatestring"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L146",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "76_pre_trade_checks_main_go",
+      "target": "76_pre_trade_checks_main_ptrint32"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L147",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "76_pre_trade_checks_main_go",
+      "target": "76_pre_trade_checks_main_ptrstr"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L61",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "76_pre_trade_checks_main_main",
+      "target": "76_pre_trade_checks_main_marketstatestring"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L116",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "76_pre_trade_checks_main_main",
+      "target": "76_pre_trade_checks_main_ptrint32"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "76_pre_trade_checks/main.go",
+      "source_location": "L116",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "76_pre_trade_checks_main_main",
+      "target": "76_pre_trade_checks_main_ptrstr"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "77_realtime_dashboard_main_go",
+      "target": "77_realtime_dashboard_pricedata"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L34",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "77_realtime_dashboard_main_go",
+      "target": "77_realtime_dashboard_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L103",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "77_realtime_dashboard_main_go",
+      "target": "77_realtime_dashboard_main_updateprice"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L127",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "77_realtime_dashboard_main_go",
+      "target": "77_realtime_dashboard_main_printprices"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L81",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "77_realtime_dashboard_main_main",
+      "target": "77_realtime_dashboard_main_printprices"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "77_realtime_dashboard/main.go",
+      "source_location": "L89",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "77_realtime_dashboard_main_main",
+      "target": "77_realtime_dashboard_main_updateprice"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "78_dca_grid_bot/main.go",
+      "source_location": "L14",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "78_dca_grid_bot_main_go",
+      "target": "78_dca_grid_bot_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "79_momentum_scanner/main.go",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "79_momentum_scanner_main_go",
+      "target": "79_momentum_scanner_main_main"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "80_vwap_executor/main.go",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "80_vwap_executor_main_go",
+      "target": "80_vwap_executor_main_main"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "65-69",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "sdk_futuapi4go"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "11",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "example_00_connect"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "12",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "example_01_quote"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "33",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "example_22_place_order"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "82",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "example_67_order_lifecycle"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "104",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "example_78_dca_grid_bot"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "105",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "example_79_momentum_scanner"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "106",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "example_80_vwap_executor"
+    },
+    {
+      "relation": "connects_to",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "15-23",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "opend_server"
+    },
+    {
+      "relation": "uses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "48-51",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "env_futu_addr"
+    },
+    {
+      "relation": "uses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "48-51",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "env_futu_trade_pwd"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/IMPLEMENTATION_PLAN.md",
+      "source_location": "1-5",
+      "weight": 1.0,
+      "source": "project_futuapi4go_demo",
+      "target": "implementation_plan"
+    },
+    {
+      "relation": "has_version",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "7",
+      "weight": 1.0,
+      "source": "sdk_futuapi4go",
+      "target": "sdk_version_v054"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "70",
+      "weight": 1.0,
+      "source": "sdk_futuapi4go",
+      "target": "proto_api_sys"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "97",
+      "weight": 1.0,
+      "source": "sdk_futuapi4go",
+      "target": "proto_api_qot"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "395",
+      "weight": 1.0,
+      "source": "sdk_futuapi4go",
+      "target": "proto_api_trd"
+    },
+    {
+      "relation": "uses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/00_ws_connect/README.md",
+      "source_location": "5-46",
+      "weight": 1.0,
+      "source": "sdk_futuapi4go",
+      "target": "ws_connect_example"
+    },
+    {
+      "relation": "requires",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "53-61",
+      "weight": 1.0,
+      "source": "env_futu_trade_pwd",
+      "target": "trading_mode_real"
+    },
+    {
+      "relation": "includes",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "15-23",
+      "weight": 1.0,
+      "source": "opend_server",
+      "target": "simulator"
+    },
+    {
+      "relation": "incompatible_with",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "93-97",
+      "weight": 1.0,
+      "source": "opend_server",
+      "target": "issue_proto2_wire_format"
+    },
+    {
+      "relation": "has_constraint",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "107-120",
+      "weight": 1.0,
+      "source": "trading_mode_simulate",
+      "target": "simulate_trading_limitation"
+    },
+    {
+      "relation": "affects",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "93-97",
+      "weight": 1.0,
+      "source": "issue_proto2_wire_format",
+      "target": "proto_get_delay_statistics"
+    },
+    {
+      "relation": "affects",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md",
+      "source_location": "99-103",
+      "weight": 1.0,
+      "source": "issue_get_trade_date",
+      "target": "proto_get_trade_date"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.75,
+      "source_file": "examples/README.md",
+      "source_location": "13-14",
+      "weight": 1.0,
+      "source": "example_02_ticker",
+      "target": "example_03_orderbook"
+    },
+    {
+      "relation": "uses_data_from",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "14,106",
+      "weight": 1.0,
+      "source": "example_03_orderbook",
+      "target": "example_80_vwap_executor"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "examples/README.md",
+      "source_location": "18,26",
+      "weight": 1.0,
+      "source": "example_07_kline_multi",
+      "target": "example_15_history_kline"
+    },
+    {
+      "relation": "conceptually_related_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "examples/00_ws_connect/README.md",
+      "source_location": "76-89",
+      "weight": 1.0,
+      "source": "example_15_history_kline",
+      "target": "historical_data_downloader"
+    },
+    {
+      "relation": "includes",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "33,82",
+      "weight": 1.0,
+      "source": "example_22_place_order",
+      "target": "example_67_order_lifecycle"
+    },
+    {
+      "relation": "precedes",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md",
+      "source_location": "33,102",
+      "weight": 1.0,
+      "source": "example_22_place_order",
+      "target": "example_76_pre_trade_checks"
+    },
+    {
+      "relation": "defines_type",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "23-33,97",
+      "weight": 1.0,
+      "source": "proto_api_qot",
+      "target": "qot_market"
+    },
+    {
+      "relation": "defines_type",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_PROTO_REF.md",
+      "source_location": "54-66,97",
+      "weight": 1.0,
+      "source": "proto_api_qot",
+      "target": "kl_type"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.65,
+      "source_file": "docs/IMPLEMENTATION_PLAN.md",
+      "source_location": "27-63",
+      "weight": 1.0,
+      "source": "feature_structured_error_handling",
+      "target": "feature_context_timeout"
+    },
+    {
+      "relation": "semantically_similar_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.7,
+      "source_file": "docs/IMPLEMENTATION_PLAN.md",
+      "source_location": "48-82",
+      "weight": 1.0,
+      "source": "feature_context_timeout",
+      "target": "feature_graceful_shutdown"
+    },
+    {
+      "relation": "implements",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/00_ws_connect/README.md",
+      "source_location": "55-64",
+      "weight": 1.0,
+      "source": "ws_connect_example",
+      "target": "connection_pool_o1"
+    },
+    {
+      "relation": "precedes",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CHANGELOG.md",
+      "source_location": "27-43",
+      "weight": 1.0,
+      "source": "version_051",
+      "target": "version_052"
+    },
+    {
+      "relation": "precedes",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "CHANGELOG.md",
+      "source_location": "8-34",
+      "weight": 1.0,
+      "source": "version_052",
+      "target": "version_unreleased"
+    },
+    {
+      "source": "proto_ref",
+      "target": "1001",
+      "relation": "documents",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "proto_ref",
+      "target": "1004",
+      "relation": "documents",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "python_ref",
+      "target": "opend",
+      "relation": "documents",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "python_ref",
+      "target": "trdenv",
+      "relation": "documents",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "1001",
+      "target": "rsa_enc",
+      "relation": "uses_encryption",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "1001",
+      "target": "1004",
+      "relation": "depends_on",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "3001",
+      "target": "subscribe",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "3001",
+      "target": "get_stock_quote",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.7,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "3001",
+      "target": "protobuf",
+      "relation": "uses_format",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "3001",
+      "target": "json_fmt",
+      "relation": "uses_format",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "3006",
+      "target": "get_cur_kline",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "3008",
+      "target": "get_stock_time_sharing",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.7,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "3010",
+      "target": "get_ticker",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "3012",
+      "target": "get_order_book",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "3100",
+      "target": "get_history_kline",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "3204",
+      "target": "get_plate_set",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "3205",
+      "target": "get_plate_stock",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "2201",
+      "target": "cancel_order",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.7,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "2202",
+      "target": "place_order",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "2205",
+      "target": "modify_order",
+      "relation": "maps_to",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "protobuf",
+      "target": "proto_fmt",
+      "relation": "includes",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "json_fmt",
+      "target": "proto_fmt",
+      "relation": "includes",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "rsa_enc",
+      "target": "aes_enc",
+      "relation": "combined_with",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "aes_enc",
+      "target": "packet_enc_algo",
+      "relation": "includes",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PROTO_REFERENCE.md"
+    },
+    {
+      "source": "opend",
+      "target": "openquotecontext",
+      "relation": "provides",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "opend",
+      "target": "opensectradecontext",
+      "relation": "provides",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "trdenv",
+      "target": "trading",
+      "relation": "enables",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "get_market_snapshot",
+      "target": "quotation",
+      "relation": "provides",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    },
+    {
+      "source": "place_order",
+      "target": "trading",
+      "relation": "includes",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_API_PYTHON_REFERENCE.md"
+    }
+  ],
+  "hyperedges": [
+    {
+      "id": "trading_system_components",
+      "label": "Trading System Components",
+      "nodes": [
+        "trading_mode_simulate",
+        "trading_mode_real",
+        "env_futu_trade_pwd",
+        "opend_server",
+        "simulator"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md"
+    },
+    {
+      "id": "push_subscription_examples",
+      "label": "Push Subscription Examples",
+      "nodes": [
+        "example_02_ticker",
+        "example_03_orderbook",
+        "example_07_kline_multi"
+      ],
+      "relation": "implement",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md"
+    },
+    {
+      "id": "advanced_combo_examples",
+      "label": "Advanced Combo Examples",
+      "nodes": [
+        "example_76_pre_trade_checks",
+        "example_78_dca_grid_bot",
+        "example_79_momentum_scanner",
+        "example_80_vwap_executor"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "examples/README.md"
+    },
+    {
+      "id": "proto_known_issues",
+      "label": "Proto Known Issues",
+      "nodes": [
+        "issue_proto2_wire_format",
+        "issue_get_trade_date",
+        "proto_get_delay_statistics",
+        "proto_get_trade_date"
+      ],
+      "relation": "participate_in",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "AGENTS.md"
+    },
+    {
+      "id": "sdk_api_packages",
+      "label": "SDK API Packages",
+      "nodes": [
+        "proto_api_sys",
+        "proto_api_qot",
+        "proto_api_trd"
+      ],
+      "relation": "form",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "docs/FUTU_PROTO_REF.md"
+    }
+  ],
+  "built_at_commit": "dc69f3d4d0b21c9dc3eb2191529c8c8bf013e670"
+}
