@@ -5,6 +5,12 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.7] - 2026-05-11
+
+### Changed
+
+- **Upgraded futuapi4go to v0.5.7** — Futu OpenD API v10.5.6508 support
+
 ## [Unreleased]
 
 ### Added

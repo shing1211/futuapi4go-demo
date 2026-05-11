@@ -4,14 +4,14 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.5.6-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.5.7-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
 > **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 80 standalone examples (00–80), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
-## v0.5.6
+## v0.5.7
 
-Added Proto and Python API reference docs, indexed with graphify for better navigability.
+Upgraded futuapi4go to v0.5.7 (Futu OpenD API v10.5.6508).
 
 ```go
 // All v0.5.5 features still available:
