@@ -4,8 +4,6 @@ go 1.26.1
 
 require github.com/shing1211/futuapi4go v0.5.10
 
-replace github.com/shing1211/futuapi4go => /home/tchan/github/futuapi4go
-
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
