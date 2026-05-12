@@ -34,15 +34,17 @@ func main() {
 
 	pubKeyPEM := os.Getenv("FUTU_RSA_PUBKEY")
 	if pubKeyPEM == "" {
-		// Try default path
-		pubKeyPEM = "/tmp/opend_pubkey.pem"
-		data, err := os.ReadFile(pubKeyPEM)
+		// Default: same path as Python SDK — accepts PKIX "PUBLIC KEY",
+		// "RSA PRIVATE KEY" (PKCS1), or "PRIVATE KEY" (PKCS8) PEM.
+		// All three formats work; Go extracts the public key automatically.
+		data, err := os.ReadFile("/etc/futu/keys/private_key.pem")
 		if err != nil {
-			fmt.Println("NOTE: Set FUTU_RSA_PUBKEY=/path/to/opend_pubkey.pem")
+			fmt.Println("NOTE: Set FUTU_RSA_PUBKEY=/path/to/key.pem")
 			fmt.Println()
-			fmt.Println("To convert a private key to public key PEM:")
-			fmt.Println("  openssl rsa -in /etc/futu/keys/private_key.pem \\")
-			fmt.Println("    -pubout -out /tmp/opend_pubkey.pem")
+			fmt.Println("Go SDK accepts three PEM formats:")
+			fmt.Println("  - \"-----BEGIN PUBLIC KEY-----\"     (PKIX, recommended)")
+			fmt.Println("  - \"-----BEGIN RSA PRIVATE KEY-----\" (PKCS1)")
+			fmt.Println("  - \"-----BEGIN PRIVATE KEY-----\"     (PKCS8)")
 			fmt.Println()
 			connectWithoutRSA(addr)
 			return
