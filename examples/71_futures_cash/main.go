@@ -4,28 +4,20 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
 	fmt.Println("=== Stock Account Cash (GetFunds) ===")
-	accounts, err := client.GetAccountList(ctx, cli)
+	accounts, err := client.GetAccountList(ctx, mc.Client)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -34,7 +26,7 @@ func main() {
 			continue // skip real accounts
 		}
 
-		funds, err := client.GetFunds(ctx, cli, acc.AccID)
+		funds, err := client.GetFunds(ctx, mc.Client, acc.AccID)
 		if err != nil {
 			fmt.Printf("AccID %d: GetFunds failed: %v\n", acc.AccID, err)
 			continue
@@ -47,7 +39,7 @@ func main() {
 	}
 
 	fmt.Println("\n=== Futures Account Cash (GetAccTradingInfo) ===")
-	resp, err := cli.Trade().GetAccList(ctx, constant.TrdCategory_Future, true)
+	resp, err := mc.Client.Trade().GetAccList(ctx, constant.TrdCategory_Future, true)
 	if err != nil {
 		log.Fatalf("GetAccList(TrdCategory_Future) failed: %v", err)
 	}
@@ -63,7 +55,7 @@ func main() {
 		// Use a common symbol - WTI crude oil futures
 		sampleCode := "US.CL.0" // WTI Crude Oil Futures
 
-		info, err := client.GetAccTradingInfo(ctx, cli, acc.AccID,
+		info, err := client.GetAccTradingInfo(ctx, mc.Client, acc.AccID,
 			constant.TrdMarket_FuturesSimulateUS, sampleCode,
 			constant.OrderType_Normal, 75.0) // ~$75 price
 		if err != nil {

@@ -4,30 +4,22 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	sec1 := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("NVDA")}
 	sec2 := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("AAPL")}
 	sec3 := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("TSLA")}
 
-	snapshots, err := client.GetSecuritySnapshot(context.Background(), cli, []*qotcommon.Security{sec1, sec2, sec3})
+	snapshots, err := client.GetSecuritySnapshot(context.Background(), mc.Client, []*qotcommon.Security{sec1, sec2, sec3})
 	if err != nil {
 		log.Fatalf("GetSecuritySnapshot failed: %v", err)
 	}

@@ -1,38 +1,63 @@
+// 51_unsubscribe_all demonstrates Subscribe (multiple types) and UnsubscribeAll
+// to clear all active subscriptions at once.
+//
+// Uses HK.00700 (Tencent) to avoid US stock subscription duration restrictions.
 package main
 
 import (
 	"context"
 	"fmt"
 	"log"
-	"os"
+	"time"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	var market constant.Market = constant.Market_HK
+	code := "00700" // Tencent
 
-	if err := client.Subscribe(context.Background(), cli, constant.Market_US, "NVDA", []constant.SubType{
+	subs := []constant.SubType{
 		constant.SubType_Quote,
 		constant.SubType_Ticker,
 		constant.SubType_K_Day,
-	}); err != nil {
+	}
+
+	if err := client.Subscribe(context.Background(), mc.Client, market, code, subs); err != nil {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
-	fmt.Println("Subscribed to NVDA quote, ticker, day K-line.")
+	fmt.Printf("Subscribed to %s.%s: Quote, Ticker, Day K-line.\n", market, code)
 
-	if err := client.UnsubscribeAll(context.Background(), cli); err != nil {
+	// Brief pause to confirm subscriptions are active
+	fmt.Println("Waiting 3 seconds to confirm subscriptions are active...")
+	time.Sleep(3 * time.Second)
+
+	// Query current subscription state before unsubscribing
+	subInfo, err := client.QuerySubscription(context.Background(), mc.Client)
+	if err != nil {
+		fmt.Printf("⚠️  Could not query subscription state: %v\n", err)
+	} else if subInfo != nil && len(subInfo.ConnSubInfoList) == 0 {
+		fmt.Println("⚠️  No active subscriptions found — may have expired or server returned empty list.")
+		fmt.Println("   Attempting UnsubscribeAll anyway...")
+	} else if subInfo != nil {
+		fmt.Printf("Active subscriptions: %d\n", len(subInfo.ConnSubInfoList))
+	}
+
+	if err := client.UnsubscribeAll(context.Background(), mc.Client); err != nil {
 		log.Fatalf("UnsubscribeAll failed: %v", err)
 	}
-	fmt.Println("Unsubscribed from all.")
+	fmt.Println("Unsubscribed from all active subscriptions.")
+
+	// Verify all are cleared
+	subInfo, err = client.QuerySubscription(context.Background(), mc.Client)
+	if err != nil {
+		fmt.Printf("⚠️  Could not verify cleanup: %v\n", err)
+	} else if subInfo != nil {
+		fmt.Printf("Remaining active subscriptions: %d\n", len(subInfo.ConnSubInfoList))
+	}
 }

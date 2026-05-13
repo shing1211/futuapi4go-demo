@@ -8,26 +8,19 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
 	fmt.Println("=== Order Lifecycle Demo (US Simulated) ===")
 	fmt.Println()
 
-	accounts, err := client.GetAccountList(ctx, cli)
+	accounts, err := client.GetAccountList(ctx, mc.Client)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -76,7 +69,7 @@ func main() {
 
 	pwd := os.Getenv("FUTU_TRADE_PWD")
 	if pwd != "" {
-		if err := client.UnlockTrading(ctx, cli, pwd); err != nil {
+		if err := client.UnlockTrading(ctx, mc.Client, pwd); err != nil {
 			fmt.Printf("UnlockTrading warning: %v\n", err)
 		} else {
 			fmt.Println("Trading unlocked successfully")
@@ -84,7 +77,7 @@ func main() {
 	}
 
 	fmt.Println("\n=== Step 1: Check Account Funds ===")
-	funds, err := client.GetFunds(ctx, cli, accID)
+	funds, err := client.GetFunds(ctx, mc.Client, accID)
 	if err != nil {
 		fmt.Printf("GetFunds failed: %v\n", err)
 	} else {
@@ -93,7 +86,7 @@ func main() {
 	}
 
 	fmt.Println("\n=== Step 2: Check Current Positions ===")
-	positions, err := client.GetPositionList(ctx, cli, accID)
+	positions, err := client.GetPositionList(ctx, mc.Client, accID)
 	if err != nil {
 		fmt.Printf("GetPositionList failed: %v\n", err)
 	} else {
@@ -130,7 +123,7 @@ func main() {
 
 	fmt.Printf("Placing order: Buy %.0f share(s) of %s @ $%.2f\n", qty, stock, price)
 
-	result, err := client.PlaceOrder(ctx, cli, accID, accMarket,
+	result, err := client.PlaceOrder(ctx, mc.Client, accID, accMarket,
 		stock, constant.TrdSide_Buy, constant.OrderType_Normal, price, qty, secMarket)
 	if err != nil {
 		fmt.Printf("PlaceOrder failed: %v\n", err)
@@ -139,7 +132,7 @@ func main() {
 	}
 
 	fmt.Println("\n=== Step 4: List Open Orders ===")
-	orders, err := client.GetOrderList(ctx, cli, accID)
+	orders, err := client.GetOrderList(ctx, mc.Client, accID)
 	if err != nil {
 		fmt.Printf("GetOrderList failed: %v\n", err)
 	} else {
@@ -156,7 +149,7 @@ func main() {
 		newPrice := price * 1.05
 		fmt.Printf("Modifying order %d to price $%.2f...\n", orderID, newPrice)
 
-		modResult, err := client.ModifyOrder(ctx, cli, accID, accMarket,
+		modResult, err := client.ModifyOrder(ctx, mc.Client, accID, accMarket,
 			orderID, constant.ModifyOrderOp_Normal, newPrice, 0)
 		if err != nil {
 			fmt.Printf("ModifyOrder failed: %v\n", err)

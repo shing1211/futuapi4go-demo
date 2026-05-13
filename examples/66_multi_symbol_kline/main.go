@@ -3,25 +3,16 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
-	"os"
 	"time"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
@@ -32,7 +23,7 @@ func main() {
 
 	fmt.Println("--- Subscribing to K-line data ---")
 	for _, symbol := range symbols {
-		if err := client.Subscribe(ctx, cli, constant.Market_US, symbol,
+		if err := client.Subscribe(ctx, mc.Client, constant.Market_US, symbol,
 			[]constant.SubType{constant.SubType_K_Day}); err != nil {
 			fmt.Printf("Subscribe %s failed: %v\n", symbol, err)
 		} else {
@@ -44,7 +35,7 @@ func main() {
 	for _, symbol := range symbols {
 		fmt.Printf("\n--- %s ---\n", symbol)
 
-		klines, err := client.GetKLines(ctx, cli, constant.Market_US, symbol,
+		klines, err := client.GetKLines(ctx, mc.Client, constant.Market_US, symbol,
 			constant.KLType_K_Day, 5)
 		if err != nil {
 			fmt.Printf("  GetKLines failed: %v\n", err)
@@ -66,7 +57,7 @@ func main() {
 	for _, symbol := range symbols[:3] {
 		fmt.Printf("Requesting historical K-lines for %s (%s to %s)...\n", symbol, startTime, endTime)
 
-		klines, err := client.RequestHistoryKL(ctx, cli, constant.Market_US, symbol,
+		klines, err := client.RequestHistoryKL(ctx, mc.Client, constant.Market_US, symbol,
 			constant.KLType_K_Day, startTime, endTime)
 		if err != nil {
 			fmt.Printf("  RequestHistoryKL failed: %v\n", err)

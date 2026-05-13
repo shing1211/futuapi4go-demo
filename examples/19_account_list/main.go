@@ -4,25 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
-
-	accounts, err := client.GetAccountList(context.Background(), cli)
+	accounts, err := client.GetAccountList(context.Background(), mc.Client)
 	if err != nil || len(accounts) == 0 {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -31,14 +23,14 @@ func main() {
 			i, acc.AccID, acc.TrdEnv, acc.AccType, acc.TrdMarketAuthList)
 	}
 
-	acc := cli.FindAccount(accounts)
+	acc := mc.Client.FindAccount(accounts)
 	if acc == nil {
 		log.Fatal("no account found")
 	}
 	fmt.Printf("Using AccID=%d (TrdEnv=%d) for market=%d\n",
 		acc.AccID, acc.TrdEnv, acc.TrdMarketAuthList[0])
 
-	funds, err := client.GetAccountInfo(context.Background(), cli, acc.AccID, constant.TrdMarket(acc.TrdMarketAuthList[0]))
+	funds, err := client.GetAccountInfo(context.Background(), mc.Client, acc.AccID, constant.TrdMarket(acc.TrdMarketAuthList[0]))
 	if err != nil {
 		log.Fatalf("GetAccountInfo failed: %v", err)
 	}

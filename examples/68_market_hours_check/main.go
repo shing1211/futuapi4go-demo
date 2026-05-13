@@ -3,24 +3,15 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
@@ -29,7 +20,7 @@ func main() {
 	fmt.Println()
 
 	fmt.Println("--- US Market ---")
-	state, err := client.GetMarketState(ctx, cli, constant.Market_US, "AAPL")
+	state, err := client.GetMarketState(ctx, mc.Client, constant.Market_US, "AAPL")
 	if err != nil {
 		fmt.Printf("GetMarketState failed: %v\n", err)
 	} else {
@@ -37,7 +28,7 @@ func main() {
 	}
 
 	fmt.Println("\n--- US Trading Days ---")
-	tradeDates, err := client.GetTradeDate(ctx, cli, constant.Market_US, "", "")
+	tradeDates, err := client.GetTradeDate(ctx, mc.Client, constant.Market_US, "", "")
 	if err != nil {
 		fmt.Printf("GetTradeDate failed: %v (expected for simulator)\n", err)
 	} else {
@@ -54,14 +45,14 @@ func main() {
 	}
 
 	fmt.Println("\n--- HK Market ---")
-	hkState, err := client.GetMarketState(ctx, cli, constant.Market_HK, "00100")
+	hkState, err := client.GetMarketState(ctx, mc.Client, constant.Market_HK, "00100")
 	if err != nil {
 		fmt.Printf("GetMarketState failed: %v\n", err)
 	} else {
 		fmt.Printf("Market State: %d (%s)\n", hkState, marketStateString(hkState))
 	}
 
-	hkDates, err := client.GetTradeDate(ctx, cli, constant.Market_HK, "", "")
+	hkDates, err := client.GetTradeDate(ctx, mc.Client, constant.Market_HK, "", "")
 	if err != nil {
 		fmt.Printf("GetTradeDate failed: %v (expected for simulator)\n", err)
 	} else {
@@ -69,8 +60,8 @@ func main() {
 	}
 
 	fmt.Println("\n=== Pre-Trade Check Helper ===")
-	checkMarketReadiness(constant.Market_US, "AAPL", cli, ctx)
-	checkMarketReadiness(constant.Market_HK, "00100", cli, ctx)
+	checkMarketReadiness(constant.Market_US, "AAPL", mc.Client, ctx)
+	checkMarketReadiness(constant.Market_HK, "00100", mc.Client, ctx)
 }
 
 func checkMarketReadiness(market constant.Market, code string, cli *client.Client, ctx context.Context) {

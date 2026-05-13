@@ -4,29 +4,21 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/trd"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
 	fmt.Println("=== Stock Positions (client.GetPositionList) ===")
-	accounts, err := client.GetAccountList(ctx, cli)
+	accounts, err := client.GetAccountList(ctx, mc.Client)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -35,7 +27,7 @@ func main() {
 			continue // skip real accounts
 		}
 
-		positions, err := client.GetPositionList(ctx, cli, acc.AccID)
+		positions, err := client.GetPositionList(ctx, mc.Client, acc.AccID)
 		if err != nil {
 			fmt.Printf("AccID %d: GetPositionList failed: %v\n", acc.AccID, err)
 			continue
@@ -53,7 +45,7 @@ func main() {
 	}
 
 	fmt.Println("\n=== Futures Positions (TradeAPI.GetPositionList) ===")
-	resp, err := cli.Trade().GetAccList(ctx, constant.TrdCategory_Future, true)
+	resp, err := mc.Client.Trade().GetAccList(ctx, constant.TrdCategory_Future, true)
 	if err != nil {
 		log.Fatalf("GetAccList(TrdCategory_Future) failed: %v", err)
 	}
@@ -86,7 +78,7 @@ func main() {
 				TrdEnv:    constant.TrdEnv(acc.TrdEnv),
 			}
 
-			posResp, err := cli.Trade().GetPositionList(ctx, req)
+			posResp, err := mc.Client.Trade().GetPositionList(ctx, req)
 			if err != nil {
 				continue
 			}
@@ -103,5 +95,5 @@ func main() {
 
 	fmt.Println("\n=== Summary ===")
 	fmt.Println("Stock positions: client.GetPositionList(accID)")
-	fmt.Println("Futures positions: cli.Trade().GetPositionList with TrdMarket_Futures")
+	fmt.Println("Futures positions: mc.Client.Trade().GetPositionList with TrdMarket_Futures")
 }

@@ -4,43 +4,35 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
-
-	accounts, err := client.GetAccountList(context.Background(), cli)
+	accounts, err := client.GetAccountList(context.Background(), mc.Client)
 	if err != nil || len(accounts) == 0 {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
 
-	acc := cli.FindAccount(accounts)
+	acc := mc.Client.FindAccount(accounts)
 	if acc == nil {
 		log.Fatal("no account found")
 	}
 	accID := acc.AccID
 	market := constant.TrdMarket(acc.TrdMarketAuthList[0])
 
-	result, err := client.PlaceOrder(context.Background(), cli,
+	result, err := client.PlaceOrder(context.Background(), mc.Client,
 		accID,
 		market,
-		"00100",  // Tencent (from position list)
+		"00100",
 		constant.TrdSide_Buy,
 		constant.OrderType_Normal,
-		100.0, 100, 1, // qty=100 (1 lot for HK)
+		100.0, 100, 1,
 	)
 	if err != nil {
 		fmt.Printf("PlaceOrder: %v\n", err)

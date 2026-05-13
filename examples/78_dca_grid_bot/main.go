@@ -9,19 +9,12 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
@@ -29,7 +22,7 @@ func main() {
 	fmt.Println("Dollar Cost Averaging with Grid Strategy")
 	fmt.Println()
 
-	accounts, err := client.GetAccountList(ctx, cli)
+	accounts, err := client.GetAccountList(ctx, mc.Client)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -53,7 +46,7 @@ func main() {
 	}
 	fmt.Printf("Using AccID=%d\n", accID)
 
-	funds, err := client.GetFunds(ctx, cli, accID)
+	funds, err := client.GetFunds(ctx, mc.Client, accID)
 	if err != nil {
 		fmt.Printf("GetFunds failed: %v\n", err)
 	} else {
@@ -71,11 +64,11 @@ func main() {
 	fmt.Printf("Grid Levels: %d\n", gridLevels)
 	fmt.Printf("Investment per level: $%.2f\n", investmentPerLevel)
 
-	if err := client.Subscribe(ctx, cli, constant.Market_US, targetSymbol,
+	if err := client.Subscribe(ctx, mc.Client, constant.Market_US, targetSymbol,
 		[]constant.SubType{constant.SubType_Quote}); err != nil {
 		fmt.Printf("Subscribe %s failed: %v (will skip quote)\n", targetSymbol, err)
 	} else {
-		quote, err := client.GetQuote(ctx, cli, constant.Market_US, targetSymbol)
+		quote, err := client.GetQuote(ctx, mc.Client, constant.Market_US, targetSymbol)
 		if err != nil {
 			fmt.Printf("GetQuote failed: %v\n", err)
 		} else {
@@ -85,7 +78,7 @@ func main() {
 
 	pwd := os.Getenv("FUTU_TRADE_PWD")
 	if pwd != "" {
-		if err := client.UnlockTrading(ctx, cli, pwd); err != nil {
+		if err := client.UnlockTrading(ctx, mc.Client, pwd); err != nil {
 			fmt.Printf("UnlockTrading warning: %v\n", err)
 		} else {
 			fmt.Println("Trading unlocked")
@@ -109,7 +102,7 @@ func main() {
 	}
 
 	fmt.Println("\n=== Current Holdings ===")
-	positions, err := client.GetPositionList(ctx, cli, accID)
+	positions, err := client.GetPositionList(ctx, mc.Client, accID)
 	if err != nil {
 		fmt.Printf("GetPositionList failed: %v\n", err)
 	} else {

@@ -4,25 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
-
-	key, err := client.SetPriceReminder(context.Background(), cli,
+	key, err := client.SetPriceReminder(context.Background(), mc.Client,
 		constant.Market_US, "NVDA",
 		constant.PriceReminderOp_Add,         // op: 1=Add
 		constant.PriceReminderType_Above,     // reminderType: 1=Above

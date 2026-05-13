@@ -4,33 +4,25 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	// Get existing groups first
-	groups, err := client.GetUserSecurityGroup(context.Background(), cli)
+	groups, err := client.GetUserSecurityGroup(context.Background(), mc.Client)
 	if err != nil {
 		log.Fatalf("GetUserSecurityGroup failed: %v", err)
 	}
 
 	// Add a stock to the first group (op=1 means add)
 	if len(groups) > 0 {
-		if err := client.ModifyUserSecurity(context.Background(), cli,
+		if err := client.ModifyUserSecurity(context.Background(), mc.Client,
 			groups[0].Name,
 			1, // op: 1=Add
 			constant.Market_US,
@@ -41,7 +33,7 @@ func main() {
 		fmt.Printf("Added NVDA to group '%s'.\n", groups[0].Name)
 	} else {
 		// Create a new group and add stock (op=3 means add group)
-		if err := client.ModifyUserSecurity(context.Background(), cli,
+		if err := client.ModifyUserSecurity(context.Background(), mc.Client,
 			"MyWatchlist",
 			3, // op: 3=Add group
 			constant.Market_US,

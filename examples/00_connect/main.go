@@ -1,28 +1,17 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"log"
-	"os"
 
-	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer func() {
-		cli.Close()
-		fmt.Println("Disconnected.")
-	}()
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-
-	fmt.Printf("Connecting to %s ...\n", addr)
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connection failed: %v", err)
-	}
 	fmt.Println("Connected!")
+	fmt.Printf("  Host:    %s:%d\n", mc.Info.Host, mc.Info.Port)
+	fmt.Printf("  RSA:     %v\n", mc.Info.RSAUsed)
 }

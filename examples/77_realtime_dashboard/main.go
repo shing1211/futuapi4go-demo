@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"sync"
@@ -14,6 +13,7 @@ import (
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/push"
 	chanpkg "github.com/shing1211/futuapi4go/pkg/push/chan"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 type PriceData struct {
@@ -32,16 +32,8 @@ var (
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
@@ -52,7 +44,7 @@ func main() {
 	fmt.Printf("Monitoring: %v\n", symbols)
 
 	for _, symbol := range symbols {
-		if err := client.Subscribe(ctx, cli, constant.Market_US, symbol,
+		if err := client.Subscribe(ctx, mc.Client, constant.Market_US, symbol,
 			[]constant.SubType{constant.SubType_Ticker}); err != nil {
 			fmt.Printf("Subscribe %s failed: %v\n", symbol, err)
 		}
@@ -60,7 +52,7 @@ func main() {
 
 	tickerCh := make(chan *push.UpdateTicker, 100)
 	for _, symbol := range symbols {
-		go chanpkg.SubscribeTicker(cli, constant.Market_US, symbol, tickerCh)
+		go chanpkg.SubscribeTicker(mc.Client, constant.Market_US, symbol, tickerCh)
 	}
 
 	fmt.Println("\nStarting real-time monitoring (10 seconds)...")
@@ -97,7 +89,7 @@ done:
 	fmt.Println("\n=== Dashboard Session Complete ===")
 	fmt.Printf("Total ticker updates: %d\n", updateCount)
 
-	client.UnsubscribeAll(ctx, cli)
+	client.UnsubscribeAll(ctx, mc.Client)
 }
 
 func updatePrice(code string, price float64, volume int64) {

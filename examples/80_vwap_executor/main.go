@@ -4,23 +4,15 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
@@ -28,7 +20,7 @@ func main() {
 	fmt.Println("Volume Weighted Average Price execution strategy")
 	fmt.Println()
 
-	accounts, err := client.GetAccountList(ctx, cli)
+	accounts, err := client.GetAccountList(ctx, mc.Client)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -63,11 +55,11 @@ func main() {
 
 	fmt.Println("\n--- Step 1: Market Order Book Analysis ---")
 
-	if err := client.Subscribe(ctx, cli, constant.Market_US, targetSymbol,
+	if err := client.Subscribe(ctx, mc.Client, constant.Market_US, targetSymbol,
 		[]constant.SubType{constant.SubType_OrderBook}); err != nil {
 		fmt.Printf("Subscribe failed: %v\n", err)
 	} else {
-		orderbook, err := client.GetOrderBook(ctx, cli, constant.Market_US, targetSymbol, 20)
+		orderbook, err := client.GetOrderBook(ctx, mc.Client, constant.Market_US, targetSymbol, 20)
 		if err != nil {
 			fmt.Printf("GetOrderBook failed: %v\n", err)
 		} else {
@@ -105,7 +97,7 @@ func main() {
 
 	fmt.Println("\n--- Step 2: Account Buying Power ---")
 
-	funds, err := client.GetFunds(ctx, cli, accID)
+	funds, err := client.GetFunds(ctx, mc.Client, accID)
 	if err != nil {
 		fmt.Printf("GetFunds failed: %v\n", err)
 	} else {
@@ -119,7 +111,7 @@ func main() {
 
 	fmt.Println("\n--- Step 3: Max Position Check ---")
 
-	maxQtys, err := client.GetMaxTrdQtys(ctx, cli, accID, constant.TrdMarket_US,
+	maxQtys, err := client.GetMaxTrdQtys(ctx, mc.Client, accID, constant.TrdMarket_US,
 		targetSymbol, constant.OrderType_Normal, startPrice, constant.TrdSecMarket_US)
 	if err != nil {
 		fmt.Printf("GetMaxTrdQtys failed: %v\n", err)
@@ -150,7 +142,7 @@ func main() {
 
 	fmt.Println("\n--- Step 5: Current Open Orders ---")
 
-	orders, err := client.GetOrderList(ctx, cli, accID)
+	orders, err := client.GetOrderList(ctx, mc.Client, accID)
 	if err != nil {
 		fmt.Printf("GetOrderList failed: %v\n", err)
 	} else {

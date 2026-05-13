@@ -3,26 +3,17 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
-	"os"
 	"sort"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
@@ -43,7 +34,7 @@ func main() {
 		secs = append(secs, sec)
 	}
 
-	snapshots, err := client.GetSecuritySnapshot(ctx, cli, secs)
+	snapshots, err := client.GetSecuritySnapshot(ctx, mc.Client, secs)
 	if err != nil {
 		fmt.Printf("GetSecuritySnapshot failed: %v\n", err)
 		return
@@ -105,11 +96,11 @@ func main() {
 		topStock := momentumStocks[0].Code
 		fmt.Printf("\n--- Step 3: K-Line Analysis for Top Candidate (%s) ---\n", topStock)
 
-		if err := client.Subscribe(ctx, cli, constant.Market_US, topStock,
+		if err := client.Subscribe(ctx, mc.Client, constant.Market_US, topStock,
 			[]constant.SubType{constant.SubType_K_Day}); err != nil {
 			fmt.Printf("Subscribe failed: %v\n", err)
 		} else {
-			klines, err := client.GetKLines(ctx, cli, constant.Market_US, topStock,
+			klines, err := client.GetKLines(ctx, mc.Client, constant.Market_US, topStock,
 				constant.KLType_K_Day, 10)
 			if err != nil {
 				fmt.Printf("GetKLines failed: %v\n", err)

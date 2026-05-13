@@ -1,31 +1,23 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
-	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/push"
 	chanpkg "github.com/shing1211/futuapi4go/pkg/push/chan"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
-
-	stop := chanpkg.SubscribeKLines(cli, constant.Market_US, "NVDA", map[constant.KLType]func(*push.UpdateKL){
+	stop := chanpkg.SubscribeKLines(mc.Client, constant.Market_US, "NVDA", map[constant.KLType]func(*push.UpdateKL){
 		constant.KLType_K_1Min: func(kl *push.UpdateKL) {
 			for _, bar := range kl.KLList {
 				fmt.Printf("[1min]  %s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",

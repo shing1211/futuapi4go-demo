@@ -4,23 +4,15 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
@@ -29,7 +21,7 @@ func main() {
 	fmt.Println()
 
 	// Get stock accounts
-	resp, err := cli.Trade().GetAccList(ctx, constant.TrdCategory_Security, true)
+	resp, err := mc.Client.Trade().GetAccList(ctx, constant.TrdCategory_Security, true)
 	if err != nil {
 		log.Fatalf("GetAccList(TrdCategory_Security) failed: %v", err)
 	}
@@ -44,7 +36,7 @@ func main() {
 		// Get funds using GetAccountInfo (works for options-enabled accounts)
 		for _, mkt := range acc.TrdMarketAuthList {
 			market := constant.TrdMarket(mkt)
-			funds, err := client.GetAccountInfo(ctx, cli, acc.AccID, market)
+			funds, err := client.GetAccountInfo(ctx, mc.Client, acc.AccID, market)
 			if err != nil {
 				fmt.Printf("  Market %s: GetAccountInfo failed: %v\n", market, err)
 				continue
@@ -56,7 +48,7 @@ func main() {
 		}
 
 		// Also try GetFunds for cash info
-		funds2, err := client.GetFunds(ctx, cli, acc.AccID)
+		funds2, err := client.GetFunds(ctx, mc.Client, acc.AccID)
 		if err != nil {
 			fmt.Printf("  GetFunds failed: %v\n", err)
 		} else {
@@ -77,7 +69,7 @@ func main() {
 		}
 
 		// Use US market for options
-		info, err := client.GetAccTradingInfo(ctx, cli, acc.AccID,
+		info, err := client.GetAccTradingInfo(ctx, mc.Client, acc.AccID,
 			constant.TrdMarket_US, sampleOptionCode,
 			constant.OrderType_Normal, 5.0) // $5 premium estimate
 		if err != nil {

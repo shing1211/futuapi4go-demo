@@ -12,26 +12,19 @@ import (
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/push"
 	chanpkg "github.com/shing1211/futuapi4go/pkg/push/chan"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
-
-	if err := client.Subscribe(context.Background(), cli, constant.Market_US, "NVDA", []constant.SubType{constant.SubType_Ticker}); err != nil {
+	if err := client.Subscribe(context.Background(), mc.Client, constant.Market_US, "NVDA", []constant.SubType{constant.SubType_Ticker}); err != nil {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
 	ch := make(chan *push.UpdateTicker, 100)
-	chanpkg.SubscribeTicker(cli, constant.Market_US, "NVDA", ch)
+	chanpkg.SubscribeTicker(mc.Client, constant.Market_US, "NVDA", ch)
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)

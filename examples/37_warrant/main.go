@@ -1,41 +1,78 @@
+// 37_warrant demonstrates GetWarrant to search for callable warrants
+// on a Hong Kong underlying security (Tencent/00700).
+//
+// NOTE: GetWarrant only supports HK market warrants (stocks, CBBCs, inline warrants).
+// US/China stocks do not have warrant data via this API.
 package main
 
 import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
-
-	warrants, err := client.GetWarrant(context.Background(), cli,
-		constant.Market_US, "NVDA",
-		0, 10,                            // begin, num
-		constant.WarrantSortField_None, true, // sortField, ascend
-		constant.WarrantType_None,       // optType=All
-		qotcommon.Issuer_Issuer_Unknow,   // issuer=All
-		constant.WarrantStatus_None,      // status=All
+	// Search for call warrants on Tencent (HK.00700), issuer doesn't matter
+	warrants, err := client.GetWarrant(context.Background(), mc.Client,
+		constant.Market_HK, "00700", // Tencent in HK market
+		0, 20,                                  // begin, num (get up to 20 warrants)
+		constant.WarrantSortField_EffectiveLeverage, true, // sort by effective leverage, ascending
+		constant.WarrantType_Buy,               // buy (call) warrants only
+		qotcommon.Issuer_Issuer_Unknow,          // all issuers
+		constant.WarrantStatus_Normal,          // active trading status
 	)
 	if err != nil {
 		log.Fatalf("GetWarrant failed: %v", err)
 	}
-	for _, w := range warrants {
-		fmt.Printf("WARRANT: code=%s name=%s price=%.2f type=%d issuer=%d\n",
-			w.Stock.GetCode(), w.Name, w.CurPrice, w.Type, w.Issuer)
+
+	if len(warrants) == 0 {
+		fmt.Println("No buy warrants found for HK.00700 (Tencent).")
+		fmt.Println("Try a different stock or warrant type.")
+		return
 	}
+
+	fmt.Printf("Found %d buy (call) warrants for HK.00700 (Tencent):\n\n", len(warrants))
+	fmt.Printf("%-12s %-25s %-8s %-8s %-8s %-10s %s\n",
+		"Code", "Name", "Price", "Strike", "Maturity", "Eff Leverage", "Type")
+	fmt.Println("─────────────────────────────────────────────────────────────────────────────────")
+
+	for _, w := range warrants {
+		wtype := "Buy"
+		if w.Type == int32(constant.WarrantType_Sell) {
+			wtype = "Sell"
+		} else if w.Type == int32(constant.WarrantType_Bull) {
+			wtype = "Bull"
+		} else if w.Type == int32(constant.WarrantType_Bear) {
+			wtype = "Bear"
+		} else if w.Type == int32(constant.WarrantType_InLine) {
+			wtype = "Inline"
+		}
+		fmt.Printf("%-12s %-25s %-8.3f %-8.3f %-8s %-10.2fx %s\n",
+			w.Stock.GetCode(),
+			truncate(w.Name, 25),
+			w.CurPrice,
+			w.StrikePrice,
+			w.MaturityTime,
+			w.EffectiveLeverage,
+			wtype,
+		)
+	}
+
+	fmt.Println()
+	fmt.Println("Tip: Use warrant scanners to filter by premium, delta, or implied volatility.")
+}
+
+func truncate(s string, max int) string {
+	if len(s) <= max {
+		return s
+	}
+	return s[:max-2] + ".."
 }

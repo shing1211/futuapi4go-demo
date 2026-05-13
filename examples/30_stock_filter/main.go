@@ -4,25 +4,17 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
-
-	results, err := client.StockFilter(context.Background(), cli, constant.Market_US, 0, 10)
+	results, err := client.StockFilter(context.Background(), mc.Client, constant.Market_US, 0, 10)
 	if err != nil {
 		log.Fatalf("StockFilter failed: %v", err)
 	}

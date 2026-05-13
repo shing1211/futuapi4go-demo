@@ -4,23 +4,15 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
@@ -30,7 +22,7 @@ func main() {
 	fmt.Println()
 
 	fmt.Println("=== Stock Accounts (TrdCategory_Security) ===")
-	resp, err := cli.Trade().GetAccList(ctx, constant.TrdCategory_Security, true)
+	resp, err := mc.Client.Trade().GetAccList(ctx, constant.TrdCategory_Security, true)
 	if err != nil {
 		log.Fatalf("GetAccList(TrdCategory_Security) failed: %v", err)
 	}
@@ -71,7 +63,7 @@ func main() {
 	fmt.Println("Use GetOptionExpirationDate to get available expiration dates for an underlying")
 
 	// Example: Query options expiration dates for a US stock (AAPL)
-	expirations, err := client.GetOptionExpirationDate(ctx, cli, constant.Market_US, "AAPL")
+	expirations, err := client.GetOptionExpirationDate(ctx, mc.Client, constant.Market_US, "AAPL")
 	if err != nil {
 		fmt.Printf("GetOptionExpirationDate failed: %v\n", err)
 	} else {

@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -13,19 +12,12 @@ import (
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/push"
 	chanpkg "github.com/shing1211/futuapi4go/pkg/push/chan"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
@@ -36,13 +28,13 @@ func main() {
 	fmt.Printf("Subscribing to %d symbols: %v\n", len(symbols), symbols)
 
 	for _, symbol := range symbols {
-		if err := client.Subscribe(ctx, cli, constant.Market_US, symbol,
+		if err := client.Subscribe(ctx, mc.Client, constant.Market_US, symbol,
 			[]constant.SubType{constant.SubType_Ticker}); err != nil {
 			fmt.Printf("Subscribe %s ticker failed: %v\n", symbol, err)
 		}
 	}
 
-	if err := client.Subscribe(ctx, cli, constant.Market_US, symbols[0],
+	if err := client.Subscribe(ctx, mc.Client, constant.Market_US, symbols[0],
 		[]constant.SubType{constant.SubType_K_Day, constant.SubType_OrderBook}); err != nil {
 		fmt.Printf("Subscribe %s kline/orderbook failed: %v\n", symbols[0], err)
 	}
@@ -51,9 +43,9 @@ func main() {
 	klineCh := make(chan *push.UpdateKL, 100)
 	orderbookCh := make(chan *push.UpdateOrderBook, 100)
 
-	go chanpkg.SubscribeTicker(cli, constant.Market_US, symbols[0], tickerCh)
-	go chanpkg.SubscribeKLine(cli, constant.Market_US, symbols[0], constant.KLType_K_Day, klineCh)
-	go chanpkg.SubscribeOrderBook(cli, constant.Market_US, symbols[0], orderbookCh)
+	go chanpkg.SubscribeTicker(mc.Client, constant.Market_US, symbols[0], tickerCh)
+	go chanpkg.SubscribeKLine(mc.Client, constant.Market_US, symbols[0], constant.KLType_K_Day, klineCh)
+	go chanpkg.SubscribeOrderBook(mc.Client, constant.Market_US, symbols[0], orderbookCh)
 
 	fmt.Println("\nWaiting for push data (5 seconds)...")
 
@@ -102,5 +94,5 @@ done:
 	fmt.Printf("Received: %d tickers, %d klines, %d orderbooks\n",
 		tickerCount, klineCount, orderbookCount)
 
-	client.UnsubscribeAll(ctx, cli)
+	client.UnsubscribeAll(ctx, mc.Client)
 }

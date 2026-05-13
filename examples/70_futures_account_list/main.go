@@ -4,29 +4,21 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/trd"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
-	cli := client.New()
-	defer cli.Close()
-
-	addr := os.Getenv("FUTU_ADDR")
-	if addr == "" {
-		addr = "127.0.0.1:11111"
-	}
-	if err := cli.Connect(addr); err != nil {
-		log.Fatalf("Connect failed: %v", err)
-	}
+	mc := connect.MustConnect(context.Background())
+	defer mc.Close()
 
 	ctx := context.Background()
 
 	fmt.Println("=== Stock Accounts (GetAccountList) ===")
-	accounts, err := client.GetAccountList(ctx, cli)
+	accounts, err := client.GetAccountList(ctx, mc.Client)
 	if err != nil {
 		log.Fatalf("GetAccountList failed: %v", err)
 	}
@@ -40,7 +32,7 @@ func main() {
 	}
 
 	fmt.Println("\n=== Futures Accounts (GetAccList with TrdCategory_Future) ===")
-	resp, err := cli.Trade().GetAccList(ctx, constant.TrdCategory_Future, true)
+	resp, err := mc.Client.Trade().GetAccList(ctx, constant.TrdCategory_Future, true)
 	if err != nil {
 		log.Fatalf("GetAccList(TrdCategory_Future) failed: %v", err)
 	}
