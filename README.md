@@ -4,10 +4,21 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.5.7-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.5.11-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 80 standalone examples (00–80), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 81 standalone examples (00–80), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+
+## v0.5.11
+
+Upgraded futuapi4go to **v0.5.11** — includes SHA1 plaintext fix for RSA encrypted InitConnect ([#15](https://github.com/shing1211/futuapi4go/issues/15)). RSA connections now work correctly when connecting to remote OpenD gateways.
+
+```go
+// RSA encryption for remote connections
+pubKeyPEM := os.Getenv("FUTU_RSA_PUBKEY") // or read from key file
+cli := client.New(client.WithRSAPublicKey(pubKeyPEM))
+cli.Connect("remote.opend.server:11111") // RSA-encrypted connection
+```
 
 ## v0.5.7
 
@@ -28,10 +39,10 @@ client.GetKLines(ctx, cli, Market_US, code, KLType_K_Day, 10) // K-line analysis
 git clone https://github.com/shing1211/futuapi4go-demo.git
 cd futuapi4go-demo
 
-# Run an example (80 examples: 00–80)
+# Run an example (81 examples: 00–80)
 go run ./examples/00_connect
+go run ./examples/00_rsa_connect   # RSA-encrypted remote connection
 go run ./examples/01_quote
-go run ./examples/79_momentum_scanner
 
 # Custom OpenD address
 $env:FUTU_ADDR="192.168.1.100:11111"
@@ -60,8 +71,10 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-├── examples/           # 80 standalone examples (00–80), one main.go each
+├── examples/           # 81 standalone examples (00–80), one main.go each
 │   ├── 00_connect/     # client.Connect
+│   ├── 00_rsa_connect/ # client.Connect with RSA encryption (remote OpenD)
+│   ├── 00_ws_connect/  # client.ConnectWS (WebSocket)
 │   ├── 01_quote/       # client.GetQuote
 │   ├── ...
 │   ├── 66_multi_symbol_kline/   # Batch K-line retrieval
@@ -79,14 +92,24 @@ futuapi4go-demo/
 |----------|-------------|---------|
 | `FUTU_ADDR` | OpenD server address | `127.0.0.1:11111` |
 | `FUTU_TRADE_PWD` | MD5 hash of trading password (32 chars) | (not set) |
+| `FUTU_RSA_PUBKEY` | RSA public key PEM for remote encrypted connections | (not set) |
+| `FUTU_WS_ADDR` | WebSocket OpenD address | `127.0.0.1:11113` |
+| `FUTU_WS_SECRET` | WebSocket secret key | (not set) |
 
 ## All Examples (00–80)
 
-### Basic Function Examples (00-65)
+### Connection Examples (00 Connect Series)
+
+| # | Example | SDK Function | Description |
+|---|---------|-------------|-------------|
+| 00 | [`00_connect`](./examples/00_connect) | `client.Connect` | Plain TCP connection (local OpenD) |
+| 00 | [`00_rsa_connect`](./examples/00_rsa_connect) | `client.Connect` + RSA | RSA-encrypted connection (remote OpenD) |
+| 00 | [`00_ws_connect`](./examples/00_ws_connect) | `client.ConnectWS` | WebSocket connection |
+
+### Basic Function Examples (01-65)
 
 | # | Example | SDK Function |
 |---|---------|-------------|
-| 00 | [`00_connect`](./examples/00_connect) | `client.Connect` |
 | 01 | [`01_quote`](./examples/01_quote) | `client.GetQuote` |
 | 02 | [`02_ticker`](./examples/02_ticker) | `chanpkg.SubscribeTicker` |
 | 03 | [`03_orderbook`](./examples/03_orderbook) | `chanpkg.SubscribeOrderBook` |

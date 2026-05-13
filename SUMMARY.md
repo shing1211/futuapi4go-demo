@@ -1,8 +1,8 @@
 # futuapi4go-demo Verification Results
 
-## Date: 2026-05-07
+## Date: 2026-05-13
 ## OpenD Server: 127.0.0.1:11111 (ServerVer: 1003+)
-## SDK Version: v0.5.6
+## SDK Version: v0.5.11
 
 ---
 

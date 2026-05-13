@@ -5,21 +5,22 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+
+- **Upgraded futuapi4go to v0.5.11** — SHA1 plaintext fix for RSA encrypted InitConnect ([#15](https://github.com/shing1211/futuapi4go/issues/15)). RSA connections to remote OpenD now work correctly.
+  - SHA1 computed over plaintext before encryption (server verifies decrypted plaintext)
+  - Removed incorrect `packetEncAlgo=0` re-marshal that corrupted body
+  - Added `WritePacketWithSHA1` to both TCP and WebSocket implementations
+- **00_rsa_connect** — updated to use v0.5.11 with SHA1 fix, tested against remote gateway
+- **README.md** — updated SDK badge to v0.5.11, added 00_rsa_connect example, RSA env vars
+
 ## [0.5.7] - 2026-05-11
 
 ### Changed
 
 - **Upgraded futuapi4go to v0.5.7** — Futu OpenD API v10.5.6508 support
-
-## [Unreleased]
-
-### Added
-
-- (none yet)
-
-### Changed
-
-- (none yet)
 
 ## [0.5.6] - 2026-05-07
 
