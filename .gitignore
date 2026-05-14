@@ -1,28 +1,25 @@
-# Binaries
+# Go binaries
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-demo
+*.test
+*.prof
 
 # Build output
 /bin/
 /dist/
 
-# Test binaries
-*.test
-
-# Output of go coverage
+# Go coverage
 *.out
-*.prof
 coverage.txt
 
 # Go workspace
 /go.work
 /go.work.sum
 
-# Dependency directories
+# Vendor
 /vendor/
 
 # IDE
@@ -37,23 +34,22 @@ coverage.txt
 Thumbs.db
 Desktop.ini
 
-# Environment
+# Environment (use .env.example as template)
 .env
-.env.*
 !.env.example
 
 # Logs
 *.log
 
-# Build binaries (generated during development)
-*.exe
-*.exe~
-demo
+# Claude agent configs (not project code)
+.claude/
 
-# Graphify working files (temp only)
-.graphify_*
-
-# GitNexus
+# GitNexus knowledge graph
 .gitnexus/
-futuapi4go-demo
+
+# Graphify output
 graphify-out/
+
+# Known issue: Go binaries compiled without extension (e.g. `00_connect`)
+# will be accidentally committed. Always run `go clean` before committing.
+# Never run `go build` in the repo root — build inside specific example dirs only.
