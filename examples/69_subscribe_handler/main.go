@@ -43,9 +43,9 @@ func main() {
 	klineCh := make(chan *push.UpdateKL, 100)
 	orderbookCh := make(chan *push.UpdateOrderBook, 100)
 
-	go chanpkg.SubscribeTicker(mc.Client, constant.Market_US, symbols[0], tickerCh)
-	go chanpkg.SubscribeKLine(mc.Client, constant.Market_US, symbols[0], constant.KLType_K_Day, klineCh)
-	go chanpkg.SubscribeOrderBook(mc.Client, constant.Market_US, symbols[0], orderbookCh)
+	go chanpkg.SubscribeTicker(ctx, mc.Client, constant.Market_US, symbols[0], tickerCh)
+	go chanpkg.SubscribeKLine(ctx, mc.Client, constant.Market_US, symbols[0], constant.KLType_K_Day, klineCh)
+	go chanpkg.SubscribeOrderBook(ctx, mc.Client, constant.Market_US, symbols[0], orderbookCh)
 
 	fmt.Println("\nWaiting for push data (5 seconds)...")
 

@@ -24,7 +24,7 @@ func main() {
 	}
 
 	ch := make(chan *push.UpdateOrderBook, 100)
-	chanpkg.SubscribeOrderBook(mc.Client, constant.Market_US, "NVDA", ch)
+	chanpkg.SubscribeOrderBook(context.Background(), mc.Client, constant.Market_US, "NVDA", ch)
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)

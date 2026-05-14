@@ -4,7 +4,7 @@ go 1.26.1
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/shing1211/futuapi4go v0.5.12
+	github.com/shing1211/futuapi4go v0.5.13
 )
 
 require (

@@ -52,7 +52,7 @@ func main() {
 
 	tickerCh := make(chan *push.UpdateTicker, 100)
 	for _, symbol := range symbols {
-		go chanpkg.SubscribeTicker(mc.Client, constant.Market_US, symbol, tickerCh)
+		go chanpkg.SubscribeTicker(ctx, mc.Client, constant.Market_US, symbol, tickerCh)
 	}
 
 	fmt.Println("\nStarting real-time monitoring (10 seconds)...")

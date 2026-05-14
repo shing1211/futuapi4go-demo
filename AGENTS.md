@@ -14,11 +14,13 @@ go vet ./...                        # Lint
 
 ## OpenD Simulator (for testing without a real account)
 
-```bash
-# Terminal 1: run the simulator (in futuapi4go repo)
-go run github.com/shing1211/futuapi4go/cmd/examples/simulator
+The SDK's mock server is in `test/util/mock_server.go`. Run examples against a real OpenD instance:
 
-# Terminal 2: run any example
+```bash
+# Set OpenD address (default: 127.0.0.1:11111)
+export FUTU_ADDR="127.0.0.1:11111"
+
+# Run any example
 go run ./examples/00_connect
 ```
 
@@ -36,9 +38,7 @@ futuapi4go-demo/
 │   ├── 05_broker/           # chanpkg.SubscribeBroker
 │   ├── 06_kline_single/     # client.GetKLines
 │   ├── 07_kline_multi/      # chanpkg.SubscribeKLines
-│   └── ... (59 more: 08-65)
-├── docs/
-│   └── FUTU_PROTO_REF.md
+│   └── ... (59 more: 08-80)
 ├── AGENTS.md
 └── README.md
 ```
@@ -62,30 +62,22 @@ Real trading requires `FUTU_TRADE_PWD` environment variable with MD5 hash of you
 
 ## SDK Debugging
 
-The futuapi4go SDK is checked out at `D:\github\futuapi4go`.
+The futuapi4go SDK source is at `github.com/shing1211/futuapi4go`.
 
-- Proto files: `D:\github\futuapi4go\api\proto\`
-- Generated Go protobuf code: `D:\github\futuapi4go\pkg\pb\`
-- SDK source: `D:\github\futuapi4go\pkg\`
+- Proto files: `api/proto/` in the SDK repo
+- Generated Go protobuf code: `pkg/pb/`
+- SDK source: `pkg/`
 
 **To use a local SDK version** (e.g., after fixing proto bugs), add a `replace` directive to `go.mod`:
 
-```go
-replace github.com/shing1211/futuapi4go => D:/github/futuapi4go
+```
+replace github.com/shing1211/futuapi4go => /path/to/local/futuapi4go
 ```
 
-After editing `go.mod`, clear the module cache and re-download:
+After editing `go.mod`, re-download modules:
 
-```powershell
-go clean -modcache
+```
 go mod download
-```
-
-**To regenerate proto files:**
-
-```powershell
-cd D:\github\futuapi4go
-# Use the regen scripts in scripts/ (PowerShell or batch)
 ```
 
 ## Known SDK Issues
@@ -94,15 +86,15 @@ cd D:\github\futuapi4go
 
 OpenD may reject the `GetDelayStatistics` request with "解析protobuf协议失败". Root cause: `google.golang.org/protobuf` encodes `repeated int32` fields using proto3 packed wire format by default, but some OpenD C++ parsers expect proto2 non-packed encoding.
 
-**Workaround in demo:** The call is skipped with a printed note. All other APIs work normally with OpenD v10.4.6408.
+**Workaround in demo:** The call is skipped with a printed note. All other APIs work normally with OpenD v10.5.6508.
 
 ### GetTradeDate — all C2S fields are required
 
-`GetTradeDate` has all required fields in its C2S. If the SDK doesn't populate all required fields, OpenD returns "解析protobuf协议失败". Works correctly with OpenD v10.4.6408.
+`GetTradeDate` has all required fields in its C2S. If the SDK doesn't populate all required fields, OpenD returns "解析protobuf协议失败". Works correctly with OpenD v10.5.6508.
 
 **Workaround in demo:** If this API fails, the demo exits with a red error.
 
-**Proto reference:** See `docs/FUTU_PROTO_REF.md` or https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
+**Proto reference:** https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
 
 ## Simulate Trading Limitations
 
@@ -121,7 +113,7 @@ For these, use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD
 
 ## Related Repositories
 
-- SDK: `github.com/shing1211/futuapi4go` (checked out at `D:\github\futuapi4go`)
+- SDK: `github.com/shing1211/futuapi4go`
 - Official Proto Doc: https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
 - OpenD Downloads: https://www.futunn.com/download/fetch-lasted-link?name=opend-windows
 

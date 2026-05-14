@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Upgraded futuapi4go to v0.5.13** — Phase 0 robustness: critical AES ECB bug fix, race conditions, nil safety, test infrastructure overhaul
+- **README.md** — updated SDK badge to v0.5.13, removed inline changelog blocks (consolidated into CHANGELOG.md)
+- **go.mod** — updated SDK dependency to v0.5.13
+- **.github/** — removed CI/CD folder (not needed)
+
 ## [0.5.12] - 2026-05-14
 
 ### Changed

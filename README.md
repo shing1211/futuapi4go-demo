@@ -4,45 +4,10 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.5.12-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.5.13-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
 > **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 81 standalone examples (00–80), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
-
-## v0.5.12
-
-Upgraded futuapi4go to **v0.5.12** — includes FTAES_ECB AES encryption for API requests, plus pool buffer and ClientPool.Get sync.Cond bug fixes. All 81 examples now use the released v0.5.12 SDK (no local replace directive).
-
-```go
-// FTAES_ECB encryption — AES-encrypted API requests after InitConnect
-// Automatic when connecting with RSA key
-pubKeyPEM := os.Getenv("FUTU_RSA_PUBKEY")
-cli := client.New(client.WithRSAPublicKey(pubKeyPEM))
-cli.Connect("remote.opend.server:11111") // AES encryption active for all requests
-```
-
-## v0.5.11
-
-Upgraded futuapi4go to **v0.5.11** — includes SHA1 plaintext fix for RSA encrypted InitConnect ([#15](https://github.com/shing1211/futuapi4go/issues/15)). RSA connections now work correctly when connecting to remote OpenD gateways.
-
-```go
-// RSA encryption for remote connections
-pubKeyPEM := os.Getenv("FUTU_RSA_PUBKEY") // or read from key file
-cli := client.New(client.WithRSAPublicKey(pubKeyPEM))
-cli.Connect("remote.opend.server:11111") // RSA-encrypted connection
-```
-
-## v0.5.7
-
-Upgraded futuapi4go to v0.5.7 (Futu OpenD API v10.5.6508).
-
-```go
-// All v0.5.5 features still available:
-cli.Trade().GetAccList(ctx, TrdCategory_Future) // Futures accounts
-client.StockFilter(ctx, cli, Market_US, 0, 30)  // US stock screening
-client.GetSecuritySnapshot(ctx, cli, securities) // Snapshot enrichment
-client.GetKLines(ctx, cli, Market_US, code, KLType_K_Day, 10) // K-line analysis
-```
 
 ## Quick Start
 
@@ -83,19 +48,17 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-├── examples/           # 81 standalone examples (00–80), one main.go each
-│   ├── 00_connect/     # client.Connect
-│   ├── 00_rsa_connect/ # client.Connect with RSA encryption (remote OpenD)
-│   ├── 00_ws_connect/  # client.ConnectWS (WebSocket)
-│   ├── 01_quote/       # client.GetQuote
-│   ├── ...
-│   ├── 66_multi_symbol_kline/   # Batch K-line retrieval
-│   ├── 67_order_lifecycle/       # Full order workflow
-│   ├── 70_futures_account_list/  # Futures accounts
-│   ├── 79_momentum_scanner/      # Stock screening + analysis
-│   └── 80_vwap_executor/          # VWAP execution strategy
-└── docs/
-    └── FUTU_PROTO_REF.md  # Futu OpenAPI protobuf reference
+└── examples/           # 81 standalone examples (00–80), one main.go each
+    ├── 00_connect/     # client.Connect
+    ├── 00_rsa_connect/ # client.Connect with RSA encryption (remote OpenD)
+    ├── 00_ws_connect/  # client.ConnectWS (WebSocket)
+    ├── 01_quote/       # client.GetQuote
+    ├── ...
+    ├── 66_multi_symbol_kline/   # Batch K-line retrieval
+    ├── 67_order_lifecycle/       # Full order workflow
+    ├── 70_futures_account_list/  # Futures accounts
+    ├── 79_momentum_scanner/      # Stock screening + analysis
+    └── 80_vwap_executor/         # VWAP execution strategy
 ```
 
 ## Environment Variables
@@ -273,6 +236,11 @@ accID := acc.AccID
 - **Simulate trading** — many order/flow APIs are not supported. Use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD` set.
 - **Futures accounts** — use `GetAccList(TrdCategory_Future)`, not `GetAccountList` which only returns stock/options accounts.
 - **secMarket required** — `PlaceOrder` and `GetMaxTrdQtys` require explicit `TrdSecMarket` parameter.
+
+## See Also
+
+- **[futuapi4go](https://github.com/shing1211/futuapi4go)** — the Go SDK this demo is built on
+- [CHANGELOG](CHANGELOG.md) — version history and release notes
 
 ## License
 

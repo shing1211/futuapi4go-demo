@@ -17,7 +17,7 @@ func main() {
 	mc := connect.MustConnect(context.Background())
 	defer mc.Close()
 
-	stop := chanpkg.SubscribeKLines(mc.Client, constant.Market_US, "NVDA", map[constant.KLType]func(*push.UpdateKL){
+	stop := chanpkg.SubscribeKLines(context.Background(), mc.Client, constant.Market_US, "NVDA", map[constant.KLType]func(*push.UpdateKL){
 		constant.KLType_K_1Min: func(kl *push.UpdateKL) {
 			for _, bar := range kl.KLList {
 				fmt.Printf("[1min]  %s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
