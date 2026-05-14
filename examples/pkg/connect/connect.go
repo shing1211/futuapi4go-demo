@@ -447,22 +447,25 @@ func Connect(ctx context.Context) (*ManagedConnection, error) {
 			return mc, nil
 		}
 
-		// Try opposite RSA mode
-		cli, err = tryConnect(mc.ctx, host, rsaKey, !host.IsRSA)
-		if err == nil {
-			mc.setClient(cli)
-			mc.Info = &ConnectionInfo{
-				Host:    host.Host,
-				Port:    host.Port,
-				RSAUsed: !host.IsRSA,
+		// Fallback: try same host without RSA only if RSA was requested
+		// (host.IsRSA=false means we already tried non-RSA, no point retrying)
+		if host.IsRSA {
+			cli, err = tryConnect(mc.ctx, host, rsaKey, false)
+			if err == nil {
+				mc.setClient(cli)
+				mc.Info = &ConnectionInfo{
+					Host:    host.Host,
+					Port:    host.Port,
+					RSAUsed: false,
+				}
+				mc.transitionTo(StateConnected)
+				mc.startKeepAlive()
+				mc.startReconnectMonitor()
+				if mc.OnConnect != nil {
+					mc.OnConnect(mc.Info)
+				}
+				return mc, nil
 			}
-			mc.transitionTo(StateConnected)
-			mc.startKeepAlive()
-			mc.startReconnectMonitor()
-			if mc.OnConnect != nil {
-				mc.OnConnect(mc.Info)
-			}
-			return mc, nil
 		}
 	}
 
