@@ -12,9 +12,9 @@ go build ./...                      # Build
 go vet ./...                        # Lint
 ```
 
-## OpenD Simulator (for testing without a real account)
+## Running Examples
 
-The SDK's mock server is in `test/util/mock_server.go`. Run examples against a real OpenD instance:
+Run examples against a real OpenD instance:
 
 ```bash
 # Set OpenD address (default: 127.0.0.1:11111)
@@ -49,13 +49,16 @@ futuapi4go-demo/
 |----------|-------------|---------|
 | `FUTU_ADDR` | OpenD server address | `127.0.0.1:11111` |
 | `FUTU_TRADE_PWD` | MD5 hash of trading password (32 hex chars) | (not set) |
+| `FUTU_RSA_PUBKEY` | RSA public key PEM for remote encrypted connections | (not set) |
+| `FUTU_WS_ADDR` | WebSocket OpenD address | `127.0.0.1:11113` |
+| `FUTU_WS_SECRET` | WebSocket secret key | (not set) |
 
 ## Trading Modes
 
 The SDK defaults to **simulate trading** (`TrdEnv=0`). To use real trading:
 
 ```go
-cli := client.New().WithTradeEnv(1) // Real trading
+cli := client.New().WithTradeEnv(constant.TrdEnv_Real)
 ```
 
 Real trading requires `FUTU_TRADE_PWD` environment variable with MD5 hash of your trading password.

@@ -26,16 +26,6 @@ $env:FUTU_ADDR="192.168.1.100:11111"
 go run ./examples/01_quote
 ```
 
-### Simulator (no account needed)
-
-```powershell
-# Terminal 1: start the simulator
-go run github.com/shing1211/futuapi4go/cmd/examples/simulator
-
-# Terminal 2: run any example
-go run ./examples/07_kline_multi
-```
-
 ### Real Trading (requires unlocked account)
 
 ```powershell
@@ -189,8 +179,8 @@ cli := client.New()
 defer cli.Close()
 cli.Connect("127.0.0.1:11111")
 
-// Real trading: use WithTradeEnv(1)
-cli := client.New().WithTradeEnv(1) // Real trading
+	// Real trading: use constant.TrdEnv_Real
+	cli := client.New().WithTradeEnv(constant.TrdEnv_Real)
 
 // Market constant — typed constant (no cast needed)
 constant.Market_US // 11
@@ -230,10 +220,9 @@ accID := acc.AccID
 
 ## Known Caveats
 
-- **`GetDelayStatistics`** — skipped. Known proto2/proto3 wire-format mismatch with OpenD serverVer=1003. See SDK's CHANGELOG.
-- **`GetTradeDate`** — requires OpenD serverVer >= 1004 for proto2 field compatibility. Use `RequestTradeDate` as a fallback.
+- **`GetDelayStatistics`** — skipped. Known proto2/proto3 wire-format mismatch with certain OpenD versions. See SDK's CHANGELOG.
 - **US stocks** — require `client.Subscribe` before `GetQuote` returns data. HK stocks do not.
-- **Simulate trading** — many order/flow APIs are not supported. Use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD` set.
+- **Simulate trading** — many order/flow APIs are not supported. Use real trading environment (`WithTradeEnv(constant.TrdEnv_Real)`) with `FUTU_TRADE_PWD` set.
 - **Futures accounts** — use `GetAccList(TrdCategory_Future)`, not `GetAccountList` which only returns stock/options accounts.
 - **secMarket required** — `PlaceOrder` and `GetMaxTrdQtys` require explicit `TrdSecMarket` parameter.
 

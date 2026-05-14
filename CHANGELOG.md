@@ -65,7 +65,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **README.md** — updated SDK version badge to v0.5.6, added v0.5.6 changelog
 - **AGENTS.md** — corrected example count (66 → 81)
-- **SUMMARY.md** — updated verification date and SDK version
 
 ## [0.5.2] - 2026-04-28
 
