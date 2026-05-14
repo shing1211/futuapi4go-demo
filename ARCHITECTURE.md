@@ -8,7 +8,7 @@ This project is a collection of **81 standalone Go examples** demonstrating the 
 
 **Key stats:**
 - 81 examples (00–80)
-- SDK: v0.5.13 (Futu OpenD API v10.5.6508)
+- SDK: v0.5.14 (Futu OpenD API v10.5.6508)
 - 9 functional areas
 
 ---
@@ -374,7 +374,7 @@ graph TB
 
 ```
 futuapi4go-demo
-└── github.com/shing1211/futuapi4go v0.5.13
+└── github.com/shing1211/futuapi4go v0.5.14
     ├── google.golang.org/protobuf v1.36.x
     ├── github.com/prometheus/client_golang v1.20.x
     ├── github.com/gorilla/websocket v1.5.x
