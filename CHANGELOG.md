@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Upgraded futuapi4go to v0.5.14** — FTAES encrypt: empty payload produced invalid ciphertext without trailer; FTAES decrypt: panic on unencrypted responses (OpenD doesn't encrypt responses even with RSA key)
-- **go.mod** — updated SDK dependency to v0.5.14
+- **Upgraded futuapi4go to v0.5.15** — AES request SHA1 was computed over plaintext but verified against encrypted body by OpenD; all encrypted API calls failed with "SHA1 signature incorrect"
+- **go.mod** — updated SDK dependency to v0.5.15
 
 ## [0.5.12] - 2026-05-14
 
