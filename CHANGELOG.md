@@ -9,6 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+## [0.5.12] - 2026-05-14
+
+### Changed
+
+- **Upgraded futuapi4go to v0.5.12** — FTAES_ECB AES encryption for API requests, pool buffer + sync.Cond bug fixes. Local replace directive removed — now using released SDK version.
+- **README.md** — updated SDK badge to v0.5.12
+- **examples/pkg/connect** — HA connect fix: return on first successful connection, don't retry same host with opposite RSA flag
+
+## [0.5.11] - 2026-05-14
+
+### Changed
+
 - **Upgraded futuapi4go to v0.5.11** — SHA1 plaintext fix for RSA encrypted InitConnect ([#15](https://github.com/shing1211/futuapi4go/issues/15)). RSA connections to remote OpenD now work correctly.
   - SHA1 computed over plaintext before encryption (server verifies decrypted plaintext)
   - Removed incorrect `packetEncAlgo=0` re-marshal that corrupted body

@@ -4,10 +4,22 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.5.11-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.5.12-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
 > **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 81 standalone examples (00–80), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+
+## v0.5.12
+
+Upgraded futuapi4go to **v0.5.12** — includes FTAES_ECB AES encryption for API requests, plus pool buffer and ClientPool.Get sync.Cond bug fixes. All 81 examples now use the released v0.5.12 SDK (no local replace directive).
+
+```go
+// FTAES_ECB encryption — AES-encrypted API requests after InitConnect
+// Automatic when connecting with RSA key
+pubKeyPEM := os.Getenv("FUTU_RSA_PUBKEY")
+cli := client.New(client.WithRSAPublicKey(pubKeyPEM))
+cli.Connect("remote.opend.server:11111") // AES encryption active for all requests
+```
 
 ## v0.5.11
 

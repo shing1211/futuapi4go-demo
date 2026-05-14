@@ -10,7 +10,7 @@ This project is a collection of **81 standalone Go examples** demonstrating the 
 - 81 examples (00-80)
 - 225 graph nodes, 149 edges
 - 93 communities identified
-- SDK: v0.5.6
+- SDK: v0.5.12
 
 ---
 

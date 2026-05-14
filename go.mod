@@ -4,7 +4,7 @@ go 1.26.1
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/shing1211/futuapi4go v0.5.11
+	github.com/shing1211/futuapi4go v0.5.12
 )
 
 require (
@@ -20,5 +20,3 @@ require (
 	golang.org/x/sys v0.22.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 )
-
-replace github.com/shing1211/futuapi4go => /home/tchan/github/futuapi4go
