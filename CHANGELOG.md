@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Upgraded futuapi4go to v0.5.15** — AES request SHA1 was computed over plaintext but verified against encrypted body by OpenD; all encrypted API calls failed with "SHA1 signature incorrect"
-- **go.mod** — updated SDK dependency to v0.5.15
+- **Upgraded futuapi4go to v0.5.16** — ReadResponseContext lost buffered packets when timer/ctx-cancel fired before channel receive; fixed with non-blocking drain before terminal return
+- **go.mod** — updated SDK dependency to v0.5.16
 
 ## [0.5.12] - 2026-05-14
 
