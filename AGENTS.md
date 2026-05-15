@@ -28,7 +28,7 @@ go run ./examples/00_connect
 
 ```
 futuapi4go-demo/
-├── examples/                  # 81 standalone examples (00-80)
+├── examples/                  # 90 standalone examples (00-90)
 │   ├── README.md              # Example descriptions & links
 │   ├── 00_connect/           # client.Connect
 │   ├── 01_quote/             # client.GetQuote
@@ -38,7 +38,7 @@ futuapi4go-demo/
 │   ├── 05_broker/           # chanpkg.SubscribeBroker
 │   ├── 06_kline_single/     # client.GetKLines
 │   ├── 07_kline_multi/      # chanpkg.SubscribeKLines
-│   └── ... (59 more: 08-80)
+│   └── ... (68 more: 08-90)
 ├── AGENTS.md
 └── README.md
 ```
@@ -123,7 +123,7 @@ For these, use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **futuapi4go-demo** (997 symbols, 1915 relationships, 82 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **futuapi4go-demo** (1003 symbols, 1922 relationships, 83 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 

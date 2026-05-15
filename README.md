@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/futuapi4go-v0.5.17-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 81 standalone examples (00–80), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 90 standalone examples (00–90), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Quick Start
 
@@ -16,7 +16,7 @@
 git clone https://github.com/shing1211/futuapi4go-demo.git
 cd futuapi4go-demo
 
-# Run an example (81 examples: 00–80)
+# Run an example (90 examples: 00–90)
 go run ./examples/00_connect
 go run ./examples/00_rsa_connect   # RSA-encrypted remote connection
 go run ./examples/01_quote
@@ -38,7 +38,7 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-└── examples/           # 81 standalone examples (00–80), one main.go each
+└── examples/           # 90 standalone examples (00–90), one main.go each
     ├── 00_connect/     # client.Connect
     ├── 00_rsa_connect/ # client.Connect with RSA encryption (remote OpenD)
     ├── 00_ws_connect/  # client.ConnectWS (WebSocket)
@@ -46,9 +46,16 @@ futuapi4go-demo/
     ├── ...
     ├── 66_multi_symbol_kline/   # Batch K-line retrieval
     ├── 67_order_lifecycle/       # Full order workflow
-    ├── 70_futures_account_list/  # Futures accounts
-    ├── 79_momentum_scanner/      # Stock screening + analysis
-    └── 80_vwap_executor/         # VWAP execution strategy
+    ├── 81_options_trading/       # Options chain analysis + covered call
+    ├── 82_trailing_stop/         # Trailing stop order demo
+    ├── 83_trade_push_monitor/    # Real-time trade push monitor
+    ├── 84_order_builder/         # Fluent OrderBuilder API
+    ├── 85_risk_analyzer/         # Portfolio risk & PDT analysis
+    ├── 86_history_downloader/    # Bulk historical data pipeline
+    ├── 87_option_tools/          # Option filtering & analysis toolkit
+    ├── 88_convenience_trading/   # One-liner convenience trading
+    ├── 89_quota_manager/         # Subscription quota management
+    └── 90_system_diagnostics/    # OpenD connection diagnostic
 ```
 
 ## Environment Variables
@@ -61,7 +68,7 @@ futuapi4go-demo/
 | `FUTU_WS_ADDR` | WebSocket OpenD address | `127.0.0.1:11113` |
 | `FUTU_WS_SECRET` | WebSocket secret key | (not set) |
 
-## All Examples (00–80)
+## All Examples (00–90)
 
 ### Connection Examples (00 Connect Series)
 
@@ -170,6 +177,26 @@ futuapi4go-demo/
 | 78 | [`78_dca_grid_bot`](./examples/78_dca_grid_bot) | Dollar Cost Averaging + Grid strategy |
 | 79 | [`79_momentum_scanner`](./examples/79_momentum_scanner) | StockFilter + Snapshot + K-lines momentum analysis |
 | 80 | [`80_vwap_executor`](./examples/80_vwap_executor) | OrderBook + VWAP calculation + execution |
+
+### Advanced Trading Examples (81-85)
+
+| # | Example | SDK Functions | Description |
+|---|---------|---------------|-------------|
+| 81 | [`81_options_trading`](./examples/81_options_trading) | `GetOptionChain` + `GetQuote` + `GetFunds` | Options chain analysis with covered call workflow |
+| 82 | [`82_trailing_stop`](./examples/82_trailing_stop) | `PlaceOrder` (TrailingStop) + `GetOrderList` | Trailing stop order with builder & parameter reference |
+| 83 | [`83_trade_push_monitor`](./examples/83_trade_push_monitor) | `SubAccPush` + `SetPushHandler` + `ParsePushOrderUpdate` + `ParsePushOrderFill` | Real-time trade push event monitoring |
+| 84 | [`84_order_builder`](./examples/84_order_builder) | `TradeAPI.NewOrder` (fluent `OrderBuilder`) | Fluent OrderBuilder: 3 patterns (limit, market, GTC) |
+| 85 | [`85_risk_analyzer`](./examples/85_risk_analyzer) | `GetFunds` (PDT fields) + `GetMarginRatio` + `GetMaxTrdQtys` | Portfolio risk dashboard, PDT compliance, margin analysis |
+
+### Infrastructure & Diagnostics Examples (86-90)
+
+| # | Example | SDK Functions | Description |
+|---|---------|---------------|-------------|
+| 86 | [`86_history_downloader`](./examples/86_history_downloader) | `history.NewDownloader` + `DownloadWithStats` + `NewConcurrentDownloader` + `DownloadMultiple` | Bulk historical data with pagination, retry, progress tracking |
+| 87 | [`87_option_tools`](./examples/87_option_tools) | `option.ParseCode` + `option.FindAtm` + `option.FilterByExpiry` + `option.StrikeDistance` | Option code parsing, ATM finding, strike filtering utilities |
+| 88 | [`88_convenience_trading`](./examples/88_convenience_trading) | `client.PlaceOrder` + `client.GetFunds` + `client.GetPositionList` | Simplest possible one-liner trading operations |
+| 89 | [`89_quota_manager`](./examples/89_quota_manager) | `SystemAPI.GetUsedQuota` + `SubscribeSymbols` + `Unsubscribe` + `UnsubscribeAll` | Subscription quota management |
+| 90 | [`90_system_diagnostics`](./examples/90_system_diagnostics) | `GetGlobalState` + `CanSendProto` + `TestCmd` + `GetConnID` + `GetMarketState` | Comprehensive OpenD connection diagnostic |
 
 ## Common Patterns
 
