@@ -4,10 +4,8 @@ go 1.26.1
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/shing1211/futuapi4go v0.5.17
+	github.com/shing1211/futuapi4go v0.5.18
 )
-
-replace github.com/shing1211/futuapi4go => /home/tchan/github/futuapi4go
 
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
