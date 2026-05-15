@@ -416,11 +416,41 @@ func tryConnect(ctx context.Context, host Host, rsaKey string, useRSA bool) (*cl
 func Connect(ctx context.Context) (*ManagedConnection, error) {
 	hosts, rsaKey, timeout := Config()
 
+	log.Printf("[HA] Configured hosts:")
+	for _, h := range hosts {
+		rsaFlag := "RSA"
+		if !h.IsRSA {
+			rsaFlag = "plain"
+		}
+		log.Printf("[HA]   %s:%d (%s)", h.Host, h.Port, rsaFlag)
+	}
+
+	log.Printf("[HA] Probing %d hosts (timeout=%v)...", len(hosts), timeout)
 	results := probeAllParallel(hosts, timeout)
+
+	log.Printf("[HA] Probe results:")
+	for _, r := range results {
+		if r.ms != nil {
+			log.Printf("[HA]   %s:%d reachable (%.2f ms)", r.host.Host, r.host.Port, *r.ms)
+		} else {
+			log.Printf("[HA]   %s:%d unreachable", r.host.Host, r.host.Port)
+		}
+	}
+
 	sortedHosts := sortByLatency(results)
 
 	if len(sortedHosts) == 0 {
+		log.Printf("[HA] No reachable hosts!")
 		return nil, fmt.Errorf("connect: no reachable OpenD gateways")
+	}
+
+	log.Printf("[HA] Sorted by latency:")
+	for _, h := range sortedHosts {
+		rsaFlag := "RSA"
+		if !h.IsRSA {
+			rsaFlag = "plain"
+		}
+		log.Printf("[HA]   # %s:%d (%s)", h.Host, h.Port, rsaFlag)
 	}
 
 	mc := &ManagedConnection{
@@ -430,8 +460,10 @@ func Connect(ctx context.Context) (*ManagedConnection, error) {
 	mc.ctx, mc.cancel = context.WithCancel(context.Background())
 
 	for _, host := range sortedHosts {
+		log.Printf("[HA] Trying %s:%d (RSA=%v)...", host.Host, host.Port, host.IsRSA)
 		cli, err := tryConnect(mc.ctx, host, rsaKey, host.IsRSA)
 		if err == nil {
+			log.Printf("[HA] Connected to %s:%d (RSA=%v)", host.Host, host.Port, host.IsRSA)
 			mc.setClient(cli)
 			mc.Info = &ConnectionInfo{
 				Host:    host.Host,
@@ -446,11 +478,14 @@ func Connect(ctx context.Context) (*ManagedConnection, error) {
 			}
 			return mc, nil
 		}
+		log.Printf("[HA] %s:%d (RSA=%v) failed: %v", host.Host, host.Port, host.IsRSA, err)
 
 		// Fallback: try same host without RSA only if RSA was requested
 		if host.IsRSA {
+			log.Printf("[HA] Trying %s:%d (plain fallback)...", host.Host, host.Port)
 			cli, err = tryConnect(mc.ctx, host, rsaKey, false)
 			if err == nil {
+				log.Printf("[HA] Connected to %s:%d (plain fallback)", host.Host, host.Port)
 				mc.setClient(cli)
 				mc.Info = &ConnectionInfo{
 					Host:    host.Host,
@@ -465,10 +500,12 @@ func Connect(ctx context.Context) (*ManagedConnection, error) {
 				}
 				return mc, nil
 			}
+			log.Printf("[HA] %s:%d (plain fallback) failed: %v", host.Host, host.Port, err)
 		}
 	}
 
 	mc.cancel()
+	log.Printf("[HA] All hosts exhausted")
 	return nil, fmt.Errorf("connect: all hosts failed")
 }
 
