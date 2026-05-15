@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Upgraded futuapi4go to v0.5.16** — ReadResponseContext lost buffered packets when timer/ctx-cancel fired before channel receive; fixed with non-blocking drain before terminal return
-- **go.mod** — updated SDK dependency to v0.5.16
+- **Upgraded futuapi4go to v0.5.17** — RSA+FTAES encryption is now opt-in, not auto-enabled by RSA key. Previously the SDK forced `isEncrypt=1` when an RSA key was configured, causing the server to reject encrypted GetGlobalState requests. Now defaults to no encryption (matching Python SDK's `IS_PROTO_ENCRYPT = False`). Added `WithEncryption()` and `WithRSAPrivateKey()` options for opt-in FTAES encryption.
+- **go.mod** — updated SDK dependency to v0.5.17
 
 ## [0.5.12] - 2026-05-14
 

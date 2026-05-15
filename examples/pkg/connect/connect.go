@@ -448,7 +448,6 @@ func Connect(ctx context.Context) (*ManagedConnection, error) {
 		}
 
 		// Fallback: try same host without RSA only if RSA was requested
-		// (host.IsRSA=false means we already tried non-RSA, no point retrying)
 		if host.IsRSA {
 			cli, err = tryConnect(mc.ctx, host, rsaKey, false)
 			if err == nil {
