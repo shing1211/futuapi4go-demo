@@ -28,7 +28,7 @@ go run ./examples/00_connect
 
 ```
 futuapi4go-demo/
-├── examples/                  # 95 standalone examples (00-95)
+├── examples/                  # 96 standalone examples (00-96)
 │   ├── README.md              # Example descriptions & links
 │   ├── 00_connect/           # client.Connect
 │   ├── 01_quote/             # client.GetQuote
@@ -38,7 +38,7 @@ futuapi4go-demo/
 │   ├── 05_broker/           # chanpkg.SubscribeBroker
 │   ├── 06_kline_single/     # client.GetKLines
 │   ├── 07_kline_multi/      # chanpkg.SubscribeKLines
-│   └── ... (73 more: 08-95)
+│   └── ... (74 more: 08-96)
 ├── AGENTS.md
 └── README.md
 ```
@@ -85,11 +85,11 @@ go mod download
 
 ## Known SDK Issues
 
-### GetDelayStatistics — may have proto2 wire-format incompatibility with certain OpenD versions
+### GetDelayStatistics — SDK fix applied (v0.5.13+)
 
-OpenD may reject the `GetDelayStatistics` request with "解析protobuf协议失败". Root cause: `google.golang.org/protobuf` encodes `repeated int32` fields using proto3 packed wire format by default, but some OpenD C++ parsers expect proto2 non-packed encoding.
+Some OpenD C++ parsers reject Go's default packed encoding for `repeated int32` fields. The SDK (v0.5.13+) includes a custom proto2 marshaling workaround in `pkg/sys/system.go` (`marshalC2SProto2`). The request body is hand-encoded using proto2 non-packed varint format.
 
-**Workaround in demo:** The call is skipped with a printed note. All other APIs work normally with OpenD v10.5.6508.
+**Demo behavior:** Example 96 calls `GetDelayStatistics` and handles both success and failure gracefully. If OpenD rejects the request (older build or missing API support), the demo prints a clear explanation and exits cleanly.
 
 ### GetTradeDate — all C2S fields are required
 

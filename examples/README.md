@@ -135,4 +135,10 @@ For full documentation, see the [root README.md](../README.md).
 | 94 | [`94_portfolio_rebalance`](./94_portfolio_rebalance) | `GetPositionList` + `GetFunds` + `GetQuote` + `GetMaxTrdQtys` + `PlaceOrder` | Multi-asset portfolio rebalancer with PDT-aware drift correction |
 | 95 | [`95_earnings_vol_strategy`](./95_earnings_vol_strategy) | `GetOptionExpirationDate` + `GetOptionChain` + `GetKLines` (120-day) | Earnings straddle: implied move vs historical move, vol strategy builder |
 
-**95 examples total** — all SDK functions covered except `client.GetDelayStatistics` (known OpenD proto bug).
+### Special Cases (96)
+
+| # | Example | SDK Functions | Description |
+|---|---------|---------------|-------------|
+| 96 | [`96_get_delay_statistics`](./96_get_delay_statistics) | `client.GetDelayStatistics` | Performance delay statistics with graceful fallback |
+
+**96 examples total** — all SDK functions covered. `GetDelayStatistics` has a known proto2 wire-format incompatibility with some OpenD versions; the SDK includes a custom proto2 marshaling workaround (v0.5.13+). The demo handles both success and failure gracefully.

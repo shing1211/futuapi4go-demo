@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/futuapi4go-v0.5.17-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 95 standalone examples (00–95), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 96 standalone examples (00–96), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Quick Start
 
@@ -16,7 +16,7 @@
 git clone https://github.com/shing1211/futuapi4go-demo.git
 cd futuapi4go-demo
 
-# Run an example (95 examples: 00–95)
+# Run an example (96 examples: 00–96)
 go run ./examples/00_connect
 go run ./examples/00_rsa_connect   # RSA-encrypted remote connection
 go run ./examples/01_quote
@@ -38,7 +38,7 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-└── examples/           # 95 standalone examples (00–95), one main.go each
+└── examples/           # 96 standalone examples (00–96), one main.go each
     ├── 00_connect/     # client.Connect
     ├── 00_rsa_connect/ # client.Connect with RSA encryption (remote OpenD)
     ├── 00_ws_connect/  # client.ConnectWS (WebSocket)
@@ -60,7 +60,8 @@ futuapi4go-demo/
     ├── 92_pairs_trading/         # Pairs trading / stat arb scanner
     ├── 93_smart_money/           # Smart money flow tracker
     ├── 94_portfolio_rebalance/   # Portfolio rebalancer
-    └── 95_earnings_vol_strategy/ # Earnings volatility strategy
+    ├── 95_earnings_vol_strategy/ # Earnings volatility strategy
+    └── 96_get_delay_statistics/  # Performance delay statistics
 ```
 
 ## Environment Variables
@@ -73,7 +74,7 @@ futuapi4go-demo/
 | `FUTU_WS_ADDR` | WebSocket OpenD address | `127.0.0.1:11113` |
 | `FUTU_WS_SECRET` | WebSocket secret key | (not set) |
 
-## All Examples (00–95)
+## All Examples (00–96)
 
 ### Connection Examples (00 Connect Series)
 
@@ -213,6 +214,12 @@ futuapi4go-demo/
 | 94 | [`94_portfolio_rebalance`](./examples/94_portfolio_rebalance) | `GetPositionList` + `GetFunds` + `GetQuote` + `GetMaxTrdQtys` + `PlaceOrder` | Multi-asset portfolio rebalancer with PDT-aware drift correction |
 | 95 | [`95_earnings_vol_strategy`](./examples/95_earnings_vol_strategy) | `GetOptionExpirationDate` + `GetOptionChain` + `GetKLines` (120d) | Earnings straddle: implied move vs historical move, vol strategy builder |
 
+### Special Cases (96)
+
+| # | Example | SDK Functions | Description |
+|---|---------|---------------|-------------|
+| 96 | [`96_get_delay_statistics`](./examples/96_get_delay_statistics) | `client.GetDelayStatistics` | Performance delay statistics with graceful error handling |
+
 ## Common Patterns
 
 ```go
@@ -262,7 +269,7 @@ accID := acc.AccID
 
 ## Known Caveats
 
-- **`GetDelayStatistics`** — skipped. Known proto2/proto3 wire-format mismatch with certain OpenD versions. See SDK's CHANGELOG.
+- **`GetDelayStatistics`** — SDK v0.5.13+ includes a custom proto2 marshaling workaround for the repeated-int32 encoding issue. The demo (96) handles both success and failure gracefully. May still fail on older OpenD builds that don't implement the API.
 - **US stocks** — require `client.Subscribe` before `GetQuote` returns data. HK stocks do not.
 - **Simulate trading** — many order/flow APIs are not supported. Use real trading environment (`WithTradeEnv(constant.TrdEnv_Real)`) with `FUTU_TRADE_PWD` set.
 - **Futures accounts** — use `GetAccList(TrdCategory_Future)`, not `GetAccountList` which only returns stock/options accounts.
