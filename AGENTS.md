@@ -28,7 +28,7 @@ go run ./examples/00_connect
 
 ```
 futuapi4go-demo/
-├── examples/                  # 90 standalone examples (00-90)
+├── examples/                  # 95 standalone examples (00-95)
 │   ├── README.md              # Example descriptions & links
 │   ├── 00_connect/           # client.Connect
 │   ├── 01_quote/             # client.GetQuote
@@ -38,7 +38,7 @@ futuapi4go-demo/
 │   ├── 05_broker/           # chanpkg.SubscribeBroker
 │   ├── 06_kline_single/     # client.GetKLines
 │   ├── 07_kline_multi/      # chanpkg.SubscribeKLines
-│   └── ... (68 more: 08-90)
+│   └── ... (73 more: 08-95)
 ├── AGENTS.md
 └── README.md
 ```

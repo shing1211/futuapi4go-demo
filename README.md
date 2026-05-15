@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/futuapi4go-v0.5.17-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 90 standalone examples (00–90), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 95 standalone examples (00–95), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Quick Start
 
@@ -16,7 +16,7 @@
 git clone https://github.com/shing1211/futuapi4go-demo.git
 cd futuapi4go-demo
 
-# Run an example (90 examples: 00–90)
+# Run an example (95 examples: 00–95)
 go run ./examples/00_connect
 go run ./examples/00_rsa_connect   # RSA-encrypted remote connection
 go run ./examples/01_quote
@@ -38,7 +38,7 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-└── examples/           # 90 standalone examples (00–90), one main.go each
+└── examples/           # 95 standalone examples (00–95), one main.go each
     ├── 00_connect/     # client.Connect
     ├── 00_rsa_connect/ # client.Connect with RSA encryption (remote OpenD)
     ├── 00_ws_connect/  # client.ConnectWS (WebSocket)
@@ -55,7 +55,12 @@ futuapi4go-demo/
     ├── 87_option_tools/          # Option filtering & analysis toolkit
     ├── 88_convenience_trading/   # One-liner convenience trading
     ├── 89_quota_manager/         # Subscription quota management
-    └── 90_system_diagnostics/    # OpenD connection diagnostic
+    ├── 90_system_diagnostics/    # OpenD connection diagnostic
+    ├── 91_orderbook_imbalance/   # Order book imbalance & liquidity
+    ├── 92_pairs_trading/         # Pairs trading / stat arb scanner
+    ├── 93_smart_money/           # Smart money flow tracker
+    ├── 94_portfolio_rebalance/   # Portfolio rebalancer
+    └── 95_earnings_vol_strategy/ # Earnings volatility strategy
 ```
 
 ## Environment Variables
@@ -68,7 +73,7 @@ futuapi4go-demo/
 | `FUTU_WS_ADDR` | WebSocket OpenD address | `127.0.0.1:11113` |
 | `FUTU_WS_SECRET` | WebSocket secret key | (not set) |
 
-## All Examples (00–90)
+## All Examples (00–95)
 
 ### Connection Examples (00 Connect Series)
 
@@ -197,6 +202,16 @@ futuapi4go-demo/
 | 88 | [`88_convenience_trading`](./examples/88_convenience_trading) | `client.PlaceOrder` + `client.GetFunds` + `client.GetPositionList` | Simplest possible one-liner trading operations |
 | 89 | [`89_quota_manager`](./examples/89_quota_manager) | `SystemAPI.GetUsedQuota` + `SubscribeSymbols` + `Unsubscribe` + `UnsubscribeAll` | Subscription quota management |
 | 90 | [`90_system_diagnostics`](./examples/90_system_diagnostics) | `GetGlobalState` + `CanSendProto` + `TestCmd` + `GetConnID` + `GetMarketState` | Comprehensive OpenD connection diagnostic |
+
+### Quantitative Trading Strategies (91-95)
+
+| # | Example | SDK Functions | Description |
+|---|---------|---------------|-------------|
+| 91 | [`91_orderbook_imbalance`](./examples/91_orderbook_imbalance) | `SubscribeOrderBook` + `GetOrderBook` + `OrderBookDetail` (iceberg detection) | Real-time bid/ask imbalance, liquidity pressure scoring, iceberg/spoof detection |
+| 92 | [`92_pairs_trading`](./examples/92_pairs_trading) | `GetKLines` (60d) + `GetQuote` + Pearson correlation + spread z-score | Statistical arbitrage: correlation, spread normalization, mean-reversion signals |
+| 93 | [`93_smart_money`](./examples/93_smart_money) | `GetCapitalFlow` + `GetCapitalDistribution` + `GetBroker` + `GetOrderBook` | Institutional accumulation/distribution score from 4 fused data sources |
+| 94 | [`94_portfolio_rebalance`](./examples/94_portfolio_rebalance) | `GetPositionList` + `GetFunds` + `GetQuote` + `GetMaxTrdQtys` + `PlaceOrder` | Multi-asset portfolio rebalancer with PDT-aware drift correction |
+| 95 | [`95_earnings_vol_strategy`](./examples/95_earnings_vol_strategy) | `GetOptionExpirationDate` + `GetOptionChain` + `GetKLines` (120d) | Earnings straddle: implied move vs historical move, vol strategy builder |
 
 ## Common Patterns
 

@@ -125,4 +125,14 @@ For full documentation, see the [root README.md](../README.md).
 | 89 | [`89_quota_manager`](./89_quota_manager) | `SystemAPI.GetUsedQuota` + `SubscribeSymbols` + `Unsubscribe` + `UnsubscribeAll` + `GetSubInfo` | Subscription quota management with batch operations |
 | 90 | [`90_system_diagnostics`](./90_system_diagnostics) | `GetGlobalState` + `CanSendProto` + `TestCmd` + `GetUserInfo` + `GetConnID` + `GetServerVer` + `GetLoginUserID` + `GetMarketState` | Comprehensive OpenD connection diagnostic |
 
-**90 examples total** — all SDK functions covered except `client.GetDelayStatistics` (known OpenD proto bug).
+### Quantitative Trading Strategies (91-95)
+
+| # | Example | SDK Functions | Description |
+|---|---------|---------------|-------------|
+| 91 | [`91_orderbook_imbalance`](./91_orderbook_imbalance) | `SubscribeOrderBook` (push) + `GetOrderBook` + `OrderBookDetail` (iceberg detection) | Real-time bid/ask imbalance, liquidity pressure scoring, iceberg/spoof detection |
+| 92 | [`92_pairs_trading`](./92_pairs_trading) | `GetKLines` (60-day) + `GetQuote` + correlation + spread z-score | Statistical arbitrage: Pearson correlation, spread normalization, mean-reversion signals |
+| 93 | [`93_smart_money`](./93_smart_money) | `GetCapitalFlow` + `GetCapitalDistribution` + `GetBroker` + `GetOrderBook` | Institutional accumulation/distribution score from 4 fused data sources |
+| 94 | [`94_portfolio_rebalance`](./94_portfolio_rebalance) | `GetPositionList` + `GetFunds` + `GetQuote` + `GetMaxTrdQtys` + `PlaceOrder` | Multi-asset portfolio rebalancer with PDT-aware drift correction |
+| 95 | [`95_earnings_vol_strategy`](./95_earnings_vol_strategy) | `GetOptionExpirationDate` + `GetOptionChain` + `GetKLines` (120-day) | Earnings straddle: implied move vs historical move, vol strategy builder |
+
+**95 examples total** — all SDK functions covered except `client.GetDelayStatistics` (known OpenD proto bug).
