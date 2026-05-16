@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-05-16
+
+### Added
+
+- **State machine shutdown example** — New `examples/98_state_shutdown` demonstrating connection state monitoring with `WithOnStateChange` callback, `State()` query, and graceful `Shutdown()` with drain timeout.
+- **Order audit validation example** — New `examples/99_audit_validation` demonstrating pre-flight `ValidateOrder` checks, `HasErrors` routing, and structured audit logging via `NewAuditLogger`.
+
+### Changed
+
+- **New SDK APIs** — uses local SDK with `State()`, `Shutdown()`, `WithOnStateChange()`, `trd.ValidateOrder`, and `trd.NewAuditLogger`.
+- **go.mod** — added `replace` directive pointing to local `../futuapi4go` for unreleased SDK features.
+- **README.md** — updated example count (97 → 99), added Lifecycle & Audit category.
+- **docs/EXAMPLES.md** — added entries for examples 98 and 99.
+
 ## [0.7.0] - 2026-05-16
 
 ### Added

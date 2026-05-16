@@ -1,6 +1,6 @@
 # Example Reference
 
-> All 96 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
+> All 99 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
 > Each example is a `main.go` in its own directory under `examples/`.
 > Run with: `go run ./examples/NN_name`
 
@@ -153,3 +153,5 @@
 | # | Example | SDK Functions | Description |
 |---|---------|---------------|-------------|
 | 97 | [`97_opentelemetry_tracing`](../examples/97_opentelemetry_tracing) | `tracing.SetTracer` + `otel.NewTracer` | OpenTelemetry tracing setup: stdout exporter, TracerProvider, auto-generated spans |
+| 98 | [`98_state_shutdown`](../examples/98_state_shutdown) | `WithOnStateChange` + `State` + `Shutdown` | Connection state machine monitoring and graceful shutdown |
+| 99 | [`99_audit_validation`](../examples/99_audit_validation) | `ValidateOrder` + `HasErrors` + `NewAuditLogger` | Order pre-flight validation and structured audit logging |
