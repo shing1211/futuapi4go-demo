@@ -24,7 +24,11 @@ func main() {
 	defer mc.Close()
 
 	ch := make(chan *push.UpdateKL, 100)
-	stop := chanpkg.SubscribeKLine(context.Background(), mc.Client, constant.Market_US, "NVDA", constant.KLType_K_5Min, ch)
+	stop, err := chanpkg.SubscribeKLine(context.Background(), mc.Client, constant.Market_US, "NVDA", constant.KLType_K_5Min, ch)
+	if err != nil {
+		fmt.Printf("SubscribeKLine: %v\n", err)
+		return
+	}
 	defer stop()
 
 	sig := make(chan os.Signal, 1)

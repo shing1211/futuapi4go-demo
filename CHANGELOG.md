@@ -9,8 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Upgraded futuapi4go to v0.5.17** — RSA+FTAES encryption is now opt-in, not auto-enabled by RSA key. Previously the SDK forced `isEncrypt=1` when an RSA key was configured, causing the server to reject encrypted GetGlobalState requests. Now defaults to no encryption (matching Python SDK's `IS_PROTO_ENCRYPT = False`). Added `WithEncryption()` and `WithRSAPrivateKey()` options for opt-in FTAES encryption.
-- **go.mod** — updated SDK dependency to v0.5.17
+- **Upgraded futuapi4go to v0.6.1** — Major SDK restructuring (Phase 1-4):
+  file splits for maintainability, typed push callbacks (`OnQuote`, `OnOrder`, etc.),
+  `WithEnvConfig()` for env-based configuration, `pkg/futuapi` convenience re-export,
+  JSON tags on all struct fields, 88 new util tests, mock OpenD server, and internal
+  rename `plaintextSHA1` → `encryptedBodySHA1`.
+  Full changelog: https://github.com/shing1211/futuapi4go/blob/main/CHANGELOG.md
+- **go.mod** — updated SDK dependency to v0.6.1
 
 ## [0.5.12] - 2026-05-14
 

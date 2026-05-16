@@ -17,31 +17,42 @@ func main() {
 	mc := connect.MustConnect(context.Background())
 	defer mc.Close()
 
-	stop := chanpkg.SubscribeKLines(context.Background(), mc.Client, constant.Market_US, "NVDA", map[constant.KLType]func(*push.UpdateKL){
-		constant.KLType_K_1Min: func(kl *push.UpdateKL) {
-			for _, bar := range kl.KLList {
-				fmt.Printf("[1min]  %s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
-					*bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
-			}
-		},
-		constant.KLType_K_5Min: func(kl *push.UpdateKL) {
-			for _, bar := range kl.KLList {
-				fmt.Printf("[5min]  %s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
-					*bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
-			}
-		},
-		constant.KLType_K_Day: func(kl *push.UpdateKL) {
-			for _, bar := range kl.KLList {
-				fmt.Printf("[day]   %s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
-					*bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
-			}
-		},
-	})
+	ctx := context.Background()
+	ch := make(chan *push.UpdateKL, 100)
+	stop, err := chanpkg.SubscribeKLines(ctx, mc.Client, int32(constant.Market_US), "NVDA",
+		[]int32{int32(constant.KLType_K_1Min), int32(constant.KLType_K_5Min), int32(constant.KLType_K_Day)}, ch)
+	if err != nil {
+		fmt.Printf("SubscribeKLines: %v\n", err)
+		return
+	}
 	defer stop()
 
 	sig := make(chan os.Signal, 1)
 	signal.Notify(sig, syscall.SIGINT, syscall.SIGTERM)
 
 	fmt.Println("Listening for NVDA K-lines 1m/5m/day (Ctrl+C to exit)...")
-	<-sig
+	for {
+		select {
+		case kl := <-ch:
+			prefix := ""
+			switch kl.KlType {
+			case int32(constant.KLType_K_1Min):
+				prefix = "[1min]"
+			case int32(constant.KLType_K_5Min):
+				prefix = "[5min]"
+			case int32(constant.KLType_K_Day):
+				prefix = "[day]"
+			}
+			for _, bar := range kl.KLList {
+				if bar == nil {
+					continue
+				}
+				fmt.Printf("%s  %s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
+					prefix, *bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
+			}
+		case <-sig:
+			fmt.Println("Shutting down...")
+			return
+		}
+	}
 }

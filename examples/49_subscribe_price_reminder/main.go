@@ -17,7 +17,11 @@ func main() {
 	defer mc.Close()
 
 	ch := make(chan *push.UpdatePriceReminder, 100)
-	stop := chanpkg.SubscribePriceReminder(context.Background(), mc.Client, ch)
+	stop, err := chanpkg.SubscribePriceReminder(context.Background(), mc.Client, ch)
+	if err != nil {
+		fmt.Printf("SubscribePriceReminder: %v\n", err)
+		return
+	}
 	defer stop()
 
 	sig := make(chan os.Signal, 1)

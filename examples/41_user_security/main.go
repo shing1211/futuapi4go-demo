@@ -52,7 +52,7 @@ func main() {
 		case 3:
 			groupTypeStr = "Smart"
 		}
-		fmt.Printf("📁 %s (type=%d)\n", g.Name, groupTypeStr)
+		fmt.Printf("📁 %s (type=%s)\n", g.Name, groupTypeStr)
 
 		stocks, err := client.GetUserSecurity(context.Background(), mc.Client, g.Name)
 		if err != nil {

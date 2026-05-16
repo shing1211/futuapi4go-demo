@@ -48,7 +48,11 @@ func main() {
 	fmt.Println()
 
 	ch := make(chan *push.UpdateOrderBook, 100)
-	stop := chanpkg.SubscribeOrderBook(ctx, mc.Client, constant.Market_US, symbol, ch)
+	stop, err := chanpkg.SubscribeOrderBook(ctx, mc.Client, constant.Market_US, symbol, ch)
+	if err != nil {
+		fmt.Printf("SubscribeOrderBook: %v\n", err)
+		return
+	}
 	defer stop()
 
 	sig := make(chan os.Signal, 1)
