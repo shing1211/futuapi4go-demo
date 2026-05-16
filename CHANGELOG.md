@@ -13,12 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **State machine shutdown example** — New `examples/98_state_shutdown` demonstrating connection state monitoring with `WithOnStateChange` callback, `State()` query, and graceful `Shutdown()` with drain timeout.
 - **Order audit validation example** — New `examples/99_audit_validation` demonstrating pre-flight `ValidateOrder` checks, `HasErrors` routing, and structured audit logging via `NewAuditLogger`.
+- **KL cache example** — New `examples/100_kl_cache` demonstrating LRU+TTL K-line cache with hit/miss behavior, cleanup, and size monitoring.
+- **OTel metrics example** — New `examples/101_otel_metrics` demonstrating all OTel meter record functions: connections, API calls, latency, push messages, rate limiting, retry, breaker state.
 
 ### Changed
 
 - **New SDK APIs** — uses local SDK with `State()`, `Shutdown()`, `WithOnStateChange()`, `trd.ValidateOrder`, and `trd.NewAuditLogger`.
 - **go.mod** — added `replace` directive pointing to local `../futuapi4go` for unreleased SDK features.
-- **README.md** — updated example count (97 → 99), added Lifecycle & Audit category.
+- **README.md** — updated example count (97 → 101), added Lifecycle & Audit category, updated Infrastructure & Tracing range.
 - **docs/EXAMPLES.md** — added entries for examples 98 and 99.
 
 ## [0.7.0] - 2026-05-16

@@ -28,7 +28,7 @@ go run ./examples/00_connect
 
 ```
 futuapi4go-demo/
-├── examples/                  # 96 standalone examples (00-96)
+├── examples/                  # 101 standalone examples (00-96)
 │   ├── README.md              # Example descriptions & links
 │   ├── 00_connect/           # client.Connect
 │   ├── 01_quote/             # client.GetQuote

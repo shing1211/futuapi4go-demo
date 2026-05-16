@@ -1,6 +1,6 @@
 # Example Reference
 
-> All 99 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
+> All 101 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
 > Each example is a `main.go` in its own directory under `examples/`.
 > Run with: `go run ./examples/NN_name`
 
@@ -148,10 +148,12 @@
 |---|---------|---------------|-------------|
 | 96 | [`96_get_delay_statistics`](../examples/96_get_delay_statistics) | `client.GetDelayStatistics` | Performance delay statistics with graceful error handling |
 
-## Infrastructure & Tracing (97)
+## Infrastructure, Tracing & Advanced Features (97–101)
 
 | # | Example | SDK Functions | Description |
 |---|---------|---------------|-------------|
 | 97 | [`97_opentelemetry_tracing`](../examples/97_opentelemetry_tracing) | `tracing.SetTracer` + `otel.NewTracer` | OpenTelemetry tracing setup: stdout exporter, TracerProvider, auto-generated spans |
 | 98 | [`98_state_shutdown`](../examples/98_state_shutdown) | `WithOnStateChange` + `State` + `Shutdown` | Connection state machine monitoring and graceful shutdown |
 | 99 | [`99_audit_validation`](../examples/99_audit_validation) | `ValidateOrder` + `HasErrors` + `NewAuditLogger` | Order pre-flight validation and structured audit logging |
+| 100 | [`100_kl_cache`](../examples/100_kl_cache) | `cache.NewKLCache` + `cache.NewKLCachedClient` | K-line LRU+TTL cache: hit/miss behavior, cleanup, size monitoring |
+| 101 | [`101_otel_metrics`](../examples/101_otel_metrics) | `otel.NewOTelMeter` | OpenTelemetry metrics: connection, API calls, latency, rate limiting, breaker state |

@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/badge/futuapi4go-v0.8.0-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 99 standalone examples (00–99), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 101 standalone examples (00–101), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Table of Contents
 
@@ -54,7 +54,7 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-├── examples/               # 99 standalone programs (00–99)
+├── examples/               # 101 standalone programs (00–99)
 │   ├── 00_connect/        # client.Connect
 │   ├── 00_rsa_connect/    # TCP + RSA encryption
 │   ├── 00_ws_connect/     # WebSocket connection
@@ -68,7 +68,7 @@ futuapi4go-demo/
     └── connect/           # MustConnect, ManagedConnection (HA)
 ```
 
-See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 99-example reference.
+See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 101-example reference.
 
 ## Example Categories
 
@@ -80,7 +80,7 @@ See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 99-example referen
 | Futures & Options | 6 | `70–75` | Futures/options accounts, positions, margin |
 | Advanced Combo | 5 | `76–80` | Pre-trade checks, DCA grid bot, VWAP |
 | Advanced Trading | 5 | `81–85` | Options trading, trailing stop, risk analysis |
-| Infrastructure & Tracing | 6 | `86–90, 97` | History downloader, quota manager, diagnostics, OTel tracing |
+| Infrastructure & Tracing | 8 | `86–90, 97, 100–101` | History downloader, quota manager, diagnostics, OTel tracing, KL cache, OTel metrics |
 | Quant Strategies | 5 | `91–95` | Order book imbalance, pairs trading, smart money |
 | Special | 1 | `96` | Delay statistics |
 | Lifecycle & Audit | 2 | `98–99` | State machine shutdown, order audit validation |
@@ -152,7 +152,7 @@ accID := acc.AccID
 ## See Also
 
 - **[futuapi4go](https://github.com/shing1211/futuapi4go)** — the Go SDK this demo is built on
-- [Full Example Reference](docs/EXAMPLES.md) — complete table of all 99 examples
+- [Full Example Reference](docs/EXAMPLES.md) — complete table of all 101 examples
 - [Architecture](ARCHITECTURE.md) — design overview, execution flows, Mermaid diagram
 - [CHANGELOG](CHANGELOG.md) — version history and release notes
 
