@@ -34,8 +34,9 @@ func main() {
 		select {
 		case t := <-ch:
 			for _, tick := range t.TickerList {
-				fmt.Printf("TICKER: price=%.2f vol=%d dir=%d\n",
-					tick.GetPrice(), tick.GetVolume(), tick.GetDir())
+				fmt.Printf("TICKER: time=%s seq=%d dir=%d price=%.2f vol=%d turnover=%.2f recvTime=%.0f type=%d typeSign=%d ts=%.0f\n",
+					tick.GetTime(), tick.GetSequence(), tick.GetDir(), tick.GetPrice(), tick.GetVolume(),
+					tick.GetTurnover(), tick.GetRecvTime(), tick.GetType(), tick.GetTypeSign(), tick.GetTimestamp())
 			}
 		case <-sig:
 			return

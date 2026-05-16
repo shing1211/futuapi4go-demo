@@ -23,7 +23,7 @@ func main() {
 		log.Fatalf("GetRT failed: %v", err)
 	}
 	for _, r := range rt {
-		fmt.Printf("RT: time=%s price=%.2f vol=%d avg=%.2f\n",
-			r.Time, r.Price, r.Volume, r.AvgPrice)
+		fmt.Printf("RT: time=%s minute=%d isBlank=%v price=%.2f lastClose=%.2f avgPrice=%.2f vol=%d turnover=%.2f ts=%.0f\n",
+			r.Time, r.Minute, r.IsBlank, r.Price, r.LastClose, r.AvgPrice, r.Volume, r.Turnover, r.Timestamp)
 	}
 }

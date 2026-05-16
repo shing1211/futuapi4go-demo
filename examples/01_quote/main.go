@@ -22,6 +22,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("GetQuote failed: %v", err)
 	}
-	fmt.Printf("NVDA: price=%.2f open=%.2f high=%.2f low=%.2f vol=%d\n",
-		quote.Price, quote.Open, quote.High, quote.Low, quote.Volume)
+	fmt.Printf("NVDA: price=%.2f open=%.2f high=%.2f low=%.2f vol=%d isSuspended=%v secStatus=%d\n",
+		quote.Price, quote.Open, quote.High, quote.Low, quote.Volume, quote.IsSuspended, quote.SecStatus)
 }

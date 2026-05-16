@@ -34,8 +34,8 @@ func main() {
 		select {
 		case rt := <-ch:
 			for _, r := range rt.RTList {
-				fmt.Printf("RT: time=%s price=%.2f vol=%d avg=%.2f\n",
-					r.GetTime(), r.GetPrice(), r.GetVolume(), r.GetAvgPrice())
+				fmt.Printf("RT: time=%s minute=%d isBlank=%v price=%.2f lastClose=%.2f avgPrice=%.2f vol=%d turnover=%.2f ts=%.0f\n",
+					r.GetTime(), r.GetMinute(), r.GetIsBlank(), r.GetPrice(), r.GetLastClosePrice(), r.GetAvgPrice(), r.GetVolume(), r.GetTurnover(), r.GetTimestamp())
 			}
 		case <-sig:
 			return

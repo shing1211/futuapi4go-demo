@@ -34,12 +34,12 @@ func main() {
 		select {
 		case b := <-ch:
 			for _, bid := range b.BidBrokerList {
-				fmt.Printf("BID BROKER: name=%s pos=%d\n",
-					bid.GetName(), bid.GetPos())
+				fmt.Printf("BID BROKER: name=%s pos=%d orderID=%d\n",
+					bid.GetName(), bid.GetPos(), bid.GetOrderID())
 			}
 			for _, ask := range b.AskBrokerList {
-				fmt.Printf("ASK BROKER: name=%s pos=%d\n",
-					ask.GetName(), ask.GetPos())
+				fmt.Printf("ASK BROKER: name=%s pos=%d orderID=%d\n",
+					ask.GetName(), ask.GetPos(), ask.GetOrderID())
 			}
 		case <-sig:
 			return
