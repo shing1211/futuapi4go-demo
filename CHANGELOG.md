@@ -7,11 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-05-16
+
+### Added
+
+- **OTel tracing example** — New `examples/97_opentelemetry_tracing` showing OpenTelemetry setup with stdout exporter, TracerProvider, and auto-generated spans from SDK calls.
+
 ### Changed
 
+- **Upgraded futuapi4go to v0.7.0** — Adds OpenTelemetry tracing (opt-in), goreleaser release automation, and trilingual package docs.
 - **Documentation overhaul**: Rewrote README.md (~120 lines, -56%) with TOC, grouped example categories, and cleaner structure. Created `docs/EXAMPLES.md` with full 96-example reference. Removed redundant `examples/README.md` and outdated `examples/00_ws_connect/README.md`.
-- **ARCHITECTURE.md** — Updated SDK version (v0.5.17 → v0.6.2), example count (81 → 96), added quant strategies (91–95) to area tables and Mermaid diagram.
-- **SECURITY.md** — Added 0.6.x to supported versions.
+- **ARCHITECTURE.md** — Updated SDK version (v0.5.17 → v0.6.2 → v0.7.0), example count (81 → 96 → 97), added quant strategies (91–95) to area tables and Mermaid diagram.
+- **SECURITY.md** — Added 0.6.x and 0.7.x to supported versions.
+- **go.mod** — updated SDK dependency to v0.6.2 → v0.7.0
 
 ## [0.6.2] - 2026-05-16
 

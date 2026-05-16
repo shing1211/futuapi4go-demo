@@ -147,3 +147,9 @@
 | # | Example | SDK Functions | Description |
 |---|---------|---------------|-------------|
 | 96 | [`96_get_delay_statistics`](../examples/96_get_delay_statistics) | `client.GetDelayStatistics` | Performance delay statistics with graceful error handling |
+
+## Infrastructure & Tracing (97)
+
+| # | Example | SDK Functions | Description |
+|---|---------|---------------|-------------|
+| 97 | [`97_opentelemetry_tracing`](../examples/97_opentelemetry_tracing) | `tracing.SetTracer` + `otel.NewTracer` | OpenTelemetry tracing setup: stdout exporter, TracerProvider, auto-generated spans |

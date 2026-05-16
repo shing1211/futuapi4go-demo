@@ -4,10 +4,10 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.6.2-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.7.0-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 96 standalone examples (00–96), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 97 standalone examples (00–97), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Table of Contents
 
@@ -54,13 +54,14 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-├── examples/               # 96 standalone programs (00–96)
+├── examples/               # 97 standalone programs (00–97)
 │   ├── 00_connect/        # client.Connect
 │   ├── 00_rsa_connect/    # TCP + RSA encryption
 │   ├── 00_ws_connect/     # WebSocket connection
 │   ├── 01_quote/          # GetQuote
 │   ├── ...                # (see docs/EXAMPLES.md for full list)
-│   └── 96_get_delay_statistics/
+│   ├── 96_get_delay_statistics/
+│   └── 97_opentelemetry_tracing/
 └── examples/pkg/          # Shared helpers
     └── connect/           # MustConnect, ManagedConnection (HA)
 ```
@@ -77,7 +78,7 @@ See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 96-example referen
 | Futures & Options | 6 | `70–75` | Futures/options accounts, positions, margin |
 | Advanced Combo | 5 | `76–80` | Pre-trade checks, DCA grid bot, VWAP |
 | Advanced Trading | 5 | `81–85` | Options trading, trailing stop, risk analysis |
-| Infrastructure | 5 | `86–90` | History downloader, quota manager, diagnostics |
+| Infrastructure & Tracing | 6 | `86–90, 97` | History downloader, quota manager, diagnostics, OTel tracing |
 | Quant Strategies | 5 | `91–95` | Order book imbalance, pairs trading, smart money |
 | Special | 1 | `96` | Delay statistics |
 
