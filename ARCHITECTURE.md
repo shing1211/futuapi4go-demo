@@ -2,13 +2,13 @@
 
 ## Overview
 
-`futuapi4go-demo` is a repository of **81 standalone Go examples** demonstrating the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK for connecting to Futu's OpenD trading gateway. Each example is a self-contained `main.go` that exercises one or more SDK functions.
+`futuapi4go-demo` is a repository of **96 standalone Go examples** demonstrating the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK for connecting to Futu's OpenD trading gateway. Each example is a self-contained `main.go` that exercises one or more SDK functions.
 
 The repository has three layers:
 
-1. **Examples (00–80)** — the visible surface; each is a runnable program
+1. **Examples (00–96)** — the visible surface; each is a runnable program
 2. **Shared helpers (`examples/pkg/`)** — reusable connection management
-3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.5.17`)
+3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.6.2`)
 
 ## Functional Areas
 
@@ -136,6 +136,18 @@ Multi-function workflows that combine several SDK calls.
 | 79 | `79_momentum_scanner` | `StockFilter` → `GetSecuritySnapshot` → `GetKLines` for momentum scoring |
 | 80 | `80_vwap_executor` | `GetOrderBook` → VWAP calculation → split order execution |
 
+### Area 9 — Quantitative Strategies (examples 91–95)
+
+Multi-source signal fusion and automated trading logic.
+
+| # | Example | SDK Functions |
+|---|---------|---------------|
+| 91 | `91_orderbook_imbalance` | `GetOrderBook` + `SubscribeOrderBook` — bid/ask imbalance scoring, iceberg detection |
+| 92 | `92_pairs_trading` | `GetKLines` + Pearson correlation + spread z-score — stat arb pairs |
+| 93 | `93_smart_money` | `GetCapitalFlow` + `GetCapitalDistribution` + `GetBroker` + `GetOrderBook` — institutional flow |
+| 94 | `94_portfolio_rebalance` | `GetPositionList` + `GetFunds` + `GetMaxTrdQtys` + `PlaceOrder` — multi-asset rebalancer |
+| 95 | `95_earnings_vol_strategy` | `GetOptionChain` + `GetKLines` — earnings straddle, implied vs historical vol |
+
 ## Key Execution Flows
 
 ### Flow 1 — Streaming Quote (Ticker)
@@ -197,7 +209,7 @@ main
 
 ```mermaid
 flowchart TB
-    subgraph examples["examples/ — 81 standalone programs"]
+    subgraph examples["examples/ — 96 standalone programs"]
         direction TB
         subgraph connection["Connection (00_*)\n3 examples"]
             c0[00_connect\nplain TCP]
@@ -226,13 +238,18 @@ flowchart TB
             dca[78_dca_grid_bot\nDCA + Grid]
             scan[79_momentum_scanner\nFilter + Snapshot + KL]
         end
+        subgraph quant["Quant Strategies (91-95)\n5 examples"]
+            imb[91_orderbook_imbalance\nbid/ask imbalance]
+            pairs[92_pairs_trading\nstat arb pairs]
+            smart[93_smart_money\ninstitutional flow]
+        end
     end
 
     subgraph pkg["examples/pkg/"]
         connect_pkg["connect/\nMustConnect, ManagedConnection\nHA: probe → connect → keepalive → reconnect"]
     end
 
-    subgraph sdk["github.com/shing1211/futuapi4go v0.5.17"]
+    subgraph sdk["github.com/shing1211/futuapi4go v0.6.2"]
         client_pkg["client/\nConnect, GetQuote, PlaceOrder, ..."]
         chanpkg["chanpkg/\nSubscribeTicker, SubscribeKLine, ..."]
         push["push/\nUpdateTicker, UpdateKL, ..."]
@@ -255,6 +272,8 @@ flowchart TB
     trade --> client_pkg
     advanced --> client_pkg
     advanced --> chanpkg
+    quant --> client_pkg
+    quant --> chanpkg
 
     client_pkg --> pb
     chanpkg --> push

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Documentation overhaul**: Rewrote README.md (~120 lines, -56%) with TOC, grouped example categories, and cleaner structure. Created `docs/EXAMPLES.md` with full 96-example reference. Removed redundant `examples/README.md` and outdated `examples/00_ws_connect/README.md`.
+- **ARCHITECTURE.md** — Updated SDK version (v0.5.17 → v0.6.2), example count (81 → 96), added quant strategies (91–95) to area tables and Mermaid diagram.
+- **SECURITY.md** — Added 0.6.x to supported versions.
+
 ## [0.6.2] - 2026-05-16
 
 ### Changed

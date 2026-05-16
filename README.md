@@ -9,60 +9,77 @@
 
 > **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 96 standalone examples (00–96), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Example Categories](#example-categories)
+- [Environment Variables](#environment-variables)
+- [Common Patterns](#common-patterns)
+- [Troubleshooting](#troubleshooting)
+- [See Also](#see-also)
+- [License](#license)
+
 ## Quick Start
 
-```powershell
+```bash
 # Clone and run
 git clone https://github.com/shing1211/futuapi4go-demo.git
 cd futuapi4go-demo
 
-# Run an example (96 examples: 00–96)
+# Run an example
 go run ./examples/00_connect
-go run ./examples/00_rsa_connect   # RSA-encrypted remote connection
-go run ./examples/01_quote
+# Output: Connected to local OpenD @ 127.0.0.1:11111
 
-# Custom OpenD address
-$env:FUTU_ADDR="192.168.1.100:11111"
 go run ./examples/01_quote
+# Output: HK.00700 -> 380.20 / 380.40 | high=385.00 low=376.50 vol=15,234,567
 ```
 
-### Real Trading (requires unlocked account)
+### Real Trading
 
-```powershell
-# Set trading password (MD5 hash of your trade password)
+```bash
 $env:FUTU_TRADE_PWD="32-char-md5-hex-string"
 go run ./examples/54_cancel_all_order
 ```
+
+## Prerequisites
+
+- Go 1.26+
+- A running [Futu OpenD](https://www.futunn.com/en/overview) instance (default: `127.0.0.1:11111`)
+- For remote connections: RSA key pair (see `00_rsa_connect`)
+- For real trading: account unlocked with trade password MD5 hash
 
 ## Project Structure
 
 ```
 futuapi4go-demo/
-└── examples/           # 96 standalone examples (00–96), one main.go each
-    ├── 00_connect/     # client.Connect
-    ├── 00_rsa_connect/ # client.Connect with RSA encryption (remote OpenD)
-    ├── 00_ws_connect/  # client.ConnectWS (WebSocket)
-    ├── 01_quote/       # client.GetQuote
-    ├── ...
-    ├── 66_multi_symbol_kline/   # Batch K-line retrieval
-    ├── 67_order_lifecycle/       # Full order workflow
-    ├── 81_options_trading/       # Options chain analysis + covered call
-    ├── 82_trailing_stop/         # Trailing stop order demo
-    ├── 83_trade_push_monitor/    # Real-time trade push monitor
-    ├── 84_order_builder/         # Fluent OrderBuilder API
-    ├── 85_risk_analyzer/         # Portfolio risk & PDT analysis
-    ├── 86_history_downloader/    # Bulk historical data pipeline
-    ├── 87_option_tools/          # Option filtering & analysis toolkit
-    ├── 88_convenience_trading/   # One-liner convenience trading
-    ├── 89_quota_manager/         # Subscription quota management
-    ├── 90_system_diagnostics/    # OpenD connection diagnostic
-    ├── 91_orderbook_imbalance/   # Order book imbalance & liquidity
-    ├── 92_pairs_trading/         # Pairs trading / stat arb scanner
-    ├── 93_smart_money/           # Smart money flow tracker
-    ├── 94_portfolio_rebalance/   # Portfolio rebalancer
-    ├── 95_earnings_vol_strategy/ # Earnings volatility strategy
-    └── 96_get_delay_statistics/  # Performance delay statistics
+├── examples/               # 96 standalone programs (00–96)
+│   ├── 00_connect/        # client.Connect
+│   ├── 00_rsa_connect/    # TCP + RSA encryption
+│   ├── 00_ws_connect/     # WebSocket connection
+│   ├── 01_quote/          # GetQuote
+│   ├── ...                # (see docs/EXAMPLES.md for full list)
+│   └── 96_get_delay_statistics/
+└── examples/pkg/          # Shared helpers
+    └── connect/           # MustConnect, ManagedConnection (HA)
 ```
+
+See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 96-example reference.
+
+## Example Categories
+
+| Category | Count | Range | Purpose |
+|----------|-------|-------|---------|
+| Connection | 3 | `00_*` | Plain TCP, RSA-encrypted TCP, WebSocket |
+| Basic Functions | 65 | `01–65` | One-shot & streaming market data, trading, subscriptions |
+| Gap Fill | 4 | `66–69` | Multi-function workflows |
+| Futures & Options | 6 | `70–75` | Futures/options accounts, positions, margin |
+| Advanced Combo | 5 | `76–80` | Pre-trade checks, DCA grid bot, VWAP |
+| Advanced Trading | 5 | `81–85` | Options trading, trailing stop, risk analysis |
+| Infrastructure | 5 | `86–90` | History downloader, quota manager, diagnostics |
+| Quant Strategies | 5 | `91–95` | Order book imbalance, pairs trading, smart money |
+| Special | 1 | `96` | Delay statistics |
 
 ## Environment Variables
 
@@ -74,152 +91,6 @@ futuapi4go-demo/
 | `FUTU_WS_ADDR` | WebSocket OpenD address | `127.0.0.1:11113` |
 | `FUTU_WS_SECRET` | WebSocket secret key | (not set) |
 
-## All Examples (00–96)
-
-### Connection Examples (00 Connect Series)
-
-| # | Example | SDK Function | Description |
-|---|---------|-------------|-------------|
-| 00 | [`00_connect`](./examples/00_connect) | `client.Connect` | Plain TCP connection (local OpenD) |
-| 00 | [`00_rsa_connect`](./examples/00_rsa_connect) | `client.Connect` + RSA | RSA-encrypted connection (remote OpenD) |
-| 00 | [`00_ws_connect`](./examples/00_ws_connect) | `client.ConnectWS` | WebSocket connection |
-
-### Basic Function Examples (01-65)
-
-| # | Example | SDK Function |
-|---|---------|-------------|
-| 01 | [`01_quote`](./examples/01_quote) | `client.GetQuote` |
-| 02 | [`02_ticker`](./examples/02_ticker) | `chanpkg.SubscribeTicker` |
-| 03 | [`03_orderbook`](./examples/03_orderbook) | `chanpkg.SubscribeOrderBook` |
-| 04 | [`04_rt`](./examples/04_rt) | `chanpkg.SubscribeRT` |
-| 05 | [`05_broker`](./examples/05_broker) | `chanpkg.SubscribeBroker` |
-| 06 | [`06_kline_single`](./examples/06_kline_single) | `client.GetKLines` |
-| 07 | [`07_kline_multi`](./examples/07_kline_multi) | `chanpkg.SubscribeKLines` |
-| 08 | [`08_orderbook_req`](./examples/08_orderbook_req) | `client.GetOrderBook` |
-| 09 | [`09_ticker_req`](./examples/09_ticker_req) | `client.GetTicker` |
-| 10 | [`10_rt_req`](./examples/10_rt_req) | `client.GetRT` |
-| 11 | [`11_broker_req`](./examples/11_broker_req) | `client.GetBroker` |
-| 12 | [`12_capital_flow`](./examples/12_capital_flow) | `client.GetCapitalFlow` |
-| 13 | [`13_plate_set`](./examples/13_plate_set) | `client.GetPlateSet` |
-| 14 | [`14_plate_stock`](./examples/14_plate_stock) | `client.GetPlateSecurity` |
-| 15 | [`15_history_kline`](./examples/15_history_kline) | `client.RequestHistoryKL` |
-| 16 | [`16_market_state`](./examples/16_market_state) | `client.GetMarketState` |
-| 17 | [`17_global_state`](./examples/17_global_state) | `client.GetGlobalState` |
-| 18 | [`18_account_list`](./examples/18_account_list) | `client.GetAccountList` |
-| 19 | [`19_account_list`](./examples/19_account_list) | `client.GetAccountInfo` |
-| 20 | [`20_funds`](./examples/20_funds) | `client.GetFunds` |
-| 21 | [`21_positions`](./examples/21_positions) | `client.GetPositionList` |
-| 22 | [`22_place_order`](./examples/22_place_order) | `client.PlaceOrder` |
-| 23 | [`23_order_list`](./examples/23_order_list) | `client.GetOrderList` |
-| 24 | [`24_snapshot`](./examples/24_snapshot) | `client.GetSecuritySnapshot` |
-| 25 | [`25_trade_date`](./examples/25_trade_date) | `client.GetTradeDate` |
-| 26 | [`26_price_reminder`](./examples/26_price_reminder) | `client.GetPriceReminder` |
-| 27 | [`27_cancel_order`](./examples/27_cancel_order) | `client.ModifyOrder` (cancel) |
-| 28 | [`28_owner_plate`](./examples/28_owner_plate) | `client.GetOwnerPlate` |
-| 29 | [`29_capital_distribution`](./examples/29_capital_distribution) | `client.GetCapitalDistribution` |
-| 30 | [`30_stock_filter`](./examples/30_stock_filter) | `client.StockFilter` |
-| 31 | [`31_ipo_list`](./examples/31_ipo_list) | `client.GetIpoList` |
-| 32 | [`32_future_info`](./examples/32_future_info) | `client.GetFutureInfo` |
-| 33 | [`33_suspend`](./examples/33_suspend) | `client.GetSuspend` |
-| 34 | [`34_holding_change`](./examples/34_holding_change) | `client.GetHoldingChangeList` |
-| 35 | [`35_rehab`](./examples/35_rehab) | `client.RequestRehab` |
-| 36 | [`36_code_change`](./examples/36_code_change) | `client.GetCodeChange` |
-| 37 | [`37_warrant`](./examples/37_warrant) | `client.GetWarrant` |
-| 38 | [`38_option_chain`](./examples/38_option_chain) | `client.GetOptionChain` |
-| 39 | [`39_option_expiration`](./examples/39_option_expiration) | `client.GetOptionExpirationDate` |
-| 40 | [`40_reference`](./examples/40_reference) | `client.GetReference` |
-| 41 | [`41_user_security`](./examples/41_user_security) | `client.GetUserSecurityGroup` |
-| 42 | [`42_history_order`](./examples/42_history_order) | `client.GetHistoryOrderList` |
-| 43 | [`43_order_fill`](./examples/43_order_fill) | `client.GetOrderFillList` |
-| 44 | [`44_history_fill`](./examples/44_history_fill) | `client.GetHistoryOrderFillList` |
-| 45 | [`45_acc_trading_info`](./examples/45_acc_trading_info) | `client.GetAccTradingInfo` |
-| 46 | [`46_user_info`](./examples/46_user_info) | `client.GetUserInfo` |
-| 47 | [`47_subscribe_quote`](./examples/47_subscribe_quote) | `chanpkg.SubscribeQuote` |
-| 48 | [`48_subscribe_kline_single`](./examples/48_subscribe_kline_single) | `chanpkg.SubscribeKLine` |
-| 49 | [`49_subscribe_price_reminder`](./examples/49_subscribe_price_reminder) | `chanpkg.SubscribePriceReminder` |
-| 50 | [`50_unsubscribe`](./examples/50_unsubscribe) | `client.Unsubscribe` |
-| 51 | [`51_unsubscribe_all`](./examples/51_unsubscribe_all) | `client.UnsubscribeAll` |
-| 52 | [`52_query_subscription`](./examples/52_query_subscription) | `client.QuerySubscription` |
-| 53 | [`53_reg_qot_push`](./examples/53_reg_qot_push) | `client.RegQotPush` |
-| 54 | [`54_cancel_all_order`](./examples/54_cancel_all_order) | `client.CancelAllOrder` |
-| 55 | [`55_max_trd_qtys`](./examples/55_max_trd_qtys) | `client.GetMaxTrdQtys` |
-| 56 | [`56_order_fee`](./examples/56_order_fee) | `client.GetOrderFee` |
-| 57 | [`57_margin_ratio`](./examples/57_margin_ratio) | `client.GetMarginRatio` |
-| 58 | [`58_flow_summary`](./examples/58_flow_summary) | `client.GetFlowSummary` |
-| 59 | [`59_static_info`](./examples/59_static_info) | `client.GetStaticInfo` |
-| 60 | [`60_modify_user_security`](./examples/60_modify_user_security) | `client.ModifyUserSecurity` |
-| 61 | [`61_sub_info`](./examples/61_sub_info) | `client.GetSubInfo` |
-| 62 | [`62_set_price_reminder`](./examples/62_set_price_reminder) | `client.SetPriceReminder` |
-| 63 | [`63_sub_acc_push`](./examples/63_sub_acc_push) | `client.SubAccPush` |
-| 64 | [`64_reconfirm_order`](./examples/64_reconfirm_order) | `client.ReconfirmOrder` |
-| 65 | [`65_history_kl_quota`](./examples/65_history_kl_quota) | `client.RequestHistoryKLQuota` |
-
-### Gap Fill Examples (66-69)
-
-| # | Example | SDK Functions |
-|---|---------|---------------|
-| 66 | [`66_multi_symbol_kline`](./examples/66_multi_symbol_kline) | `Subscribe` + `GetKLines` + `RequestHistoryKL` |
-| 67 | [`67_order_lifecycle`](./examples/67_order_lifecycle) | `PlaceOrder` → `GetOrderList` → `ModifyOrder` |
-| 68 | [`68_market_hours_check`](./examples/68_market_hours_check) | `GetMarketState` + `GetTradeDate` |
-| 69 | [`69_subscribe_handler`](./examples/69_subscribe_handler) | `Subscribe` + push handlers (Ticker/KLine/OrderBook) |
-
-### Futures & Options Examples (70-75)
-
-| # | Example | Description |
-|---|---------|-------------|
-| 70 | [`70_futures_account_list`](./examples/70_futures_account_list) | `GetAccList(TrdCategory_Future)` for futures accounts |
-| 71 | [`71_futures_cash`](./examples/71_futures_cash) | Futures margin and cash queries |
-| 72 | [`72_futures_positions`](./examples/72_futures_positions) | `GetPositionList(TrdMarket_Futures)` |
-| 73 | [`73_options_account_list`](./examples/73_options_account_list) | Options rights check via `GetAccList` |
-| 74 | [`74_options_cash`](./examples/74_options_cash) | Options buying power and margin |
-| 75 | [`75_options_positions`](./examples/75_options_positions) | Stock + options combined positions |
-
-### Advanced Combo Examples (76-80)
-
-| # | Example | Description |
-|---|---------|-------------|
-| 76 | [`76_pre_trade_checks`](./examples/76_pre_trade_checks) | Market state + account funds + position validation |
-| 77 | [`77_realtime_dashboard`](./examples/77_realtime_dashboard) | Real-time monitoring with ticker subscriptions |
-| 78 | [`78_dca_grid_bot`](./examples/78_dca_grid_bot) | Dollar Cost Averaging + Grid strategy |
-| 79 | [`79_momentum_scanner`](./examples/79_momentum_scanner) | StockFilter + Snapshot + K-lines momentum analysis |
-| 80 | [`80_vwap_executor`](./examples/80_vwap_executor) | OrderBook + VWAP calculation + execution |
-
-### Advanced Trading Examples (81-85)
-
-| # | Example | SDK Functions | Description |
-|---|---------|---------------|-------------|
-| 81 | [`81_options_trading`](./examples/81_options_trading) | `GetOptionChain` + `GetQuote` + `GetFunds` | Options chain analysis with covered call workflow |
-| 82 | [`82_trailing_stop`](./examples/82_trailing_stop) | `PlaceOrder` (TrailingStop) + `GetOrderList` | Trailing stop order with builder & parameter reference |
-| 83 | [`83_trade_push_monitor`](./examples/83_trade_push_monitor) | `SubAccPush` + `SetPushHandler` + `ParsePushOrderUpdate` + `ParsePushOrderFill` | Real-time trade push event monitoring |
-| 84 | [`84_order_builder`](./examples/84_order_builder) | `TradeAPI.NewOrder` (fluent `OrderBuilder`) | Fluent OrderBuilder: 3 patterns (limit, market, GTC) |
-| 85 | [`85_risk_analyzer`](./examples/85_risk_analyzer) | `GetFunds` (PDT fields) + `GetMarginRatio` + `GetMaxTrdQtys` | Portfolio risk dashboard, PDT compliance, margin analysis |
-
-### Infrastructure & Diagnostics Examples (86-90)
-
-| # | Example | SDK Functions | Description |
-|---|---------|---------------|-------------|
-| 86 | [`86_history_downloader`](./examples/86_history_downloader) | `history.NewDownloader` + `DownloadWithStats` + `NewConcurrentDownloader` + `DownloadMultiple` | Bulk historical data with pagination, retry, progress tracking |
-| 87 | [`87_option_tools`](./examples/87_option_tools) | `option.ParseCode` + `option.FindAtm` + `option.FilterByExpiry` + `option.StrikeDistance` | Option code parsing, ATM finding, strike filtering utilities |
-| 88 | [`88_convenience_trading`](./examples/88_convenience_trading) | `client.PlaceOrder` + `client.GetFunds` + `client.GetPositionList` | Simplest possible one-liner trading operations |
-| 89 | [`89_quota_manager`](./examples/89_quota_manager) | `SystemAPI.GetUsedQuota` + `SubscribeSymbols` + `Unsubscribe` + `UnsubscribeAll` | Subscription quota management |
-| 90 | [`90_system_diagnostics`](./examples/90_system_diagnostics) | `GetGlobalState` + `CanSendProto` + `TestCmd` + `GetConnID` + `GetMarketState` | Comprehensive OpenD connection diagnostic |
-
-### Quantitative Trading Strategies (91-95)
-
-| # | Example | SDK Functions | Description |
-|---|---------|---------------|-------------|
-| 91 | [`91_orderbook_imbalance`](./examples/91_orderbook_imbalance) | `SubscribeOrderBook` + `GetOrderBook` + `OrderBookDetail` (iceberg detection) | Real-time bid/ask imbalance, liquidity pressure scoring, iceberg/spoof detection |
-| 92 | [`92_pairs_trading`](./examples/92_pairs_trading) | `GetKLines` (60d) + `GetQuote` + Pearson correlation + spread z-score | Statistical arbitrage: correlation, spread normalization, mean-reversion signals |
-| 93 | [`93_smart_money`](./examples/93_smart_money) | `GetCapitalFlow` + `GetCapitalDistribution` + `GetBroker` + `GetOrderBook` | Institutional accumulation/distribution score from 4 fused data sources |
-| 94 | [`94_portfolio_rebalance`](./examples/94_portfolio_rebalance) | `GetPositionList` + `GetFunds` + `GetQuote` + `GetMaxTrdQtys` + `PlaceOrder` | Multi-asset portfolio rebalancer with PDT-aware drift correction |
-| 95 | [`95_earnings_vol_strategy`](./examples/95_earnings_vol_strategy) | `GetOptionExpirationDate` + `GetOptionChain` + `GetKLines` (120d) | Earnings straddle: implied move vs historical move, vol strategy builder |
-
-### Special Cases (96)
-
-| # | Example | SDK Functions | Description |
-|---|---------|---------------|-------------|
-| 96 | [`96_get_delay_statistics`](./examples/96_get_delay_statistics) | `client.GetDelayStatistics` | Performance delay statistics with graceful error handling |
-
 ## Common Patterns
 
 ```go
@@ -228,15 +99,14 @@ cli := client.New()
 defer cli.Close()
 cli.Connect("127.0.0.1:11111")
 
-	// Real trading: use constant.TrdEnv_Real
-	cli := client.New().WithTradeEnv(constant.TrdEnv_Real)
+// Real trading: use constant.TrdEnv_Real
+cli := client.New().WithTradeEnv(constant.TrdEnv_Real)
 
-// Market constant — typed constant (no cast needed)
-constant.Market_US // 11
-constant.Market_HK // 1
-constant.TrdMarket_HK // 1 — HK trading market
-constant.TrdMarket_US // 2 — US trading market
-constant.TrdMarket_Futures // 5 — Futures market
+// Market values — typed (no magic numbers)
+constant.Market_US        // 11
+constant.Market_HK        // 1
+constant.TrdMarket_HK     // 1
+constant.TrdMarket_Futures // 5
 
 // Futures accounts: use TrdCategory_Future
 futuresAccounts, _ := cli.Trade().GetAccList(ctx, TrdCategory_Future)
@@ -267,7 +137,7 @@ accID := acc.AccID
 | `请求获取实时K线接口前，请先订阅` | Must subscribe to K-line type before calling `GetKLines` |
 | `暂不提供美股 OTC 市场行情` | Some US stocks are OTC and not supported — skip with error handling |
 
-## Known Caveats
+### Known Caveats
 
 - **`GetDelayStatistics`** — SDK v0.5.13+ includes a custom proto2 marshaling workaround for the repeated-int32 encoding issue. The demo (96) handles both success and failure gracefully. May still fail on older OpenD builds that don't implement the API.
 - **US stocks** — require `client.Subscribe` before `GetQuote` returns data. HK stocks do not.
@@ -278,8 +148,12 @@ accID := acc.AccID
 ## See Also
 
 - **[futuapi4go](https://github.com/shing1211/futuapi4go)** — the Go SDK this demo is built on
+- [Full Example Reference](docs/EXAMPLES.md) — complete table of all 96 examples
+- [Architecture](ARCHITECTURE.md) — design overview, execution flows, Mermaid diagram
 - [CHANGELOG](CHANGELOG.md) — version history and release notes
 
 ## License
 
 Apache License 2.0 — see [LICENSE](LICENSE).
+
+> **Trading Disclaimer**: Trading financial instruments carries significant risk. Always test thoroughly in simulate mode before using real funds.
