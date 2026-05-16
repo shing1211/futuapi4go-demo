@@ -7,15 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.2] - 2026-05-16
+
 ### Changed
 
-- **Upgraded futuapi4go to v0.6.1** — Major SDK restructuring (Phase 1-4):
-  file splits for maintainability, typed push callbacks (`OnQuote`, `OnOrder`, etc.),
-  `WithEnvConfig()` for env-based configuration, `pkg/futuapi` convenience re-export,
-  JSON tags on all struct fields, 88 new util tests, mock OpenD server, and internal
-  rename `plaintextSHA1` → `encryptedBodySHA1`.
+- **Upgraded futuapi4go to v0.6.2** — SHA1 validation test infrastructure,
+  improved comments on WritePacketEncrypted (OpenD accepts both SHA1(plaintext)
+  and SHA1(ciphertext)), StrictSHA1 mode in mock server.
   Full changelog: https://github.com/shing1211/futuapi4go/blob/main/CHANGELOG.md
-- **go.mod** — updated SDK dependency to v0.6.1
+- **go.mod** — updated SDK dependency to v0.6.2
 
 ## [0.5.12] - 2026-05-14
 
