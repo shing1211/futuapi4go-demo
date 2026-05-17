@@ -48,7 +48,7 @@ func main() {
 					continue
 				}
 				fmt.Printf("%s  %s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
-					prefix, *bar.Time, *bar.OpenPrice, *bar.HighPrice, *bar.LowPrice, *bar.ClosePrice, *bar.Volume)
+					prefix, bar.Time, bar.OpenPrice, bar.HighPrice, bar.LowPrice, bar.ClosePrice, bar.Volume)
 			}
 		case <-sig:
 			fmt.Println("Shutting down...")
