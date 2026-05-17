@@ -49,8 +49,8 @@ func main() {
 	if err != nil {
 		fmt.Printf("  GetMarketState failed: %v\n", err)
 	} else {
-		canTrade := state == 1
-		fmt.Printf("  US Market State: %d (%s)\n", state, marketStateString(state))
+		canTrade := state.State == 1
+		fmt.Printf("  US Market State: %d (%s)\n", state.State, marketStateString(state.State))
 		if canTrade {
 			fmt.Println("  ✓ Market is OPEN")
 		} else {

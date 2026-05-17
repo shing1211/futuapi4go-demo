@@ -18,5 +18,6 @@ func main() {
 	if err != nil {
 		log.Fatalf("GetMarketState failed: %v", err)
 	}
-	fmt.Printf("MarketState: %d (1=pre, 2=open, 3=closed, 5=post)\n", state)
+	fmt.Printf("MarketState: code=%s name=%s state=%d (1=pre, 2=open, 3=closed, 5=post)\n",
+		state.Code, state.Name, state.State)
 }

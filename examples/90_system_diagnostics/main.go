@@ -101,14 +101,14 @@ func main() {
 	if err != nil {
 		fmt.Printf("GetMarketState (US): %v\n", err)
 	} else {
-		fmt.Printf("  US Market:  state=%d (%s)\n", usState, marketStateStr(usState))
+		fmt.Printf("  US Market:  state=%d (%s)\n", usState.State, marketStateStr(usState.State))
 	}
 
 	hkState, err := client.GetMarketState(ctx, mc.Client, constant.Market_HK, "00700")
 	if err != nil {
 		fmt.Printf("GetMarketState (HK): %v\n", err)
 	} else {
-		fmt.Printf("  HK Market:  state=%d (%s)\n", hkState, marketStateStr(hkState))
+		fmt.Printf("  HK Market:  state=%d (%s)\n", hkState.State, marketStateStr(hkState.State))
 	}
 
 	fmt.Println()

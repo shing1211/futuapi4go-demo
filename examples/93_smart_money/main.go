@@ -33,8 +33,8 @@ func main() {
 		flows, err := client.GetCapitalFlow(ctx, mc.Client, constant.Market_US, sym)
 		if err != nil {
 			fmt.Printf("    GetCapitalFlow: %v\n", err)
-		} else if len(flows) > 0 {
-			f := flows[len(flows)-1]
+		} else if len(flows.Items) > 0 {
+			f := flows.Items[len(flows.Items)-1]
 			fmt.Printf("    Main InFlow: $%.0f | Super: $%.0f | Big: $%.0f | Mid: $%.0f | Small: $%.0f\n",
 				f.MainInFlow, f.SuperInFlow, f.BigInFlow, f.MidInFlow, f.SmlInFlow)
 
