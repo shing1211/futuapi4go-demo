@@ -10,6 +10,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -120,4 +121,7 @@ func main() {
 	fmt.Println("4. Track performance and adjust grid spacing")
 	fmt.Println("\nNote: This is a demonstration - no real orders placed")
 	time.Sleep(1 * time.Second)
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(positions)
 }

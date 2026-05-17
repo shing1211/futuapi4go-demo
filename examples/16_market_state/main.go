@@ -7,6 +7,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -20,4 +21,7 @@ func main() {
 	}
 	fmt.Printf("MarketState: code=%s name=%s state=%d (1=pre, 2=open, 3=closed, 5=post)\n",
 		state.Code, state.Name, state.State)
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(state)
 }

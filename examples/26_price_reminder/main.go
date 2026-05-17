@@ -7,6 +7,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -28,4 +29,7 @@ func main() {
 				item.Type, item.Value, item.IsEnable, item.Note)
 		}
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(alerts)
 }

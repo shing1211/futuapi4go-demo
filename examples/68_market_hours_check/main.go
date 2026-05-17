@@ -7,6 +7,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -62,6 +63,9 @@ func main() {
 	fmt.Println("\n=== Pre-Trade Check Helper ===")
 	checkMarketReadiness(constant.Market_US, "AAPL", mc.Client, ctx)
 	checkMarketReadiness(constant.Market_HK, "00100", mc.Client, ctx)
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(map[string]interface{}{"state": state, "tradeDates": tradeDates})
 }
 
 func checkMarketReadiness(market constant.Market, code string, cli *client.Client, ctx context.Context) {

@@ -9,6 +9,7 @@ import (
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -188,6 +189,9 @@ func main() {
 
 	fmt.Println()
 	fmt.Println("=== Analysis Complete ===")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(maxQtys)
 }
 
 func ptrInt32(v int32) *int32  { return &v }

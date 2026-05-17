@@ -9,6 +9,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 type straddleLeg struct {
@@ -225,6 +226,9 @@ func main() {
 	fmt.Println("  Options strategies are for demonstration only.")
 
 	fmt.Println("\n=== Earnings Volatility Strategy Complete ===")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(klines)
 }
 
 func estimateEarningsMoves(klines []client.KLine) []float64 {

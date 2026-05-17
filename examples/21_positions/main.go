@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -35,4 +36,7 @@ func main() {
 		fmt.Printf("POS: %s qty=%.0f cost=%.2f cur=%.2f pnl=%.2f (%.2f%%)\n",
 			p.Code, p.Quantity, p.CostPrice, p.CurPrice, p.PnL, p.PnLRate)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(positions)
 }

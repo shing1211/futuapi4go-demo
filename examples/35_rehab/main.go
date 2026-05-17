@@ -7,6 +7,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -22,4 +23,7 @@ func main() {
 		fmt.Printf("REHAB: time=%s fwdA=%.4f fwdB=%.4f bwdA=%.4f bwdB=%.4f\n",
 			r.Time, r.FwdFactorA, r.FwdFactorB, r.BwdFactorA, r.BwdFactorB)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(rehabs)
 }

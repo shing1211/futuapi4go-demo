@@ -9,6 +9,7 @@ import (
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/trd"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -62,6 +63,7 @@ func main() {
 		{"FuturesSimulateJP", constant.TrdMarket_FuturesSimulateJP},
 	}
 
+	var posResp *trd.GetPositionListResponse
 	for _, acc := range resp.AccList {
 		env := "Real"
 		if acc.TrdEnv == 0 {
@@ -78,7 +80,7 @@ func main() {
 				TrdEnv:    constant.TrdEnv(acc.TrdEnv),
 			}
 
-			posResp, err := mc.Client.Trade().GetPositionList(ctx, req)
+			posResp, err = mc.Client.Trade().GetPositionList(ctx, req)
 			if err != nil {
 				continue
 			}
@@ -90,10 +92,15 @@ func main() {
 						p.Code, p.Name, p.Qty, p.CostPrice, p.PlVal, p.PlRatio*100)
 				}
 			}
+			break
 		}
+		break
 	}
 
 	fmt.Println("\n=== Summary ===")
 	fmt.Println("Stock positions: client.GetPositionList(accID)")
 	fmt.Println("Futures positions: mc.Client.Trade().GetPositionList with TrdMarket_Futures")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(posResp)
 }

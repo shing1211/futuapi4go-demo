@@ -8,6 +8,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 type pairDef struct {
@@ -105,6 +106,9 @@ func main() {
 	fmt.Println("=== Pairs Analysis Complete ===")
 	fmt.Println("Note: Pairs trading requires real trading environment.")
 	fmt.Println("  Set FUTU_TRADE_PWD and use WithTradeEnv(TrdEnv_Real).")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(results)
 }
 
 func analyzePair(ctx context.Context, c *client.Client, p pairDef) pairResult {

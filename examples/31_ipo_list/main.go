@@ -7,6 +7,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -22,4 +23,7 @@ func main() {
 		fmt.Printf("IPO: code=%s name=%s listDate=%s\n",
 			ip.Code, ip.Name, ip.ListDate)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(ipos)
 }

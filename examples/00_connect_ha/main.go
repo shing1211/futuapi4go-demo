@@ -6,7 +6,11 @@
 //   - Keep-alive monitoring every 30 seconds
 //   - Connection state machine (Disconnected → Connecting → Connected → Reconnecting)
 //
-// IMPORTANT: Set callbacks BEFORE calling MustConnect() to catch all state changes.
+// It also demonstrates querying system-level APIs after connection:
+//   - GetGlobalState: server version, connection ID, login status, market states
+//   - GetUserInfo: user ID, nickname, quote rights per market, quota limits
+//   - GetUsedQuota: current subscription and historical K-line quota usage
+//   - GetDelayStatistics: network latency for quote push, request-reply, and order placement
 //
 // Configuration via .env file (or environment variables):
 //
@@ -26,17 +30,15 @@ import (
 	"time"
 
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
 	fmt.Println("=== HA Gateway Selection Demo ===")
 	fmt.Println()
 
-	// Create ManagedConnection WITHOUT connecting yet so we can set callbacks first
 	mc := &connect.ManagedConnection{}
 
-	// Set ALL callbacks BEFORE calling MustConnect
-	// This ensures we don't miss any state transitions
 	mc.OnStateChange = func(old, new connect.State) {
 		fmt.Printf("[State] %v → %v\n", old, new)
 	}
@@ -50,8 +52,6 @@ func main() {
 			info.Host, info.Port, info.RSAUsed)
 	}
 
-	// Now connect with callbacks already registered
-	// MustConnect wraps Connect and calls log.Fatal on error
 	ctx := context.Background()
 	*mc = *connect.MustConnect(ctx)
 
@@ -64,10 +64,12 @@ func main() {
 	fmt.Printf("  State:     %v\n", mc.State)
 
 	fmt.Println()
+
+	display.PrintAll(ctx, mc)
+
 	fmt.Println("--- Connection will auto-reconnect if connection drops ---")
 	fmt.Println("Press Ctrl+C to exit")
 
-	// Wait and show state changes via heartbeat
 	ticker := time.NewTicker(3 * time.Second)
 	defer ticker.Stop()
 

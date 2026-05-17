@@ -8,6 +8,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -26,4 +27,7 @@ func main() {
 		fmt.Printf("RT: time=%s minute=%d isBlank=%v price=%.2f lastClose=%.2f avgPrice=%.2f vol=%d turnover=%.2f ts=%.0f\n",
 			r.Time, r.Minute, r.IsBlank, r.Price, r.LastClose, r.AvgPrice, r.Volume, r.Turnover, r.Timestamp)
 	}
+
+	fmt.Println("\n── RT Data (JSON) ────────────────────────")
+	display.PrintJSON(rt)
 }

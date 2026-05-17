@@ -7,6 +7,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -39,4 +40,7 @@ func main() {
 		return
 	}
 	fmt.Printf("Order placed: id=%d idEx=%s\n", result.OrderID, result.OrderIDEx)
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(result)
 }

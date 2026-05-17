@@ -8,6 +8,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -156,4 +157,7 @@ func main() {
 	fmt.Println("\n=== VWAP Executor Complete ===")
 	fmt.Println("Note: This is a demonstration. In production, orders would be")
 	fmt.Println("placed incrementally based on real-time volume and price.")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(orders)
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -44,6 +45,7 @@ func main() {
 		log.Fatalf("GetAccList(TrdCategory_Future) failed: %v", err)
 	}
 
+	var info *client.AccTradingInfo
 	for _, acc := range resp.AccList {
 		if acc.TrdEnv != 0 {
 			continue // skip real accounts
@@ -55,7 +57,7 @@ func main() {
 		// Use a common symbol - WTI crude oil futures
 		sampleCode := "US.CL.0" // WTI Crude Oil Futures
 
-		info, err := client.GetAccTradingInfo(ctx, mc.Client, acc.AccID,
+		info, err = client.GetAccTradingInfo(ctx, mc.Client, acc.AccID,
 			constant.TrdMarket_FuturesSimulateUS, sampleCode,
 			constant.OrderType_Normal, 75.0) // ~$75 price
 		if err != nil {
@@ -70,9 +72,13 @@ func main() {
 		fmt.Printf("  MaxBuyBack: %.2f\n", info.MaxBuyBack)
 		fmt.Printf("  LongRequiredIM: %.2f\n", info.LongRequiredIM)
 		fmt.Printf("  ShortRequiredIM: %.2f\n", info.ShortRequiredIM)
+		break
 	}
 
 	fmt.Println("\n=== Note ===")
 	fmt.Println("Futures accounts use GetAccTradingInfo for margin/cash info.")
 	fmt.Println("GetFunds() only works for stock accounts, not futures accounts.")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(info)
 }

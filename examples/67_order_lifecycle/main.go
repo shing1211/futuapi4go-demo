@@ -8,7 +8,9 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go/pkg/trd"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -144,12 +146,13 @@ func main() {
 	}
 
 	fmt.Println("\n=== Step 5: Modify/Cancel Order (Demo) ===")
+	var modResult *trd.ModifyOrderResponse
 	if len(orders) > 0 {
 		orderID := orders[0].OrderID
 		newPrice := price * 1.05
 		fmt.Printf("Modifying order %d to price $%.2f...\n", orderID, newPrice)
 
-		modResult, err := client.ModifyOrder(ctx, mc.Client, accID, accMarket,
+		modResult, err = client.ModifyOrder(ctx, mc.Client, accID, accMarket,
 			orderID, constant.ModifyOrderOp_Normal, newPrice, 0)
 		if err != nil {
 			fmt.Printf("ModifyOrder failed: %v\n", err)
@@ -159,4 +162,7 @@ func main() {
 	}
 
 	fmt.Println("\n=== Order Lifecycle Complete ===")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(modResult)
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -26,4 +27,7 @@ func main() {
 		fmt.Printf("%s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
 			bar.Time, bar.Open, bar.High, bar.Low, bar.Close, bar.Volume)
 	}
+
+	fmt.Println("\n── KLine Data (JSON) ─────────────────────")
+	display.PrintJSON(klines)
 }

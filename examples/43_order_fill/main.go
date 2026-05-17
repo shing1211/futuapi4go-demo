@@ -7,6 +7,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -32,8 +33,11 @@ func main() {
 	if len(fills) == 0 {
 		fmt.Println("(no order fills)")
 	}
-	for _, f := range fills {
+		for _, f := range fills {
 		fmt.Printf("FILL: id=%d %s price=%.2f qty=%.0f time=%s\n",
 			f.FillID, f.Code, f.Price, f.Qty, f.CreateTime)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(fills)
 }

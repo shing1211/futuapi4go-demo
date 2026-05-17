@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -19,4 +20,7 @@ func main() {
 	}
 	fmt.Printf("Power=%.2f Cash=%.2f Assets=%.2f\n",
 		funds.Power, funds.Cash, funds.TotalAssets)
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(funds)
 }

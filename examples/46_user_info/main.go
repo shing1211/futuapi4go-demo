@@ -7,6 +7,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -19,4 +20,7 @@ func main() {
 	}
 	fmt.Printf("USER: id=%d nickname=%s avatar=%s apiLevel=%s\n",
 		user.UserID, user.NickName, user.AvatarUrl, user.ApiLevel)
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(user)
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -54,10 +55,12 @@ func main() {
 	startTime := "2026-01-01"
 	endTime := time.Now().Format("2006-01-02")
 
+	var klines []client.KLine
+	var err error
 	for _, symbol := range symbols[:3] {
 		fmt.Printf("Requesting historical K-lines for %s (%s to %s)...\n", symbol, startTime, endTime)
 
-		klines, err := client.RequestHistoryKL(ctx, mc.Client, constant.Market_US, symbol,
+		klines, err = client.RequestHistoryKL(ctx, mc.Client, constant.Market_US, symbol,
 			constant.KLType_K_Day, startTime, endTime)
 		if err != nil {
 			fmt.Printf("  RequestHistoryKL failed: %v\n", err)
@@ -69,9 +72,13 @@ func main() {
 			latest := klines[len(klines)-1]
 			fmt.Printf("  Latest: %s O=%.2f C=%.2f\n", latest.Time, latest.Open, latest.Close)
 		}
+		break
 	}
 
 	fmt.Println("\n=== Note ===")
 	fmt.Println("RequestHistoryKLWithLimit for paginated historical data")
 	fmt.Println("GetKLines for recent/realtime K-line data")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(klines)
 }

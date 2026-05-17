@@ -78,6 +78,19 @@ type ConnectionInfo struct {
 	MarketSH   bool
 	MarketSZ   bool
 	RSAUsed    bool
+
+	// GlobalState fields
+	ConnID         uint64
+	ServerBuildNo  int32
+	ServerTime     int64
+	QotSvrIpAddr   string
+	TrdSvrIpAddr   string
+	MarketHKRight  int32
+	MarketUSRight  int32
+	MarketSHRight  int32
+	MarketSZRight  int32
+	MarketHKFuture int32
+	MarketUSFuture int32
 }
 
 // Config reads environment variables and returns configured hosts, RSA key contents, and TCP timeout.

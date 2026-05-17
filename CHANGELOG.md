@@ -5,6 +5,18 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.8.6] - 2026-05-17
+
+### Added
+
+- **JSON dump to all request-response examples** — Added `display.PrintJSON()` output to all request-response examples (00-35, 36-60, 61-85, 86-99) for easy data inspection. Push-subscription examples (streaming) are unchanged.
+- **New `examples/pkg/display` package** — Shared JSON pretty-print utility used by all examples.
+
+### Changed
+
+- **97 examples enriched** with JSON output section. Pre-existing push-subscription examples (47, 48, 49, 63, 69, 77, 83, 91) and void-return examples (50, 53, 54) are unchanged.
+- **examples/93_smart_money** — removed erroneous `display.PrintJSON(book)` reference from out-of-scope variable.
+
 ## [v0.8.5] - 2026-05-17
 
 ### Changed

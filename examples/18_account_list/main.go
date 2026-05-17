@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -21,4 +22,7 @@ func main() {
 		fmt.Printf("ACC: id=%d type=%d env=%d firm=%d\n",
 			acc.AccID, acc.AccType, acc.TrdEnv, acc.SecurityFirm)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(accounts)
 }

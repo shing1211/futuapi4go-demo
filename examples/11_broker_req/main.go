@@ -7,6 +7,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -28,4 +29,7 @@ func main() {
 	for _, a := range asks {
 		fmt.Printf("ASK BROKER: name=%s pos=%d vol=%d\n", a.Name, a.Pos, a.Volume)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(map[string]interface{}{"bids": bids, "asks": asks})
 }

@@ -8,6 +8,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -40,4 +41,7 @@ func main() {
 		fmt.Printf("HIST ORDER: id=%d %s %s qty=%.0f price=%.2f status=%d\n",
 			o.OrderID, o.Code, o.Name, o.Qty, o.Price, o.OrderStatus)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(orders)
 }

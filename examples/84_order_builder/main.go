@@ -8,7 +8,9 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go/pkg/trd"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -47,6 +49,7 @@ func main() {
 
 	trdAPI := mc.Client.Trade()
 
+	var resp *trd.PlaceOrderResponse
 	fmt.Println("\n--- Pattern A: Limit Buy Order ---")
 	reqA, err := trdAPI.NewOrder(accID, constant.TrdMarket_US).
 		Buy("US.NVDA", 100).
@@ -66,7 +69,7 @@ func main() {
 		fmt.Printf("%-20s %v\n", "SecMarket", reqA.SecMarket)
 		fmt.Printf("%-20s %s\n", "Remark", reqA.Remark)
 
-		resp, err := trdAPI.PlaceOrder(ctx, reqA)
+		resp, err = trdAPI.PlaceOrder(ctx, reqA)
 		if err != nil {
 			fmt.Printf("PlaceOrder (simulate): %v\n", err)
 		} else {
@@ -129,4 +132,7 @@ func main() {
 	fmt.Println("  WithTimeInForce(), WithFillOutsideRTH(), WithAuxPrice()")
 	fmt.Println("\nNote: Requires FUTU_TRADE_PWD and WithTradeEnv(TrdEnv_Real)")
 	fmt.Println("  to execute orders. Simulate mode displays request fields only.")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(resp)
 }

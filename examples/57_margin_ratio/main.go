@@ -9,6 +9,7 @@ import (
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -38,6 +39,9 @@ func main() {
 		fmt.Printf("Margin: long=%v short=%v shortFee=%.4f longRatio=%.4f shortRatio=%.4f\n",
 			r.IsLongPermit, r.IsShortPermit, r.ShortFeeRate, r.ImLongRatio, r.ImShortRatio)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(ratios)
 }
 
 func ptrInt32(v int32) *int32   { return &v }

@@ -8,6 +8,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -37,4 +38,7 @@ func main() {
 	if err := cli.Shutdown(5 * time.Second); err != nil {
 		log.Printf("shutdown: %v", err)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(quote)
 }

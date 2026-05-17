@@ -13,6 +13,7 @@ import (
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -46,4 +47,7 @@ func main() {
 		fmt.Printf("  %s: %.0f shares (%.2f%%) held by %s\n",
 			c.Time, c.HoldingQty, c.HoldingRatio, c.HolderName)
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(changes)
 }

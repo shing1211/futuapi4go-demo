@@ -13,6 +13,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -60,4 +61,7 @@ func main() {
 	} else if subInfo != nil {
 		fmt.Printf("Remaining active subscriptions: %d\n", len(subInfo.ConnSubInfoList))
 	}
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(subInfo)
 }

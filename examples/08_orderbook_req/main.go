@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
@@ -22,16 +24,17 @@ func main() {
 	if err != nil {
 		log.Fatalf("GetOrderBook failed: %v", err)
 	}
+	fmt.Println("=== Full OrderBook (JSON) ===")
+	enc := json.NewEncoder(os.Stdout)
+	enc.SetIndent("", "  ")
+	enc.Encode(book)
+
+	// Also print human-readable summary
+	fmt.Printf("\n=== Human-Readable Summary ===\n")
 	for i, bid := range book.Bids {
-		if i >= 5 {
-			break
-		}
 		fmt.Printf("BID  [%d]: price=%.2f vol=%d\n", i, bid.Price, bid.Volume)
 	}
 	for i, ask := range book.Asks {
-		if i >= 5 {
-			break
-		}
 		fmt.Printf("ASK  [%d]: price=%.2f vol=%d\n", i, ask.Price, ask.Volume)
 	}
 }

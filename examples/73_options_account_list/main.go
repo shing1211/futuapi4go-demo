@@ -8,6 +8,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -83,4 +84,7 @@ func main() {
 	fmt.Println("Check TrdMarketAuthList for rights 6 (HK Option) or 8 (US Option)")
 	fmt.Println("GetPositionList returns both stocks and options positions")
 	fmt.Println("GetAccountInfo/GetFunds work for options accounts")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(expirations)
 }

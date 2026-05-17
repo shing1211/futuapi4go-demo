@@ -29,3 +29,5 @@ require (
 	golang.org/x/sys v0.42.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 )
+
+replace github.com/shing1211/futuapi4go => /home/tchan/gitee/futuapi4go

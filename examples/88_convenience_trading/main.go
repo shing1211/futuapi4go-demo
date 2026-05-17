@@ -9,6 +9,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -153,4 +154,7 @@ func main() {
 	fmt.Println("Note: Requires FUTU_TRADE_PWD for real execution.")
 
 	fmt.Println("\n=== Convenience API Demo Complete ===")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(result)
 }

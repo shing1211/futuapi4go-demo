@@ -6,6 +6,7 @@ import (
 	"log"
 
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
@@ -21,4 +22,7 @@ func main() {
 	fmt.Printf("QotLogined: %v  TrdLogined: %v\n", state.QotLogined, state.TrdLogined)
 	fmt.Printf("Market HK=%d US=%d SH=%d SZ=%d\n",
 		state.MarketHK, state.MarketUS, state.MarketSH, state.MarketSZ)
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(state)
 }

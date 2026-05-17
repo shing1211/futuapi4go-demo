@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"log/slog"
 	"os"
@@ -9,6 +10,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/trd"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -47,4 +49,7 @@ func main() {
 
 	time.Sleep(time.Second)
 	audit.LogPlaceOrder(req, 0, nil)
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(warnings)
 }

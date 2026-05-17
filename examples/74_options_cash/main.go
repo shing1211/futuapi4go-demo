@@ -8,6 +8,7 @@ import (
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -63,13 +64,14 @@ func main() {
 	// Try to get options trading info for a sample option
 	sampleOptionCode := "AAPL250516C00150000" // Example: AAPL May 16 2025 Call $150
 
+	var info *client.AccTradingInfo
 	for _, acc := range resp.AccList {
 		if acc.TrdEnv != 0 {
 			continue
 		}
 
 		// Use US market for options
-		info, err := client.GetAccTradingInfo(ctx, mc.Client, acc.AccID,
+		info, err = client.GetAccTradingInfo(ctx, mc.Client, acc.AccID,
 			constant.TrdMarket_US, sampleOptionCode,
 			constant.OrderType_Normal, 5.0) // $5 premium estimate
 		if err != nil {
@@ -81,9 +83,13 @@ func main() {
 		fmt.Printf("  MaxCashBuy: %.2f\n", info.MaxCashBuy)
 		fmt.Printf("  MaxCashAndMarginBuy: %.2f\n", info.MaxCashAndMarginBuy)
 		fmt.Printf("  MaxPositionSell: %.2f\n", info.MaxPositionSell)
+		break
 	}
 
 	fmt.Println("\n=== Note ===")
 	fmt.Println("Options buying power is calculated based on cash + margin enabled")
 	fmt.Println("Use GetAccountInfo with specific market for options-enabled accounts")
+
+	fmt.Println("\n── Result (JSON) ────────────────────────")
+	display.PrintJSON(info)
 }
