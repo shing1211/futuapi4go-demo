@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **examples/12_capital_flow** — updated for SDK `GetCapitalFlow` return type change (`*client.CapitalFlowResponse` with `LastValidTime`/`LastValidTimestamp`).
+- **examples/16_market_state** — updated for SDK `GetMarketState` return type change (`*client.MarketStateResult` with `Code`/`Name`/`State`).
+- **examples/68_market_hours_check**, **76_pre_trade_checks**, **90_system_diagnostics** — updated for `GetMarketState` return type change (use `.State`).
+- **examples/93_smart_money** — updated for `GetCapitalFlow` return type change (use `.Items`).
+
+## [0.8.3] - 2026-05-17
+
+### Changed
+
 - **examples/13_plate_set** — now prints `PlateType` field (newly added in SDK v0.8.3).
 
 ## [0.8.2] - 2026-05-17
