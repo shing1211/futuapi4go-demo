@@ -19,8 +19,8 @@ func main() {
 
 	ctx := context.Background()
 	ch := make(chan *push.UpdateKL, 100)
-	stop, err := chanpkg.SubscribeKLines(ctx, mc.Client, int32(constant.Market_US), "NVDA",
-		[]int32{int32(constant.KLType_K_1Min), int32(constant.KLType_K_5Min), int32(constant.KLType_K_Day)}, ch)
+	stop, err := chanpkg.SubscribeKLines(ctx, mc.Client, constant.Market_US, "NVDA",
+		[]constant.KLType{constant.KLType_K_1Min, constant.KLType_K_5Min, constant.KLType_K_Day}, ch)
 	if err != nil {
 		fmt.Printf("SubscribeKLines: %v\n", err)
 		return

@@ -4,7 +4,7 @@ go 1.26.1
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/shing1211/futuapi4go v0.8.0
+	github.com/shing1211/futuapi4go v0.8.2
 	go.opentelemetry.io/otel v1.43.0
 	go.opentelemetry.io/otel/exporters/stdout/stdouttrace v1.43.0
 	go.opentelemetry.io/otel/sdk v1.43.0

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.2] - 2026-05-17
+
+### Changed
+
+- **SDK dependency bumped** — `github.com/shing1211/futuapi4go` from v0.8.0 to v0.8.2.
+- **examples/07_kline_multi** — fixed `SubscribeKLines` call for updated SDK signature (typed `constant.Market` and `[]constant.KLType` parameters).
+
 ## [0.8.0] - 2026-05-16
 
 ### Added
