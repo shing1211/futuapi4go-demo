@@ -19,6 +19,6 @@ func main() {
 		log.Fatalf("GetPlateSet failed: %v", err)
 	}
 	for _, p := range plates {
-		fmt.Printf("PLATE: code=%s name=%s\n", p.Code, p.Name)
+		fmt.Printf("PLATE: code=%s name=%s type=%d\n", p.Code, p.Name, p.PlateType)
 	}
 }

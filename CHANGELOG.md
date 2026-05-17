@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **examples/13_plate_set** — now prints `PlateType` field (newly added in SDK v0.8.3).
+
 ## [0.8.2] - 2026-05-17
 
 ### Changed
