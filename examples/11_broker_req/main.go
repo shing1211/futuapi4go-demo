@@ -19,17 +19,17 @@ func main() {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	bids, asks, err := client.GetBroker(context.Background(), mc.Client, constant.Market_US, "NVDA", 10)
+	result, err := client.GetBroker(context.Background(), mc.Client, constant.Market_US, "NVDA", 10)
 	if err != nil {
 		log.Fatalf("GetBroker failed: %v", err)
 	}
-	for _, b := range bids {
+	for _, b := range result.Bids {
 		fmt.Printf("BID BROKER: name=%s pos=%d vol=%d\n", b.Name, b.Pos, b.Volume)
 	}
-	for _, a := range asks {
+	for _, a := range result.Asks {
 		fmt.Printf("ASK BROKER: name=%s pos=%d vol=%d\n", a.Name, a.Pos, a.Volume)
 	}
 
 	fmt.Println("\n── Result (JSON) ────────────────────────")
-	display.PrintJSON(map[string]interface{}{"bids": bids, "asks": asks})
+	display.PrintJSON(result)
 }

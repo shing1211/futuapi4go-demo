@@ -82,20 +82,20 @@ func main() {
 
 		fmt.Println()
 		fmt.Println("  Source 3: Broker Queue")
-		bids, asks, err := client.GetBroker(ctx, mc.Client, constant.Market_US, sym, 10)
+		result, err := client.GetBroker(ctx, mc.Client, constant.Market_US, sym, 10)
 		if err != nil {
 			fmt.Printf("    GetBroker: %v\n", err)
 		} else {
 			bidVol := int64(0)
-			for _, b := range bids {
+			for _, b := range result.Bids {
 				bidVol += b.Volume
 			}
 			askVol := int64(0)
-			for _, a := range asks {
+			for _, a := range result.Asks {
 				askVol += a.Volume
 			}
 			fmt.Printf("    Bid brokers: %d (vol=%d) | Ask brokers: %d (vol=%d)\n",
-				len(bids), bidVol, len(asks), askVol)
+				len(result.Bids), bidVol, len(result.Asks), askVol)
 
 			totalBrk := bidVol + askVol
 			if totalBrk > 0 {
