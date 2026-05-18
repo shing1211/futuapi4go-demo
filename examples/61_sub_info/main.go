@@ -24,6 +24,7 @@ func main() {
 		log.Fatalf("GetSubInfo failed: %v", err)
 	}
 	fmt.Printf("IsSub: %v  Detail: %s\n", info.IsSub, info.Security)
+	fmt.Printf("TotalUsedQuota: %d  RemainQuota: %d\n", info.TotalUsedQuota, info.RemainQuota)
 	for _, t := range info.SubTypes {
 		fmt.Printf("  Active SubType: %d\n", t)
 	}

@@ -19,8 +19,11 @@ func main() {
 	if err != nil {
 		log.Fatalf("GetOwnerPlate failed: %v", err)
 	}
-	for _, p := range plates {
-		fmt.Printf("OWNER PLATE: %s\n", p)
+	for code, plateList := range plates {
+		fmt.Printf("Security: %s\n", code)
+		for _, p := range plateList {
+			fmt.Printf("  Plate: %s (code=%s, type=%d)\n", p.Name, p.Code, p.PlateType)
+		}
 	}
 
 	fmt.Println("\n── Result (JSON) ────────────────────────")

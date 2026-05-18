@@ -90,6 +90,33 @@ func main() {
 		fmt.Printf("  Change:     %+.3f\n", on.ChangeVal)
 		fmt.Printf("  Change%%:    %+.2f%%\n", on.ChangeRate)
 	}
+	if quote.OptionExData != nil {
+		fmt.Println("── Option Extended Data ─────────────────────")
+		o := quote.OptionExData
+		fmt.Printf("  StrikePrice:  %.2f\n", o.GetStrikePrice())
+		fmt.Printf("  ContractSize: %d\n", o.GetContractSize())
+		fmt.Printf("  ImpliedVol:   %.4f\n", o.GetImpliedVolatility())
+		fmt.Printf("  Delta:        %.4f\n", o.GetDelta())
+		fmt.Printf("  Gamma:        %.4f\n", o.GetGamma())
+		fmt.Printf("  Vega:         %.4f\n", o.GetVega())
+		fmt.Printf("  Theta:        %.4f\n", o.GetTheta())
+		fmt.Printf("  Rho:          %.4f\n", o.GetRho())
+	}
+	if quote.FutureExData != nil {
+		fmt.Println("── Future Extended Data ─────────────────────")
+		f := quote.FutureExData
+		fmt.Printf("  LastSettlePrice:    %.2f\n", f.GetLastSettlePrice())
+		fmt.Printf("  Position:           %d\n", f.GetPosition())
+		fmt.Printf("  PositionChange:     %d\n", f.GetPositionChange())
+		fmt.Printf("  ExpiryDateDistance: %d\n", f.GetExpiryDateDistance())
+	}
+	if quote.WarrantExData != nil {
+		fmt.Println("── Warrant Extended Data ────────────────────")
+		w := quote.WarrantExData
+		fmt.Printf("  Delta:          %.4f\n", w.GetDelta())
+		fmt.Printf("  ImpliedVol:     %.4f\n", w.GetImpliedVolatility())
+		fmt.Printf("  Premium:        %.4f\n", w.GetPremium())
+	}
 	fmt.Println()
 
 	fmt.Println("── Quote Data (JSON) ─────────────────────")

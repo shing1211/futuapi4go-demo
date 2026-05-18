@@ -22,6 +22,18 @@ func main() {
 	for _, info := range infos {
 		fmt.Printf("STATIC: code=%s name=%s type=%d lotSize=%d listTime=%s\n",
 			info.Code, info.Name, info.Type, info.LotSize, info.ListTime)
+		if info.WarrantExData != nil {
+			fmt.Printf("  Warrant: type=%d\n", info.WarrantExData.GetType())
+		}
+		if info.OptionExData != nil {
+			fmt.Printf("  Option: type=%d strike=%.2f strikeTime=%s\n",
+				info.OptionExData.GetType(), info.OptionExData.GetStrikePrice(),
+				info.OptionExData.GetStrikeTime())
+		}
+		if info.FutureExData != nil {
+			fmt.Printf("  Future: lastTrade=%s isMain=%v\n",
+				info.FutureExData.GetLastTradeTime(), info.FutureExData.GetIsMainContract())
+		}
 	}
 
 	fmt.Println("\n── Result (JSON) ────────────────────────")

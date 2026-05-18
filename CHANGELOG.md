@@ -5,6 +5,17 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.8.8] - 2026-05-18
+
+### Changed
+
+- **Upgraded SDK to v0.8.8** — extended proto field mappings for Quote, Snapshot, IpoList, StaticInfo, SubInfo, OwnerPlate, OptionExpirationDate, StockFilter
+- **GetOwnerPlate return type changed** — now returns `[]*client.OwnerPlateInfo` with Code, Name, PlateType instead of just plate names
+
+### Added
+
+- **All request-response examples** updated to display newly available extended data fields
+
 ## [v0.8.7] - 2026-05-18
 
 ### Changed
