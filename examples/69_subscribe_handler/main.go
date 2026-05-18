@@ -71,8 +71,8 @@ func main() {
 		case kl := <-klineCh:
 			for _, kline := range kl.KLList {
 				if klineCount < 3 {
-					fmt.Printf("[KL] %s: O=%.2f H=%.2f L=%.2f C=%.2f\n",
-						symbols[0], kline.GetOpenPrice(), kline.GetHighPrice(), kline.GetLowPrice(), kline.GetClosePrice())
+				fmt.Printf("[KL] %s: O=%.2f H=%.2f L=%.2f C=%.2f\n",
+					symbols[0], kline.OpenPrice, kline.HighPrice, kline.LowPrice, kline.ClosePrice)
 				}
 				klineCount++
 			}
