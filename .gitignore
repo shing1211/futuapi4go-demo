@@ -50,7 +50,5 @@ Desktop.ini
 # Graphify output
 graphify-out/
 
-# Known issue: Go binaries compiled without extension (e.g. `00_connect`)
-# will be accidentally committed. Always run `go clean` before committing.
-# Never run `go build` in the repo root — build inside specific example dirs only.
-00_connect
+# Compiled Go binaries from example dirs — always build/run from examples/*/
+[0-9][0-9]_

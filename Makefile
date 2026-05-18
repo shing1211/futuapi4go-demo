@@ -21,7 +21,7 @@ test:
 
 clean:
 	rm -f examples/*/*.exe
-	rm -f *.exe
+	rm -f [0-9][0-9]_*
 
 examples:
 	@ls -1 examples/ | sort -n
