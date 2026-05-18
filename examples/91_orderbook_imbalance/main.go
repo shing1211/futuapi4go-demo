@@ -35,11 +35,11 @@ func main() {
 		return
 	}
 
-	book, err := client.GetOrderBook(ctx, mc.Client, constant.Market_US, symbol, 10)
+	result, err := client.GetOrderBook(ctx, mc.Client, constant.Market_US, symbol, 10)
 	if err != nil {
 		fmt.Printf("GetOrderBook: %v\n", err)
-	} else {
-		printImbalance(book, "SNAPSHOT")
+	} else if len(result.Items) > 0 {
+		printImbalance(&result.Items[0], "SNAPSHOT")
 	}
 
 	fmt.Println()

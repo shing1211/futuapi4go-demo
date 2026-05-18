@@ -5,6 +5,19 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.8.9] - 2026-05-18
+
+### Changed
+
+- **Upgraded SDK to v0.8.9** — `OrderBookResult`, `TickerResult`, `RTResult` wrappers expose S2C security/name
+- **GetOrderBook return type changed** — now returns `*client.OrderBookResult` (use `.Items[0]`)
+- **GetTicker return type changed** — now returns `*client.TickerResult` (use `.Items`)
+- **GetRT return type changed** — now returns `*client.RTResult` (use `.Items`)
+
+### Added
+
+- **Examples 08, 09, 10, 80, 91, 93** updated for new return types
+
 ## [v0.8.8] - 2026-05-18
 
 ### Changed

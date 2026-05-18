@@ -19,15 +19,15 @@ func main() {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	rt, err := client.GetRT(context.Background(), mc.Client, constant.Market_US, "NVDA")
+	result, err := client.GetRT(context.Background(), mc.Client, constant.Market_US, "NVDA")
 	if err != nil {
 		log.Fatalf("GetRT failed: %v", err)
 	}
-	for _, r := range rt {
+	for _, r := range result.Items {
 		fmt.Printf("RT: time=%s minute=%d isBlank=%v price=%.2f lastClose=%.2f avgPrice=%.2f vol=%d turnover=%.2f ts=%.0f\n",
 			r.Time, r.Minute, r.IsBlank, r.Price, r.LastClose, r.AvgPrice, r.Volume, r.Turnover, r.Timestamp)
 	}
 
 	fmt.Println("\n── RT Data (JSON) ────────────────────────")
-	display.PrintJSON(rt)
+	display.PrintJSON(result)
 }

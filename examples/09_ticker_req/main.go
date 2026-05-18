@@ -19,15 +19,15 @@ func main() {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	tickers, err := client.GetTicker(context.Background(), mc.Client, constant.Market_US, "NVDA", 20)
+	result, err := client.GetTicker(context.Background(), mc.Client, constant.Market_US, "NVDA", 20)
 	if err != nil {
 		log.Fatalf("GetTicker failed: %v", err)
 	}
-	for _, t := range tickers {
+	for _, t := range result.Items {
 		fmt.Printf("TICKER: time=%s price=%.2f vol=%d dir=%s\n",
 			t.Time, t.Price, t.Volume, t.Direction)
 	}
 
 	fmt.Println("\n── Ticker Data (JSON) ────────────────────")
-	display.PrintJSON(tickers)
+	display.PrintJSON(result)
 }

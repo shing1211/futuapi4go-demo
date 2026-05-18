@@ -20,21 +20,21 @@ func main() {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	book, err := client.GetOrderBook(context.Background(), mc.Client, constant.Market_US, "NVDA", 10)
+	result, err := client.GetOrderBook(context.Background(), mc.Client, constant.Market_US, "NVDA", 10)
 	if err != nil {
 		log.Fatalf("GetOrderBook failed: %v", err)
 	}
 	fmt.Println("=== Full OrderBook (JSON) ===")
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", "  ")
-	enc.Encode(book)
+	enc.Encode(result)
 
 	// Also print human-readable summary
 	fmt.Printf("\n=== Human-Readable Summary ===\n")
-	for i, bid := range book.Bids {
+	for i, bid := range result.Items[0].Bids {
 		fmt.Printf("BID  [%d]: price=%.2f vol=%d\n", i, bid.Price, bid.Volume)
 	}
-	for i, ask := range book.Asks {
+	for i, ask := range result.Items[0].Asks {
 		fmt.Printf("ASK  [%d]: price=%.2f vol=%d\n", i, ask.Price, ask.Volume)
 	}
 }

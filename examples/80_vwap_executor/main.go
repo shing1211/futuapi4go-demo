@@ -60,16 +60,17 @@ func main() {
 		[]constant.SubType{constant.SubType_OrderBook}); err != nil {
 		fmt.Printf("Subscribe failed: %v\n", err)
 	} else {
-		orderbook, err := client.GetOrderBook(ctx, mc.Client, constant.Market_US, targetSymbol, 20)
+		result, err := client.GetOrderBook(ctx, mc.Client, constant.Market_US, targetSymbol, 20)
 		if err != nil {
 			fmt.Printf("GetOrderBook failed: %v\n", err)
-		} else {
+		} else if len(result.Items) > 0 {
+			ob := result.Items[0]
 			fmt.Printf("Order book levels: %d bids, %d asks\n",
-				len(orderbook.Bids), len(orderbook.Asks))
+				len(ob.Bids), len(ob.Asks))
 
 			var bidVolume int64
 			var bidValue float64
-			for i, item := range orderbook.Bids {
+			for i, item := range ob.Bids {
 				if i >= 10 {
 					break
 				}
@@ -79,7 +80,7 @@ func main() {
 
 			var askVolume int64
 			var askValue float64
-			for i, item := range orderbook.Asks {
+			for i, item := range ob.Asks {
 				if i >= 10 {
 					break
 				}
