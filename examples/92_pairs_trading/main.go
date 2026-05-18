@@ -114,16 +114,19 @@ func main() {
 func analyzePair(ctx context.Context, c *client.Client, p pairDef) pairResult {
 	r := pairResult{Pair: p}
 
-	klA, err := client.GetKLines(ctx, c, p.Market, p.CodeA, constant.KLType_K_Day, 60)
+	klineResultA, err := client.GetKLines(ctx, c, p.Market, p.CodeA, constant.KLType_K_Day, 60)
 	if err != nil {
 		fmt.Printf("  %s GetKLines(%s): %v\n", p.Name, p.CodeA, err)
 		return r
 	}
-	klB, err := client.GetKLines(ctx, c, p.Market, p.CodeB, constant.KLType_K_Day, 60)
+	klineResultB, err := client.GetKLines(ctx, c, p.Market, p.CodeB, constant.KLType_K_Day, 60)
 	if err != nil {
 		fmt.Printf("  %s GetKLines(%s): %v\n", p.Name, p.CodeB, err)
 		return r
 	}
+
+	klA := klineResultA.Items
+	klB := klineResultB.Items
 
 	n := min(len(klA), len(klB))
 	if n < 5 {

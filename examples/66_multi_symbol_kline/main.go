@@ -36,14 +36,14 @@ func main() {
 	for _, symbol := range symbols {
 		fmt.Printf("\n--- %s ---\n", symbol)
 
-		klines, err := client.GetKLines(ctx, mc.Client, constant.Market_US, symbol,
+		klineResult, err := client.GetKLines(ctx, mc.Client, constant.Market_US, symbol,
 			constant.KLType_K_Day, 5)
 		if err != nil {
 			fmt.Printf("  GetKLines failed: %v\n", err)
 			continue
 		}
 
-		for _, k := range klines {
+		for _, k := range klineResult.Items {
 			fmt.Printf("  %s: O=%.2f H=%.2f L=%.2f C=%.2f Vol=%d\n",
 				k.Time, k.Open, k.High, k.Low, k.Close, k.Volume)
 		}
@@ -55,21 +55,21 @@ func main() {
 	startTime := "2026-01-01"
 	endTime := time.Now().Format("2006-01-02")
 
-	var klines []client.KLine
+	var klineResult *client.KLinesResult
 	var err error
 	for _, symbol := range symbols[:3] {
 		fmt.Printf("Requesting historical K-lines for %s (%s to %s)...\n", symbol, startTime, endTime)
 
-		klines, err = client.RequestHistoryKL(ctx, mc.Client, constant.Market_US, symbol,
+		klineResult, err = client.RequestHistoryKL(ctx, mc.Client, constant.Market_US, symbol,
 			constant.KLType_K_Day, startTime, endTime)
 		if err != nil {
 			fmt.Printf("  RequestHistoryKL failed: %v\n", err)
 			continue
 		}
 
-		fmt.Printf("  Got %d K-lines\n", len(klines))
-		if len(klines) > 0 {
-			latest := klines[len(klines)-1]
+		fmt.Printf("  Got %d K-lines\n", len(klineResult.Items))
+		if len(klineResult.Items) > 0 {
+			latest := klineResult.Items[len(klineResult.Items)-1]
 			fmt.Printf("  Latest: %s O=%.2f C=%.2f\n", latest.Time, latest.Open, latest.Close)
 		}
 		break
@@ -80,5 +80,5 @@ func main() {
 	fmt.Println("GetKLines for recent/realtime K-line data")
 
 	fmt.Println("\n── Result (JSON) ────────────────────────")
-	display.PrintJSON(klines)
+	display.PrintJSON(klineResult.Items)
 }

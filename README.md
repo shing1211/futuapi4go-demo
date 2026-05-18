@@ -7,6 +7,10 @@
   <img src="https://img.shields.io/badge/futuapi4go-v0.8.8-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
+> **⚠️ Under Active Development**  
+> This demo project is under active development alongside the futuapi4go SDK. Examples
+> may reference APIs or types still being finalized. Not recommended for production use.
+
 > **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 100 standalone examples (00–101), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Table of Contents

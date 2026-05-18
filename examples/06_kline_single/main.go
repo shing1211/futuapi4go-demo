@@ -19,15 +19,15 @@ func main() {
 		log.Fatalf("Subscribe failed: %v", err)
 	}
 
-	klines, err := client.GetKLines(context.Background(), mc.Client, constant.Market_US, "NVDA", constant.KLType_K_Day, 10)
+	klineResult, err := client.GetKLines(context.Background(), mc.Client, constant.Market_US, "NVDA", constant.KLType_K_Day, 10)
 	if err != nil {
 		log.Fatalf("GetKLines failed: %v", err)
 	}
-	for _, bar := range klines {
+	for _, bar := range klineResult.Items {
 		fmt.Printf("%s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
 			bar.Time, bar.Open, bar.High, bar.Low, bar.Close, bar.Volume)
 	}
 
 	fmt.Println("\n── KLine Data (JSON) ─────────────────────")
-	display.PrintJSON(klines)
+	display.PrintJSON(klineResult.Items)
 }

@@ -101,13 +101,13 @@ func main() {
 			[]constant.SubType{constant.SubType_K_Day}); err != nil {
 			fmt.Printf("Subscribe failed: %v\n", err)
 		} else {
-			klines, err := client.GetKLines(ctx, mc.Client, constant.Market_US, topStock,
+			klineResult, err := client.GetKLines(ctx, mc.Client, constant.Market_US, topStock,
 				constant.KLType_K_Day, 10)
 			if err != nil {
 				fmt.Printf("GetKLines failed: %v\n", err)
 			} else {
 				fmt.Println("Recent 10 days:")
-				for _, k := range klines {
+				for _, k := range klineResult.Items {
 					fmt.Printf("  %s: O=%.2f H=%.2f L=%.2f C=%.2f\n",
 						k.Time, k.Open, k.High, k.Low, k.Close)
 				}

@@ -16,7 +16,7 @@ func main() {
 	defer mc.Close()
 
 	fmt.Println("=== RequestHistoryKL (Working with current OpenD) ===")
-	klines, err := client.RequestHistoryKL(
+	klineResult, err := client.RequestHistoryKL(
 		context.Background(), mc.Client,
 		constant.Market_US, "NVDA",
 		constant.KLType_K_Day,
@@ -25,11 +25,15 @@ func main() {
 	if err != nil {
 		log.Fatalf("RequestHistoryKL failed: %v", err)
 	}
-	for _, bar := range klines {
+	for _, bar := range klineResult.Items {
 		fmt.Printf("%s  O=%.2f H=%.2f L=%.2f C=%.2f V=%d\n",
 			bar.Time, bar.Open, bar.High, bar.Low, bar.Close, bar.Volume)
 	}
 
+	if klineResult.NextKLTime != "" {
+		fmt.Printf("Next page: %s\n", klineResult.NextKLTime)
+	}
+
 	fmt.Println("\n── Result (JSON) ────────────────────────")
-	display.PrintJSON(klines)
+	display.PrintJSON(klineResult.Items)
 }

@@ -149,13 +149,13 @@ func main() {
 	fmt.Printf("  Implied Move:      ±%.2f%%\n\n", impliedMove)
 
 	fmt.Println("--- Step 4: Historical Earnings Move ---")
-	klines, err := client.GetKLines(ctx, mc.Client, constant.Market_US, symbol,
+	klineResult, err := client.GetKLines(ctx, mc.Client, constant.Market_US, symbol,
 		constant.KLType_K_Day, 120)
 	histMoveAvg := 0.0
 	if err != nil {
 		fmt.Printf("  GetKLines: %v\n", err)
 	} else {
-		moves := estimateEarningsMoves(klines)
+		moves := estimateEarningsMoves(klineResult.Items)
 		if len(moves) > 0 {
 			s := 0.0
 			for _, m := range moves {
@@ -228,7 +228,7 @@ func main() {
 	fmt.Println("\n=== Earnings Volatility Strategy Complete ===")
 
 	fmt.Println("\n── Result (JSON) ────────────────────────")
-	display.PrintJSON(klines)
+	display.PrintJSON(klineResult.Items)
 }
 
 func estimateEarningsMoves(klines []client.KLine) []float64 {
