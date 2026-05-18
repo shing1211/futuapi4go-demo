@@ -2,13 +2,13 @@
 
 ## Overview
 
-`futuapi4go-demo` is a repository of **97 standalone Go examples** demonstrating the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK for connecting to Futu's OpenD trading gateway. Each example is a self-contained `main.go` that exercises one or more SDK functions.
+`futuapi4go-demo` is a repository of **100 standalone Go examples** demonstrating the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK for connecting to Futu's OpenD trading gateway. Each example is a self-contained `main.go` that exercises one or more SDK functions.
 
 The repository has three layers:
 
-1. **Examples (00–97)** — the visible surface; each is a runnable program
+1. **Examples (00–101)** — the visible surface; each is a runnable program
 2. **Shared helpers (`examples/pkg/`)** — reusable connection management
-3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.7.0`)
+3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.8.7`)
 
 ## Functional Areas
 
@@ -209,7 +209,7 @@ main
 
 ```mermaid
 flowchart TB
-    subgraph examples["examples/ — 97 standalone programs"]
+    subgraph examples["examples/ — 100 standalone programs"]
         direction TB
         subgraph connection["Connection (00_*)\n3 examples"]
             c0[00_connect\nplain TCP]
@@ -249,7 +249,7 @@ flowchart TB
         connect_pkg["connect/\nMustConnect, ManagedConnection\nHA: probe → connect → keepalive → reconnect"]
     end
 
-    subgraph sdk["github.com/shing1211/futuapi4go v0.7.0"]
+    subgraph sdk["github.com/shing1211/futuapi4go v0.8.7"]
         client_pkg["client/\nConnect, GetQuote, PlaceOrder, ..."]
         chanpkg["chanpkg/\nSubscribeTicker, SubscribeKLine, ..."]
         push["push/\nUpdateTicker, UpdateKL, ..."]

@@ -5,6 +5,21 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.8.7] - 2026-05-18
+
+### Changed
+
+- **Upgraded SDK to v0.8.7** — `RequestHistoryKLQuota` API removed from SDK; deleted example 65
+
+### Added
+
+- Compatible with futuapi4go SDK v0.8.7 (extended Quote, Snapshot, UserInfo, RehabInfo, DelayStatistics types)
+
+### Fixed
+
+- **examples/48_subscribe_kline_single** — updated for `SubscribeKLine` signature changes in SDK v0.8.7
+- **examples/69_subscribe_handler** — updated for KLine push handler API changes in SDK v0.8.7
+
 ## [v0.8.6] - 2026-05-17
 
 ### Added

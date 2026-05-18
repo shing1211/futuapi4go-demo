@@ -1,6 +1,6 @@
 # Example Reference
 
-> All 101 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
+> All 100 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
 > Each example is a `main.go` in its own directory under `examples/`.
 > Run with: `go run ./examples/NN_name`
 
@@ -12,7 +12,7 @@
 | 00 | [`00_rsa_connect`](../examples/00_rsa_connect) | `client.Connect` + RSA | RSA-encrypted connection (remote OpenD) |
 | 00 | [`00_ws_connect`](../examples/00_ws_connect) | `client.ConnectWS` | WebSocket connection |
 
-## Basic Function Examples (01–65)
+## Basic Function Examples (01–64)
 
 | # | Example | SDK Function |
 |---|---------|-------------|
@@ -80,7 +80,6 @@
 | 62 | [`62_set_price_reminder`](../examples/62_set_price_reminder) | `client.SetPriceReminder` |
 | 63 | [`63_sub_acc_push`](../examples/63_sub_acc_push) | `client.SubAccPush` |
 | 64 | [`64_reconfirm_order`](../examples/64_reconfirm_order) | `client.ReconfirmOrder` |
-| 65 | [`65_history_kl_quota`](../examples/65_history_kl_quota) | `client.RequestHistoryKLQuota` |
 
 ## Gap Fill Examples (66–69)
 

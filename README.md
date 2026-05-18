@@ -4,10 +4,10 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.8.6-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.8.7-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 101 standalone examples (00–101), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 100 standalone examples (00–101), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Table of Contents
 
@@ -54,7 +54,7 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-├── examples/               # 101 standalone programs (00–99)
+├── examples/               # 100 standalone programs (00–101)
 │   ├── 00_connect/        # client.Connect
 │   ├── 00_rsa_connect/    # TCP + RSA encryption
 │   ├── 00_ws_connect/     # WebSocket connection
@@ -68,14 +68,14 @@ futuapi4go-demo/
     └── connect/           # MustConnect, ManagedConnection (HA)
 ```
 
-See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 101-example reference.
+See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 100-example reference.
 
 ## Example Categories
 
 | Category | Count | Range | Purpose |
 |----------|-------|-------|---------|
 | Connection | 3 | `00_*` | Plain TCP, RSA-encrypted TCP, WebSocket |
-| Basic Functions | 65 | `01–65` | One-shot & streaming market data, trading, subscriptions |
+| Basic Functions | 64 | `01–64` | One-shot & streaming market data, trading, subscriptions |
 | Gap Fill | 4 | `66–69` | Multi-function workflows |
 | Futures & Options | 6 | `70–75` | Futures/options accounts, positions, margin |
 | Advanced Combo | 5 | `76–80` | Pre-trade checks, DCA grid bot, VWAP |
@@ -152,7 +152,7 @@ accID := acc.AccID
 ## See Also
 
 - **[futuapi4go](https://github.com/shing1211/futuapi4go)** — the Go SDK this demo is built on
-- [Full Example Reference](docs/EXAMPLES.md) — complete table of all 101 examples
+- [Full Example Reference](docs/EXAMPLES.md) — complete table of all 100 examples
 - [Architecture](ARCHITECTURE.md) — design overview, execution flows, Mermaid diagram
 - [CHANGELOG](CHANGELOG.md) — version history and release notes
 
