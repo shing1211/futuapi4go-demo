@@ -22,7 +22,7 @@ func main() {
 	defer mc.Close()
 
 	// Search for call warrants on Tencent (HK.00700), issuer doesn't matter
-	warrants, err := client.GetWarrant(context.Background(), mc.Client,
+	warrantResult, err := client.GetWarrant(context.Background(), mc.Client,
 		constant.Market_HK, "00700", // Tencent in HK market
 		0, 20,                                  // begin, num (get up to 20 warrants)
 		constant.WarrantSortField_EffectiveLeverage, true, // sort by effective leverage, ascending
@@ -34,13 +34,15 @@ func main() {
 		log.Fatalf("GetWarrant failed: %v", err)
 	}
 
+	warrants := warrantResult.Items
+
 	if len(warrants) == 0 {
 		fmt.Println("No buy warrants found for HK.00700 (Tencent).")
 		fmt.Println("Try a different stock or warrant type.")
 		return
 	}
 
-	fmt.Printf("Found %d buy (call) warrants for HK.00700 (Tencent):\n\n", len(warrants))
+	fmt.Printf("Found %d buy (call) warrants for HK.00700 (Tencent) (total: %d):\n\n", len(warrants), warrantResult.AllCount)
 	fmt.Printf("%-12s %-25s %-8s %-8s %-8s %-10s %s\n",
 		"Code", "Name", "Price", "Strike", "Maturity", "Eff Leverage", "Type")
 	fmt.Println("─────────────────────────────────────────────────────────────────────────────────")

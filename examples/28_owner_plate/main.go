@@ -19,9 +19,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("GetOwnerPlate failed: %v", err)
 	}
-	for code, plateList := range plates {
-		fmt.Printf("Security: %s\n", code)
-		for _, p := range plateList {
+	for code, entry := range plates {
+		fmt.Printf("Security: %s (%s)\n", code, entry.Name)
+		for _, p := range entry.Plates {
 			fmt.Printf("  Plate: %s (code=%s, type=%d)\n", p.Name, p.Code, p.PlateType)
 		}
 	}
