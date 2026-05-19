@@ -28,18 +28,17 @@ go run ./examples/00_connect
 
 ```
 futuapi4go-demo/
-├── examples/                  # 100 standalone examples (00-101)
+├── examples/                  # 104+ standalone examples (00-101)
 │   ├── README.md              # Example descriptions & links
 │   ├── 00_connect/           # client.Connect
+│   ├── 00_connect_ha/        # HA (high-availability) connect
+│   ├── 00_rsa_connect/       # RSA encrypted connect
 │   ├── 01_quote/             # client.GetQuote
 │   ├── 02_ticker/           # chanpkg.SubscribeTicker
-│   ├── 03_orderbook/        # chanpkg.SubscribeOrderBook
-│   ├── 04_rt/               # chanpkg.SubscribeRT
-│   ├── 05_broker/           # chanpkg.SubscribeBroker
-│   ├── 06_kline_single/     # client.GetKLines
-│   ├── 07_kline_multi/      # chanpkg.SubscribeKLines
-│   └── ... (74 more: 08-96)
+│   ├── ... (up to 101)
+│   └── pkg/                  # Shared packages (connect/, display/)
 ├── AGENTS.md
+├── go.mod                    # SDK v0.9.2 + replace directive
 └── README.md
 ```
 
@@ -63,7 +62,7 @@ cli := client.New().WithTradeEnv(constant.TrdEnv_Real)
 
 Real trading requires `FUTU_TRADE_PWD` environment variable with MD5 hash of your trading password.
 
-## SDK Debugging
+## SDK Dependency
 
 The futuapi4go SDK source is at `github.com/shing1211/futuapi4go`.
 
@@ -71,7 +70,15 @@ The futuapi4go SDK source is at `github.com/shing1211/futuapi4go`.
 - Generated Go protobuf code: `pkg/pb/`
 - SDK source: `pkg/`
 
-**To use a local SDK version** (e.g., after fixing proto bugs), add a `replace` directive to `go.mod`:
+### Local `replace` Directive (Required)
+
+`go.mod` includes a `replace` directive pointing to `../futuapi4go` because:
+
+- The Go module proxy cached a stale version of **v0.9.2** (the tag was force-pushed)
+- New SDK packages (`pkg/cache`, `pkg/history`, `pkg/option`, `pkg/tracing`, `pkg/tracing/otel`) exist in the local repo but aren't served by the proxy
+- Examples 86-101 import these packages
+
+If the SDK repo is at a different path, update the `replace` directive in `go.mod`:
 
 ```
 replace github.com/shing1211/futuapi4go => /path/to/local/futuapi4go
@@ -123,7 +130,7 @@ For these, use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **futuapi4go-demo** (1574 symbols, 3127 relationships, 133 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **futuapi4go-demo** (1576 symbols, 3974 relationships, 133 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 

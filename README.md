@@ -11,7 +11,7 @@
 > This demo project is under active development alongside the futuapi4go SDK. Examples
 > may reference APIs or types still being finalized. Not recommended for production use.
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 100 standalone examples (00–101), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 104 standalone examples (00–101), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Table of Contents
 
@@ -58,21 +58,19 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-├── examples/               # 100 standalone programs (00–101)
+├── examples/               # 104 standalone programs (00–101)
 │   ├── 00_connect/        # client.Connect
 │   ├── 00_rsa_connect/    # TCP + RSA encryption
 │   ├── 00_ws_connect/     # WebSocket connection
 │   ├── 01_quote/          # GetQuote
 │   ├── ...                # (see docs/EXAMPLES.md for full list)
-│   ├── 96_get_delay_statistics/
-│   ├── 97_opentelemetry_tracing/
-│   ├── 98_state_shutdown/
-│   └── 99_audit_validation/
+│   ├── 99_audit_validation/
+│   └── 100_kl_cache/      # K-line cache (LRU+TTL)
 └── examples/pkg/          # Shared helpers
     └── connect/           # MustConnect, ManagedConnection (HA)
 ```
 
-See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 100-example reference.
+See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 104-example reference.
 
 ## Example Categories
 

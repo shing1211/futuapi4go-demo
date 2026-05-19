@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **go.mod `replace` directive** — added `replace github.com/shing1211/futuapi4go => ../futuapi4go` to resolve stale proxy cache issue. The v0.9.2 tag was force-pushed and the Go module proxy cached the old commit. The local SDK has new packages (`pkg/cache`, `pkg/history`, `pkg/option`, `pkg/tracing`, `pkg/tracing/otel`) required by examples 86–101.
+
+## [v0.9.2] - 2026-05-19
+
 ## [v0.9.0] - 2026-05-18
 
 ### Changed

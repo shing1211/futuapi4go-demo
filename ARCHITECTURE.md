@@ -2,13 +2,13 @@
 
 ## Overview
 
-`futuapi4go-demo` is a repository of **100 standalone Go examples** demonstrating the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK for connecting to Futu's OpenD trading gateway. Each example is a self-contained `main.go` that exercises one or more SDK functions.
+`futuapi4go-demo` is a repository of **104 standalone Go examples** demonstrating the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK for connecting to Futu's OpenD trading gateway. Each example is a self-contained `main.go` that exercises one or more SDK functions.
 
 The repository has three layers:
 
 1. **Examples (00–101)** — the visible surface; each is a runnable program
 2. **Shared helpers (`examples/pkg/`)** — reusable connection management
-3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.8.8`)
+3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.9.2`) with local `replace` directive
 
 ## Functional Areas
 
@@ -249,9 +249,13 @@ flowchart TB
         connect_pkg["connect/\nMustConnect, ManagedConnection\nHA: probe → connect → keepalive → reconnect"]
     end
 
-    subgraph sdk["github.com/shing1211/futuapi4go v0.8.8"]
+    subgraph sdk["github.com/shing1211/futuapi4go v0.9.2"]
         client_pkg["client/\nConnect, GetQuote, PlaceOrder, ..."]
         chanpkg["chanpkg/\nSubscribeTicker, SubscribeKLine, ..."]
+        cache_pkg["cache/\nNewKLCache, NewKLCachedClient"]
+        history_pkg["history/\nNewDownloader, DownloadWithStats"]
+        option_pkg["option/\nParseCode, FindAtm, StrikeDistance"]
+        tracing_pkg["tracing/\nSetTracer, otel.NewTracer"]
         push["push/\nUpdateTicker, UpdateKL, ..."]
         constant["constant/\nMarket_US, TrdEnv_Real, ..."]
         pb["pb/\nProtobuf messages"]

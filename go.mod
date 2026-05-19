@@ -10,6 +10,8 @@ require (
 	go.opentelemetry.io/otel/sdk v1.43.0
 )
 
+replace github.com/shing1211/futuapi4go => ../futuapi4go
+
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
