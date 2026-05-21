@@ -5,11 +5,16 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.10.0] - 2026-05-21
+
+### Changed
+
+- **Upgraded SDK to v0.10.0** — Phase 3 proto safety (1,200+ `GetXxx()` → direct field access), input validation, retry skip for trading ops
+- **Removed `replace` directive** — demo now uses published `v0.10.0` from GitHub instead of local SDK
+
 ## [Unreleased]
 
-### Added
-
-- **go.mod `replace` directive** — added `replace github.com/shing1211/futuapi4go => ../futuapi4go` to resolve stale proxy cache issue. The v0.9.2 tag was force-pushed and the Go module proxy cached the old commit. The local SDK has new packages (`pkg/cache`, `pkg/history`, `pkg/option`, `pkg/tracing`, `pkg/tracing/otel`) required by examples 86–101.
+(Previously: `replace` directive for local SDK development — now removed in v0.10.0)
 
 ## [v0.9.2] - 2026-05-19
 
