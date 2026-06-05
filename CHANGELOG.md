@@ -5,6 +5,20 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.13.0] - 2026-06-05
+
+### Changed
+
+- **Upgraded SDK to v0.13.0** — Futu Protocol v10.7.6708 (combo options, 6 new APIs)
+
+### Added
+
+- **Example 97a:** `GetOptionQuote` — real-time quotes for option combo legs
+- **Example 97b:** `GetOptionStrategy` — available option strategies for an underlying
+- **Example 97c:** `GetOptionStrategyAnalysis` — P&L analysis (max profit/loss, Greeks, breakeven)
+- **Example 97d:** `GetOptionStrategySpread` — available spread values for vertical spreads
+- **Example 97e:** `GetComboMaxTrdQtys` + `PlaceComboOrder` — combo order max qty and placement
+
 ## [v0.12.0] - 2026-05-22
 
 ### Changed

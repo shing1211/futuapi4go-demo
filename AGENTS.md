@@ -28,17 +28,17 @@ go run ./examples/00_connect
 
 ```
 futuapi4go-demo/
-├── examples/                  # 104+ standalone examples (00-101)
+├── examples/                  # 109+ standalone examples (00-97e)
 │   ├── README.md              # Example descriptions & links
 │   ├── 00_connect/           # client.Connect
 │   ├── 00_connect_ha/        # HA (high-availability) connect
 │   ├── 00_rsa_connect/       # RSA encrypted connect
 │   ├── 01_quote/             # client.GetQuote
 │   ├── 02_ticker/           # chanpkg.SubscribeTicker
-│   ├── ... (up to 101)
+│   ├── ... (up to 97e)
 │   └── pkg/                  # Shared packages (connect/, display/)
 ├── AGENTS.md
-├── go.mod                    # SDK v0.9.2 + replace directive
+├── go.mod                    # SDK v0.13.0 + replace directive
 └── README.md
 ```
 
@@ -74,7 +74,7 @@ The futuapi4go SDK source is at `github.com/shing1211/futuapi4go`.
 
 `go.mod` includes a `replace` directive pointing to `../futuapi4go` because:
 
-- The Go module proxy cached a stale version of **v0.9.2** (the tag was force-pushed)
+- The Go module proxy cached a stale version of **v0.13.0** (the tag was force-pushed)
 - New SDK packages (`pkg/cache`, `pkg/history`, `pkg/option`, `pkg/tracing`, `pkg/tracing/otel`) exist in the local repo but aren't served by the proxy
 - Examples 86-101 import these packages
 
@@ -123,7 +123,7 @@ For these, use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD
 
 ## Related Repositories
 
-- SDK: `github.com/shing1211/futuapi4go` (current: v0.12.0)
+- SDK: `github.com/shing1211/futuapi4go` (current: v0.13.0)
 - Official Proto Doc: https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
 - OpenD Downloads: https://www.futunn.com/download/fetch-lasted-link?name=opend-windows
 

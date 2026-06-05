@@ -8,7 +8,7 @@ The repository has three layers:
 
 1. **Examples (00–101)** — the visible surface; each is a runnable program
 2. **Shared helpers (`examples/pkg/`)** — reusable connection management
-3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.9.2`) with local `replace` directive
+3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.13.0`) with local `replace` directive
 
 ## Functional Areas
 
@@ -249,7 +249,7 @@ flowchart TB
         connect_pkg["connect/\nMustConnect, ManagedConnection\nHA: probe → connect → keepalive → reconnect"]
     end
 
-    subgraph sdk["github.com/shing1211/futuapi4go v0.9.2"]
+    subgraph sdk["github.com/shing1211/futuapi4go v0.13.0"]
         client_pkg["client/\nConnect, GetQuote, PlaceOrder, ..."]
         chanpkg["chanpkg/\nSubscribeTicker, SubscribeKLine, ..."]
         cache_pkg["cache/\nNewKLCache, NewKLCachedClient"]
