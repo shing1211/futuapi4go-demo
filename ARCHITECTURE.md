@@ -2,13 +2,13 @@
 
 ## Overview
 
-`futuapi4go-demo` is a repository of **104 standalone Go examples** demonstrating the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK for connecting to Futu's OpenD trading gateway. Each example is a self-contained `main.go` that exercises one or more SDK functions.
+`futuapi4go-demo` is a repository of **108 standalone Go examples** demonstrating the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK for connecting to Futu's OpenD trading gateway. Each example is a self-contained `main.go` that exercises one or more SDK functions.
 
 The repository has three layers:
 
-1. **Examples (00–101)** — the visible surface; each is a runnable program
+1. **Examples (00–105)** — the visible surface; each is a runnable program
 2. **Shared helpers (`examples/pkg/`)** — reusable connection management
-3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.13.0`) with local `replace` directive
+3. **SDK dependency** — `github.com/shing1211/futuapi4go` (at `v0.15.0`) with local `replace` directive
 
 ## Functional Areas
 
@@ -148,6 +148,17 @@ Multi-source signal fusion and automated trading logic.
 | 94 | `94_portfolio_rebalance` | `GetPositionList` + `GetFunds` + `GetMaxTrdQtys` + `PlaceOrder` — multi-asset rebalancer |
 | 95 | `95_earnings_vol_strategy` | `GetOptionChain` + `GetKLines` — earnings straddle, implied vs historical vol |
 
+### Area 10 — Prediction Markets / Event Contract (examples 102–105)
+
+YES/NO binary outcome markets (Moomoo US Prediction, market=101).
+
+| # | Example | SDK Functions |
+|---|---------|---------------|
+| 102 | `102_ec_explore` | `FilterCompetition` + `GetEventContract{Category,SeriesList,EventList,MilestoneList}` — EC hierarchy discovery |
+| 103 | `103_ec_market_data` | `GetEventContract{Snapshot,OrderBook,Ticker,Kline}` + `RequestHistoryEventContractKL` — real-time/historical EC quotes |
+| 104 | `104_ec_subscribe` | `SubEventContract` + `RegisterHandler` + `ParseUpdateEventContract{OrderBook,Kline,Ticker}` — EC push streaming |
+| 105 | `105_ec_combo` | `GetEventContractComboList` + `GetEventContractComboRfq` — EC combo legs + RFQ quote |
+
 ## Key Execution Flows
 
 ### Flow 1 — Streaming Quote (Ticker)
@@ -209,7 +220,7 @@ main
 
 ```mermaid
 flowchart TB
-    subgraph examples["examples/ — 100 standalone programs"]
+    subgraph examples["examples/ — 108 standalone programs"]
         direction TB
         subgraph connection["Connection (00_*)\n3 examples"]
             c0[00_connect\nplain TCP]
@@ -249,7 +260,7 @@ flowchart TB
         connect_pkg["connect/\nMustConnect, ManagedConnection\nHA: probe → connect → keepalive → reconnect"]
     end
 
-    subgraph sdk["github.com/shing1211/futuapi4go v0.13.0"]
+    subgraph sdk["github.com/shing1211/futuapi4go v0.15.0"]
         client_pkg["client/\nConnect, GetQuote, PlaceOrder, ..."]
         chanpkg["chanpkg/\nSubscribeTicker, SubscribeKLine, ..."]
         cache_pkg["cache/\nNewKLCache, NewKLCachedClient"]

@@ -1,6 +1,6 @@
 # Example Reference
 
-> All 104 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
+> All 108 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
 > Each example is a `main.go` in its own directory under `examples/`.
 > Run with: `go run ./examples/NN_name`
 
@@ -156,3 +156,12 @@
 | 99 | [`99_audit_validation`](../examples/99_audit_validation) | `ValidateOrder` + `HasErrors` + `NewAuditLogger` | Order pre-flight validation and structured audit logging |
 | 100 | [`100_kl_cache`](../examples/100_kl_cache) | `cache.NewKLCache` + `cache.NewKLCachedClient` | K-line LRU+TTL cache: hit/miss behavior, cleanup, size monitoring |
 | 101 | [`101_otel_metrics`](../examples/101_otel_metrics) | `otel.NewOTelMeter` | OpenTelemetry metrics: connection, API calls, latency, rate limiting, breaker state |
+
+## Prediction Markets / Event Contract (102–105)
+
+| # | Example | SDK Functions | Description |
+|---|---------|---------------|-------------|
+| 102 | [`102_ec_explore`](../examples/102_ec_explore) | `FilterCompetition` + `GetEventContractCategory` + `GetEventContractSeriesList` + `GetEventContractEventList` + `GetEventContract` + `GetEventContractMilestoneList` | Discover EC hierarchy: category → series → event → contracts → milestones |
+| 103 | [`103_ec_market_data`](../examples/103_ec_market_data) | `GetEventContractSnapshot` + `GetEventContractOrderBook` + `GetEventContractTicker` + `GetEventContractKline` + `RequestHistoryEventContractKL` | Real-time + historical EC quotes (YES/NO bid/ask, predSide, klineSource) |
+| 104 | [`104_ec_subscribe`](../examples/104_ec_subscribe) | `SubEventContract` + `RegisterHandler` + `ParseUpdateEventContract{OrderBook,Kline,Ticker}` | Streaming EC push subscription & parsing |
+| 105 | [`105_ec_combo`](../examples/105_ec_combo) | `GetEventContractComboList` + `GetEventContractComboRfq` | Combine EC contracts into a Combo and request a firm RFQ quote |

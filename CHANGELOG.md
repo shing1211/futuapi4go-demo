@@ -5,6 +5,19 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.15.0] - 2026-08-04
+
+### Changed
+
+- **Upgraded SDK to v0.15.0** — Futu Protocol v10.9.6908 (Prediction Markets / Event Contract, 17 new APIs)
+
+### Added
+
+- **Example 102:** `GetEventContractCategory` + `FilterCompetition` + `GetEventContractSeriesList` + `GetEventContractEventList` + `GetEventContract` + `GetEventContractMilestoneList` — explore the full Event Contract hierarchy (category → series → event → contracts → milestones)
+- **Example 103:** `GetEventContractSnapshot` + `GetEventContractOrderBook` + `GetEventContractTicker` + `GetEventContractKline` + `RequestHistoryEventContractKL` — real-time and historical EC quotes (YES/NO bid/ask, predSide, klineSource)
+- **Example 104:** `SubEventContract` + `RegisterHandler` + `ParseUpdateEventContract{OrderBook,Kline,Ticker}` — streaming EC push subscription & parsing
+- **Example 105:** `GetEventContractComboList` + `GetEventContractComboRfq` — combine EC contracts into a Combo and request a firm RFQ quote
+
 ## [v0.13.0] - 2026-06-05
 
 ### Changed

@@ -52,3 +52,4 @@ graphify-out/
 
 # Compiled Go binaries from example dirs — always build/run from examples/*/
 [0-9][0-9]_
+[0-9][0-9][0-9]_

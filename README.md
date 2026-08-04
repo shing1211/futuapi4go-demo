@@ -4,14 +4,14 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.13.0-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.15.0-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
 > **⚠️ Under Active Development**  
 > This demo project is under active development alongside the futuapi4go SDK. Examples
 > may reference APIs or types still being finalized. Not recommended for production use.
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 109 standalone examples (00–97e), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 113 standalone examples (00–105), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Table of Contents
 
@@ -58,19 +58,20 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-├── examples/               # 104 standalone programs (00–101)
+├── examples/               # 108 standalone programs (00–105)
 │   ├── 00_connect/        # client.Connect
 │   ├── 00_rsa_connect/    # TCP + RSA encryption
 │   ├── 00_ws_connect/     # WebSocket connection
 │   ├── 01_quote/          # GetQuote
 │   ├── ...                # (see docs/EXAMPLES.md for full list)
 │   ├── 99_audit_validation/
-│   └── 100_kl_cache/      # K-line cache (LRU+TTL)
+│   ├── 100_kl_cache/      # K-line cache (LRU+TTL)
+│   └── 102–105_ec_*/      # Prediction Market / Event Contract
 └── examples/pkg/          # Shared helpers
     └── connect/           # MustConnect, ManagedConnection (HA)
 ```
 
-See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 104-example reference.
+See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 108-example reference.
 
 ## Example Categories
 
@@ -86,6 +87,7 @@ See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 104-example refere
 | Quant Strategies | 5 | `91–95` | Order book imbalance, pairs trading, smart money |
 | Special | 1 | `96` | Delay statistics |
 | Lifecycle & Audit | 2 | `98–99` | State machine shutdown, order audit validation |
+| Prediction Markets | 4 | `102–105` | Event Contract discovery, market data, subscribe & push, combo RFQ |
 
 ## Environment Variables
 
