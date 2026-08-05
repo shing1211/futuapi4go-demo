@@ -5,6 +5,25 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Example 106:** `GetOptionVolatility` + `GetOptionRank` + `GetOptionMarketStatistic` — implied/historical vol, option ranking by volume, market-wide call/put stat
+- **Example 107:** `GetOptionEarningsScreener` + `GetOptionZeroDteScreener` + `GetOptionSellerScreener` + `OptionScreen` — the four option screening engines
+- **Example 108:** `GetOptionExerciseProbability` + `GetOptionUnderlyingHisStatistic` + `GetOptionUnderlyingHisVolatility` + `GetOptionUnderlyingOverview` + `GetOptionUnderlyingRank` — option risk & underlying-level analytics
+- **Example 109:** `GetOptionEvent` + `GetOptionEventAlert` + `SetOptionEventAlert` — unusual option events + alert CRUD lifecycle (add → deleteAll)
+- **Example 110:** `GetIndicatorList` + `RequestIndicatorCalc` — MyLang indicator search and on-demand K-line indicator calculation
+- **Documented orphaned 97a–97e sub-examples** in `docs/EXAMPLES.md` (option quote/strategy/analysis/spread, combo order)
+
+### Pending (tracked in `docs/OPTION_API_COVERAGE_PLAN.md`)
+
+- **Examples 111–129** — Tiers 2–5 demo coverage for institutional/shareholder/flow suites, macro & research data, K-line/rehab variants, quick-trade, and stock-screen:
+  - `111_institutional_flow`, `112_shareholder_data`, `113_top_brokers`, `114_short_data`
+  - `115_macro_calendar`, `116_macro_indicators`, `117_earnings_dividends`, `118_research_ratings`, `119_ranks_distributions`, `120_search_discovery`, `121_user_security_single`
+  - `122_kl_realtime`, `123_history_kl_variants`, `124_rehab_history`, `125_combo_order`, `126_quick_trade`, `127_today_orders_fills`, `128_system_verification`
+  - `129_stock_screen`
+
 ## [v0.15.0] - 2026-08-04
 
 ### Changed

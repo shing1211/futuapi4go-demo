@@ -1,6 +1,6 @@
 # Example Reference
 
-> All 108 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
+> All 113 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
 > Each example is a `main.go` in its own directory under `examples/`.
 > Run with: `go run ./examples/NN_name`
 
@@ -152,6 +152,11 @@
 | # | Example | SDK Functions | Description |
 |---|---------|---------------|-------------|
 | 97 | [`97_opentelemetry_tracing`](../examples/97_opentelemetry_tracing) | `tracing.SetTracer` + `otel.NewTracer` | OpenTelemetry tracing setup: stdout exporter, TracerProvider, auto-generated spans |
+| 97a | [`97a_option_quote`](../examples/97a_option_quote) | `client.GetOptionQuote` | Greeks (Δ/Γ/Θ/ν/ρ), bid/ask, OI for a multi-leg option quote |
+| 97b | [`97b_option_strategy`](../examples/97b_option_strategy) | `client.GetOptionStrategy` | Strategy catalogue (straddle / strangle / spread …) for an underlying |
+| 97c | [`97c_strategy_analysis`](../examples/97c_strategy_analysis) | `client.GetOptionStrategyAnalysis` | Per-strategy P&L analysis: max profit/loss, breakevens, prob of profit |
+| 97d | [`97d_strategy_spread`](../examples/97d_strategy_spread) | `client.GetOptionStrategySpread` | Spread prices for vertical / ratio option strategies |
+| 97e | [`97e_combo_order`](../examples/97e_combo_order) | `client.GetComboMaxTrdQtys` + `client.PlaceComboOrder` | Combo-order RFQ workflow (max qty + placement preview) |
 | 98 | [`98_state_shutdown`](../examples/98_state_shutdown) | `WithOnStateChange` + `State` + `Shutdown` | Connection state machine monitoring and graceful shutdown |
 | 99 | [`99_audit_validation`](../examples/99_audit_validation) | `ValidateOrder` + `HasErrors` + `NewAuditLogger` | Order pre-flight validation and structured audit logging |
 | 100 | [`100_kl_cache`](../examples/100_kl_cache) | `cache.NewKLCache` + `cache.NewKLCachedClient` | K-line LRU+TTL cache: hit/miss behavior, cleanup, size monitoring |
@@ -165,3 +170,13 @@
 | 103 | [`103_ec_market_data`](../examples/103_ec_market_data) | `GetEventContractSnapshot` + `GetEventContractOrderBook` + `GetEventContractTicker` + `GetEventContractKline` + `RequestHistoryEventContractKL` | Real-time + historical EC quotes (YES/NO bid/ask, predSide, klineSource) |
 | 104 | [`104_ec_subscribe`](../examples/104_ec_subscribe) | `SubEventContract` + `RegisterHandler` + `ParseUpdateEventContract{OrderBook,Kline,Ticker}` | Streaming EC push subscription & parsing |
 | 105 | [`105_ec_combo`](../examples/105_ec_combo) | `GetEventContractComboList` + `GetEventContractComboRfq` | Combine EC contracts into a Combo and request a firm RFQ quote |
+
+## Option & Screener APIs (106–110)
+
+| # | Example | SDK Functions | Description |
+|---|---------|---------------|-------------|
+| 106 | [`106_option_volatility_rank`](../examples/106_option_volatility_rank) | `client.GetOptionVolatility` + `client.GetOptionRank` + `client.GetOptionMarketStatistic` | Implied/historical vol, option ranking by volume, market-wide call/put stat |
+| 107 | [`107_option_screener`](../examples/107_option_screener) | `client.GetOptionEarningsScreener` + `client.GetOptionZeroDteScreener` + `client.GetOptionSellerScreener` + `client.OptionScreen` | Four screening engines: earnings, 0-DTE, covered-call, v10.6 multi-criteria |
+| 108 | [`108_option_risk`](../examples/108_option_risk) | `client.GetOptionExerciseProbability` + `client.GetOptionUnderlyingHisStatistic` + `client.GetOptionUnderlyingHisVolatility` + `client.GetOptionUnderlyingOverview` + `client.GetOptionUnderlyingRank` | Per-strike exercise probability + underlying-level IV/OI/vol stats and ranking |
+| 109 | [`109_option_events`](../examples/109_option_events) | `client.GetOptionEvent` + `client.GetOptionEventAlert` + `client.SetOptionEventAlert` | Recent unusual option events; alert CRUD (add / deleteAll) lifecycle |
+| 110 | [`110_option_indicators`](../examples/110_option_indicators) | `client.GetIndicatorList` + `client.RequestIndicatorCalc` | Search the MyLang indicator catalogue and compute an indicator on a K-line series |
