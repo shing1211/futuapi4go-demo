@@ -107,6 +107,8 @@ The following APIs are **not supported** in simulate trading mode:
 
 For these, use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD` set.
 
+See `docs/TROUBLESHOOTING.md` for the full error reference.
+
 ## Related Repositories
 
 - SDK: `github.com/shing1211/futuapi4go` (current: v0.15.2)

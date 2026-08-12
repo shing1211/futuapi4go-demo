@@ -134,6 +134,9 @@ accID := acc.AccID
 
 ## Troubleshooting
 
+See [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) for the consolidated
+error reference, simulate-trading limitations, and known SDK issues.
+
 | Error | Cause |
 |-------|-------|
 | `connection refused` | OpenD not running. Set `FUTU_ADDR=127.0.0.1:11111` |
@@ -156,7 +159,8 @@ accID := acc.AccID
 ## See Also
 
 - **[futuapi4go](https://github.com/shing1211/futuapi4go)** — the Go SDK this demo is built on
-- [Full Example Reference](docs/EXAMPLES.md) — complete table of all 100 examples
+- [Full Example Reference](docs/EXAMPLES.md) — complete table of all 114 examples
+- [Troubleshooting](docs/TROUBLESHOOTING.md) — common errors, sim-mode limitations, known SDK issues
 - [Architecture](ARCHITECTURE.md) — design overview, execution flows, Mermaid diagram
 - [CHANGELOG](CHANGELOG.md) — version history and release notes
 

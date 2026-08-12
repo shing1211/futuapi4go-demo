@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Example 65:** `65_smoke_test` — fast happy-path example for CI: `GetGlobalState` + `GetAccountList` + `GetQuote(NVDA)` with pass/fail output and nonzero exit on failure
 - **`scripts/check-example-numbers.sh`** — validates examples/ numbering (name shape, no gaps, no unexpected duplicates, EXAMPLES.md count); wired into CI
+- **`docs/TROUBLESHOOTING.md`** — consolidated error reference (common errors, simulate-mode limitations, known SDK issues, env vars)
+
+### Changed
+
+- `make run-all` now prints a pass/fail summary with failed-dir list and nonzero exit on failure
+- `make clean` also removes 3-/4-digit example binaries (`111_*`, `100_*`, etc.)
+- README example count → 114; "See Also" now links TROUBLESHOOTING.md
+- `examples/pkg/connect` gained unit tests + benchmarks (see `connect_test.go`)
 
 ### Pending (tracked in `docs/OPTION_API_COVERAGE_PLAN.md`)
 
