@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Pending (tracked in `docs/OPTION_API_COVERAGE_PLAN.md`)
+
+- **Examples 111–129** — Tiers 2–5 demo coverage for institutional/shareholder/flow suites, macro & research data, K-line/rehab variants, quick-trade, and stock-screen:
+  - `111_institutional_flow`, `112_shareholder_data`, `113_top_brokers`, `114_short_data`
+  - `115_macro_calendar`, `116_macro_indicators`, `117_earnings_dividends`, `118_research_ratings`, `119_ranks_distributions`, `120_search_discovery`, `121_user_security_single`
+  - `122_kl_realtime`, `123_history_kl_variants`, `124_rehab_history`, `125_combo_order`, `126_quick_trade`, `127_today_orders_fills`, `128_system_verification`
+  - `129_stock_screen`
+
+## [v0.15.2] - 2026-08-12
+
+### Changed
+
+- **Upgraded SDK to v0.15.2** — bumped `github.com/shing1211/futuapi4go` from `v0.15.0` → `v0.15.2`; **dropped** the local `replace` directive — the SDK now resolves from the Go module proxy at the pinned tag. Picks up the SDK-side v0.15.1 additions (push parsers `ParseUpdateOptionEvent`/`ParsePushIndicatorCalc` and the Event Contract channel wrappers).
+
 ### Added
 
 - **Example 106:** `GetOptionVolatility` + `GetOptionRank` + `GetOptionMarketStatistic` — implied/historical vol, option ranking by volume, market-wide call/put stat
@@ -15,14 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Example 109:** `GetOptionEvent` + `GetOptionEventAlert` + `SetOptionEventAlert` — unusual option events + alert CRUD lifecycle (add → deleteAll)
 - **Example 110:** `GetIndicatorList` + `RequestIndicatorCalc` — MyLang indicator search and on-demand K-line indicator calculation
 - **Documented orphaned 97a–97e sub-examples** in `docs/EXAMPLES.md` (option quote/strategy/analysis/spread, combo order)
-
-### Pending (tracked in `docs/OPTION_API_COVERAGE_PLAN.md`)
-
-- **Examples 111–129** — Tiers 2–5 demo coverage for institutional/shareholder/flow suites, macro & research data, K-line/rehab variants, quick-trade, and stock-screen:
-  - `111_institutional_flow`, `112_shareholder_data`, `113_top_brokers`, `114_short_data`
-  - `115_macro_calendar`, `116_macro_indicators`, `117_earnings_dividends`, `118_research_ratings`, `119_ranks_distributions`, `120_search_discovery`, `121_user_security_single`
-  - `122_kl_realtime`, `123_history_kl_variants`, `124_rehab_history`, `125_combo_order`, `126_quick_trade`, `127_today_orders_fills`, `128_system_verification`
-  - `129_stock_screen`
 
 ## [v0.15.0] - 2026-08-04
 

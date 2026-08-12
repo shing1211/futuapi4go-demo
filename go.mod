@@ -4,7 +4,7 @@ go 1.26.1
 
 require (
 	github.com/joho/godotenv v1.5.1
-	github.com/shing1211/futuapi4go v0.15.0
+	github.com/shing1211/futuapi4go v0.15.2
 	go.opentelemetry.io/otel v1.43.0
 	go.opentelemetry.io/otel/exporters/stdout/stdouttrace v1.43.0
 	go.opentelemetry.io/otel/sdk v1.43.0
@@ -29,5 +29,3 @@ require (
 	golang.org/x/sys v0.42.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 )
-
-replace github.com/shing1211/futuapi4go => ../futuapi4go

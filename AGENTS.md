@@ -28,7 +28,7 @@ go run ./examples/00_connect
 
 ```
 futuapi4go-demo/
-├── examples/                  # 113+ standalone examples (00-105)
+├── examples/                  # 113+ standalone examples (00-110)
 │   ├── README.md              # Example descriptions & links
 │   ├── 00_connect/           # client.Connect
 │   ├── 00_connect_ha/        # HA (high-availability) connect
@@ -38,7 +38,7 @@ futuapi4go-demo/
 │   ├── ... (up to 105)
 │   └── pkg/                  # Shared packages (connect/, display/)
 ├── AGENTS.md
-├── go.mod                    # SDK v0.15.0 + replace directive
+├── go.mod                    # SDK v0.15.2 (resolved from proxy, no replace)
 └── README.md
 ```
 
@@ -70,21 +70,7 @@ The futuapi4go SDK source is at `github.com/shing1211/futuapi4go`.
 - Generated Go protobuf code: `pkg/pb/`
 - SDK source: `pkg/`
 
-### Local `replace` Directive (Required)
-
-`go.mod` includes a `replace` directive pointing to `../futuapi4go` because:
-
-- The Go module proxy may serve a stale version of the released SDK tag
-- New SDK packages (`pkg/cache`, `pkg/history`, `pkg/option`, `pkg/tracing`, `pkg/tracing/otel`, Event Contract packages) exist in the local repo but aren't served by the proxy
-- Examples 86-105 import these packages
-
-If the SDK repo is at a different path, update the `replace` directive in `go.mod`:
-
-```
-replace github.com/shing1211/futuapi4go => /path/to/local/futuapi4go
-```
-
-After editing `go.mod`, re-download modules:
+The SDK is resolved from the Go module proxy at the version pinned in `go.mod`. After bumping the version, run:
 
 ```
 go mod download
@@ -123,7 +109,7 @@ For these, use real trading environment (`WithTradeEnv(1)`) with `FUTU_TRADE_PWD
 
 ## Related Repositories
 
-- SDK: `github.com/shing1211/futuapi4go` (current: v0.15.0)
+- SDK: `github.com/shing1211/futuapi4go` (current: v0.15.2)
 - Official Proto Doc: https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
 - OpenD Downloads: https://www.futunn.com/download/fetch-lasted-link?name=opend-windows
 
