@@ -29,7 +29,7 @@ examples:
 run:
 	@if [ -z "$(EXP)" ]; then \
 		echo "Usage: make run EXP=00"; \
-		echo "Available: 00-80"; \
+		echo "Available: 00-110"; \
 	else \
 		go run ./examples/$(EXP); \
 	fi

@@ -1,6 +1,6 @@
 # Example Reference
 
-> All 113 standalone examples in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
+> All 113 standalone examples (plus 5 option sub-examples `97a`–`97e`) in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
 > Each example is a `main.go` in its own directory under `examples/`.
 > Run with: `go run ./examples/NN_name`
 

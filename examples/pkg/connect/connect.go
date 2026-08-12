@@ -165,7 +165,7 @@ func parseHosts() []Host {
 }
 
 func parseSingleAddr(addr string) (host string, port int, isRSA bool) {
-	isRSA = false // localhost assumed no RSA
+	isRSA = true // remote hosts default to RSA (matches FUTU_OPEND_HOSTS)
 	if idx := strings.LastIndex(addr, ":"); idx >= 0 {
 		host = addr[:idx]
 		if p, err := strconv.Atoi(addr[idx+1:]); err == nil {
@@ -256,20 +256,26 @@ const (
 	backoffMax  = 60 * time.Second
 )
 
+// backoffWindow returns the jitter window for the given attempt number.
+// It doubles from backoffBase until backoffMax, and stays capped there —
+// never overflowing the available integer width.
+func backoffWindow(attempt int) time.Duration {
+	exp := backoffBase
+	for i := 0; i < attempt && exp < backoffMax; i++ {
+		exp *= 2
+	}
+	if exp > backoffMax {
+		return backoffMax
+	}
+	return exp
+}
+
 type Backoff struct {
 	attempt int
 }
 
 func (b *Backoff) Next() time.Duration {
-	exp := backoffBase
-	shift := b.attempt
-	if shift > 63 {
-		shift = 63
-	}
-	exp = time.Duration(uint64(exp) << shift)
-	if exp > backoffMax {
-		exp = backoffMax
-	}
+	exp := backoffWindow(b.attempt)
 	jitter := time.Duration(rand.Int63n(int64(exp)))
 	b.attempt++
 	return jitter
