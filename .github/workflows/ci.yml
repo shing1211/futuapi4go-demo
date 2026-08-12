@@ -26,6 +26,9 @@ jobs:
       - name: Download dependencies
         run: go mod download
 
+      - name: Check example numbering
+        run: bash scripts/check-example-numbers.sh
+
       - name: Vet
         run: go vet ./...
 

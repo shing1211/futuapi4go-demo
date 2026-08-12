@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Example 65:** `65_smoke_test` — fast happy-path example for CI: `GetGlobalState` + `GetAccountList` + `GetQuote(NVDA)` with pass/fail output and nonzero exit on failure
+- **`scripts/check-example-numbers.sh`** — validates examples/ numbering (name shape, no gaps, no unexpected duplicates, EXAMPLES.md count); wired into CI
+
 ### Pending (tracked in `docs/OPTION_API_COVERAGE_PLAN.md`)
 
 - **Examples 111–129** — Tiers 2–5 demo coverage for institutional/shareholder/flow suites, macro & research data, K-line/rehab variants, quick-trade, and stock-screen:

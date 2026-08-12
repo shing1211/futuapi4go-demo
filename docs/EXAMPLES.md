@@ -1,6 +1,6 @@
 # Example Reference
 
-> All 113 standalone examples (plus 5 option sub-examples `97a`–`97e`) in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
+> All 114 standalone examples (plus 5 option sub-examples `97a`–`97e`) in the [futuapi4go-demo](https://github.com/shing1211/futuapi4go-demo) repository.
 > Each example is a `main.go` in its own directory under `examples/`.
 > Run with: `go run ./examples/NN_name`
 
@@ -80,6 +80,12 @@
 | 62 | [`62_set_price_reminder`](../examples/62_set_price_reminder) | `client.SetPriceReminder` |
 | 63 | [`63_sub_acc_push`](../examples/63_sub_acc_push) | `client.SubAccPush` |
 | 64 | [`64_reconfirm_order`](../examples/64_reconfirm_order) | `client.ReconfirmOrder` |
+
+## Smoke Test
+
+| # | Example | SDK Functions |
+|---|---------|---------------|
+| 65 | [`65_smoke_test`](../examples/65_smoke_test) | `GetGlobalState` + `GetAccountList` + `GetQuote` | Fast happy-path check for CI (exits nonzero on failure) |
 
 ## Gap Fill Examples (66–69)
 
