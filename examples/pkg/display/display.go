@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/sys"
 )
 
@@ -21,32 +22,7 @@ type AllInfo struct {
 }
 
 func marketState(s int32) string {
-	switch s {
-	case 0:
-		return "N/A"
-	case 1:
-		return "PreMarketBegin"
-	case 2:
-		return "Morning"
-	case 3:
-		return "Rest"
-	case 4:
-		return "Afternoon"
-	case 5:
-		return "Close"
-	case 6:
-		return "AfterHours"
-	case 7:
-		return "PreMarketEnd"
-	case 8:
-		return "PreMarketMarket"
-	case 9:
-		return "PreMarketRest"
-	case 10:
-		return "PreMarketAfter"
-	default:
-		return fmt.Sprintf("Unknown(%d)", s)
-	}
+	return constant.MarketState(s).String()
 }
 
 func check(v bool) string {
