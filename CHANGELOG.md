@@ -20,6 +20,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README example count → 114; "See Also" now links TROUBLESHOOTING.md
 - `examples/pkg/connect` gained unit tests + benchmarks (see `connect_test.go`)
 
+### Upgraded
+- SDK: futuapi4go → v0.16.0 (protocol v10.10.7008)
+- Proto regeneration: 184 files rebuilt via `scripts.regen-all-protos.sh` in parent repo
+- Examples 111–14 verified against new SDK: institutional flow, shareholder data, top brokers, short data
+
 ### Pending (tracked in `docs/OPTION_API_COVERAGE_PLAN.md`)
 
 - **Examples 111–129** — Tiers 2–5 demo coverage for institutional/shareholder/flow suites, macro & research data, K-line/rehab variants, quick-trade, and stock-screen:
