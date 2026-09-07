@@ -4,14 +4,14 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.16.0-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.17.0-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
 > **⚠️ Under Active Development**  
 > This demo project is under active development alongside the futuapi4go SDK. Examples
 > may reference APIs or types still being finalized. Not recommended for production use.
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 113 standalone examples (00–105), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 117 standalone examples (00–105), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Table of Contents
 
@@ -58,7 +58,7 @@ go run ./examples/54_cancel_all_order
 
 ```
 futuapi4go-demo/
-├── examples/               # 108 standalone programs (00–105)
+├── examples/               # 117 standalone programs (00–117)
 │   ├── 00_connect/        # client.Connect
 │   ├── 00_rsa_connect/    # TCP + RSA encryption
 │   ├── 00_ws_connect/     # WebSocket connection
@@ -71,7 +71,7 @@ futuapi4go-demo/
     └── connect/           # MustConnect, ManagedConnection (HA)
 ```
 
-See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 108-example reference.
+See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 117-example reference.
 
 ## Example Categories
 
@@ -96,7 +96,7 @@ See **[docs/EXAMPLES.md](docs/EXAMPLES.md)** for the complete 108-example refere
 | `FUTU_ADDR` | OpenD server address | `127.0.0.1:11111` |
 | `FUTU_TRADE_PWD` | MD5 hash of trading password (32 chars) | (not set) |
 | `FUTU_RSA_PUBKEY` | RSA public key PEM for remote encrypted connections | (not set) |
-| `FUTU_WS_ADDR` | WebSocket OpenD address | `127.0.0.1:11113` |
+| `FUTU_WS_ADDR` | WebSocket OpenD address | `127.0.0.1:11117` |
 | `FUTU_WS_SECRET` | WebSocket secret key | (not set) |
 
 ## Common Patterns
