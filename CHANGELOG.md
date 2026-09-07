@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Example 115:** `115_event_contract_discovery` — full Event Contract (Prediction Market) hierarchy: FilterCompetition → Category → SeriesList → EventList → Contracts → Milestones
+- **Example 116:** `116_option_strategy_screener` — option strategy analysis suite: GetOptionStrategy, GetOptionEarningsScreener, GetOptionSellerScreener, GetOptionZeroDteScreener, GetOptionRank, GetOptionUnderlyingRank, GetOptionMarketStatistic
+- **Example 117:** `117_industrial_chain` — industrial chain analysis: GetIndustrialChainList → ChainDetail → ChainByPlate → PlateInfo → PlateStock
+
+### Changed
+- README example count → 117
+
 - **Example 65:** `65_smoke_test` — fast happy-path example for CI: `GetGlobalState` + `GetAccountList` + `GetQuote(NVDA)` with pass/fail output and nonzero exit on failure
 - **`scripts/check-example-numbers.sh`** — validates examples/ numbering (name shape, no gaps, no unexpected duplicates, EXAMPLES.md count); wired into CI
 - **`docs/TROUBLESHOOTING.md`** — consolidated error reference (common errors, simulate-mode limitations, known SDK issues, env vars)
