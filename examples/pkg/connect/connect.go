@@ -334,16 +334,16 @@ type ManagedConnection struct {
 	OnStateChange   func(old, new State)
 	OnError         func(err error)
 	OnConnect       func(*ConnectionInfo)
-	OnReconnect     func(newInfo *ConnectionInfo, oldHost string, oldPort int, duration time.Duration)
+	OnReconnect      func(newInfo *ConnectionInfo, oldHost string, oldPort int, duration time.Duration)
 	OnKeepaliveError func(err error)
 
 	mu                 sync.RWMutex
 	wg                 sync.WaitGroup
 	ctx                context.Context
 	cancel             context.CancelFunc
-	keepAliveInt       time.Duration
 	reconnectMode      bool
 	closed             int32
+	reconnecting       int32
 	reconnectStartTime time.Time
 }
 
@@ -483,7 +483,6 @@ func Connect(ctx context.Context) (*ManagedConnection, error) {
 	}
 
 	mc := &ManagedConnection{
-		keepAliveInt:  30 * time.Second,
 		reconnectMode: true,
 	}
 	mc.ctx, mc.cancel = context.WithCancel(context.Background())
@@ -500,7 +499,6 @@ func Connect(ctx context.Context) (*ManagedConnection, error) {
 				RSAUsed: host.IsRSA,
 			}
 			mc.transitionTo(StateConnected)
-			mc.startKeepAlive()
 			mc.startReconnectMonitor()
 			if mc.OnConnect != nil {
 				mc.OnConnect(mc.Info)
@@ -522,7 +520,6 @@ func Connect(ctx context.Context) (*ManagedConnection, error) {
 					RSAUsed: false,
 				}
 				mc.transitionTo(StateConnected)
-				mc.startKeepAlive()
 				mc.startReconnectMonitor()
 				if mc.OnConnect != nil {
 					mc.OnConnect(mc.Info)
@@ -562,49 +559,6 @@ func MustConnectWS(ctx context.Context, secretKey string) *ManagedConnection {
 	return mc
 }
 
-func (mc *ManagedConnection) startKeepAlive() {
-	mc.wg.Add(1)
-	go func() {
-		defer mc.wg.Done()
-
-		ticker := time.NewTicker(mc.keepAliveInt)
-		defer ticker.Stop()
-
-		for {
-			select {
-			case <-mc.ctx.Done():
-				return
-			case <-ticker.C:
-				if atomic.LoadInt32(&mc.closed) == 1 {
-					return
-				}
-				if err := mc.keepAlive(); err != nil {
-					log.Printf("[HA] Keepalive probe failed for %s:%d: %v", mc.Info.Host, mc.Info.Port, err)
-					if mc.OnKeepaliveError != nil {
-						mc.OnKeepaliveError(fmt.Errorf("keepalive probe failed for %s:%d: %w", mc.Info.Host, mc.Info.Port, err))
-					}
-				}
-			}
-		}
-	}()
-}
-
-func (mc *ManagedConnection) keepAlive() error {
-	mc.mu.RLock()
-	cli := mc.Client
-	mc.mu.RUnlock()
-
-	if cli == nil {
-		return fmt.Errorf("client is nil")
-	}
-
-	ctx, cancel := context.WithTimeout(mc.ctx, 10*time.Second)
-	defer cancel()
-
-	_, err := getGlobalState(ctx, cli)
-	return err
-}
-
 func (mc *ManagedConnection) startReconnectMonitor() {
 	mc.wg.Add(1)
 	go func() {
@@ -634,6 +588,10 @@ func (mc *ManagedConnection) checkAndReconnect() {
 		return
 	}
 
+	if atomic.LoadInt32(&mc.reconnecting) == 1 {
+		return
+	}
+
 	ctx, cancel := context.WithTimeout(mc.ctx, 5*time.Second)
 	_, err := getGlobalState(ctx, cli)
 	cancel()
@@ -645,6 +603,11 @@ func (mc *ManagedConnection) checkAndReconnect() {
 }
 
 func (mc *ManagedConnection) reconnect() {
+	if !atomic.CompareAndSwapInt32(&mc.reconnecting, 0, 1) {
+		return
+	}
+	defer atomic.StoreInt32(&mc.reconnecting, 0)
+
 	mc.mu.RLock()
 	isReconnecting := mc.reconnectMode
 	mc.mu.RUnlock()
