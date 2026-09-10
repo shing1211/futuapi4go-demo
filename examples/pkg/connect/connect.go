@@ -331,17 +331,20 @@ type ManagedConnection struct {
 
 	State State
 
-	OnStateChange func(old, new State)
-	OnError       func(err error)
-	OnConnect     func(*ConnectionInfo)
+	OnStateChange   func(old, new State)
+	OnError         func(err error)
+	OnConnect       func(*ConnectionInfo)
+	OnReconnect     func(newInfo *ConnectionInfo, oldHost string, oldPort int, duration time.Duration)
+	OnKeepaliveError func(err error)
 
-	mu            sync.RWMutex
-	wg            sync.WaitGroup
-	ctx           context.Context
-	cancel        context.CancelFunc
-	keepAliveInt  time.Duration
-	reconnectMode bool
-	closed        int32
+	mu                 sync.RWMutex
+	wg                 sync.WaitGroup
+	ctx                context.Context
+	cancel             context.CancelFunc
+	keepAliveInt       time.Duration
+	reconnectMode      bool
+	closed             int32
+	reconnectStartTime time.Time
 }
 
 func (mc *ManagedConnection) Close() error {
@@ -404,6 +407,8 @@ func getGlobalState(ctx context.Context, cli *client.Client) (*getglobalstate.Re
 }
 
 func tryConnect(ctx context.Context, host Host, rsaKey string, useRSA bool) (*client.Client, error) {
+	log.Printf("[HA] Connecting to %s:%d (RSA=%v, keyLen=%d)...", host.Host, host.Port, useRSA, len(rsaKey))
+
 	var cli *client.Client
 	var err error
 
@@ -416,15 +421,20 @@ func tryConnect(ctx context.Context, host Host, rsaKey string, useRSA bool) (*cl
 	addr := fmt.Sprintf("%s:%d", host.Host, host.Port)
 	if err := cli.Connect(addr); err != nil {
 		cli.Close()
+		log.Printf("[HA] Connect to %s:%d failed: %v", host.Host, host.Port, err)
 		return nil, fmt.Errorf("connect to %s: %w", addr, err)
 	}
 
 	// Verify connection with GetGlobalState
+	t0 := time.Now()
 	_, err = getGlobalState(ctx, cli)
 	if err != nil {
 		cli.Close()
+		log.Printf("[HA] Connect to %s:%d failed: %v", host.Host, host.Port, err)
 		return nil, err
 	}
+
+	log.Printf("[HA] Connected to %s:%d (RSA=%v, latency=%.2fms)", host.Host, host.Port, useRSA, float64(time.Since(t0))/1e6)
 
 	return cli, nil
 }
@@ -569,8 +579,9 @@ func (mc *ManagedConnection) startKeepAlive() {
 					return
 				}
 				if err := mc.keepAlive(); err != nil {
-					if mc.OnError != nil {
-						mc.OnError(fmt.Errorf("keepalive failed: %w", err))
+					log.Printf("[HA] Keepalive probe failed for %s:%d: %v", mc.Info.Host, mc.Info.Port, err)
+					if mc.OnKeepaliveError != nil {
+						mc.OnKeepaliveError(fmt.Errorf("keepalive probe failed for %s:%d: %w", mc.Info.Host, mc.Info.Port, err))
 					}
 				}
 			}
@@ -644,6 +655,10 @@ func (mc *ManagedConnection) reconnect() {
 
 	hosts, rsaKey, timeout := Config()
 	timer := NewTimer()
+	mc.reconnectStartTime = time.Now()
+
+	oldHost, oldPort := mc.Info.Host, mc.Info.Port
+	log.Printf("[HA] Reconnecting (lost %s:%d, probing %d hosts)...", oldHost, oldPort, len(hosts))
 
 	for {
 		select {
@@ -656,59 +671,69 @@ func (mc *ManagedConnection) reconnect() {
 			return
 		}
 
+		delay := timer.Next()
+		log.Printf("[HA] Reconnect: all hosts failed, retrying in %.1fs...", delay.Seconds())
+
 		sortedHosts := sortByLatency(probeAllParallel(hosts, timeout))
 		if len(sortedHosts) == 0 {
-			if mc.OnError != nil {
-				mc.OnError(fmt.Errorf("reconnect: no reachable hosts"))
-			}
-			timer.Next()
+			log.Printf("[HA] Reconnect: no reachable hosts")
 			continue
+		}
+
+		log.Printf("[HA] Reconnect: sorted candidates:")
+		for i, h := range sortedHosts {
+			log.Printf("[HA]   #%d %s:%d (RSA=%v)", i+1, h.Host, h.Port, h.IsRSA)
 		}
 
 		for _, host := range sortedHosts {
 			cli, err := tryConnect(mc.ctx, host, rsaKey, host.IsRSA)
 			if err == nil {
 				mc.setClient(cli)
-				mc.Info = &ConnectionInfo{
+				info := &ConnectionInfo{
 					Host:    host.Host,
 					Port:    host.Port,
 					RSAUsed: host.IsRSA,
 				}
+				mc.Info = info
 				mc.transitionTo(StateConnected)
 				timer.Reset()
-				if mc.OnError != nil {
-					mc.OnError(fmt.Errorf("reconnected to %s:%d", host.Host, host.Port))
+				duration := time.Since(mc.reconnectStartTime)
+				log.Printf("[HA] Reconnected to %s:%d (RSA=%v) after %v", host.Host, host.Port, host.IsRSA, duration)
+				if mc.OnReconnect != nil {
+					mc.OnReconnect(info, oldHost, oldPort, duration)
 				}
 				if mc.OnConnect != nil {
-					mc.OnConnect(mc.Info)
+					mc.OnConnect(info)
 				}
 				return
 			}
+
+			log.Printf("[HA] Reconnect: %s:%d (RSA=%v) failed: %v", host.Host, host.Port, host.IsRSA, err)
 
 			// Try opposite RSA
 			cli, err = tryConnect(mc.ctx, host, rsaKey, !host.IsRSA)
 			if err == nil {
 				mc.setClient(cli)
-				mc.Info = &ConnectionInfo{
+				info := &ConnectionInfo{
 					Host:    host.Host,
 					Port:    host.Port,
 					RSAUsed: !host.IsRSA,
 				}
+				mc.Info = info
 				mc.transitionTo(StateConnected)
 				timer.Reset()
-				if mc.OnError != nil {
-					mc.OnError(fmt.Errorf("reconnected to %s:%d", host.Host, host.Port))
+				duration := time.Since(mc.reconnectStartTime)
+				log.Printf("[HA] Reconnected to %s:%d (RSA=%v) after %v", host.Host, host.Port, !host.IsRSA, duration)
+				if mc.OnReconnect != nil {
+					mc.OnReconnect(info, oldHost, oldPort, duration)
 				}
 				if mc.OnConnect != nil {
-					mc.OnConnect(mc.Info)
+					mc.OnConnect(info)
 				}
 				return
 			}
-		}
 
-		if mc.OnError != nil {
-			mc.OnError(fmt.Errorf("reconnect: all hosts failed"))
+			log.Printf("[HA] Reconnect: %s:%d (RSA=%v, fallback) failed: %v", host.Host, host.Port, !host.IsRSA, err)
 		}
-		timer.Next()
 	}
 }

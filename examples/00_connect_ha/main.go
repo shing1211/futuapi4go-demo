@@ -52,6 +52,15 @@ func main() {
 			info.Host, info.Port, info.RSAUsed)
 	}
 
+	mc.OnReconnect = func(newInfo *connect.ConnectionInfo, oldHost string, oldPort int, duration time.Duration) {
+		fmt.Printf("[OnReconnect] Reconnected to %s:%d (RSA=%v) after %v (was %s:%d)\n",
+			newInfo.Host, newInfo.Port, newInfo.RSAUsed, duration, oldHost, oldPort)
+	}
+
+	mc.OnKeepaliveError = func(err error) {
+		fmt.Printf("[KeepaliveError] %v\n", err)
+	}
+
 	ctx := context.Background()
 	*mc = *connect.MustConnect(ctx)
 
