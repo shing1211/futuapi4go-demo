@@ -5,28 +5,24 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-### Added
-
-- **Example 115:** `115_event_contract_discovery` — full Event Contract (Prediction Market) hierarchy: FilterCompetition → Category → SeriesList → EventList → Contracts → Milestones
-- **Example 116:** `116_option_strategy_screener` — option strategy analysis suite: GetOptionStrategy, GetOptionEarningsScreener, GetOptionSellerScreener, GetOptionZeroDteScreener, GetOptionRank, GetOptionUnderlyingRank, GetOptionMarketStatistic
-- **Example 117:** `117_industrial_chain` — industrial chain analysis: GetIndustrialChainList → ChainDetail → ChainByPlate → PlateInfo → PlateStock
-
-### Changed
-- README example count → 117
-- Version badges updated to v0.17.0
+## [v0.16.0] - 2026-09-18
 
 ### Upgraded
-- SDK: futuapi4go → v0.17.0 (Event Contract convenience wrappers)
+- **SDK:** futuapi4go v0.17.0 → **v0.20.0** (Futu Protocol v10.10.7008, 184 protos)
+- **Go:** 1.26.1 → 1.26.6
+- **OpenTelemetry:** v1.43.0 → v1.46.0
 
-### Pending (tracked in `docs/OPTION_API_COVERAGE_PLAN.md`)
+### Added
+- **GitHub Pages** (`docs/index.html`) — dark-themed landing page with example categories, quick-start code snippet, and quick links
+- **GitHub Actions Pages workflow** (`.github/workflows/pages.yml`) — auto-deploys `docs/` to GitHub Pages on every push to `main`
+- **`docs/README.md`** — documentation index linking all guides and external resources
+- **`docs/USAGE.md`** — environment setup, OpenD configuration, running examples, SDK patterns (English + 中文)
+- **`docs/TESTING.md`** — how to run examples, CI verification, simulate-mode limitations, writing new examples
 
-- **Examples 111–129** — Tiers 2–5 demo coverage for institutional/shareholder/flow suites, macro & research data, K-line/rehab variants, quick-trade, and stock-screen:
-  - `111_institutional_flow`, `112_shareholder_data`, `113_top_brokers`, `114_short_data`
-  - `115_macro_calendar`, `116_macro_indicators`, `117_earnings_dividends`, `118_research_ratings`, `119_ranks_distributions`, `120_search_discovery`, `121_user_security_single`
-  - `122_kl_realtime`, `123_history_kl_variants`, `124_rehab_history`, `125_combo_order`, `126_quick_trade`, `127_today_orders_fills`, `128_system_verification`
-  - `129_stock_screen`
+### Changed
+- **README.md:** SDK version badge v0.17.0 → v0.20.0; example count corrected to 117
+- **AGENTS.md:** SDK version reference updated to v0.20.0
+- **README.md "See Also" section:** Added links to docs/README.md, docs/USAGE.md, docs/TESTING.md
 
 ## [v0.15.2] - 2026-08-12
 
