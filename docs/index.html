@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>futuapi4go-demo — Futu OpenAPI Go SDK Examples</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-green: #3fb950;
+      --accent-orange: #d29922;
+      --code-bg: #1c2128;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .logo span { color: var(--accent); }
+
+    header .tagline {
+      margin-top: 0.5rem;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* ── Badges ── */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-top: 1.2rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    .badge-go    { background: #00add8; color: #fff; }
+    .badge-apache{ background: #4a7fc1; color: #fff; }
+    .badge-sdk   { background: var(--accent-green); color: #fff; }
+    .badge-count { background: var(--accent-orange); color: #000; }
+    .badge-status { background: #f85149; color: #fff; }
+
+    /* ── Hero install ── */
+    .hero-install {
+      margin-top: 1.5rem;
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.9rem;
+      display: inline-block;
+    }
+
+    .hero-install .dollar { color: var(--accent-green); margin-right: 0.5rem; }
+
+    /* ── Section titles ── */
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-top: 2.5rem;
+    }
+
+    /* ── Cards grid ── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+    }
+
+    .card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .card a {
+      font-size: 0.82rem;
+      color: var(--accent);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+
+    /* ── Quick start code ── */
+    .quickstart {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+    }
+
+    .quickstart .comment { color: var(--text-muted); }
+    .quickstart .cmd { color: var(--accent-green); }
+
+    /* ── Links section ── */
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .quick-links a {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 3rem;
+      padding: 1.5rem 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--text-muted); }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; }
+      .badges { gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo">futuapi4go<span>-demo</span></div>
+    <p class="tagline">Runnable examples for the Futu OpenAPI Go SDK — market data, trading, and real-time push</p>
+    <div class="badges">
+      <span class="badge badge-go">Go 1.26+</span>
+      <span class="badge badge-apache">Apache-2.0</span>
+      <span class="badge badge-sdk">SDK v0.20.0</span>
+      <span class="badge badge-count">117 examples</span>
+      <span class="badge badge-status">active development</span>
+    </div>
+    <div class="hero-install">
+      <span class="dollar">$</span>git clone https://github.com/shing1211/futuapi4go-demo.git
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <h2>Quick Start</h2>
+
+  <div class="quickstart">
+    <span class="comment"># 1. Clone the repo</span><br>
+    <span class="dollar">$</span>git clone https://github.com/shing1211/futuapi4go-demo.git<br>
+    <span class="dollar">$</span>cd futuapi4go-demo<br><br>
+    <span class="comment"># 2. Point to your OpenD instance</span><br>
+    <span class="dollar">$</span><span class="cmd">$env:FUTU_ADDR = "127.0.0.1:11111"</span>   <span class="comment"># Windows PowerShell</span><br>
+    <span class="comment"># or: export FUTU_ADDR=127.0.0.1:11111</span>   <span class="comment"># Linux/macOS</span><br><br>
+    <span class="comment"># 3. Run any example</span><br>
+    <span class="dollar">$</span>go run ./examples/01_quote<br>
+    <span class="comment"># Output: HK.00700 -> 380.20 / 380.40 | high=385.00 low=376.50</span>
+  </div>
+
+  <h2>Documentation</h2>
+  <div class="cards">
+
+    <div class="card">
+      <h3>README.md</h3>
+      <p>Project overview, quick start, environment variables, and common patterns</p>
+      <a href="https://github.com/shing1211/futuapi4go-demo/blob/main/README.md">README.md →</a>
+    </div>
+
+    <div class="card">
+      <h3>USAGE.md</h3>
+      <p>Environment setup, OpenD configuration, running examples, and SDK patterns</p>
+      <a href="./USAGE.md">USAGE.md →</a>
+    </div>
+
+    <div class="card">
+      <h3>EXAMPLES.md</h3>
+      <p>Complete reference of all 117 examples with descriptions and categories</p>
+      <a href="./EXAMPLES.md">EXAMPLES.md →</a>
+    </div>
+
+    <div class="card">
+      <h3>TESTING.md</h3>
+      <p>How to run examples, integration tests, and OpenD requirements</p>
+      <a href="./TESTING.md">TESTING.md →</a>
+    </div>
+
+    <div class="card">
+      <h3>TROUBLESHOOTING.md</h3>
+      <p>Common errors, simulate-mode limitations, and known SDK caveats</p>
+      <a href="./TROUBLESHOOTING.md">TROUBLESHOOTING.md →</a>
+    </div>
+
+    <div class="card">
+      <h3>ARCHITECTURE.md</h3>
+      <p>Design overview, connection management, HA failover, and WebSocket transport</p>
+      <a href="https://github.com/shing1211/futuapi4go-demo/blob/main/ARCHITECTURE.md">ARCHITECTURE.md →</a>
+    </div>
+
+  </div>
+
+  <h2>Example Categories</h2>
+  <div class="cards">
+
+    <div class="card">
+      <h3>Connection (00–04)</h3>
+      <p>TCP, RSA-encrypted TCP, WebSocket, and HA failover</p>
+      <a href="https://github.com/shing1211/futuapi4go-demo/tree/main/examples/00_connect">View →</a>
+    </div>
+
+    <div class="card">
+      <h3>Market Data (01–17)</h3>
+      <p>Quotes, tickers, order book, K-lines, capital flow, plates, history</p>
+      <a href="https://github.com/shing1211/futuapi4go-demo/tree/main/examples/01_quote">View →</a>
+    </div>
+
+    <div class="card">
+      <h3>Trading (18–64)</h3>
+      <p>Account, positions, orders, place/cancel/modify, subscriptions</p>
+      <a href="https://github.com/shing1211/futuapi4go-demo/tree/main/examples/18_account_list">View →</a>
+    </div>
+
+    <div class="card">
+      <h3>Advanced (65–99)</h3>
+      <p>Multi-function workflows, strategies, OTel tracing, audit, lifecycle</p>
+      <a href="https://github.com/shing1211/futuapi4go-demo/tree/main/examples/65_smoke_test">View →</a>
+    </div>
+
+    <div class="card">
+      <h3>Event Contracts (102–105)</h3>
+      <p>Prediction Market / Moomoo US event contract APIs</p>
+      <a href="https://github.com/shing1211/futuapi4go-demo/tree/main/examples/102_ec_explore">View →</a>
+    </div>
+
+    <div class="card">
+      <h3>Options (38–39, 81, 97a–e)</h3>
+      <p>Option chain, expiration, volatility strategies, Greeks</p>
+      <a href="https://github.com/shing1211/futuapi4go-demo/tree/main/examples/38_option_chain">View →</a>
+    </div>
+
+  </div>
+
+  <h2>Quick Links</h2>
+  <div class="quick-links">
+    <a href="https://github.com/shing1211/futuapi4go-demo">GitHub Repository →</a>
+    <a href="https://github.com/shing1211/futuapi4go-demo/issues">Issue Tracker →</a>
+    <a href="https://github.com/shing1211/futuapi4go-demo/discussions">Discussions →</a>
+    <a href="https://github.com/shing1211/futuapi4go">futuapi4go SDK →</a>
+    <a href="https://pkg.go.dev/github.com/shing1211/futuapi4go">pkg.go.dev SDK →</a>
+    <a href="https://github.com/shing1211/futuapi4go/blob/main/LICENSE">License (Apache-2.0) →</a>
+  </div>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>futuapi4go-demo &mdash; Apache License 2.0 &mdash; &copy; 2026 shing1211</p>
+  </div>
+</footer>
+
+</body>
+</html>

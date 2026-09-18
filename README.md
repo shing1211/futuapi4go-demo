@@ -4,14 +4,14 @@
   <img src="https://img.shields.io/badge/Go-1.26%2B-00ADD8?logo=go" alt="Go">
   <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License">
   <img src="https://img.shields.io/github/stars/shing1211/futuapi4go-demo" alt="Stars">
-  <img src="https://img.shields.io/badge/futuapi4go-v0.17.0-00ADD8?style=flat-square" alt="SDK Version">
+  <img src="https://img.shields.io/badge/futuapi4go-v0.20.0-00ADD8?style=flat-square" alt="SDK Version">
 </p>
 
 > **⚠️ Under Active Development**  
 > This demo project is under active development alongside the futuapi4go SDK. Examples
 > may reference APIs or types still being finalized. Not recommended for production use.
 
-> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 117 standalone examples (00–105), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
+> **Production-ready Go examples for the [futuapi4go](https://github.com/shing1211/futuapi4go) SDK.** 117 standalone examples (00–117), covering all SDK functions and advanced trading strategies. All examples tested and verified against the OpenD simulator.
 
 ## Table of Contents
 
@@ -159,7 +159,10 @@ error reference, simulate-trading limitations, and known SDK issues.
 ## See Also
 
 - **[futuapi4go](https://github.com/shing1211/futuapi4go)** — the Go SDK this demo is built on
-- [Full Example Reference](docs/EXAMPLES.md) — complete table of all 114 examples
+- [Full Example Reference](docs/EXAMPLES.md) — complete table of all 117 examples
+- [Documentation Index](docs/README.md) — all docs, guides, and references
+- [Usage Guide](docs/USAGE.md) — environment setup and SDK patterns
+- [Testing Guide](docs/TESTING.md) — how to run examples and OpenD requirements
 - [Troubleshooting](docs/TROUBLESHOOTING.md) — common errors, sim-mode limitations, known SDK issues
 - [Architecture](ARCHITECTURE.md) — design overview, execution flows, Mermaid diagram
 - [CHANGELOG](CHANGELOG.md) — version history and release notes

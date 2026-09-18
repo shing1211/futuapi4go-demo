@@ -111,7 +111,7 @@ See `docs/TROUBLESHOOTING.md` for the full error reference.
 
 ## Related Repositories
 
-- SDK: `github.com/shing1211/futuapi4go` (current: v0.17.0)
+- SDK: `github.com/shing1211/futuapi4go` (current: v0.20.0)
 - Official Proto Doc: https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
 - OpenD Downloads: https://www.futunn.com/download/fetch-lasted-link?name=opend-windows
 
