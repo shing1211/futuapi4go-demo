@@ -7,10 +7,10 @@ import (
 	"os"
 	"time"
 
-	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {

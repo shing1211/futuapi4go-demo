@@ -4,14 +4,14 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 	predcommon "github.com/shing1211/futuapi4go/pkg/pb/common"
 	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	qotcombolist "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractcombolist"
 	qotcomborfq "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractcomborfq"
-	"github.com/shing1211/futuapi4go/pkg/constant"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 // Event Contract Combo: combine YES/NO contracts across multiple events into a
@@ -80,6 +80,6 @@ func main() {
 	}
 }
 
-func ptrStr(v string) *string   { return &v }
-func ptrInt32(v int32) *int32   { return &v }
+func ptrStr(v string) *string       { return &v }
+func ptrInt32(v int32) *int32       { return &v }
 func ptrFloat64(v float64) *float64 { return &v }

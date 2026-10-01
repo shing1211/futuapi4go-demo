@@ -39,8 +39,8 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/pb/getglobalstate"
 	"github.com/shing1211/futuapi4go/pkg/pb/common"
+	"github.com/shing1211/futuapi4go/pkg/pb/getglobalstate"
 )
 
 func init() {
@@ -331,9 +331,9 @@ type ManagedConnection struct {
 
 	State State
 
-	OnStateChange   func(old, new State)
-	OnError         func(err error)
-	OnConnect       func(*ConnectionInfo)
+	OnStateChange    func(old, new State)
+	OnError          func(err error)
+	OnConnect        func(*ConnectionInfo)
 	OnReconnect      func(newInfo *ConnectionInfo, oldHost string, oldPort int, duration time.Duration)
 	OnKeepaliveError func(err error)
 

@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	predcommon "github.com/shing1211/futuapi4go/pkg/pb/common"
 	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
@@ -12,8 +14,6 @@ import (
 	qotsnap "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractsnapshot"
 	qotticker "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractticker"
 	qothistkl "github.com/shing1211/futuapi4go/pkg/pb/qotrequesthistoryeventcontractkl"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 // Real-time and historical market data for Event Contracts.
@@ -103,11 +103,11 @@ func main() {
 	fmt.Println("\n-- RequestHistoryEventContractKL --")
 	histRsp, err := client.RequestHistoryEventContractKL(context.Background(), cli,
 		&qothistkl.C2S{
-			Security: sec,
-			PreSide:  ptrPred(predcommon.PredSide_PredSide_Yes),
-			KlType:   ptrKLType(qotcommon.KLType_KLType_Day),
+			Security:  sec,
+			PreSide:   ptrPred(predcommon.PredSide_PredSide_Yes),
+			KlType:    ptrKLType(qotcommon.KLType_KLType_Day),
 			BeginTime: ptrStr("2026-01-01 00:00:00"),
-			EndTime:  ptrStr("2026-07-01 00:00:00"),
+			EndTime:   ptrStr("2026-07-01 00:00:00"),
 		})
 	if err != nil {
 		fmt.Printf("  RequestHistoryEventContractKL: %v\n", err)
@@ -129,7 +129,7 @@ func main() {
 	}
 }
 
-func ptrInt32(v int32) *int32                        { return &v }
-func ptrStr(v string) *string                        { return &v }
+func ptrInt32(v int32) *int32                            { return &v }
+func ptrStr(v string) *string                            { return &v }
 func ptrPred(v predcommon.PredSide) *predcommon.PredSide { return &v }
 func ptrKLType(v qotcommon.KLType) *qotcommon.KLType     { return &v }

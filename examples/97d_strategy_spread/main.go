@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
-	qot "github.com/shing1211/futuapi4go/pkg/qot"
-	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
+	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
+	qot "github.com/shing1211/futuapi4go/pkg/qot"
 )
 
 func main() {

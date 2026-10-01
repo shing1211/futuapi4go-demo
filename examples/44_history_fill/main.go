@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -28,8 +28,8 @@ func main() {
 	_ = accID
 
 	fills, err := client.GetHistoryOrderFillList(context.Background(), mc.Client,
-	accID, constant.TrdMarket_HK,
-)
+		accID, constant.TrdMarket_HK,
+	)
 	if err != nil {
 		log.Fatalf("GetHistoryOrderFillList failed: %v", err)
 	}

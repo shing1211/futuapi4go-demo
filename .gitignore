@@ -38,6 +38,17 @@ Desktop.ini
 .env
 !.env.example
 
+# Local copies and backups of the environment file. A backup made by hand
+# (.env.bak, .env.bak.20261001_120030) or by a tool (.env.local, .env.dev.local)
+# carries the same credentials as .env, so it must be ignored the same way.
+# Without these rules a plain `git add -A` would stage a backup file that
+# holds the RSA private key, the trade password, and the WebSocket secret.
+.env.bak
+.env.bak.*
+.env.local
+.env.*.local
+.env.*.bak
+
 # Logs
 *.log
 

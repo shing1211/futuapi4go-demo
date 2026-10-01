@@ -4,19 +4,20 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/shing1211/futuapi4go/client"
-	qotcategory "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractcategory"
-	qotcontract "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontract"
-	qoteventlist "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontracteventlist"
-	qotfilter "github.com/shing1211/futuapi4go/pkg/pb/qotfiltercompetition"
-	qotmilestone "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractmilestonelist"
-	qotseries "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractserieslist"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	qotfilter "github.com/shing1211/futuapi4go/pkg/pb/qotfiltercompetition"
+	qotcontract "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontract"
+	qotcategory "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractcategory"
+	qoteventlist "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontracteventlist"
+	qotmilestone "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractmilestonelist"
+	qotseries "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractserieslist"
 )
 
 // Explore the Prediction Market / Event Contract (EC) hierarchy:
-//   category -> series -> event -> contracts -> milestones.
+//
+//	category -> series -> event -> contracts -> milestones.
 //
 // EC instruments (Moomoo US Prediction) trade YES / NO binary outcomes on future
 // events (sports, politics, economics, ...). Market = 101 (QotMarket_EventContract).

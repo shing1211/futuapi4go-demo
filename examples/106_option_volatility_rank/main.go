@@ -13,14 +13,14 @@ import (
 	"log"
 	"time"
 
-	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
-	qotoptioncommon "github.com/shing1211/futuapi4go/pkg/pb/qotoptioncommon"
-	qotgetoptionmarketstatistic "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionmarketstatistic"
-	qotgetoptionrank "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionrank"
-	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
+	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
+	qotgetoptionmarketstatistic "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionmarketstatistic"
+	qotgetoptionrank "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionrank"
+	qotoptioncommon "github.com/shing1211/futuapi4go/pkg/pb/qotoptioncommon"
 )
 
 func main() {

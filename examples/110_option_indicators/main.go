@@ -3,10 +3,10 @@
 //   - RequestIndicatorCalc (compute an indicator over a security's K-line)
 //
 // Workflow:
-//   1. Search the MyLang indicator catalog for "MACD".
-//   2. Take the resulting short-name, build an IndicatorCalcData request
-//      (security + K-line + indicator inputs).
-//   3. Print the computed series.
+//  1. Search the MyLang indicator catalog for "MACD".
+//  2. Take the resulting short-name, build an IndicatorCalcData request
+//     (security + K-line + indicator inputs).
+//  3. Print the computed series.
 package main
 
 import (
@@ -14,13 +14,13 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	qotgetindicatorlist "github.com/shing1211/futuapi4go/pkg/pb/qotgetindicatorlist"
 	qotrequestindicatorcalc "github.com/shing1211/futuapi4go/pkg/pb/qotrequestindicatorcalc"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -33,8 +33,8 @@ func main() {
 
 	fmt.Println("--- 1) GetIndicatorList (search MyLang for 'MACD') ---")
 	listRsp, err := client.GetIndicatorList(ctx, mc.Client, &qotgetindicatorlist.C2S{
-		SearchKey: ptrStr("MACD"),
-		LangType:  ptrInt32(int32(qotcommon.IndicatorLangType_IndicatorLangType_MyLang)),
+		SearchKey:  ptrStr("MACD"),
+		LangType:   ptrInt32(int32(qotcommon.IndicatorLangType_IndicatorLangType_MyLang)),
 		SearchMode: ptrInt32(0),
 	})
 	if err != nil {
@@ -109,10 +109,10 @@ func main() {
 	}
 }
 
-func ptrInt32(v int32) *int32    { return &v }
-func ptrInt64(v int64) *int64    { return &v }
+func ptrInt32(v int32) *int32       { return &v }
+func ptrInt64(v int64) *int64       { return &v }
 func ptrFloat64(v float64) *float64 { return &v }
-func ptrStr(v string) *string    { return &v }
+func ptrStr(v string) *string       { return &v }
 func langPtr(v qotcommon.IndicatorLangType) *qotcommon.IndicatorLangType {
 	return &v
 }

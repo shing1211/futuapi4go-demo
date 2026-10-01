@@ -12,14 +12,14 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
-	qotoptioncommon "github.com/shing1211/futuapi4go/pkg/pb/qotoptioncommon"
 	qotgetoptionearningsscreener "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionearningsscreener"
 	qotgetoptionsellerscreener "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionsellerscreener"
 	qotgetoptionzerodtescreener "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionzerodtescreener"
+	qotoptioncommon "github.com/shing1211/futuapi4go/pkg/pb/qotoptioncommon"
 	qot "github.com/shing1211/futuapi4go/pkg/qot"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {

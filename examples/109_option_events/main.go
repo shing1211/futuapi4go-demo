@@ -13,15 +13,15 @@ import (
 	"log"
 	"time"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
-	qotoptioncommon "github.com/shing1211/futuapi4go/pkg/pb/qotoptioncommon"
-	qotgetoptioneventalert "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptioneventalert"
 	qotgetoptionevent "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionevent"
+	qotgetoptioneventalert "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptioneventalert"
+	qotoptioncommon "github.com/shing1211/futuapi4go/pkg/pb/qotoptioncommon"
 	qotsetoptioneventalert "github.com/shing1211/futuapi4go/pkg/pb/qotsetoptioneventalert"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {

@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/trdflowsummary"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -29,11 +29,11 @@ func main() {
 	_ = accID
 
 	flows, err := client.GetFlowSummary(context.Background(), mc.Client,
-	accID,
-	constant.TrdMarket_HK,
-	"",
-	trdflowsummary.TrdCashFlowDirection(1),
-)
+		accID,
+		constant.TrdMarket_HK,
+		"",
+		trdflowsummary.TrdCashFlowDirection(1),
+	)
 	if err != nil {
 		log.Fatalf("GetFlowSummary failed: %v", err)
 	}

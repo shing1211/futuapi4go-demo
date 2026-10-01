@@ -4,10 +4,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -40,8 +40,8 @@ func main() {
 	fmt.Println()
 	fmt.Println("--- Protocol Support Check ---")
 	keyProtos := []struct {
-		id    uint32
-		name  string
+		id   uint32
+		name string
 	}{
 		{constant.ProtoID_Qot_GetBasicQot, "GetQuote"},
 		{constant.ProtoID_Qot_GetKL, "GetKLines"},

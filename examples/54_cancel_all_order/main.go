@@ -10,7 +10,8 @@
 //   - For real trading: account must have real trading enabled and correct password
 //
 // Generate MD5 of your password:
-//   echo -n "your_password" | md5sum | cut -d' ' -f1
+//
+//	echo -n "your_password" | md5sum | cut -d' ' -f1
 package main
 
 import (
@@ -19,9 +20,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {

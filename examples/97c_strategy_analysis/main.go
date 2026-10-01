@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
-	qot "github.com/shing1211/futuapi4go/pkg/qot"
-	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
+	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
+	qot "github.com/shing1211/futuapi4go/pkg/qot"
 )
 
 func main() {
@@ -68,6 +68,6 @@ func main() {
 	display.PrintJSON(rsp)
 }
 
-func ptrInt32(v int32) *int32     { return &v }
-func ptrStr(v string) *string     { return &v }
+func ptrInt32(v int32) *int32       { return &v }
+func ptrStr(v string) *string       { return &v }
 func ptrFloat64(v float64) *float64 { return &v }
