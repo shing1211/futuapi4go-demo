@@ -32,10 +32,10 @@ import (
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
-	qot "github.com/shing1211/futuapi4go/pkg/qot"
 	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	qotgetoptionrank "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionrank"
 	qotgetoptionunderlyingrank "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionunderlyingrank"
+	qot "github.com/shing1211/futuapi4go/pkg/qot"
 )
 
 func main() {

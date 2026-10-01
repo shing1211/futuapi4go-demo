@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -30,11 +30,11 @@ func main() {
 
 	// ReconfirmOrder is used to confirm an order that requires additional verification
 	result, err := client.ReconfirmOrder(context.Background(), mc.Client,
-	accID,
-	constant.TrdMarket_US,
-	uint64(0),
-	int32(0),
-)
+		accID,
+		constant.TrdMarket_US,
+		uint64(0),
+		int32(0),
+	)
 	if err != nil {
 		log.Fatalf("ReconfirmOrder failed: %v", err)
 	}

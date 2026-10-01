@@ -7,10 +7,10 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/push"
 	chanpkg "github.com/shing1211/futuapi4go/pkg/push/chan"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {

@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -28,9 +28,9 @@ func main() {
 	_ = accID
 
 	orders, err := client.GetHistoryOrderList(context.Background(), mc.Client,
-	accID, constant.TrdMarket_HK,
-	"2025-01-01", "2026-04-28",
-)
+		accID, constant.TrdMarket_HK,
+		"2025-01-01", "2026-04-28",
+	)
 	if err != nil {
 		log.Fatalf("GetHistoryOrderList failed: %v", err)
 	}

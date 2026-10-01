@@ -26,8 +26,8 @@ import (
 	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	qotfilter "github.com/shing1211/futuapi4go/pkg/pb/qotfiltercompetition"
 	qotcategory "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractcategory"
-	qotseries "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractserieslist"
 	qoteventlist "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontracteventlist"
+	qotseries "github.com/shing1211/futuapi4go/pkg/pb/qotgeteventcontractserieslist"
 )
 
 func main() {

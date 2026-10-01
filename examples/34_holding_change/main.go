@@ -11,10 +11,10 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
@@ -23,7 +23,7 @@ func main() {
 
 	changes, err := client.GetHoldingChangeList(context.Background(), mc.Client,
 		constant.Market_US, "NVDA",
-		1, // holderCategory: 1=Mutual Fund
+		1,                          // holderCategory: 1=Mutual Fund
 		"2020-01-01", "2020-12-20", // historical range before discontinuation
 	)
 	if err != nil {

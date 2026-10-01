@@ -128,5 +128,5 @@ func main() {
 	fmt.Println("\n── Done ─────────────────────────────────────────")
 }
 
-func ptrInt32(v int32) *int32  { return &v }
-func ptrInt64(v int64) *int64  { return &v }
+func ptrInt32(v int32) *int32 { return &v }
+func ptrInt64(v int64) *int64 { return &v }

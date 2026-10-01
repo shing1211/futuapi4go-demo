@@ -11,10 +11,10 @@ import (
 	"log"
 	"time"
 
-	"github.com/shing1211/futuapi4go/client"
-	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	"github.com/shing1211/futuapi4go/client"
+	"github.com/shing1211/futuapi4go/pkg/constant"
 )
 
 func main() {
@@ -36,9 +36,9 @@ func main() {
 
 	chains, err := client.GetOptionChain(context.Background(), mc.Client,
 		constant.Market_US, "NVDA",
-		1,       // indexOptionType: 1=Standard (US Equity)
-		0,       // optType: 0 = All (calls and puts)
-		0,       // condition: 0 = All
+		1, // indexOptionType: 1=Standard (US Equity)
+		0, // optType: 0 = All (calls and puts)
+		0, // condition: 0 = All
 		beginStr,
 		endStr,
 	)

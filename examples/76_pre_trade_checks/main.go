@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -139,5 +139,5 @@ func marketStateString(state int32) string {
 	}
 }
 
-func ptrInt32(v int32) *int32   { return &v }
+func ptrInt32(v int32) *int32 { return &v }
 func ptrStr(v string) *string { return &v }

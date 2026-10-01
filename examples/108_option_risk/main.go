@@ -14,16 +14,16 @@ import (
 	"log"
 	"time"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
-	qotoptioncommon "github.com/shing1211/futuapi4go/pkg/pb/qotoptioncommon"
 	qotgetoptionunderlyinghisstatistic "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionunderlyinghisstatistic"
 	qotgetoptionunderlyinghisvolatility "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionunderlyinghisvolatility"
 	qotgetoptionunderlyingoverview "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionunderlyingoverview"
 	qotgetoptionunderlyingrank "github.com/shing1211/futuapi4go/pkg/pb/qotgetoptionunderlyingrank"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
+	qotoptioncommon "github.com/shing1211/futuapi4go/pkg/pb/qotoptioncommon"
 )
 
 func main() {
@@ -60,9 +60,9 @@ func main() {
 	begin := end.AddDate(0, 0, -5)
 	rsp2, err := client.GetOptionUnderlyingHisStatistic(ctx, mc.Client,
 		&qotgetoptionunderlyinghisstatistic.C2S{
-			Owner:          ownerSec,
-			BeginTime:      ptrStr(begin.Format("2006-01-02")),
-			EndTime:        ptrStr(end.Format("2006-01-02")),
+			Owner:           ownerSec,
+			BeginTime:       ptrStr(begin.Format("2006-01-02")),
+			EndTime:         ptrStr(end.Format("2006-01-02")),
 			IndexOptionType: ptrInt32(0),
 		})
 	if err != nil {
@@ -84,9 +84,9 @@ func main() {
 	fmt.Println("--- 3) GetOptionUnderlyingHisVolatility (last 5 trading days) ---")
 	rsp3, err := client.GetOptionUnderlyingHisVolatility(ctx, mc.Client,
 		&qotgetoptionunderlyinghisvolatility.C2S{
-			Owner:          ownerSec,
-			BeginTime:      ptrStr(begin.Format("2006-01-02")),
-			EndTime:        ptrStr(end.Format("2006-01-02")),
+			Owner:           ownerSec,
+			BeginTime:       ptrStr(begin.Format("2006-01-02")),
+			EndTime:         ptrStr(end.Format("2006-01-02")),
 			IndexOptionType: ptrInt32(0),
 		})
 	if err != nil {

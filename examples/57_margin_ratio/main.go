@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -30,8 +30,8 @@ func main() {
 
 	sec := &qotcommon.Security{Market: ptrInt32(int32(constant.Market_US)), Code: ptrStr("NVDA")}
 	ratios, err := client.GetMarginRatio(context.Background(), mc.Client,
-	accID, constant.TrdMarket_HK, []*qotcommon.Security{sec},
-)
+		accID, constant.TrdMarket_HK, []*qotcommon.Security{sec},
+	)
 	if err != nil {
 		log.Fatalf("GetMarginRatio failed: %v", err)
 	}
@@ -44,5 +44,5 @@ func main() {
 	display.PrintJSON(ratios)
 }
 
-func ptrInt32(v int32) *int32   { return &v }
+func ptrInt32(v int32) *int32 { return &v }
 func ptrStr(v string) *string { return &v }

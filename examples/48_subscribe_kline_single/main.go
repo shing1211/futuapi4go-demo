@@ -13,10 +13,10 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/push"
 	chanpkg "github.com/shing1211/futuapi4go/pkg/push/chan"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 func main() {
@@ -51,10 +51,10 @@ func main() {
 				if bar == nil {
 					continue
 				}
-			fmt.Printf("   Time:   %s\n", bar.Time)
-			fmt.Printf("   O: %.2f  H: %.2f  L: %.2f  C: %.2f\n",
-				bar.OpenPrice, bar.HighPrice, bar.LowPrice, bar.ClosePrice)
-			fmt.Printf("   Vol:    %d\n", bar.Volume)
+				fmt.Printf("   Time:   %s\n", bar.Time)
+				fmt.Printf("   O: %.2f  H: %.2f  L: %.2f  C: %.2f\n",
+					bar.OpenPrice, bar.HighPrice, bar.LowPrice, bar.ClosePrice)
+				fmt.Printf("   Vol:    %d\n", bar.Volume)
 			}
 			fmt.Println()
 

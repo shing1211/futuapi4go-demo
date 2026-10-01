@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/display"
 )
 
 func main() {
@@ -24,11 +24,11 @@ func main() {
 	// Search for call warrants on Tencent (HK.00700), issuer doesn't matter
 	warrantResult, err := client.GetWarrant(context.Background(), mc.Client,
 		constant.Market_HK, "00700", // Tencent in HK market
-		0, 20,                                  // begin, num (get up to 20 warrants)
+		0, 20, // begin, num (get up to 20 warrants)
 		constant.WarrantSortField_EffectiveLeverage, true, // sort by effective leverage, ascending
-		constant.WarrantType_Buy,               // buy (call) warrants only
-		qotcommon.Issuer_Issuer_Unknow,          // all issuers
-		constant.WarrantStatus_Normal,          // active trading status
+		constant.WarrantType_Buy,       // buy (call) warrants only
+		qotcommon.Issuer_Issuer_Unknow, // all issuers
+		constant.WarrantStatus_Normal,  // active trading status
 	)
 	if err != nil {
 		log.Fatalf("GetWarrant failed: %v", err)

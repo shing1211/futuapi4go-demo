@@ -8,12 +8,12 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 	"github.com/shing1211/futuapi4go/client"
 	"github.com/shing1211/futuapi4go/pkg/constant"
 	qotcommon "github.com/shing1211/futuapi4go/pkg/pb/qotcommon"
 	"github.com/shing1211/futuapi4go/pkg/pb/qotsubeventcontract"
 	"github.com/shing1211/futuapi4go/pkg/push"
-	"github.com/shing1211/futuapi4go-demo/examples/pkg/connect"
 )
 
 // Stream real-time Event Contract data (order book / kline / ticker) via
