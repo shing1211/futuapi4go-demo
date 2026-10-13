@@ -115,6 +115,8 @@ See `docs/TROUBLESHOOTING.md` for the full error reference.
 - Official Proto Doc: https://openapi.futunn.com/mds/Futu-API-Doc-zh-Proto.md
 - OpenD Downloads: https://www.futunn.com/download/fetch-lasted-link?name=opend-windows
 
+<!-- global-playbook: See ~/.config/opencode/AGENTS.md — Phase 0 (session start), Phase 1–6 (SDLC lifecycle), Tool reference (GitNexus MCP, GitHub MCP, etc.) -->
+
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
@@ -146,15 +148,4 @@ This project is indexed by GitNexus as **futuapi4go-demo** (1577 symbols, 3975 r
 | `gitnexus://repo/futuapi4go-demo/processes` | All execution flows |
 | `gitnexus://repo/futuapi4go-demo/process/{name}` | Step-by-step execution trace |
 
-## CLI
-
-| Task | Read this skill file |
-|------|---------------------|
-| Understand architecture / "How does X work?" | `.claude/skills/gitnexus/gitnexus-exploring/SKILL.md` |
-| Blast radius / "What breaks if I change X?" | `.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md` |
-| Trace bugs / "Why is X failing?" | `.claude/skills/gitnexus/gitnexus-debugging/SKILL.md` |
-| Rename / extract / split / refactor | `.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md` |
-| Tools, resources, schema reference | `.claude/skills/gitnexus/gitnexus-guide/SKILL.md` |
-| Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
-
-<!-- gitnexus:end -->
+<!-- global-playbook: See `~/.config/opencode/AGENTS.md` → **GitNexus MCP** section for the canonical tool reference. -->
